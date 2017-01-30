@@ -26,7 +26,7 @@
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:layout_toStartOf="@+id/fab_cancelar"
-                android:text="Insertar"
+                android:text="Modificar"
                 android:textSize="24dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
@@ -138,7 +138,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:ems="10"
-                                android:hint="Número"
+                                android:hint="DNI"
                                 android:inputType="text"
                                 android:enabled="false"
                                 android:singleLine="true" />
@@ -169,6 +169,8 @@
                             android:id="@+id/campo_personal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:lines="2"
+                            android:textSize="15sp"
                             android:ems="10"
                             android:hint="Personal" />
                     </android.support.design.widget.TextInputLayout>
@@ -193,11 +195,13 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="32dp">
 
-                            <AutoCompleteTextView
+                            <EditText
                                 android:id="@+id/campo_cargo"
+                                android:textSize="15sp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:ems="10"
+                                android:lines="2"
                                 android:hint="Cargo"
                                 android:inputType="textEmailAddress"
                                 android:singleLine="true" />

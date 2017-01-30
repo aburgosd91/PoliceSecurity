@@ -57,6 +57,8 @@ public class Personal_servicio implements Serializable {
 
 	private boolean seleccion;
 
+	private String descripcion_cargo="";
+
 
 
 	/* Sets & Gets */
@@ -138,6 +140,14 @@ public class Personal_servicio implements Serializable {
 
 	public void setSeleccion(boolean seleccion) {
 		this.seleccion = seleccion;
+	}
+
+	public String getDescripcion_cargo() {
+		return descripcion_cargo;
+	}
+
+	public void setDescripcion_cargo(String descripcion_cargo) {
+		this.descripcion_cargo = descripcion_cargo;
 	}
 
 

@@ -143,6 +143,7 @@ public class edt_PersonalServicio_Fragment extends FragmentNisira {
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("DOrdenServicio", dordenserviciocliente);
                         bundle.putSerializable("PersonalServicio", list.get(i));
+                        bundle.putString(OPCION,"Modificar");
                         Fragment fragment = mnt_PersonalServicio_Fragment.newInstance("Asignacion Personal", "Modificar");
                         fragment.setArguments(bundle);
                         FragmentTransaction ft = getFragmentManager().beginTransaction();

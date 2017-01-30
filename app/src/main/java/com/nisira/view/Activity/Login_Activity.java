@@ -27,20 +27,21 @@ import com.nisira.gcalderon.policesecurity.R;
 
 public class Login_Activity extends ActivityNisiraCompat implements ActivityCompat.OnRequestPermissionsResultCallback,SearchView.OnQueryTextListener,SearchView.OnCloseListener{
     private static final Object[][] TABLASINCRONIZACION={
-//            {"METHOD_LIST_CLIEPROV",20},
-//            {"METHOD_LIST_CONSUMIDOR", 8},
-//            {"METHOD_LIST_CONCEPTO_CUENTA", 5},
-//            {"METHOD_LIST_DOCUMENTOS",6},
-//            {"METHOD_LIST_NUMEMISOR",10},
-//            {"METHOD_LIST_PERSONAL_SERVICIO",8},
-//            {"METHOD_LIST_DPERSONAL_SERVICIO",8},
-//            {"METHOD_LIST_PRODUCTOS",8},
-//            {"METHOD_LIST_RUTAS",8},
-//            {"METHOD_LIST_SUCURSALES",5},
-//            {"METHOD_LIST_ORDENLIQUIDACIONGASTO",8},
-//            {"METHOD_LIST_ORDENSERVICIOCLIENTE",8},
-//            {"METHOD_LIST_DORDENLIQUIDACIONGASTO",8},
-//            {"METHOD_LIST_DORDENSERVICIOCLIENTE",8}
+            //{"METHOD_LIST_CLIEPROV",20},
+            //{"METHOD_LIST_CONSUMIDOR", 8},
+            //{"METHOD_LIST_CONCEPTO_CUENTA", 5},
+            {"METHOD_LIST_CARGOS_PERSONAL", 5},
+            //{"METHOD_LIST_DOCUMENTOS",6},
+            //{"METHOD_LIST_NUMEMISOR",10},
+            //{"METHOD_LIST_PERSONAL_SERVICIO",8},
+            //{"METHOD_LIST_DPERSONAL_SERVICIO",8},
+            //{"METHOD_LIST_PRODUCTOS",8},
+            //{"METHOD_LIST_RUTAS",8},
+            //{"METHOD_LIST_SUCURSALES",5},
+            //{"METHOD_LIST_ORDENLIQUIDACIONGASTO",8},
+            //{"METHOD_LIST_ORDENSERVICIOCLIENTE",8},
+            //{"METHOD_LIST_DORDENLIQUIDACIONGASTO",8},
+            //{"METHOD_LIST_DORDENSERVICIOCLIENTE",8}
     };
     public int item_tabla_syncro;
     private static final int PERMISSION_REQUEST_CODE = 1;
@@ -87,7 +88,7 @@ public class Login_Activity extends ActivityNisiraCompat implements ActivityComp
 
         if(Util.isOnLine(this.getApplicationContext()))
         {
-            SincronizarCredenciales();/*CONDICIONAL*/
+            //SincronizarCredenciales();/*CONDICIONAL*/
         }
         txtuser = (EditText) findViewById(R.id.txtUser);
         txtpassword = (EditText)findViewById(R.id.txtPassword);

@@ -37,4 +37,14 @@ public class ClieprovDao extends BaseDao<Clieprov> {
 		}
 		return null;
 	}
+
+	public List<Clieprov> getPersonalxTipo(String idempresa, String tipo)throws Exception{
+		if(idempresa !=null){
+			List<Clieprov> lst = listar("LTRIM(RTRIM(t0.IDEMPRESA)) =? AND LTRIM(RTRIM(t0.TIPO_CLIEPROV))=?",idempresa.trim(),tipo.trim());
+			if(!lst.isEmpty())
+				return lst;
+		}
+		return null;
+	}
+
 }

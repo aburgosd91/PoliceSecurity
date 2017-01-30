@@ -344,7 +344,10 @@ public class Clieprov implements Serializable {
 		return this.seleccion;
 	}
 
-
+	@Override
+	public String toString() {
+		return nombres+" "+apellidopaterno+" "+apellidomaterno;
+	}
 
 	/* Sets & Gets FK*/
 

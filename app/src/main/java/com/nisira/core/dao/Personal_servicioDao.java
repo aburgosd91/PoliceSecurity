@@ -34,6 +34,16 @@ public class Personal_servicioDao extends BaseDao<Personal_servicio> {
 				obj.getIdempresa().trim(),obj.getIdordenservicio(),obj.getItem().trim());
 
 		if(!lst.isEmpty()){
+			Cargos_personalDao cargosDao = new Cargos_personalDao();
+			int i = 0;
+			for(Personal_servicio x:lst){
+				List<Cargos_personal> lstcargo = cargosDao.listar("LTRIM(RTRIM(t0.IDEMPRESA)) =? AND LTRIM(RTRIM(t0.IDCARGO))=?", x.getIdempresa().trim(), x.getIdcargo().trim());
+				if(!lst.isEmpty()){
+					x.setDescripcion_cargo(lstcargo.get(i).getDescripcion());
+					lst.set(i,x);
+				}
+				i++;
+			}
 			return lst;
 		}else{
 			return null;

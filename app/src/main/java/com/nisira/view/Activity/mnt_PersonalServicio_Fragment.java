@@ -5,16 +5,21 @@ import android.support.v4.app.Fragment;
 import android.transition.Fade;
 import android.transition.Slide;
 import android.transition.TransitionInflater;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.nisira.core.dao.ClieprovDao;
 import com.nisira.core.dao.Personal_servicioDao;
+import com.nisira.core.entity.Clieprov;
 import com.nisira.core.entity.Dordenserviciocliente;
 import com.nisira.core.entity.Personal_servicio;
 import com.nisira.gcalderon.policesecurity.R;
@@ -28,11 +33,13 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
     private static final String TIPO = "param2";
     private Personal_servicio personal_servicio;
     private Dordenserviciocliente dordenserviciocliente;
-    private AutoCompleteTextView listbox,campo_personal;
+    private AutoCompleteTextView campo_personal;
     private FloatingActionButton btn_cancelar;
     private FloatingActionButton btn_acaptar;
     private TextView txt_titulo;
-    private EditText campo_ID,campo_numero;
+    private EditText campo_ID,campo_numero,campo_cargo;
+    List<Clieprov> list_ps = new ArrayList<>();
+    List<String> empleados = new ArrayList<>();
 
     // TODO: PARAMETROS DE ENTRADA
     private String mParam1;
@@ -68,11 +75,11 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_mnt_personalservicio, container, false);
         animacionEntrada();
 
-        campo_numero = (EditText) view.findViewById(R.id.campo_personal);
+        campo_numero = (EditText) view.findViewById(R.id.campo_numero);
         campo_ID = (EditText) view.findViewById(R.id.campo_ID);
         btn_cancelar = (FloatingActionButton)view.findViewById(R.id.fab_cancelar);
         btn_acaptar = (FloatingActionButton)view.findViewById(R.id.fab_aceptar);
-        listbox = (AutoCompleteTextView) view.findViewById(R.id.autocompletetext1);
+        campo_cargo = (EditText)view.findViewById(R.id.campo_cargo);
         txt_titulo = (TextView) view.findViewById(R.id.txt_titulo);
         campo_personal = (AutoCompleteTextView)view.findViewById(R.id.campo_personal);
         LlenarCampos();
@@ -91,31 +98,47 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
 
     public void LlenarCampos(){
 
-        String[] NOMBRES = new String[] {
-                "Gian", "Giancarlo", "Alex", "Andy","Ayrton","Acevedo","Antonela","Antony","Antonio"
-                ,"André", "Joshe", "Alejandro","Aldo"
-        };
         campo_ID.setText(personal_servicio.getItem2());
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                android.R.layout.simple_dropdown_item_1line,NOMBRES);
-        listbox.setAdapter(adapter);
+        campo_cargo.setText(personal_servicio.getDescripcion_cargo());
+        campo_numero.setText(personal_servicio.getDni());
+        txt_titulo.setText("Modificar");
 
-        txt_titulo.setText(TIPO);
+        ClieprovDao clieprovDao = new ClieprovDao();
 
-        Personal_servicioDao personal_servicioDao = new Personal_servicioDao();
-        List<Personal_servicio> list_ps = new ArrayList<>();
         try {
-            list_ps = personal_servicioDao.listar();
+            list_ps = clieprovDao.getPersonalxTipo(dordenserviciocliente.getIdempresa(),"E");
+            for(int i=0;i<list_ps.size();i++){
+                empleados.add(list_ps.get(i).getNombres() + " "+
+                                list_ps.get(i).getApellidopaterno()+" "+
+                                list_ps.get(i).getApellidomaterno());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        ArrayAdapter<Personal_servicio> adapterps = new ArrayAdapter<Personal_servicio>(getContext(),
+
+        ArrayAdapter<Clieprov> adapterps = new ArrayAdapter<Clieprov>(getContext(),
                 android.R.layout.simple_dropdown_item_1line,list_ps);
+        campo_personal.setThreshold(1);
         campo_personal.setAdapter(adapterps);
+
     }
 
     public void Listeners(){
         //TODO EVENTOS
+        final Personal_servicio personal_servicio1 = personal_servicio;
+        campo_personal.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Log.i("GG",parent.getSelectedItem().toString());
+                Clieprov selected = (Clieprov) parent.getAdapter().getItem(position);
+                personal_servicio1.setIdpersonal(selected.getIdclieprov());
+                personal_servicio1.setNombres(selected.getApellidopaterno()+selected.getApellidomaterno()+selected.getNombres());
+                personal_servicio1.setDni(selected.getDni());
+                Log.i("Clicked " , selected.getIdclieprov()+ " " + selected.getApellidopaterno() );
+                campo_numero.setText(selected.getDni());
+            }
+        });
+
         btn_cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,7 +150,13 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-
+                Personal_servicioDao personal_servicioDao = new Personal_servicioDao();
+                try {
+                    personal_servicioDao.mezclarLocal(personal_servicio1);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Toast.makeText(getContext(),"Modificado con exito",Toast.LENGTH_SHORT);
                 getFragmentManager().popBackStack();
             }
         });
