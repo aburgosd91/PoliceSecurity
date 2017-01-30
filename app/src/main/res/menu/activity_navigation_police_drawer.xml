@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/mov_configuracion"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Configuración" />
+    </group>
+    <item android:title="Servicio CMT">
+        <menu>
+            <item
+                android:id="@+id/mov_asignacion_personal"
+                android:icon="@drawable/ic_menu_people"
+                android:title="Asignación Personal" />
+            <item
+                android:id="@+id/mov_registro_horas_cmt"
+                android:icon="@drawable/ic_menu_clock"
+                android:title="Registro Hora" />
+            <item
+                android:id="@+id/mov_registro_vehiculo"
+                android:icon="@drawable/ic_menu_bus"
+                android:title="Registro Vehiculo" />
+            <item
+                android:id="@+id/mov_liquidacion_gastos"
+                android:icon="@drawable/ic_menu_documento"
+                android:title="Liquidación Gastos" />
+        </menu>
+    </item>
+    <item android:title="Servicio GRD">
+        <menu>
+            <item
+                android:id="@+id/mov_ubicacion_gmap"
+                android:icon="@drawable/ic_menu_posicion"
+                android:title="Gps - Ubicación" />
+            <item
+                android:id="@+id/mov_foto"
+                android:icon="@drawable/ic_menu_camera"
+                android:title="Foto" />
+            <item
+                android:id="@+id/mov_registro_horas_grd"
+                android:icon="@drawable/ic_menu_clock"
+                android:title="Registro Hora" />
+        </menu>
+    </item>
+
+</menu>

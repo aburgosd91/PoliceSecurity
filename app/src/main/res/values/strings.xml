@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Police Security</string>
+    <string name="usuario">Usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="login">Ingresar</string>
+    <string name="powered">Powered by Nisira Systems</string>
+
+    <string name="API_KEY">AIzaSyAoADYIjQkzFELXGwSVoovttW-nXUDCapc</string>
+
+    <string name="title_activity_navigation_police">NavigationPolice</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+     <string name="test">
+        Morbi posuere lorem nec elit dapibus, vitae accumsan mauris pellentesque.
+        Vestibulum a lobortis mi. Vestibulum lacinia molestie semper. Pellentesque
+        ultrices arcu lacus, interdum mollis nibh convallis ut. Aliquam sagittis
+        sem a lacus gravida, eu accumsan purus volutpat. Donec tempus, est id
+        tristique consectetur, lacus ligula dignissim turpis, cursus commodo turpis
+        libero in purus. Phasellus tempus gravida tempor.
+    </string>
+</resources>
