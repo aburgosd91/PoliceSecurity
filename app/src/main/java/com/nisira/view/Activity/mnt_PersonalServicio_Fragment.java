@@ -101,6 +101,7 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
         campo_ID.setText(personal_servicio.getItem2());
         campo_cargo.setText(personal_servicio.getDescripcion_cargo());
         campo_numero.setText(personal_servicio.getDni());
+        campo_personal.setText(personal_servicio.getNombres());
         txt_titulo.setText("Modificar");
 
         ClieprovDao clieprovDao = new ClieprovDao();
@@ -129,10 +130,10 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
         campo_personal.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Log.i("GG",parent.getSelectedItem().toString());
                 Clieprov selected = (Clieprov) parent.getAdapter().getItem(position);
                 personal_servicio1.setIdpersonal(selected.getIdclieprov());
-                personal_servicio1.setNombres(selected.getApellidopaterno()+selected.getApellidomaterno()+selected.getNombres());
+                personal_servicio1.setNombres(selected.getApellidopaterno()+" "+
+                        selected.getApellidomaterno()+" "+selected.getNombres());
                 personal_servicio1.setDni(selected.getDni());
                 Log.i("Clicked " , selected.getIdclieprov()+ " " + selected.getApellidopaterno() );
                 campo_numero.setText(selected.getDni());
@@ -156,7 +157,7 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                Toast.makeText(getContext(),"Modificado con exito",Toast.LENGTH_SHORT);
+                //Toast.makeText(getContext(),"Modificado con exito",Toast.LENGTH_SHORT);
                 getFragmentManager().popBackStack();
             }
         });

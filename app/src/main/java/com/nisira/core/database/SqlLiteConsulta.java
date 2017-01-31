@@ -568,22 +568,28 @@ public class SqlLiteConsulta {
                     Pair<Field, EColumna> c = est.getCampos().get(i);
                     Field f = c.getValue0();
                     Object o = f.get(entidad);
-                    if(o==null)
+                    if(o==null) {
                         ps.bindNull(i + 1);
+                        if (c.getValue1().isEsPK()) {
+                            ipk++;
+                            ps.bindNull(ipk + 1);
+                        }
+                        continue;
+                    }
                     else{
                         if (f.getType() == Integer.class || f.getType() == int.class) {
                             ps.bindLong(i + 1, f.getInt(entidad));
                             if (c.getValue1().isEsPK()) {
-                                ps.bindLong(i + 1, f.getInt(entidad));
                                 ipk++;
+                                ps.bindLong(ipk + 1, f.getInt(entidad));
                             }
                             continue;
                         }
                         if (f.getType() == short.class) {
                             ps.bindLong(i + 1, f.getShort(entidad));
                             if (c.getValue1().isEsPK()) {
-                                ps.bindLong(i + 1, f.getShort(entidad));
                                 ipk++;
+                                ps.bindLong(ipk + 1, f.getShort(entidad));
                             }
                             continue;
                         }
@@ -606,8 +612,9 @@ public class SqlLiteConsulta {
                         if (f.getType() == String.class) {
                             ps.bindString(i + 1, String.valueOf(f.get(entidad)));
                             if (c.getValue1().isEsPK()) {
-                                ps.bindString(i + 1, String.valueOf(f.get(entidad)));
                                 ipk++;
+                                ps.bindString(ipk + 1, String.valueOf(f.get(entidad)));
+
                             }
                             continue;
                         }
@@ -615,8 +622,9 @@ public class SqlLiteConsulta {
                             ps.bindString(i + 1,SqlLiteEstructuraORM.datetimeFormat.format((Timestamp) f.get(entidad)));
                             if (c.getValue1().isEsPK()) {
 //                            ps.setTimestamp(ipk, (Timestamp) f.get(entidad));
-                                ps.bindString(ipk,SqlLiteEstructuraORM.datetimeFormat.format((Timestamp) f.get(entidad)));
                                 ipk++;
+                                ps.bindString(ipk+1,SqlLiteEstructuraORM.datetimeFormat.format((Timestamp) f.get(entidad)));
+
                             }
                             continue;
                         }
@@ -629,8 +637,9 @@ public class SqlLiteConsulta {
                             }
                             if (c.getValue1().isEsPK()) {
 //                            ps.setTimestamp(ipk, new Timestamp(((Date) o).getTime()));
-                                ps.bindString(ipk,SqlLiteEstructuraORM.dateFormat.format(o.toString()));
                                 ipk++;
+                                ps.bindString(ipk + 1, SqlLiteEstructuraORM.dateFormat.format((Date)o));
+
                             }
                             continue;
                         }
@@ -640,8 +649,8 @@ public class SqlLiteConsulta {
                             ps.bindString(i + 1, o.toString());
                         }
                         if (c.getValue1().isEsPK()) {
-                            ps.bindString(ipk, f.get(entidad).toString());
                             ipk++;
+                            ps.bindString(ipk+1, f.get(entidad).toString());
                         }
                     }
 

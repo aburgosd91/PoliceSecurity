@@ -20,7 +20,7 @@ public class Personal_servicioDao extends BaseDao<Personal_servicio> {
 		super(Personal_servicio.class, usaCnBase);
 	}
 	public void mezclarLocal(Personal_servicio obj)throws Exception{
-		List<Personal_servicio> lst= listar("LTRIM(RTRIM(t0.IDEMPRESA)) =? AND LTRIM(RTRIM(t0.IDORDENSERVICIO))=? AND LTRIM(RTRIM(t0.IDORDENSERVICIO))=?" +
+		List<Personal_servicio> lst= listar("LTRIM(RTRIM(t0.IDEMPRESA)) =?  AND LTRIM(RTRIM(t0.IDORDENSERVICIO))=?" +
 				" AND LTRIM(RTRIM(t0.ITEM))=? AND LTRIM(RTRIM(t0.ITEM2))=?",
 				obj.getIdempresa().trim(),obj.getIdordenservicio().trim(),obj.getItem().trim(),obj.getItem2().trim());
 		if(lst.isEmpty())
