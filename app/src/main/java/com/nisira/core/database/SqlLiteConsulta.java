@@ -562,7 +562,7 @@ public class SqlLiteConsulta {
 //            PreparedStatement ps;
             ps = connection.compileStatement(sql);
 
-            int ipk = est.getCampos().size()+1;
+            int ipk = est.getCampos().size();
             try {
                 for (int i = 0; i < est.getCampos().size(); i++) {
                     Pair<Field, EColumna> c = est.getCampos().get(i);
@@ -571,8 +571,8 @@ public class SqlLiteConsulta {
                     if(o==null) {
                         ps.bindNull(i + 1);
                         if (c.getValue1().isEsPK()) {
-                            ipk++;
                             ps.bindNull(ipk + 1);
+                            ipk++;
                         }
                         continue;
                     }
@@ -580,16 +580,16 @@ public class SqlLiteConsulta {
                         if (f.getType() == Integer.class || f.getType() == int.class) {
                             ps.bindLong(i + 1, f.getInt(entidad));
                             if (c.getValue1().isEsPK()) {
-                                ipk++;
                                 ps.bindLong(ipk + 1, f.getInt(entidad));
+                                ipk++;
                             }
                             continue;
                         }
                         if (f.getType() == short.class) {
                             ps.bindLong(i + 1, f.getShort(entidad));
                             if (c.getValue1().isEsPK()) {
-                                ipk++;
                                 ps.bindLong(ipk + 1, f.getShort(entidad));
+                                ipk++;
                             }
                             continue;
                         }
@@ -612,9 +612,8 @@ public class SqlLiteConsulta {
                         if (f.getType() == String.class) {
                             ps.bindString(i + 1, String.valueOf(f.get(entidad)));
                             if (c.getValue1().isEsPK()) {
-                                ipk++;
                                 ps.bindString(ipk + 1, String.valueOf(f.get(entidad)));
-
+                                ipk++;
                             }
                             continue;
                         }
@@ -622,24 +621,17 @@ public class SqlLiteConsulta {
                             ps.bindString(i + 1,SqlLiteEstructuraORM.datetimeFormat.format((Timestamp) f.get(entidad)));
                             if (c.getValue1().isEsPK()) {
 //                            ps.setTimestamp(ipk, (Timestamp) f.get(entidad));
-                                ipk++;
                                 ps.bindString(ipk+1,SqlLiteEstructuraORM.datetimeFormat.format((Timestamp) f.get(entidad)));
-
+                                ipk++;
                             }
                             continue;
                         }
                         if (f.getType() == Date.class) {
-                            if(o .toString().equals(""))
-                                ps.bindString(i + 1, "");
-                            else {
-                                ps.bindString(i + 1, SqlLiteEstructuraORM.dateFormat.format((Date)o));
-//                            ps.setTimestamp(i + 1, new Timestamp(((Date) o).getTime()));
-                            }
+                            Date d = (Date) f.get(entidad);
+                            ps.bindString(i + 1, SqlLiteEstructuraORM.datetimeFormat.format(d));
                             if (c.getValue1().isEsPK()) {
-//                            ps.setTimestamp(ipk, new Timestamp(((Date) o).getTime()));
+                                ps.bindString(ipk + 1, SqlLiteEstructuraORM.datetimeFormat.format(d));
                                 ipk++;
-                                ps.bindString(ipk + 1, SqlLiteEstructuraORM.dateFormat.format((Date)o));
-
                             }
                             continue;
                         }
@@ -649,8 +641,8 @@ public class SqlLiteConsulta {
                             ps.bindString(i + 1, o.toString());
                         }
                         if (c.getValue1().isEsPK()) {
-                            ipk++;
                             ps.bindString(ipk+1, f.get(entidad).toString());
+                            ipk++;
                         }
                     }
 
