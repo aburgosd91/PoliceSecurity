@@ -47,7 +47,8 @@ public class edt_DPersonalServicio_Fragment extends FragmentNisira {
     private String mParam1;
     private String mParam2;
     private EditText txt_documento;
-    private TextInputEditText txt_personal,txt_producto,txt_fecha,txt_estado;
+    private TextInputEditText txt_personal,txt_producto;
+    private TextView txt_fecha,txt_estado;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager lManager;
@@ -89,8 +90,8 @@ public class edt_DPersonalServicio_Fragment extends FragmentNisira {
         txt_documento = (EditText)view.findViewById(R.id.txt_documento);
         txt_personal = (TextInputEditText) view.findViewById(R.id.txt_personal);
         txt_producto = (TextInputEditText)view.findViewById(R.id.txt_producto);
-        txt_fecha = (TextInputEditText)view.findViewById(R.id.txt_fecha);
-        txt_estado = (TextInputEditText)view.findViewById(R.id.txt_estado);
+        txt_fecha = (TextView)view.findViewById(R.id.txt_fecha);
+        txt_estado = (TextView)view.findViewById(R.id.txt_estado);
         recyclerView = (RecyclerView)view.findViewById(R.id.recycler_os);
         multiple_fab = (FloatingActionsMenu)view.findViewById(R.id.multiple_fab);
         /******FIJOS PARA MANTENEDOR**************/

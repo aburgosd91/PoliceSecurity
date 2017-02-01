@@ -68,6 +68,8 @@ public class Dpersonal_servicio implements Serializable {
 	@XStreamAlias("FECHAREGISTRO") 
 	private Date fecharegistro;
 
+	private boolean seleccion;
+
 
 
 	/* Sets & Gets */
@@ -165,6 +167,14 @@ public class Dpersonal_servicio implements Serializable {
 
 	public Date getFecharegistro() {
 		return this.fecharegistro;
+	}
+
+	public boolean isSeleccion() {
+		return seleccion;
+	}
+
+	public void setSeleccion(boolean seleccion) {
+		this.seleccion = seleccion;
 	}
 
 

@@ -29,7 +29,7 @@
         <android.support.design.widget.AppBarLayout
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="220dp"
             android:fitsSystemWindows="true"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -103,14 +103,10 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="9dp"
-
+                            android:layout_marginRight="10dp"
                             android:src="@drawable/ic_pendiente_white" />
-                        <android.support.design.widget.TextInputLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:hintTextAppearance="@color/white"
-                            android:layout_marginLeft="10dp">
-                        <android.support.design.widget.TextInputEditText
+
+                        <TextView
                             android:id="@+id/txt_estado"
                             android:textColor="@color/white"
                             android:textSize="20dp"
@@ -118,29 +114,24 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Pendiente" />
-                        </android.support.design.widget.TextInputLayout>
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="20dp"
+                            android:layout_marginRight="10dp"
                             android:src="@drawable/ic_date_white" />
-                        <android.support.design.widget.TextInputLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:hintTextAppearance="@color/white"
-                            android:layout_marginLeft="10dp">
-                            <android.support.design.widget.TextInputEditText
+
+                            <TextView
                                 android:id="@+id/txt_fecha"
                                 android:textColor="@color/white"
                                 android:textSize="20dp"
-                                android:hint="Fecha Operacion"
+                                android:text="Fecha"
                                 android:textColorHint="@color/white"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 />
-                        </android.support.design.widget.TextInputLayout>
 
                     </LinearLayout>
                     <LinearLayout
@@ -173,6 +164,7 @@
                         </android.support.design.widget.TextInputLayout>
 
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -197,6 +189,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:ems="10"
+                                android:textSize="15sp"
                                 android:enabled="false"
                                 android:textColorHint="@color/white"
                                 android:id="@+id/txt_producto" />

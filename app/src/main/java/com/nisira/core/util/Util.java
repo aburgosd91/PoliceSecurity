@@ -16,6 +16,7 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.mapper.CannotResolveClassException;
 import com.thoughtworks.xstream.mapper.MapperWrapper;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -143,6 +144,21 @@ public final class Util {
         Gson gson = new Gson();
         List<? extends Object> object = (List<? extends Object>)gson.fromJson(obj, oClase);
         return object;
+    }
+
+    public static float convertTimeDecimal(Date time){
+        float timeF=0.0f;
+        int hora= time.getHours();
+        int minutos= time.getMinutes();
+        timeF=((float)hora)+((float)minutos/(float)60);
+        return Math.round(timeF*100.0f)/100.0f;
+    }
+    public static String convertDecimalTime(double timeF){
+        String obj;
+        int hora = (int)timeF;
+        int minutos = (int)((timeF-(float)hora)*60);
+        obj= hora+":"+minutos;
+        return obj;
     }
 
 }
