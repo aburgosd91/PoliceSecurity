@@ -18,6 +18,7 @@ import com.nisira.core.entity.Ordenserviciocliente;
 import com.nisira.core.interfaces.FragmentNisira;
 import com.nisira.gcalderon.policesecurity.R;
 import com.nisira.view.Adapter.Adapter_edt_DOrdenServicio;
+import com.nisira.view.Adapter.Adapter_edt_DOrdenServicio_vehiculo;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -130,8 +131,19 @@ public class edt_OrdenServicio_Fragment extends FragmentNisira {
         DordenservicioclienteDao  DordenservicioclienteDao = new DordenservicioclienteDao();
         try {
             List<Dordenserviciocliente> lstordenserviciocliente = DordenservicioclienteDao.ListarxOrdenServicio(ordenserviciocliente);
-            adapter = new Adapter_edt_DOrdenServicio(mParam1,lstordenserviciocliente,getFragmentManager(),ordenserviciocliente);
-            recyclerView.setAdapter(adapter);
+            switch (mParam1){
+                case "Asignacion Personal":
+                case "Registro Hora":
+                    adapter = new Adapter_edt_DOrdenServicio(mParam1,lstordenserviciocliente,getFragmentManager(),ordenserviciocliente);
+                    recyclerView.setAdapter(adapter);
+                    break;
+                case "Registro Vehiculo":
+                    adapter = new Adapter_edt_DOrdenServicio_vehiculo(mParam1,lstordenserviciocliente,getFragmentManager(),ordenserviciocliente);
+                    recyclerView.setAdapter(adapter);
+                    break;
+            }
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }

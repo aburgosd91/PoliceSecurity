@@ -1,0 +1,462 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.nisira.view.Activity.mnt_DPersonalServicio_Fragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/blue_gray"
+            android:id="@+id/header_rl_edit_ordenserv"
+            android:elevation="@dimen/activity_horizontal_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txt_titulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:layout_toStartOf="@+id/fab_cancelar"
+                android:text="Modificar"
+                android:textSize="24dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:enabled="false"/>
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_cancelar"
+                android:layout_width="@dimen/fab_size_normal"
+                android:layout_height="@dimen/fab_size_normal"
+                android:layout_centerVertical="true"
+                android:background="@color/colorPrimary"
+                android:layout_marginTop="16dp"
+                app:fab_colorNormal="@color/rojo"
+                android:src="@drawable/ic_close_white"
+                app:backgroundTint="@color/verde"
+                app:fab_size="mini"
+                app:fab_colorPressed="@color/colorAccent"
+                android:layout_alignParentEnd="true" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_aceptar"
+                android:layout_width="@dimen/fab_size_normal"
+                android:layout_height="@dimen/fab_size_normal"
+                android:layout_gravity="end|center_horizontal"
+                android:background="@color/colorPrimary"
+                app:fab_colorNormal="@color/verdedark"
+                android:src="@drawable/ic_check_white"
+                app:backgroundTint="@color/verdedark"
+                app:fab_colorPressed="@color/colorAccent"
+                app:fab_size="mini"
+                android:layout_alignTop="@+id/fab_cancelar"
+                android:layout_toStartOf="@+id/fab_cancelar" />
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/area_nombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="9dp"
+                        android:src="@drawable/ic_key" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/til_nombre"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="32dp">
+
+                        <EditText
+                            android:id="@+id/campo_ID"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:hint="Placa"
+                            android:inputType="text"
+                            android:enabled="false"
+                            android:singleLine="true" />
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/area_numero"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="9dp"
+                            android:src="@drawable/ic_key" />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="32dp">
+
+                            <EditText
+                                android:id="@+id/campo_numero"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:hint="DNI"
+                                android:inputType="text"
+                                android:enabled="false"
+                                android:singleLine="true" />
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/area_telefono"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/area_nombre"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/img_correo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="9dp"
+                        android:src="@drawable/ic_car_black" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/til_telefono"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="32dp">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/txt_vehiculos"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:lines="2"
+                            android:textSize="15sp"
+                            android:ems="10"
+                            android:hint="Vehiculo" />
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+                <LinearLayout
+                        android:id="@+id/area_correo"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="9dp"
+                            android:layout_row="2"
+                            android:src="@drawable/ic_menu_people" />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="32dp">
+
+                            <EditText
+                                android:id="@+id/campo_cargo"
+                                android:textSize="15sp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:enabled="true"
+                                android:lines="2"
+                                android:hint="Cargo"
+                                android:inputType="textEmailAddress"
+                                android:singleLine="true" />
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+            <LinearLayout
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/area_hora1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="0"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="9dp"
+                        android:layout_row="2"
+                        android:src="@drawable/ic_access_time_black" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="32dp">
+
+                        <EditText
+                            android:id="@+id/hora_requerida"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:focusableInTouchMode="false"
+                            android:ems="10"
+                            android:hint="Hora. requerida"
+                            android:inputType="textEmailAddress" />
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/area_hora2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/img_correo"
+                        android:layout_column="0"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="9dp"
+                        android:layout_row="2"
+                        android:src="@drawable/ic_access_time_black" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="32dp">
+
+                        <EditText
+                            android:id="@+id/hora_llegada"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:hint="Hora. Llegada"
+                            android:inputType="textEmailAddress"
+                            android:focusableInTouchMode="false"/>
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/area_hora3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/area_telefono"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/img_correo"
+                        android:layout_column="0"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="9dp"
+                        android:layout_row="2"
+                        android:src="@drawable/ic_access_time_black" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="32dp">
+
+                        <EditText
+                            android:id="@+id/hora_inicio"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:hint="Hora. Inicio"
+                            android:inputType="textEmailAddress"
+                            android:focusableInTouchMode="false"/>
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/area_hora4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/area_telefono"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/img_correo"
+                        android:layout_column="0"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="9dp"
+                        android:layout_row="2"
+                        android:src="@drawable/ic_access_time_black" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="32dp">
+
+                        <EditText
+                            android:id="@+id/hora_fin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:hint="Hora. Fin"
+                            android:inputType="textEmailAddress"
+                            android:focusableInTouchMode="false"/>
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/area_hora5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/area_telefono"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/img_correo"
+                        android:layout_column="0"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="9dp"
+                        android:layout_row="2"
+                        android:src="@drawable/ic_access_time_black" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="32dp">
+
+                        <EditText
+                            android:id="@+id/hora_liberacion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:hint="Hora. Liberación"
+                            android:inputType="textEmailAddress"
+                            android:focusableInTouchMode="false"/>
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/area_fecha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/area_telefono"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/img_correo"
+                        android:layout_column="0"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="9dp"
+                        android:layout_row="2"
+                        android:src="@drawable/ic_date_black" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="32dp">
+
+                        <EditText
+                            android:id="@+id/fecha_servicio"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:hint="Fecha Operación"
+                            android:inputType="textEmailAddress"
+                            android:focusableInTouchMode="false"/>
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/edit_ordenserviccio_list01"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/area_telefono"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/img_correo"
+                        android:layout_column="0"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="9dp"
+                        android:layout_row="2"
+                        android:src="@drawable/ic_menu_slideshow" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/til_correo5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="32dp">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/autocompletetext1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:hint="List view"
+                            android:inputType="textEmailAddress"
+                            android:singleLine="true" />
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+
+        </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</FrameLayout>

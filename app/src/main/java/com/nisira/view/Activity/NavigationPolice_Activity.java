@@ -115,6 +115,13 @@ public class NavigationPolice_Activity extends AppCompatActivity
 
         } else if (id == R.id.mov_registro_vehiculo) {
 
+            Fragment fragment = lst_OrdenServicio_Fragment.newInstance("Registro Vehiculo", "NavigationPolice_Activity");
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager
+                    .beginTransaction()
+                    .replace(R.id.main_content, fragment)
+                    .commit();
+
         } else if (id == R.id.mov_liquidacion_gastos) {
 
         } else if (id == R.id.mov_ubicacion_gmap) {

@@ -260,7 +260,10 @@ public class Consumidor implements Serializable {
 		return this.idclaseccosto;
 	}
 
-
+	@Override
+	public String toString() {
+		return descripcion;
+	}
 
 	/* Sets & Gets FK*/
 

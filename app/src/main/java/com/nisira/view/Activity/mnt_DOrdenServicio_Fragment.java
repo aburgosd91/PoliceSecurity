@@ -15,18 +15,22 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.nisira.core.dao.ConsumidorDao;
+import com.nisira.core.entity.Consumidor;
 import com.nisira.gcalderon.policesecurity.R;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 
 public class mnt_DOrdenServicio_Fragment extends Fragment {
     // TODO: ELEMENTOS DE LAYOUT
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private AutoCompleteTextView listbox;
+    private AutoCompleteTextView txt_vehiculos;
     private EditText hora_llegada;
     private EditText hora_requerida;
     private EditText hora_inicio;
@@ -66,12 +70,9 @@ public class mnt_DOrdenServicio_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_mnt_personalservicio, container, false);
+        View view = inflater.inflate(R.layout.fragment_mnt_dordenservicio_vehiculo, container, false);
         animacionEntrada();
-        String[] NOMBRES = new String[] {
-                "Gian", "Giancarlo", "Alex", "Andy","Ayrton","Acevedo","Antonela","Antony","Antonio"
-                ,"André", "Joshe", "Alejandro","Aldo"
-        };
+
         hora_requerida = (EditText)view.findViewById(R.id.hora_requerida);
         hora_llegada = (EditText)view.findViewById(R.id.hora_llegada);
         hora_inicio = (EditText)view.findViewById(R.id.hora_inicio);
@@ -80,11 +81,37 @@ public class mnt_DOrdenServicio_Fragment extends Fragment {
         fecha_operacion = (EditText)view.findViewById(R.id.fecha_servicio);
         btn_cancelar = (FloatingActionButton)view.findViewById(R.id.fab_cancelar);
         btn_acaptar = (FloatingActionButton)view.findViewById(R.id.fab_aceptar);
-        listbox = (AutoCompleteTextView) view.findViewById(R.id.autocompletetext1);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                android.R.layout.simple_dropdown_item_1line,NOMBRES);
-        listbox.setAdapter(adapter);
+        txt_vehiculos = (AutoCompleteTextView) view.findViewById(R.id.txt_vehiculos);
+        LlenarCampos();
+        Listeners();
+        return view;
+    }
 
+    // TODO: TRANSICIONES Y ANIMACIONES
+
+    @SuppressLint("NewApi")
+    public void animacionEntrada(){
+        Fade fade = (Fade) TransitionInflater.from(this.getContext()).inflateTransition(R.transition.activity_fade);
+        setEnterTransition(fade);
+        Slide slide = (Slide) TransitionInflater.from(getContext()).inflateTransition(R.transition.activity_slide);
+        setExitTransition(slide);
+    }
+
+    public void LlenarCampos(){
+
+        ConsumidorDao dao = new ConsumidorDao();
+        List<Consumidor> consumidors= new ArrayList<>();
+        try {
+            consumidors = dao.listar();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ArrayAdapter<Consumidor> adapter = new ArrayAdapter<Consumidor>(getContext(),
+                android.R.layout.simple_dropdown_item_1line,consumidors);
+        txt_vehiculos.setAdapter(adapter);
+    }
+
+    public void Listeners(){
         //TODO EVENTOS
         hora_requerida.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,19 +238,6 @@ public class mnt_DOrdenServicio_Fragment extends Fragment {
             }
         });
 
-        return view;
     }
-
-    // TODO: TRANSICIONES Y ANIMACIONES
-
-    @SuppressLint("NewApi")
-    public void animacionEntrada(){
-        Fade fade = (Fade) TransitionInflater.from(this.getContext()).inflateTransition(R.transition.activity_fade);
-        setEnterTransition(fade);
-        Slide slide = (Slide) TransitionInflater.from(getContext()).inflateTransition(R.transition.activity_slide);
-        setExitTransition(slide);
-    }
-
-
 
 }
