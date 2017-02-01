@@ -1,5 +1,8 @@
 package com.nisira.view.Activity;
 
+import android.app.Activity;
+import android.content.Context;
+import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.transition.Fade;
@@ -9,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -127,6 +131,12 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
     public void Listeners(){
         //TODO EVENTOS
         final Personal_servicio personal_servicio1 = personal_servicio;
+        campo_personal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                campo_personal.setText("");
+            }
+        });
         campo_personal.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -137,13 +147,16 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
                 personal_servicio1.setDni(selected.getDni());
                 Log.i("Clicked " , selected.getIdclieprov()+ " " + selected.getApellidopaterno() );
                 campo_numero.setText(selected.getDni());
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
             }
         });
 
         btn_cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().popBackStack();
+                getActivity().onBackPressed();
             }
         });
 
@@ -158,7 +171,7 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
                     e.printStackTrace();
                 }
                 //Toast.makeText(getContext(),"Modificado con exito",Toast.LENGTH_SHORT);
-                getFragmentManager().popBackStack();
+                getActivity().onBackPressed();
             }
         });
     }

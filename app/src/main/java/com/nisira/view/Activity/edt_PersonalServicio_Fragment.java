@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Slide;
 import android.transition.TransitionInflater;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.nisira.core.dao.Personal_servicioDao;
 import com.nisira.core.entity.Dordenserviciocliente;
 import com.nisira.core.entity.Ordenserviciocliente;
@@ -22,9 +24,12 @@ import com.nisira.core.entity.Personal_servicio;
 import com.nisira.core.interfaces.FragmentNisira;
 import com.nisira.gcalderon.policesecurity.R;
 import com.nisira.view.Adapter.Adapter_edt_PersonalServicio;
+import com.nisira.view.Adapter.Adapter_edt_PersonalServiciolst;
 
 
 import java.util.List;
+
+import static android.view.View.GONE;
 
 
 public class edt_PersonalServicio_Fragment extends FragmentNisira {
@@ -48,6 +53,7 @@ public class edt_PersonalServicio_Fragment extends FragmentNisira {
     private Dordenserviciocliente dordenserviciocliente;
     private Ordenserviciocliente ordenserviciocliente;
     private FloatingActionButton  btn_agregar,btn_modificar,btn_delete;
+    private FloatingActionsMenu multiple_fab;
 
     public edt_PersonalServicio_Fragment() {
         // Required empty public constructor
@@ -85,11 +91,13 @@ public class edt_PersonalServicio_Fragment extends FragmentNisira {
         txt_producto = (TextInputEditText)view.findViewById(R.id.txt_producto);
         txt_estado = (TextView)view.findViewById(R.id.txt_estado);
         recyclerView = (RecyclerView)view.findViewById(R.id.recycler_os);
+        multiple_fab = (FloatingActionsMenu)view.findViewById(R.id.multiple_fab);
         /******FIJOS PARA MANTENEDOR**************/
         btn_agregar = (FloatingActionButton)view.findViewById(R.id.fab_agregar);
         btn_modificar = (FloatingActionButton)view.findViewById(R.id.fab_modificar);
         btn_delete = (FloatingActionButton)view.findViewById(R.id.fab_eliminar);
         /*****************************************/
+
         Listeners();
         LlenarCampos();
         return view;
@@ -117,8 +125,20 @@ public class edt_PersonalServicio_Fragment extends FragmentNisira {
         Personal_servicioDao  personal_servicioDao = new Personal_servicioDao();
         try {
             list = personal_servicioDao.listarxDordenservicio(dordenserviciocliente);
-            Adapter_edt_PersonalServicio adapter = new Adapter_edt_PersonalServicio(list,getFragmentManager());
-            recyclerView.setAdapter(adapter);
+            switch (mParam1){
+                case "Asignacion Personal":
+                    Adapter_edt_PersonalServicio adapter = new Adapter_edt_PersonalServicio(mParam1,list,getFragmentManager());
+                    recyclerView.setAdapter(adapter);
+                    break;
+
+                case "Registro Hora":
+                    multiple_fab.setVisibility(GONE);
+                    Adapter_edt_PersonalServiciolst adapter2 = new Adapter_edt_PersonalServiciolst(mParam1,list,getFragmentManager(),ordenserviciocliente,dordenserviciocliente);
+                    recyclerView.setAdapter(adapter2);
+                    break;
+
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -140,11 +160,11 @@ public class edt_PersonalServicio_Fragment extends FragmentNisira {
 
                 for(int i=0;i<list.size();i++) {
                     if (list.get(i).isSeleccion()) {
-                        Bundle bundle = new Bundle();
+
+                        Fragment fragment = mnt_PersonalServicio_Fragment.newInstance(mParam1, "Modificar");
+                        Bundle bundle = fragment.getArguments();
                         bundle.putSerializable("DOrdenServicio", dordenserviciocliente);
                         bundle.putSerializable("PersonalServicio", list.get(i));
-                        bundle.putString(OPCION,"Modificar");
-                        Fragment fragment = mnt_PersonalServicio_Fragment.newInstance("Asignacion Personal", "Modificar");
                         fragment.setArguments(bundle);
                         FragmentTransaction ft = getFragmentManager().beginTransaction();
                         ft.replace(R.id.main_content, fragment, "NewFragmentTag");

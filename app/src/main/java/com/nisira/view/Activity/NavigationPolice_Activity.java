@@ -89,15 +89,14 @@ public class NavigationPolice_Activity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        Bundle args = new Bundle();
-        args.putString("numero de la seccion", item.getTitle().toString());
+
+
         int id = item.getItemId();
 
         if (id == R.id.mov_configuracion) {
 
         } else if (id == R.id.mov_asignacion_personal) {
-            Fragment fragment = lst_OrdenServicio_Fragment.newInstance("Asignacion Personal", "ejemplo2");
-            fragment.setArguments(args);
+            Fragment fragment = lst_OrdenServicio_Fragment.newInstance("Asignacion Personal", "NavigationPolice_Activity");
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager
                     .beginTransaction()
@@ -105,6 +104,14 @@ public class NavigationPolice_Activity extends AppCompatActivity
                     .commit();
 
         } else if (id == R.id.mov_registro_horas_cmt) {
+
+            Fragment fragment = lst_OrdenServicio_Fragment.newInstance("Registro Hora", "NavigationPolice_Activity");
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager
+                    .beginTransaction()
+                    .replace(R.id.main_content, fragment)
+                    .commit();
+
 
         } else if (id == R.id.mov_registro_vehiculo) {
 

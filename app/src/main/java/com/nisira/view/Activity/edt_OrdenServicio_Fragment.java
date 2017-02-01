@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Slide;
 import android.transition.TransitionInflater;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,6 +74,7 @@ public class edt_OrdenServicio_Fragment extends FragmentNisira {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(OPCION);
             mParam2 = getArguments().getString(ANTERIOR);
+            ordenserviciocliente = (Ordenserviciocliente) getArguments().getSerializable("OrdenServicio");
         }
     }
 
@@ -81,13 +83,6 @@ public class edt_OrdenServicio_Fragment extends FragmentNisira {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_edt__dorden_servicio, container, false);
         animacionEntrada();
-        System.out.println("ORDEN SERVICIO");
-        ordenserviciocliente = (Ordenserviciocliente) getArguments().getSerializable("OrdenServicio");
-        System.out.println(ordenserviciocliente.getNro_oservicio());
-        System.out.println(ordenserviciocliente.getNrocontenedor());
-        System.out.println(ordenserviciocliente.getNromanual());
-        System.out.println(ordenserviciocliente.getNroprecinto());
-
         txt_documento = (TextInputEditText)view.findViewById(R.id.txt_documento);
         txt_cliente = (TextInputEditText)view.findViewById(R.id.txt_ordenservicio);
         txt_nrocont = (TextInputEditText)view.findViewById(R.id.txt_nrocont);
@@ -96,9 +91,20 @@ public class edt_OrdenServicio_Fragment extends FragmentNisira {
         txt_nroservicio = (TextInputEditText)view.findViewById(R.id.txt_nroservicio);
         txt_fecha = (TextView)view.findViewById(R.id.txt_fecha);
         txt_estado = (TextView)view.findViewById(R.id.txt_estado);
-
         recyclerView = (RecyclerView)view.findViewById(R.id.recycler_os);
+        LlenarCampos();
 
+        return view;
+    }
+    
+
+    public void animacionEntrada(){
+        Slide slide = (Slide) TransitionInflater.from(getContext()).inflateTransition(R.transition.activity_slide);
+        setExitTransition(slide);
+        setEnterTransition(slide);
+    }
+
+    public void LlenarCampos(){
         txt_nrocont.setText(ordenserviciocliente.getNrocontenedor());
         txt_nromanual.setText(ordenserviciocliente.getNromanual());
         txt_nroprecinto.setText(ordenserviciocliente.getNroprecinto());
@@ -124,18 +130,14 @@ public class edt_OrdenServicio_Fragment extends FragmentNisira {
         DordenservicioclienteDao  DordenservicioclienteDao = new DordenservicioclienteDao();
         try {
             List<Dordenserviciocliente> lstordenserviciocliente = DordenservicioclienteDao.ListarxOrdenServicio(ordenserviciocliente);
-            adapter = new Adapter_edt_DOrdenServicio(lstordenserviciocliente,getFragmentManager(),ordenserviciocliente);
+            adapter = new Adapter_edt_DOrdenServicio(mParam1,lstordenserviciocliente,getFragmentManager(),ordenserviciocliente);
             recyclerView.setAdapter(adapter);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return view;
     }
-    
 
-    public void animacionEntrada(){
-        Slide slide = (Slide) TransitionInflater.from(getContext()).inflateTransition(R.transition.activity_slide);
-        setExitTransition(slide);
-        setEnterTransition(slide);
+    public void Listeners(){
+
     }
 }

@@ -25,8 +25,10 @@ import com.nisira.core.entity.Ordenserviciocliente;
 import com.nisira.core.entity.Personal_servicio;
 import com.nisira.core.interfaces.FragmentNisira;
 import com.nisira.gcalderon.policesecurity.R;
+import com.nisira.view.Adapter.Adapter_edt_DPersonalServicio;
 import com.nisira.view.Adapter.Adapter_edt_PersonalServicio;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import static android.view.View.GONE;
@@ -45,9 +47,7 @@ public class edt_DPersonalServicio_Fragment extends FragmentNisira {
     private String mParam1;
     private String mParam2;
     private EditText txt_documento;
-    private EditText txt_cliente;
-    private TextView txt_estado;
-    private TextInputEditText txt_producto;
+    private TextInputEditText txt_personal,txt_producto,txt_fecha,txt_estado;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager lManager;
@@ -87,9 +87,10 @@ public class edt_DPersonalServicio_Fragment extends FragmentNisira {
         View view = inflater.inflate(R.layout.fragment_edt_dpersonalservicio, container, false);
         animacionEntrada();
         txt_documento = (EditText)view.findViewById(R.id.txt_documento);
-        txt_cliente = (EditText)view.findViewById(R.id.txt_cliente);
+        txt_personal = (TextInputEditText) view.findViewById(R.id.txt_personal);
         txt_producto = (TextInputEditText)view.findViewById(R.id.txt_producto);
-        txt_estado = (TextView)view.findViewById(R.id.txt_estado);
+        txt_fecha = (TextInputEditText)view.findViewById(R.id.txt_fecha);
+        txt_estado = (TextInputEditText)view.findViewById(R.id.txt_estado);
         recyclerView = (RecyclerView)view.findViewById(R.id.recycler_os);
         multiple_fab = (FloatingActionsMenu)view.findViewById(R.id.multiple_fab);
         /******FIJOS PARA MANTENEDOR**************/
@@ -113,8 +114,11 @@ public class edt_DPersonalServicio_Fragment extends FragmentNisira {
         txt_documento.setText(ordenserviciocliente.getIddocumento()+ " " +
                 ordenserviciocliente.getSerie()+ "-"+
                 ordenserviciocliente.getNumero());
-        txt_cliente.setText(ordenserviciocliente.getCliente());
+        txt_personal.setText(personal_servicio.getNombres());
         txt_producto.setText(dordenserviciocliente.getDescripcion_servicio());
+        SimpleDateFormat sm = new SimpleDateFormat("dd-MM-yyyy");
+        String strDate = sm.format(personal_servicio.getFechaoperacion());
+        txt_fecha.setText(strDate);
         if(ordenserviciocliente.getIdestado().equals("PE")){
             txt_estado.setText("Pendiente");
         }
@@ -126,8 +130,9 @@ public class edt_DPersonalServicio_Fragment extends FragmentNisira {
             list = Dpersonal_servicioDao.listarxPersonalServicio(personal_servicio);
             switch (mParam1){
                 case "Registro Hora":
-                    //Adapter_edt_PersonalServicio adapter = new Adapter_edt_PersonalServicio(mParam1,list,getFragmentManager());
-                    //recyclerView.setAdapter(adapter);
+                    Adapter_edt_DPersonalServicio adapter = new Adapter_edt_DPersonalServicio(mParam1,list,
+                            getFragmentManager(),personal_servicio);
+                    recyclerView.setAdapter(adapter);
                     break;
             }
 
@@ -151,7 +156,7 @@ public class edt_DPersonalServicio_Fragment extends FragmentNisira {
             public void onClick(View v) {
 
                 for(int i=0;i<list.size();i++) {
-                    /*
+
                     if (list.get(i).isSeleccion()) {
 
                         Fragment fragment = mnt_PersonalServicio_Fragment.newInstance(mParam1, "Modificar");
@@ -165,7 +170,7 @@ public class edt_DPersonalServicio_Fragment extends FragmentNisira {
                         ft.commit();
                         break;
                     }
-                    */
+
                 }
             }
         });

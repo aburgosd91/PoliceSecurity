@@ -34,6 +34,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class Adapter_edt_DOrdenServicio extends RecyclerView.Adapter<Adapter_edt_DOrdenServicio.ListaViewHolder>{
 
     private List<Dordenserviciocliente> items;
+    public String OPCION;
     Context context;
     FragmentManager fragmentManager;
     Ordenserviciocliente ordenserviciocliente;
@@ -60,7 +61,8 @@ public class Adapter_edt_DOrdenServicio extends RecyclerView.Adapter<Adapter_edt
         }
     }
 
-    public Adapter_edt_DOrdenServicio(List<Dordenserviciocliente> items, FragmentManager fragmentManager, Ordenserviciocliente ordenserviciocliente) {
+    public Adapter_edt_DOrdenServicio(String OPCION,List<Dordenserviciocliente> items, FragmentManager fragmentManager, Ordenserviciocliente ordenserviciocliente) {
+        this.OPCION = OPCION;
         this.items = items;
         this.fragmentManager = fragmentManager;
         this.ordenserviciocliente = ordenserviciocliente;
@@ -102,11 +104,10 @@ public class Adapter_edt_DOrdenServicio extends RecyclerView.Adapter<Adapter_edt
                 viewHolder.seleccion.setImageResource(R.drawable.ic_check_big);
                 viewHolder.fondo_seleccion.setBackgroundColor(v.getResources().getColor(R.color.amarillo));
 
-                Bundle bundle = new Bundle();
+                Fragment fragment = edt_PersonalServicio_Fragment.newInstance(OPCION, "edt_OrdenServicio_Fragment");
+                Bundle bundle = fragment.getArguments();
                 bundle.putSerializable("DOrdenServicio", items.get(i));
                 bundle.putSerializable("OrdenServicio",ordenserviciocliente);
-
-                Fragment fragment = edt_PersonalServicio_Fragment.newInstance("Asignacion Personal", "edt_OrdenServicio_Fragment");
                 fragment.setArguments(bundle);
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.main_content, fragment, "NewFragmentTag");

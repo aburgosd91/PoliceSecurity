@@ -23,8 +23,8 @@ import java.util.List;
 public class lst_OrdenServicio_Fragment extends FragmentNisira {
 
     // TODO: ELEMENTOS DEL LAYOUT
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String OPCION = "param1";
+    private static final String ANTERIOR = "param2";
     private RecyclerView recycler;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager lManager;
@@ -41,8 +41,8 @@ public class lst_OrdenServicio_Fragment extends FragmentNisira {
     public static lst_OrdenServicio_Fragment newInstance(String param1, String param2) {
         lst_OrdenServicio_Fragment fragment = new lst_OrdenServicio_Fragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(OPCION, param1);
+        args.putString(ANTERIOR, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,8 +51,8 @@ public class lst_OrdenServicio_Fragment extends FragmentNisira {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mParam1 = getArguments().getString(OPCION);
+            mParam2 = getArguments().getString(ANTERIOR);
         }
 
     }
@@ -77,7 +77,7 @@ public class lst_OrdenServicio_Fragment extends FragmentNisira {
             //List<Clieprov> listClieprov = (List<Clieprov>) Util.stringListObject("com.nisira.core.entity.Clieprov",result);
             List<Ordenserviciocliente> listServCliente = ordenservicioclienteDao.listOrdenServicioxCliente();
             // Crear un nuevo adaptador
-            adapter = new Adapter_lst_OrdenServicio(listServCliente,getFragmentManager());
+            adapter = new Adapter_lst_OrdenServicio(mParam1,listServCliente,getFragmentManager());
             recycler.setAdapter(adapter);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

@@ -30,7 +30,7 @@ public class Login_Activity extends ActivityNisiraCompat implements ActivityComp
             //{"METHOD_LIST_CLIEPROV",20},
             //{"METHOD_LIST_CONSUMIDOR", 8},
             //{"METHOD_LIST_CONCEPTO_CUENTA", 5},
-            {"METHOD_LIST_CARGOS_PERSONAL", 5},
+            //{"METHOD_LIST_CARGOS_PERSONAL", 5},
             //{"METHOD_LIST_DOCUMENTOS",6},
             //{"METHOD_LIST_NUMEMISOR",10},
             //{"METHOD_LIST_PERSONAL_SERVICIO",8},
