@@ -1,54 +1,70 @@
 package com.nisira.view.Activity;
 
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Slide;
+import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.nisira.core.dao.Dpersonal_servicioDao;
 import com.nisira.core.dao.OrdenservicioclienteDao;
+import com.nisira.core.dao.Personal_servicioDao;
+import com.nisira.core.entity.Dordenserviciocliente;
+import com.nisira.core.entity.Dpersonal_servicio;
 import com.nisira.core.entity.Ordenserviciocliente;
+import com.nisira.core.entity.Personal_servicio;
 import com.nisira.core.interfaces.FragmentNisira;
 import com.nisira.gcalderon.policesecurity.R;
+import com.nisira.view.Adapter.Adapter_edt_PersonalServicio;
 
 import java.util.List;
+
+import static android.view.View.GONE;
 
 
 public class edt_DPersonalServicio_Fragment extends FragmentNisira {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String OPCION = "param1";
+    private static final String ANTERIOR = "param2";
+    private Ordenserviciocliente ordenserviciocliente;
+    private Dordenserviciocliente dordenserviciocliente;
+    private Personal_servicio personal_servicio;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     private EditText txt_documento;
     private EditText txt_cliente;
+    private TextView txt_estado;
+    private TextInputEditText txt_producto;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager lManager;
+    private FloatingActionButton btn_agregar,btn_modificar,btn_delete;
+    private List<Dpersonal_servicio> list;
+    private FloatingActionsMenu multiple_fab;
 
     public edt_DPersonalServicio_Fragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment edt_OrdenServicio_Fragment.
-     */
     // TODO: Rename and change types and number of parameters
     public static edt_DPersonalServicio_Fragment newInstance(String param1, String param2) {
         edt_DPersonalServicio_Fragment fragment = new edt_DPersonalServicio_Fragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(OPCION, param1);
+        args.putString(ANTERIOR, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,33 +73,109 @@ public class edt_DPersonalServicio_Fragment extends FragmentNisira {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mParam1 = getArguments().getString(OPCION);
+            mParam2 = getArguments().getString(ANTERIOR);
+            ordenserviciocliente = (Ordenserviciocliente) getArguments().getSerializable("OrdenServicio");
+            personal_servicio = (Personal_servicio)getArguments().getSerializable("PersonalServicio");
+            dordenserviciocliente = (Dordenserviciocliente)getArguments().getSerializable("DOrdenServicio");
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_edt__orden_servicio, container, false);
+        View view = inflater.inflate(R.layout.fragment_edt_dpersonalservicio, container, false);
+        animacionEntrada();
         txt_documento = (EditText)view.findViewById(R.id.txt_documento);
         txt_cliente = (EditText)view.findViewById(R.id.txt_cliente);
+        txt_producto = (TextInputEditText)view.findViewById(R.id.txt_producto);
+        txt_estado = (TextView)view.findViewById(R.id.txt_estado);
         recyclerView = (RecyclerView)view.findViewById(R.id.recycler_os);
+        multiple_fab = (FloatingActionsMenu)view.findViewById(R.id.multiple_fab);
+        /******FIJOS PARA MANTENEDOR**************/
+        btn_agregar = (FloatingActionButton)view.findViewById(R.id.fab_agregar);
+        btn_modificar = (FloatingActionButton)view.findViewById(R.id.fab_modificar);
+        btn_delete = (FloatingActionButton)view.findViewById(R.id.fab_eliminar);
+        /*****************************************/
 
-        txt_documento.setText("Orden Servicio Cliente");
-        txt_cliente.setText("Olivia Peña Carlos Alberto");
+        Listeners();
+        LlenarCampos();
+        return view;
+    }
+    public void animacionEntrada(){
+        Slide slide = (Slide) TransitionInflater.from(getContext()).inflateTransition(R.transition.activity_slide);
+        setExitTransition(slide);
+        setEnterTransition(slide);
+    }
 
+    public void LlenarCampos(){
+        //TODO LLENAR CAMPOS
+        txt_documento.setText(ordenserviciocliente.getIddocumento()+ " " +
+                ordenserviciocliente.getSerie()+ "-"+
+                ordenserviciocliente.getNumero());
+        txt_cliente.setText(ordenserviciocliente.getCliente());
+        txt_producto.setText(dordenserviciocliente.getDescripcion_servicio());
+        if(ordenserviciocliente.getIdestado().equals("PE")){
+            txt_estado.setText("Pendiente");
+        }
         recyclerView.setHasFixedSize(true);
         lManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(lManager);
-        OrdenservicioclienteDao  ordenservicioclienteDao = new OrdenservicioclienteDao();
+        Dpersonal_servicioDao Dpersonal_servicioDao = new Dpersonal_servicioDao();
         try {
-            //List<Ordenserviciocliente> lstordenserviciocliente = ordenservicioclienteDao.listOrdenServicioxCliente();
-            //List_Adapter_OrdenServicio adapter = new List_Adapter_OrdenServicio(lstordenserviciocliente,getFragmentManager());
-            //recyclerView.setAdapter(adapter);
+            list = Dpersonal_servicioDao.listarxPersonalServicio(personal_servicio);
+            switch (mParam1){
+                case "Registro Hora":
+                    //Adapter_edt_PersonalServicio adapter = new Adapter_edt_PersonalServicio(mParam1,list,getFragmentManager());
+                    //recyclerView.setAdapter(adapter);
+                    break;
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return view;
     }
+
+    public void Listeners(){
+        //TODO EVENTOS
+
+        btn_agregar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        btn_modificar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                for(int i=0;i<list.size();i++) {
+                    /*
+                    if (list.get(i).isSeleccion()) {
+
+                        Fragment fragment = mnt_PersonalServicio_Fragment.newInstance(mParam1, "Modificar");
+                        Bundle bundle = fragment.getArguments();
+                        bundle.putSerializable("DOrdenServicio", dordenserviciocliente);
+                        bundle.putSerializable("PersonalServicio", list.get(i));
+                        fragment.setArguments(bundle);
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        ft.replace(R.id.main_content, fragment, "NewFragmentTag");
+                        ft.addToBackStack(null);
+                        ft.commit();
+                        break;
+                    }
+                    */
+                }
+            }
+        });
+
+        btn_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //DEFINIR
+            }
+        });
+    }
+
 }
