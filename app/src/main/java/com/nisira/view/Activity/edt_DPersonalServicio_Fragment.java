@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.nisira.core.dao.DordenservicioclienteDao;
 import com.nisira.core.dao.Dpersonal_servicioDao;
 import com.nisira.core.dao.OrdenservicioclienteDao;
 import com.nisira.core.dao.Personal_servicioDao;
@@ -29,6 +30,7 @@ import com.nisira.view.Adapter.Adapter_edt_DPersonalServicio;
 import com.nisira.view.Adapter.Adapter_edt_PersonalServicio;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import static android.view.View.GONE;
@@ -149,6 +151,24 @@ public class edt_DPersonalServicio_Fragment extends FragmentNisira {
             @Override
             public void onClick(View v) {
 
+                Dpersonal_servicio dpersonal_servicio = new Dpersonal_servicio();
+                dpersonal_servicio.setIdcargo(personal_servicio.getIdcargo());
+                dpersonal_servicio.setIdempresa(personal_servicio.getIdempresa());
+                dpersonal_servicio.setItem_dordenservicio(personal_servicio.getItem());
+                dpersonal_servicio.setItem2(personal_servicio.getItem2());
+                dpersonal_servicio.setIdordenservicio(personal_servicio.getIdordenservicio());
+                dpersonal_servicio.setFecharegistro(Calendar.getInstance().getTime());
+
+                Fragment fragment = mnt_DPersonalServicio_Fragment.newInstance(mParam1, "Agregar");
+                Bundle bundle = fragment.getArguments();
+                bundle.putSerializable("DOrdenServicio", dordenserviciocliente);
+                bundle.putSerializable("DPersonalServicio",dpersonal_servicio);
+                fragment.setArguments(bundle);
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(R.id.main_content, fragment, "NewFragmentTag");
+                ft.addToBackStack(null);
+                ft.commit();
+
             }
         });
 
@@ -160,10 +180,10 @@ public class edt_DPersonalServicio_Fragment extends FragmentNisira {
 
                     if (list.get(i).isSeleccion()) {
 
-                        Fragment fragment = mnt_PersonalServicio_Fragment.newInstance(mParam1, "Modificar");
+                        Fragment fragment = mnt_DPersonalServicio_Fragment.newInstance(mParam1, "Modificar");
                         Bundle bundle = fragment.getArguments();
                         bundle.putSerializable("DOrdenServicio", dordenserviciocliente);
-                        bundle.putSerializable("PersonalServicio", list.get(i));
+                        bundle.putSerializable("DPersonalServicio", list.get(i));
                         fragment.setArguments(bundle);
                         FragmentTransaction ft = getFragmentManager().beginTransaction();
                         ft.replace(R.id.main_content, fragment, "NewFragmentTag");
@@ -179,7 +199,18 @@ public class edt_DPersonalServicio_Fragment extends FragmentNisira {
         btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //DEFINIR
+                for(int i=0;i<list.size();i++) {
+
+                    if (list.get(i).isSeleccion()) {
+                        Dpersonal_servicioDao dao = new Dpersonal_servicioDao();
+                        try {
+                            dao.Eliminar(list.get(i));
+                            list.remove(i);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
             }
         });
     }
