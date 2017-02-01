@@ -13,37 +13,44 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.nisira.core.dao.Dpersonal_servicioDao;
+import com.nisira.core.entity.Dpersonal_servicio;
+import com.nisira.core.util.Util;
 import com.nisira.gcalderon.policesecurity.R;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 
 public class mnt_DPersonalServicio_Fragment extends Fragment {
     // TODO: ELEMENTOS DE LAYOUT
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private AutoCompleteTextView listbox;
+    private Dpersonal_servicio dpersonal_servicio;
     private EditText hora_llegada;
     private EditText hora_requerida;
     private EditText hora_inicio;
     private EditText hora_fin;
     private EditText hora_liberacion;
     private EditText fecha_operacion;
+    private TextView txt_titulo;
     private FloatingActionButton btn_cancelar;
     private FloatingActionButton btn_acaptar;
 
     // TODO: PARAMETROS DE ENTRADA
     private String mParam1;
     private String mParam2;
-/*
+
     public mnt_DPersonalServicio_Fragment() {
         // Required empty public constructor
     }
-*/
+
     // TODO: FUNCIONES Y METODOS
     public static mnt_DPersonalServicio_Fragment newInstance(String param1, String param2) {
         mnt_DPersonalServicio_Fragment fragment = new mnt_DPersonalServicio_Fragment();
@@ -60,18 +67,16 @@ public class mnt_DPersonalServicio_Fragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            dpersonal_servicio = (Dpersonal_servicio) getArguments().getSerializable("DPersonalServicio");
+
         }
     }
-    @SuppressLint("NewApi")
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_mnt_personalservicio, container, false);
+        View view = inflater.inflate(R.layout.fragment_mnt_dpersonalservicio, container, false);
         animacionEntrada();
-        String[] NOMBRES = new String[] {
-                "Gian", "Giancarlo", "Alex", "Andy","Ayrton","Acevedo","Antonela","Antony","Antonio"
-                ,"André", "Joshe", "Alejandro","Aldo"
-        };
         hora_requerida = (EditText)view.findViewById(R.id.hora_requerida);
         hora_llegada = (EditText)view.findViewById(R.id.hora_llegada);
         hora_inicio = (EditText)view.findViewById(R.id.hora_inicio);
@@ -80,11 +85,54 @@ public class mnt_DPersonalServicio_Fragment extends Fragment {
         fecha_operacion = (EditText)view.findViewById(R.id.fecha_servicio);
         btn_cancelar = (FloatingActionButton)view.findViewById(R.id.fab_cancelar);
         btn_acaptar = (FloatingActionButton)view.findViewById(R.id.fab_aceptar);
-        listbox = (AutoCompleteTextView) view.findViewById(R.id.autocompletetext1);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                android.R.layout.simple_dropdown_item_1line,NOMBRES);
-        listbox.setAdapter(adapter);
+        txt_titulo = (TextView)view.findViewById(R.id.txt_titulo);
 
+        LlenarCampos();
+        Listeners();
+
+        return view;
+    }
+
+    // TODO: TRANSICIONES Y ANIMACIONES
+
+    public void animacionEntrada(){
+        Fade fade = (Fade) TransitionInflater.from(this.getContext()).inflateTransition(R.transition.activity_fade);
+        setEnterTransition(fade);
+        Slide slide = (Slide) TransitionInflater.from(getContext()).inflateTransition(R.transition.activity_slide);
+        setExitTransition(slide);
+    }
+
+    public void LlenarCampos(){
+        txt_titulo.setText(mParam2);
+        switch (mParam2){
+            case "Modificar":
+                hora_requerida.setText(Util.convertDecimalTime(
+                        dpersonal_servicio.getHora_req()
+                ));
+                hora_llegada.setText(Util.convertDecimalTime(
+                        dpersonal_servicio.getHora_llegada()
+                ));
+                hora_inicio.setText(Util.convertDecimalTime(
+                        dpersonal_servicio.getHora_inicio_serv()
+                ));
+                hora_fin.setText(Util.convertDecimalTime(
+                        dpersonal_servicio.getHora_fin_serv()
+                ));
+                hora_liberacion.setText(Util.convertDecimalTime(
+                        dpersonal_servicio.getHora_liberacion()
+                ));
+                SimpleDateFormat sm = new SimpleDateFormat("dd-MM-yyyy");
+                String strDate = sm.format(dpersonal_servicio.getFecharegistro());
+                fecha_operacion.setText(strDate);
+                break;
+            case "Agregar":
+
+                break;
+        }
+
+    }
+
+    public void Listeners(){
         //TODO EVENTOS
         hora_requerida.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +152,7 @@ public class mnt_DPersonalServicio_Fragment extends Fragment {
                 tpd.show(getActivity().getFragmentManager(), "Timepickerdialog");
             }
         });
+
         hora_llegada.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,6 +171,7 @@ public class mnt_DPersonalServicio_Fragment extends Fragment {
                 tpd.show(getActivity().getFragmentManager(), "Timepickerdialog");
             }
         });
+
         hora_inicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,6 +190,7 @@ public class mnt_DPersonalServicio_Fragment extends Fragment {
                 tpd.show(getActivity().getFragmentManager(), "Timepickerdialog");
             }
         });
+
         hora_fin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,6 +209,7 @@ public class mnt_DPersonalServicio_Fragment extends Fragment {
                 tpd.show(getActivity().getFragmentManager(), "Timepickerdialog");
             }
         });
+
         hora_liberacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -176,6 +228,7 @@ public class mnt_DPersonalServicio_Fragment extends Fragment {
                 tpd.show(getActivity().getFragmentManager(), "Timepickerdialog");
             }
         });
+
         fecha_operacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -194,34 +247,44 @@ public class mnt_DPersonalServicio_Fragment extends Fragment {
                 dpd.show(getActivity().getFragmentManager(), "Datepickerdialog");
             }
         });
+
         btn_cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.main_content, new List_Fragment_Personal(), "NewFragmentTag");
-                ft.commit();
+                getActivity().onBackPressed();
+
             }
         });
+
         btn_acaptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.main_content, new List_Fragment_Personal(), "NewFragmentTag");
-                ft.commit();
+                Dpersonal_servicioDao dao = new Dpersonal_servicioDao();
+                dpersonal_servicio.setHora_req((double) Util.convertTimeDecimal(
+                        hora_requerida.getText().toString()
+                ));
+                dpersonal_servicio.setHora_llegada((double) Util.convertTimeDecimal(
+                        hora_llegada.getText().toString()
+                ));
+                dpersonal_servicio.setHora_inicio_serv((double) Util.convertTimeDecimal(
+                        hora_inicio.getText().toString()
+                ));
+                dpersonal_servicio.setHora_fin_serv((double) Util.convertTimeDecimal(
+                        hora_fin.getText().toString()
+                ));
+                dpersonal_servicio.setHora_liberacion((double) Util.convertTimeDecimal(
+                        hora_liberacion.getText().toString()
+                ));
+
+                try {
+                    dao.mezclarLocal(dpersonal_servicio);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                getActivity().onBackPressed();
             }
         });
-
-        return view;
-    }
-
-    // TODO: TRANSICIONES Y ANIMACIONES
-
-    @SuppressLint("NewApi")
-    public void animacionEntrada(){
-        Fade fade = (Fade) TransitionInflater.from(this.getContext()).inflateTransition(R.transition.activity_fade);
-        setEnterTransition(fade);
-        Slide slide = (Slide) TransitionInflater.from(getContext()).inflateTransition(R.transition.activity_slide);
-        setExitTransition(slide);
     }
 
 

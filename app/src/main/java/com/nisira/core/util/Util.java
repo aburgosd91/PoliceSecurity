@@ -146,10 +146,12 @@ public final class Util {
         return object;
     }
 
-    public static float convertTimeDecimal(Date time){
+    public static float convertTimeDecimal(String time){
+        if(time.equals("")) return Float.parseFloat(null);
         float timeF=0.0f;
-        int hora= time.getHours();
-        int minutos= time.getMinutes();
+        String[] parts = time.split(":");
+        int hora= Integer.parseInt(parts[0]);
+        int minutos= Integer.parseInt(parts[1]);
         timeF=((float)hora)+((float)minutos/(float)60);
         return Math.round(timeF*100.0f)/100.0f;
     }
@@ -157,7 +159,10 @@ public final class Util {
         String obj;
         int hora = (int)timeF;
         int minutos = (int)((timeF-(float)hora)*60);
-        obj= hora+":"+minutos;
+        if(minutos==6)
+            obj= hora+":"+minutos+"0";
+        else
+            obj= hora+":"+minutos;
         return obj;
     }
 

@@ -39,4 +39,7 @@ public class Dpersonal_servicioDao extends BaseDao<Dpersonal_servicio> {
 		}
 		return null;
 	}
+	public void Eliminar(Dpersonal_servicio obj) throws Exception {
+		borrar(obj);
+	}
 }

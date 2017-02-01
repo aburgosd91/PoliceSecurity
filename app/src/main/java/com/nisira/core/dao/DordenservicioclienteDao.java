@@ -48,4 +48,5 @@ public class DordenservicioclienteDao extends BaseDao<Dordenserviciocliente> {
 	}
 
 
+
 }

@@ -80,11 +80,11 @@ public class Adapter_edt_DPersonalServicio extends RecyclerView.Adapter<Adapter_
         SimpleDateFormat sm = new SimpleDateFormat("dd-MM-yyyy");
         String strDate = sm.format(items.get(i).getFecharegistro());
         viewHolder.documento.setText("Fecha: "+strDate);
-        viewHolder.hora_req_llegada.setText("Requerida: "+
-                Util.convertDecimalTime(items.get(i).getHora_req())+ " Llegada:"+
+        viewHolder.hora_req_llegada.setText("Req.: "+
+                Util.convertDecimalTime(items.get(i).getHora_req())+ "| Llegada:"+
                 Util.convertDecimalTime(items.get(i).getHora_llegada()));
         viewHolder.hora_inicio_fin.setText("Inicio:"+
-                Util.convertDecimalTime(items.get(i).getHora_inicio_serv())+" Fin:"+
+                Util.convertDecimalTime(items.get(i).getHora_inicio_serv())+"| Fin:"+
                         Util.convertDecimalTime(items.get(i).getHora_fin_serv()));
 
         viewHolder.hora_liberacion.setText("Liberacion: "+
