@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.nisira.core.dao.DordenservicioclienteDao;
 import com.nisira.core.entity.Dordenserviciocliente;
 import com.nisira.core.entity.Ordenserviciocliente;
@@ -41,6 +42,7 @@ public class edt_OrdenServicio_Fragment extends FragmentNisira {
     private TextInputEditText txt_nroservicio;
     private TextView txt_fecha;
     private TextView txt_estado;
+    private FloatingActionsMenu multiple_fab;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -51,14 +53,7 @@ public class edt_OrdenServicio_Fragment extends FragmentNisira {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment edt_OrdenServicio_Fragment.
-     */
+
     // TODO: Rename and change types and number of parameters
     public static edt_OrdenServicio_Fragment newInstance(String param1, String param2) {
         edt_OrdenServicio_Fragment fragment = new edt_OrdenServicio_Fragment();
@@ -93,8 +88,9 @@ public class edt_OrdenServicio_Fragment extends FragmentNisira {
         txt_fecha = (TextView)view.findViewById(R.id.txt_fecha);
         txt_estado = (TextView)view.findViewById(R.id.txt_estado);
         recyclerView = (RecyclerView)view.findViewById(R.id.recycler_os);
+        multiple_fab = (FloatingActionsMenu) view.findViewById(R.id.multiple_fab);
         LlenarCampos();
-
+        Listeners();
         return view;
     }
     
@@ -136,6 +132,7 @@ public class edt_OrdenServicio_Fragment extends FragmentNisira {
                 case "Registro Hora":
                     adapter = new Adapter_edt_DOrdenServicio(mParam1,lstordenserviciocliente,getFragmentManager(),ordenserviciocliente);
                     recyclerView.setAdapter(adapter);
+
                     break;
                 case "Registro Vehiculo":
                     adapter = new Adapter_edt_DOrdenServicio_vehiculo(mParam1,lstordenserviciocliente,getFragmentManager(),ordenserviciocliente);

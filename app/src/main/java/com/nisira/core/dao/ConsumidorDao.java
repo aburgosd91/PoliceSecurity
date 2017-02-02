@@ -28,4 +28,14 @@ public class ConsumidorDao extends BaseDao<Consumidor> {
 				actualizar(obj);
 		}
 	}
+	public List<Consumidor> ListarConsumidor(Ordenserviciocliente obj)throws Exception {
+		if (obj != null) {
+			List<Consumidor> lst = listar("LTRIM(RTRIM(t0.IDEMPRESA)) =? ", obj.getIdempresa().trim());
+			if(lst.isEmpty()){
+				return null;
+			}else
+				return lst;
+		}
+		return null;
+	}
 }

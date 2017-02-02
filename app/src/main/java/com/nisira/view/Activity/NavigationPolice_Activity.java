@@ -92,6 +92,12 @@ public class NavigationPolice_Activity extends AppCompatActivity
 
 
         int id = item.getItemId();
+        if(getSupportFragmentManager().getFragments()!=null){
+            for(Fragment fragment:getSupportFragmentManager().getFragments()){
+
+                getSupportFragmentManager().popBackStack();
+            }
+        }
 
         if (id == R.id.mov_configuracion) {
 

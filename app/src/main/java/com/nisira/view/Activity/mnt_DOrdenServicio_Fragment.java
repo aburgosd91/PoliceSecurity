@@ -17,6 +17,7 @@ import android.widget.EditText;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.nisira.core.dao.ConsumidorDao;
 import com.nisira.core.entity.Consumidor;
+import com.nisira.core.entity.Ordenserviciocliente;
 import com.nisira.gcalderon.policesecurity.R;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
@@ -30,6 +31,8 @@ public class mnt_DOrdenServicio_Fragment extends Fragment {
     // TODO: ELEMENTOS DE LAYOUT
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private Ordenserviciocliente ordenserviciocliente;
     private AutoCompleteTextView txt_vehiculos;
     private EditText hora_llegada;
     private EditText hora_requerida;
@@ -64,6 +67,7 @@ public class mnt_DOrdenServicio_Fragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            ordenserviciocliente = (Ordenserviciocliente) getArguments().getSerializable("OrdenServicio");
         }
     }
     @SuppressLint("NewApi")
@@ -87,10 +91,8 @@ public class mnt_DOrdenServicio_Fragment extends Fragment {
         return view;
     }
 
-    // TODO: TRANSICIONES Y ANIMACIONES
-
-    @SuppressLint("NewApi")
     public void animacionEntrada(){
+        // TODO: TRANSICIONES Y ANIMACIONES
         Fade fade = (Fade) TransitionInflater.from(this.getContext()).inflateTransition(R.transition.activity_fade);
         setEnterTransition(fade);
         Slide slide = (Slide) TransitionInflater.from(getContext()).inflateTransition(R.transition.activity_slide);
@@ -102,7 +104,7 @@ public class mnt_DOrdenServicio_Fragment extends Fragment {
         ConsumidorDao dao = new ConsumidorDao();
         List<Consumidor> consumidors= new ArrayList<>();
         try {
-            consumidors = dao.listar();
+            consumidors = dao.ListarConsumidor(ordenserviciocliente);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -224,9 +226,7 @@ public class mnt_DOrdenServicio_Fragment extends Fragment {
         btn_cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.main_content, new List_Fragment_Personal(), "NewFragmentTag");
-                ft.commit();
+                getActivity().onBackPressed();
             }
         });
         btn_acaptar.setOnClickListener(new View.OnClickListener() {
