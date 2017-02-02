@@ -43,11 +43,11 @@ public class mnt_DOrdenServicio_Fragment extends Fragment {
     // TODO: PARAMETROS DE ENTRADA
     private String mParam1;
     private String mParam2;
-/*
-    public mnt_DPersonalServicio_Fragment() {
+
+    public mnt_DOrdenServicio_Fragment() {
         // Required empty public constructor
     }
-*/
+
     // TODO: FUNCIONES Y METODOS
     public static mnt_DOrdenServicio_Fragment newInstance(String param1, String param2) {
         mnt_DOrdenServicio_Fragment fragment = new mnt_DOrdenServicio_Fragment();
