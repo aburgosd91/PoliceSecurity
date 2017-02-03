@@ -42,6 +42,16 @@ public class DordenservicioclienteDao extends BaseDao<Dordenserviciocliente> {
 				}
 				i++;
 			}
+			ConsumidorDao consumidorDao = new ConsumidorDao();
+			i = 0;
+			for(Dordenserviciocliente x:dordenservicioclientes){
+				List<Consumidor> lst = consumidorDao.listar("LTRIM(RTRIM(t0.IDEMPRESA)) =? AND LTRIM(RTRIM(t0.IDCONSUMIDOR))=?", x.getIdempresa().trim(), x.getIdvehiculo().trim());
+				if(!lst.isEmpty()){
+					x.setDescripcion_vehiculo(lst.get(0).getDescripcion());
+					dordenservicioclientes.set(i,x);
+				}
+				i++;
+			}
 			return dordenservicioclientes;
 		}
 		return null;

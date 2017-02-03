@@ -44,6 +44,7 @@ public class Adapter_edt_DOrdenServicio_vehiculo extends RecyclerView.Adapter<Ad
         public TextView placa;
         public TextView fecha_fin;
         public TextView estado;
+        public TextView txtnombrecarro;
         public CircleImageView seleccion;
         public RelativeLayout fondo_seleccion;
         public boolean bool_seleccion;
@@ -56,7 +57,7 @@ public class Adapter_edt_DOrdenServicio_vehiculo extends RecyclerView.Adapter<Ad
             seleccion = (CircleImageView) v.findViewById(R.id.seleccion);
             fecha_fin = (TextView)v.findViewById(R.id.txtfechafin);
             fondo_seleccion = (RelativeLayout) v.findViewById(R.id.fondo_seleccion);
-
+            txtnombrecarro = (TextView)v.findViewById(R.id.txtnombrecarro);
         }
     }
 
@@ -88,30 +89,40 @@ public class Adapter_edt_DOrdenServicio_vehiculo extends RecyclerView.Adapter<Ad
         String strDate = sm.format(items.get(i).getFecha_fin_servicio());
         viewHolder.fecha_fin.setText("Fin servicio: "+strDate);
         viewHolder.placa.setText(items.get(i).getDescripcion_servicio());
+        viewHolder.txtnombrecarro.setText(items.get(i).getDescripcion_vehiculo());
 
-        viewHolder.seleccion.setBackgroundColor(viewHolder.itemView.getResources().getColor(R.color.blue_gray));
-        viewHolder.seleccion.setImageResource(R.drawable.ic_none);
-        viewHolder.fondo_seleccion.setBackgroundColor(viewHolder.itemView.getResources().getColor(R.color.blue_gray));
-
-        Gson gson = new GsonBuilder().serializeSpecialFloatingPointValues().create();
-        System.out.println("DOrdenServicio: "+gson.toJson(items.get(i)));
+        if(items.get(i).isSeleccion()){
+            viewHolder.seleccion.setBackgroundColor(viewHolder.itemView.getResources().getColor(R.color.amarillo));
+            viewHolder.seleccion.setImageResource(R.drawable.ic_check_big);
+            viewHolder.fondo_seleccion.setBackgroundColor(viewHolder.itemView.getResources().getColor(R.color.amarillo));
+        }else {
+            viewHolder.seleccion.setBackgroundColor(viewHolder.itemView.getResources().getColor(R.color.blue_gray));
+            viewHolder.seleccion.setImageResource(R.drawable.ic_none);
+            viewHolder.fondo_seleccion.setBackgroundColor(viewHolder.itemView.getResources().getColor(R.color.blue_gray));
+        }
 
         viewHolder.fondo_seleccion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewHolder.seleccion.setBackgroundColor(v.getResources().getColor(R.color.amarillo));
-                viewHolder.seleccion.setImageResource(R.drawable.ic_check_big);
-                viewHolder.fondo_seleccion.setBackgroundColor(v.getResources().getColor(R.color.amarillo));
+                if(!(items.get(i).isSeleccion())) {
+                    viewHolder.fondo_seleccion.setBackgroundColor(v.getResources().getColor(R.color.amarillo));
+                    viewHolder.seleccion.setBackgroundColor(v.getResources().getColor(R.color.amarillo));
+                    viewHolder.seleccion.setImageResource(R.drawable.ic_check_big);
 
-                Fragment fragment = mnt_DOrdenServicio_Fragment.newInstance(OPCION, "Modificar");
-                Bundle bundle = fragment.getArguments();
-                bundle.putSerializable("DOrdenServicio", items.get(i));
-                bundle.putSerializable("OrdenServicio",ordenserviciocliente);
-                fragment.setArguments(bundle);
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.main_content, fragment, "NewFragmentTag");
-                ft.addToBackStack(null);
-                ft.commit();
+                    for(int j=0;j<items.size();j++){
+                        items.get(j).setSeleccion(false);
+                        notifyItemChanged(j);
+                    }
+                    items.get(i).setSeleccion(true);
+
+                }else{
+                    items.get(i).setSeleccion(false);
+                    viewHolder.seleccion.setBackgroundColor(v.getResources().getColor(R.color.blue_gray));
+                    viewHolder.seleccion.setImageResource(R.drawable.ic_none);
+                    viewHolder.fondo_seleccion.setBackgroundColor(v.getResources().getColor(R.color.blue_gray));
+                }
+                notifyItemChanged(i);
+
             }
         });
 

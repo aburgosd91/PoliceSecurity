@@ -54,7 +54,12 @@ public class Dordenserviciocliente implements Serializable {
 	@XStreamAlias("IDSERVICIO") 
 	private String idservicio = "" ;
 
+	private boolean Seleccion;
+
 	private String descripcion_servicio = "" ;
+
+	private String descripcion_vehiculo="";
+
 
 
 	/* Sets & Gets */
@@ -136,6 +141,22 @@ public class Dordenserviciocliente implements Serializable {
 
 	public void setDescripcion_servicio(String descripcion_servicio) {
 		this.descripcion_servicio = descripcion_servicio;
+	}
+
+	public boolean isSeleccion() {
+		return Seleccion;
+	}
+
+	public void setSeleccion(boolean seleccion) {
+		Seleccion = seleccion;
+	}
+
+	public String getDescripcion_vehiculo() {
+		return descripcion_vehiculo;
+	}
+
+	public void setDescripcion_vehiculo(String descripcion_vehiculo) {
+		this.descripcion_vehiculo = descripcion_vehiculo;
 	}
 
 

@@ -2,6 +2,8 @@ package com.nisira.view.Activity;
 
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Slide;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.nisira.core.dao.DordenservicioclienteDao;
 import com.nisira.core.entity.Dordenserviciocliente;
@@ -22,6 +25,7 @@ import com.nisira.view.Adapter.Adapter_edt_DOrdenServicio;
 import com.nisira.view.Adapter.Adapter_edt_DOrdenServicio_vehiculo;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -43,6 +47,8 @@ public class edt_OrdenServicio_Fragment extends FragmentNisira {
     private TextView txt_fecha;
     private TextView txt_estado;
     private FloatingActionsMenu multiple_fab;
+    private FloatingActionButton fab_modificar;
+    List<Dordenserviciocliente> lstordenserviciocliente = new ArrayList<>();
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -89,6 +95,7 @@ public class edt_OrdenServicio_Fragment extends FragmentNisira {
         txt_estado = (TextView)view.findViewById(R.id.txt_estado);
         recyclerView = (RecyclerView)view.findViewById(R.id.recycler_os);
         multiple_fab = (FloatingActionsMenu) view.findViewById(R.id.multiple_fab);
+        fab_modificar = (FloatingActionButton)view.findViewById(R.id.fab_modificar);
         LlenarCampos();
         Listeners();
         return view;
@@ -126,17 +133,18 @@ public class edt_OrdenServicio_Fragment extends FragmentNisira {
         recyclerView.setLayoutManager(lManager);
         DordenservicioclienteDao  DordenservicioclienteDao = new DordenservicioclienteDao();
         try {
-            List<Dordenserviciocliente> lstordenserviciocliente = DordenservicioclienteDao.ListarxOrdenServicio(ordenserviciocliente);
+            lstordenserviciocliente = DordenservicioclienteDao.ListarxOrdenServicio(ordenserviciocliente);
             switch (mParam1){
                 case "Asignacion Personal":
                 case "Registro Hora":
                     adapter = new Adapter_edt_DOrdenServicio(mParam1,lstordenserviciocliente,getFragmentManager(),ordenserviciocliente);
                     recyclerView.setAdapter(adapter);
-
+                    multiple_fab.setVisibility(View.GONE);
                     break;
                 case "Registro Vehiculo":
                     adapter = new Adapter_edt_DOrdenServicio_vehiculo(mParam1,lstordenserviciocliente,getFragmentManager(),ordenserviciocliente);
                     recyclerView.setAdapter(adapter);
+                    multiple_fab.setVisibility(View.VISIBLE);
                     break;
             }
 
@@ -147,6 +155,24 @@ public class edt_OrdenServicio_Fragment extends FragmentNisira {
     }
 
     public void Listeners(){
+            fab_modificar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
+                    for (int i = 0; i < lstordenserviciocliente.size(); i++) {
+                        if (lstordenserviciocliente.get(i).isSeleccion()) {
+                            Fragment fragment = mnt_DOrdenServicio_Fragment.newInstance(OPCION, "Modificar");
+                            Bundle bundle = fragment.getArguments();
+                            bundle.putSerializable("OrdenServicio", ordenserviciocliente);
+                            bundle.putSerializable("DOrdenServicio",lstordenserviciocliente.get(i));
+                            fragment.setArguments(bundle);
+                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+                            ft.replace(R.id.main_content, fragment, "NewFragmentTag");
+                            ft.addToBackStack(null);
+                            ft.commit();
+                        }
+                    }
+                }
+            });
     }
 }
