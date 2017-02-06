@@ -109,6 +109,8 @@ public class edt_OrdenServicio_Fragment extends FragmentNisira {
     }
 
     public void LlenarCampos(){
+        TextView view = (TextView) getActivity().findViewById(R.id.campo_titulo);
+        view.setText(getString(R.string.edt_OrdenServicio));
         txt_nrocont.setText(ordenserviciocliente.getNrocontenedor());
         txt_nromanual.setText(ordenserviciocliente.getNromanual());
         txt_nroprecinto.setText(ordenserviciocliente.getNroprecinto());

@@ -18,6 +18,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.nisira.core.entity.Ordenserviciocliente;
 import com.nisira.gcalderon.policesecurity.R;
+import com.nisira.view.Activity.NavigationPolice_Activity;
 import com.nisira.view.Activity.edt_OrdenServicio_Fragment;
 import com.nisira.view.Activity.edt_PersonalServicio_Fragment;
 
@@ -54,6 +55,7 @@ public static class ListaViewHolder extends RecyclerView.ViewHolder {
         seleccion = (CircleImageView) v.findViewById(R.id.seleccion);
         fondo_seleccion = (RelativeLayout) v.findViewById(R.id.fondo_seleccion);
         fecha = (TextView) v.findViewById(R.id.txtfecha);
+
     }
 }
 

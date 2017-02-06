@@ -102,6 +102,8 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
 
     public void LlenarCampos(){
 
+        TextView view = (TextView) getActivity().findViewById(R.id.campo_titulo);
+        view.setText(getString(R.string.mnt_PersonalServicio));
         campo_ID.setText(personal_servicio.getItem2());
         campo_cargo.setText(personal_servicio.getDescripcion_cargo());
         campo_numero.setText(personal_servicio.getDni());

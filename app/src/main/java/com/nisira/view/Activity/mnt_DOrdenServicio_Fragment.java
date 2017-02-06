@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.nisira.core.dao.ConsumidorDao;
@@ -99,7 +100,8 @@ public class mnt_DOrdenServicio_Fragment extends Fragment {
     }
 
     public void LlenarCampos(){
-
+        TextView view = (TextView) getActivity().findViewById(R.id.campo_titulo);
+        view.setText(getString(R.string.mnt_DPersonalServicio));
         txt_vehiculos.setText(dordenserviciocliente.getDescripcion_vehiculo());
         txtplaca.setText(dordenserviciocliente.getPlaca_cliente());
         ConsumidorDao dao = new ConsumidorDao();

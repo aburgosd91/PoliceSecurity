@@ -103,6 +103,8 @@ public class mnt_DPersonalServicio_Fragment extends Fragment {
     }
 
     public void LlenarCampos(){
+        TextView view = (TextView) getActivity().findViewById(R.id.campo_titulo);
+        view.setText(getString(R.string.mnt_DPersonalServicio));
         txt_titulo.setText(mParam2);
         switch (mParam2){
             case "Modificar":

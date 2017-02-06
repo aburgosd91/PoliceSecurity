@@ -110,7 +110,6 @@
                             android:ems="10"
                             android:hint="Placa"
                             android:inputType="text"
-                            android:enabled="false"
                             android:singleLine="true" />
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>

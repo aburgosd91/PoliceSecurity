@@ -114,6 +114,8 @@ public class edt_DPersonalServicio_Fragment extends FragmentNisira {
 
     public void LlenarCampos(){
         //TODO LLENAR CAMPOS
+        TextView view = (TextView) getActivity().findViewById(R.id.campo_titulo);
+        view.setText(getString(R.string.edt_DPersonalServicio));
         txt_documento.setText(ordenserviciocliente.getIddocumento()+ " " +
                 ordenserviciocliente.getSerie()+ "-"+
                 ordenserviciocliente.getNumero());

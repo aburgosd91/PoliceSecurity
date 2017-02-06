@@ -13,6 +13,9 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="Syncro">Sincronizar</string>
+    <string name="asignacion_personal">Asignacion Personal</string>
+    <string name="registro_hora">Registro Hora</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -24,4 +27,12 @@
         tristique consectetur, lacus ligula dignissim turpis, cursus commodo turpis
         libero in purus. Phasellus tempus gravida tempor.
     </string>
+    
+    <string name="lst_OrdenServicio">Lista Orden Servicio</string>
+    <string name="edt_OrdenServicio">Editar Orden Servicio</string>
+    <string name="edt_PersonalServicio">Editar Personal Servicio</string>
+    <string name="edt_DPersonalServicio">Editar Detalle Personal Servicio</string>
+    <string name="mnt_PersonalServicio">Mantenedor Personal Servicio</string>
+    <string name="mnt_DPersonalServicio">Mantenedor Hora Servicio</string>
+    <string name="mnt_DOrdenServicio">Mantenedor Detalle Orden Servicio</string>
 </resources>
