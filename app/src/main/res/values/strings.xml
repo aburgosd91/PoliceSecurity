@@ -35,4 +35,6 @@
     <string name="mnt_PersonalServicio">Mantenedor Personal Servicio</string>
     <string name="mnt_DPersonalServicio">Mantenedor Hora Servicio</string>
     <string name="mnt_DOrdenServicio">Mantenedor Detalle Orden Servicio</string>
+    <string name="lst_LiquidacionGasto">Lista Liquidacion Gastos</string>
+    <string name="edt_OrdenLiquidacionGasto">Editar Orden Liquidacion</string>
 </resources>

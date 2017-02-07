@@ -162,6 +162,10 @@ public class Dordenliquidaciongasto implements Serializable {
 	@XStreamAlias("IDLOTEPRODUCCION") 
 	private String idloteproduccion = "" ;
 
+	private boolean Seleccion;
+
+	private String descripcion_concepto;
+
 
 
 	/* Sets & Gets */
@@ -451,6 +455,22 @@ public class Dordenliquidaciongasto implements Serializable {
 
 	public String getIdloteproduccion() {
 		return this.idloteproduccion;
+	}
+
+	public boolean isSeleccion() {
+		return Seleccion;
+	}
+
+	public void setSeleccion(boolean seleccion) {
+		Seleccion = seleccion;
+	}
+
+	public String getDescripcion_concepto() {
+		return descripcion_concepto;
+	}
+
+	public void setDescripcion_concepto(String descripcion_concepto) {
+		this.descripcion_concepto = descripcion_concepto;
 	}
 
 
