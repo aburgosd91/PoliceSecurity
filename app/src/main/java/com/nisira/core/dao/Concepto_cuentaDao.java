@@ -26,4 +26,15 @@ public class Concepto_cuentaDao extends BaseDao<Concepto_cuenta> {
 		else
 			actualizar(obj);
 	}
+
+	public List<Concepto_cuenta> ListarConsumidor(Dordenliquidaciongasto obj)throws Exception {
+		if (obj != null) {
+			List<Concepto_cuenta> lst = listar("LTRIM(RTRIM(t0.IDEMPRESA)) =? ", obj.getIdempresa().trim());
+			if(lst.isEmpty()){
+				return null;
+			}else
+				return lst;
+		}
+		return null;
+	}
 }

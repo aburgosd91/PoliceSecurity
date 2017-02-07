@@ -126,7 +126,6 @@ public class Clieprov implements Serializable {
 	private Integer seleccion;
 
 
-
 	/* Sets & Gets */
 	public void setIdempresa(String idempresa) {
 		this.idempresa = idempresa;

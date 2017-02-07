@@ -20,6 +20,7 @@ import com.nisira.core.entity.Dordenserviciocliente;
 import com.nisira.core.entity.Ordenserviciocliente;
 import com.nisira.gcalderon.policesecurity.R;
 import com.nisira.view.Activity.edt_PersonalServicio_Fragment;
+import com.nisira.view.Activity.mnt_DOrdenLiquidacionGasto_Fragment;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -36,7 +37,6 @@ public class Adapter_edt_OrdenLiquidacionGasto extends RecyclerView.Adapter<Adap
     public String OPCION;
     Context context;
     FragmentManager fragmentManager;
-    Ordenserviciocliente ordenserviciocliente;
 
     public class ListaViewHolder extends RecyclerView.ViewHolder {
         public ImageView imagen;
@@ -64,7 +64,6 @@ public class Adapter_edt_OrdenLiquidacionGasto extends RecyclerView.Adapter<Adap
         this.OPCION = OPCION;
         this.items = items;
         this.fragmentManager = fragmentManager;
-        this.ordenserviciocliente = ordenserviciocliente;
     }
 
     @Override
@@ -102,17 +101,16 @@ public class Adapter_edt_OrdenLiquidacionGasto extends RecyclerView.Adapter<Adap
                 viewHolder.seleccion.setBackgroundColor(v.getResources().getColor(R.color.amarillo));
                 viewHolder.seleccion.setImageResource(R.drawable.ic_check_big);
                 viewHolder.fondo_seleccion.setBackgroundColor(v.getResources().getColor(R.color.amarillo));
-                /*
-                Fragment fragment = edt_PersonalServicio_Fragment.newInstance(OPCION, "edt_OrdenServicio_Fragment");
+
+                Fragment fragment = mnt_DOrdenLiquidacionGasto_Fragment.newInstance(OPCION, "edt_OrdenLiquidacionGasto_Fragment");
                 Bundle bundle = fragment.getArguments();
-                bundle.putSerializable("DOrdenServicio", items.get(i));
-                bundle.putSerializable("OrdenServicio",ordenserviciocliente);
+                bundle.putSerializable("DOrdenLiquidacionGasto", items.get(i));
                 fragment.setArguments(bundle);
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.main_content, fragment, "NewFragmentTag");
                 ft.addToBackStack(null);
                 ft.commit();
-                */
+
             }
         });
 

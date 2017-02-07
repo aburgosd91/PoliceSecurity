@@ -38,4 +38,14 @@ public class ConsumidorDao extends BaseDao<Consumidor> {
 		}
 		return null;
 	}
+	public List<Consumidor> ListarConsumidor(String idempresa)throws Exception {
+		if (idempresa != null) {
+			List<Consumidor> lst = listar("LTRIM(RTRIM(t0.IDEMPRESA)) =? ", idempresa.trim());
+			if(lst.isEmpty()){
+				return null;
+			}else
+				return lst;
+		}
+		return null;
+	}
 }
