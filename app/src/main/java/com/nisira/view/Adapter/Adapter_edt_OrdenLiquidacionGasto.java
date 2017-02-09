@@ -60,7 +60,7 @@ public class Adapter_edt_OrdenLiquidacionGasto extends RecyclerView.Adapter<Adap
         }
     }
 
-    public Adapter_edt_OrdenLiquidacionGasto(String OPCION, List<Dordenliquidaciongasto> items) {
+    public Adapter_edt_OrdenLiquidacionGasto(String OPCION, List<Dordenliquidaciongasto> items,FragmentManager fragmentManager) {
         this.OPCION = OPCION;
         this.items = items;
         this.fragmentManager = fragmentManager;

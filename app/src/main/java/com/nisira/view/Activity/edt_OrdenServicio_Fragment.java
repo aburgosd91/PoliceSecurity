@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Slide;
@@ -49,11 +50,13 @@ public class edt_OrdenServicio_Fragment extends FragmentNisira {
     private FloatingActionsMenu multiple_fab;
     private FloatingActionButton fab_modificar;
     List<Dordenserviciocliente> lstordenserviciocliente = new ArrayList<>();
+    DordenservicioclienteDao  DordenservicioclienteDao;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager lManager;
     private Ordenserviciocliente ordenserviciocliente;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public edt_OrdenServicio_Fragment() {
         // Required empty public constructor
@@ -96,6 +99,7 @@ public class edt_OrdenServicio_Fragment extends FragmentNisira {
         recyclerView = (RecyclerView)view.findViewById(R.id.recycler_os);
         multiple_fab = (FloatingActionsMenu) view.findViewById(R.id.multiple_fab);
         fab_modificar = (FloatingActionButton)view.findViewById(R.id.fab_modificar);
+        swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swiperefresh);
         LlenarCampos();
         Listeners();
         return view;
@@ -133,7 +137,7 @@ public class edt_OrdenServicio_Fragment extends FragmentNisira {
         recyclerView.setHasFixedSize(true);
         lManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(lManager);
-        DordenservicioclienteDao  DordenservicioclienteDao = new DordenservicioclienteDao();
+        DordenservicioclienteDao = new DordenservicioclienteDao();
         try {
             lstordenserviciocliente = DordenservicioclienteDao.ListarxOrdenServicio(ordenserviciocliente);
             switch (mParam1){
@@ -157,6 +161,20 @@ public class edt_OrdenServicio_Fragment extends FragmentNisira {
     }
 
     public void Listeners(){
+
+            swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    try {
+                        lstordenserviciocliente = DordenservicioclienteDao.ListarxOrdenServicio(ordenserviciocliente);
+                        adapter.notifyDataSetChanged();
+                        swipeRefreshLayout.setRefreshing(false);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
             fab_modificar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

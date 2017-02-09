@@ -67,10 +67,11 @@
 
                 android:id="@+id/button" />
 
-                <EditText
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:textSize="15sp"
 
                     android:text="¿Olvidaste tu contraseña?"/>
 

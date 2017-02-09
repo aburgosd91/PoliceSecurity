@@ -30,7 +30,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/API_KEY" />
 
-        <activity android:name="com.nisira.view.Activity.Login_Activity">
+        <activity
+            android:name="com.nisira.view.Activity.Login_Activity"
+            android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

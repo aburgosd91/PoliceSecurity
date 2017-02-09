@@ -2,6 +2,7 @@ package com.nisira.view.Activity;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -23,6 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nisira.core.database.DataBaseClass;
 import com.nisira.core.interfaces.ActivityNisiraCompat;
@@ -41,15 +43,15 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
     public int item_tabla_syncro;
     private static final int PERMISSION_REQUEST_CODE = 1;
     private static final Object[][] TABLASINCRONIZACION={
-            {"METHOD_LIST_CLIEPROV",20},
-            {"METHOD_LIST_CONSUMIDOR", 8},
+            //{"METHOD_LIST_CLIEPROV",20},
+            //{"METHOD_LIST_CONSUMIDOR", 8},
             {"METHOD_LIST_CONCEPTO_CUENTA", 5},
             {"METHOD_LIST_CARGOS_PERSONAL", 5},
             {"METHOD_LIST_DOCUMENTOS",6},
             {"METHOD_LIST_NUMEMISOR",10},
             {"METHOD_LIST_PERSONAL_SERVICIO",8},
             {"METHOD_LIST_DPERSONAL_SERVICIO",8},
-            {"METHOD_LIST_PRODUCTOS",8},
+            //{"METHOD_LIST_PRODUCTOS",8},
             {"METHOD_LIST_RUTAS",8},
             {"METHOD_LIST_SUCURSALES",5},
             {"METHOD_LIST_ORDENLIQUIDACIONGASTO",8},
@@ -164,6 +166,7 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
             for(Fragment fragment:getSupportFragmentManager().getFragments()){
 
                 getSupportFragmentManager().popBackStack();
+                //getSupportFragmentManager().beginTransaction().remove(fragment).commit();
             }
         }
 
@@ -268,6 +271,16 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
         cws.getAttribute().put("type","XML");
         cws.execute("");
         cws.pd = ProgressDialog.show(NavigationPolice_Activity.this, "SINCRONIZANDO","Sincronizando Base de Datos - "+method_syncro.replace("METHOD_LIST_",""), true, false);
+    }
+
+    @Override
+    public  void onPostExecuteWebService(ConsumerService cws, String result) {
+
+        if(cws.isSyncronize()){
+            if(TABLASINCRONIZACION.length>item_tabla_syncro){
+                asyncronize();
+            }
+        }
     }
 
     private void requestPermission() {

@@ -25,6 +25,7 @@ import com.nisira.core.entity.Concepto_cuenta;
 import com.nisira.core.entity.Consumidor;
 import com.nisira.core.entity.Destinoadquisicion;
 import com.nisira.core.entity.Dordenliquidaciongasto;
+import com.nisira.core.interfaces.FragmentNisira;
 import com.nisira.gcalderon.policesecurity.R;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
@@ -33,7 +34,7 @@ import java.util.Calendar;
 import java.util.List;
 
 
-public class mnt_DOrdenLiquidacionGasto_Fragment extends Fragment {
+public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
     // TODO: ELEMENTOS DE LAYOUT
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -51,11 +52,11 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends Fragment {
     // TODO: PARAMETROS DE ENTRADA
     private String mParam1;
     private String mParam2;
-/*
-    public mnt_DPersonalServicio_Fragment() {
+
+    public mnt_DOrdenLiquidacionGasto_Fragment() {
         // Required empty public constructor
     }
-*/
+
     // TODO: FUNCIONES Y METODOS
     public static mnt_DOrdenLiquidacionGasto_Fragment newInstance(String param1, String param2) {
         mnt_DOrdenLiquidacionGasto_Fragment fragment = new mnt_DOrdenLiquidacionGasto_Fragment();

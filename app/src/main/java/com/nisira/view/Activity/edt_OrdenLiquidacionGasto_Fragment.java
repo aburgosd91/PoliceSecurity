@@ -111,7 +111,7 @@ public class edt_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
         DordenliquidaciongastoDao dao = new DordenliquidaciongastoDao();
         try {
             List<Dordenliquidaciongasto> dordenliquidaciongastos = dao.ListarxOrdenLiq(ordenliquidaciongasto);
-            Adapter_edt_OrdenLiquidacionGasto adapter = new Adapter_edt_OrdenLiquidacionGasto("",dordenliquidaciongastos);
+            Adapter_edt_OrdenLiquidacionGasto adapter = new Adapter_edt_OrdenLiquidacionGasto("",dordenliquidaciongastos,getFragmentManager());
             recyclerView.setAdapter(adapter);
         } catch (Exception e) {
             e.printStackTrace();
