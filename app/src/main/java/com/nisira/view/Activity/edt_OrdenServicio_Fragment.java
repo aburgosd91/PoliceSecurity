@@ -56,7 +56,7 @@ public class edt_OrdenServicio_Fragment extends FragmentNisira {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager lManager;
     private Ordenserviciocliente ordenserviciocliente;
-    private SwipeRefreshLayout swipeRefreshLayout;
+
 
     public edt_OrdenServicio_Fragment() {
         // Required empty public constructor
@@ -99,7 +99,6 @@ public class edt_OrdenServicio_Fragment extends FragmentNisira {
         recyclerView = (RecyclerView)view.findViewById(R.id.recycler_os);
         multiple_fab = (FloatingActionsMenu) view.findViewById(R.id.multiple_fab);
         fab_modificar = (FloatingActionButton)view.findViewById(R.id.fab_modificar);
-        swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swiperefresh);
         LlenarCampos();
         Listeners();
         return view;
@@ -162,18 +161,7 @@ public class edt_OrdenServicio_Fragment extends FragmentNisira {
 
     public void Listeners(){
 
-            swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                @Override
-                public void onRefresh() {
-                    try {
-                        lstordenserviciocliente = DordenservicioclienteDao.ListarxOrdenServicio(ordenserviciocliente);
-                        adapter.notifyDataSetChanged();
-                        swipeRefreshLayout.setRefreshing(false);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
+
 
             fab_modificar.setOnClickListener(new View.OnClickListener() {
                 @Override

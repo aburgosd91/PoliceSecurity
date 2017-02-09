@@ -52,7 +52,7 @@ public class edt_DPersonalServicio_Fragment extends FragmentNisira {
     private TextInputEditText txt_personal,txt_producto;
     private TextView txt_fecha,txt_estado;
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
+    private Adapter_edt_DPersonalServicio adapter;
     private RecyclerView.LayoutManager lManager;
     private FloatingActionButton btn_agregar,btn_modificar,btn_delete;
     private List<Dpersonal_servicio> list;
@@ -135,7 +135,7 @@ public class edt_DPersonalServicio_Fragment extends FragmentNisira {
             list = Dpersonal_servicioDao.listarxPersonalServicio(personal_servicio);
             switch (mParam1){
                 case "Registro Hora":
-                    Adapter_edt_DPersonalServicio adapter = new Adapter_edt_DPersonalServicio(mParam1,list,
+                     adapter = new Adapter_edt_DPersonalServicio(mParam1,list,
                             getFragmentManager(),personal_servicio);
                     recyclerView.setAdapter(adapter);
                     break;
@@ -208,6 +208,7 @@ public class edt_DPersonalServicio_Fragment extends FragmentNisira {
                         try {
                             dao.Eliminar(list.get(i));
                             list.remove(i);
+                            adapter.notifyDataSetChanged();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

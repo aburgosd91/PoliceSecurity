@@ -55,7 +55,8 @@ public class edt_PersonalServicio_Fragment extends FragmentNisira {
     private Ordenserviciocliente ordenserviciocliente;
     private FloatingActionButton  btn_agregar,btn_modificar,btn_delete;
     private FloatingActionsMenu multiple_fab;
-    private SwipeRefreshLayout swipeRefreshLayout;
+
+    Personal_servicioDao  personal_servicioDao;
 
     public edt_PersonalServicio_Fragment() {
         // Required empty public constructor
@@ -94,7 +95,7 @@ public class edt_PersonalServicio_Fragment extends FragmentNisira {
         txt_estado = (TextView)view.findViewById(R.id.txt_estado);
         recyclerView = (RecyclerView)view.findViewById(R.id.recycler_os);
         multiple_fab = (FloatingActionsMenu)view.findViewById(R.id.multiple_fab);
-        swipeRefreshLayout= (SwipeRefreshLayout)view.findViewById(R.id.swiperefresh);
+
         /******FIJOS PARA MANTENEDOR**************/
         btn_agregar = (FloatingActionButton)view.findViewById(R.id.fab_agregar);
         btn_modificar = (FloatingActionButton)view.findViewById(R.id.fab_modificar);
@@ -127,7 +128,7 @@ public class edt_PersonalServicio_Fragment extends FragmentNisira {
         recyclerView.setHasFixedSize(true);
         lManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(lManager);
-        Personal_servicioDao  personal_servicioDao = new Personal_servicioDao();
+        personal_servicioDao = new Personal_servicioDao();
         try {
             list = personal_servicioDao.listarxDordenservicio(dordenserviciocliente);
             switch (mParam1){
@@ -152,12 +153,7 @@ public class edt_PersonalServicio_Fragment extends FragmentNisira {
     public void Listeners(){
         //TODO EVENTOS
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
 
-            }
-        });
 
         btn_agregar.setOnClickListener(new View.OnClickListener() {
             @Override
