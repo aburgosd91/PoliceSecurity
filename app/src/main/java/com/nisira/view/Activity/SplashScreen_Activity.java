@@ -57,7 +57,9 @@ public class SplashScreen_Activity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                startActivity(new Intent(SplashScreen_Activity.this, NavigationPolice_Activity.class));
+                Intent intent = new Intent(SplashScreen_Activity.this, NavigationPolice_Activity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
                 finish();
             }
         }.start();
