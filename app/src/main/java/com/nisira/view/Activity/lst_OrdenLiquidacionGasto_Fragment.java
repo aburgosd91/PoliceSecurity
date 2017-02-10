@@ -3,6 +3,7 @@ package com.nisira.view.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Fade;
 import android.transition.Slide;
 import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
@@ -97,7 +98,7 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
     // TODO: TRANSICIONES Y ANIMACIONES
 
     public void animacionEntrada(){
-        Slide slide = (Slide) TransitionInflater.from(getContext()).inflateTransition(R.transition.activity_slide);
+        Fade slide = (Fade) TransitionInflater.from(getContext()).inflateTransition(R.transition.activity_fade);
         setExitTransition(slide);
         setEnterTransition(slide);
     }
