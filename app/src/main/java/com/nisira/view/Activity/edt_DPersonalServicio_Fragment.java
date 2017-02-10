@@ -135,9 +135,11 @@ public class edt_DPersonalServicio_Fragment extends FragmentNisira {
             list = Dpersonal_servicioDao.listarxPersonalServicio(personal_servicio);
             switch (mParam1){
                 case "Registro Hora":
-                     adapter = new Adapter_edt_DPersonalServicio(mParam1,list,
-                            getFragmentManager(),personal_servicio);
-                    recyclerView.setAdapter(adapter);
+                    if(list!=null) {
+                        adapter = new Adapter_edt_DPersonalServicio(mParam1, list,
+                                getFragmentManager(), personal_servicio);
+                        recyclerView.setAdapter(adapter);
+                    }
                     break;
             }
 

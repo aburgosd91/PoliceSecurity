@@ -155,6 +155,7 @@
                                 android:layout_height="wrap_content"
                                 android:ems="10"
                                 android:enabled="false"
+                                android:textSize="15sp"
                                 android:hint="Cliente:"
                                 android:textColorHint="@color/white"/>
                         </android.support.design.widget.TextInputLayout>
@@ -185,6 +186,7 @@
                                 android:layout_height="wrap_content"
                                 android:ems="10"
                                 android:enabled="false"
+                                android:textSize="15sp"
                                 android:textColorHint="@color/white"
                                 android:id="@+id/txt_producto" />
                         </android.support.design.widget.TextInputLayout>
