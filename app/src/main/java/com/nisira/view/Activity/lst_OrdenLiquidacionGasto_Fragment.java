@@ -1,6 +1,7 @@
 package com.nisira.view.Activity;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Fade;
@@ -32,6 +33,9 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
     private RecyclerView recycler;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager lManager;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    List<Ordenliquidaciongasto> listServCliente;
+    OrdenliquidaciongastoDao dao;
 
     // TODO: PARAMETROS DE ENTRADA
     private String mParam1;
@@ -70,6 +74,7 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
         // Inflate the layout for this fragment
         recycler = (RecyclerView) view.findViewById(R.id.reciclador);
         recycler.setHasFixedSize(true);
+        swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swiperefresh);
 
         // Usar un administrador para LinearLayout
         lManager = new LinearLayoutManager(getContext());
@@ -77,9 +82,9 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
 
         //Cargar datos desde la BD(items)
         try {
-            OrdenliquidaciongastoDao dao = new OrdenliquidaciongastoDao();
+            dao = new OrdenliquidaciongastoDao();
             //List<Clieprov> listClieprov = (List<Clieprov>) Util.stringListObject("com.nisira.core.entity.Clieprov",result);
-            List<Ordenliquidaciongasto> listServCliente = dao.listar();
+            listServCliente = dao.listar();
             // Crear un nuevo adaptador
             adapter = new Adapter_lst_OrdenLiquidacionGasto(mParam1,listServCliente,getFragmentManager());
             recycler.setAdapter(adapter);
@@ -92,6 +97,20 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
         }
 
         // TODO: EVENTOS
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                try {
+                    dao = new OrdenliquidaciongastoDao();
+                    listServCliente = dao.listar();
+                    adapter.notifyDataSetChanged();
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
 
         return view;
     }

@@ -10,6 +10,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
 
+import com.github.jorgecastillo.FillableLoader;
 import com.nisira.gcalderon.policesecurity.R;
 
 import butterknife.Bind;
@@ -19,6 +20,7 @@ public class SplashScreen_Activity extends AppCompatActivity {
     /*VARIABLES DE VISTA*/
     @Bind(R.id.pgBar)
     ProgressBar pgBar;
+    FillableLoader fillableLoader;
     /*VARIABLES DE CLASE*/
     public static final int seconds=8;
     public static final int miliseconds_total=seconds*1000;
@@ -44,6 +46,9 @@ public class SplashScreen_Activity extends AppCompatActivity {
 
         setContentView(R.layout.activity_splash_screen);
         ButterKnife.bind(this);
+        fillableLoader = (FillableLoader)findViewById(R.id.fillableLoader);
+        fillableLoader.setSvgPath(getString(R.string.xmlLogo));
+        fillableLoader.start();
         pgBar = new ProgressBar(this);
         pgBar.setMax(max_progress());
         initAnimation();

@@ -23,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ import com.nisira.core.service.ConsumerService;
 import com.nisira.core.service.TypeMethod;
 import com.nisira.core.util.Util;
 import com.nisira.gcalderon.policesecurity.R;
+import com.thoughtworks.xstream.core.util.Fields;
 
 import static com.nisira.view.Activity.Login_Activity.startInstalledAppDetailsActivity;
 
@@ -40,6 +42,7 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
 
     public TextView campo_titulo;
     public TextView campo_titulo2;
+    RelativeLayout relativeLayout;
     public int item_tabla_syncro;
     private static final int PERMISSION_REQUEST_CODE = 1;
     private static final Object[][] TABLASINCRONIZACION={
@@ -66,6 +69,7 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
         setContentView(R.layout.activity_navigation_police);
 
         item_tabla_syncro = 0;
+        relativeLayout = (RelativeLayout) findViewById(R.id.main_content);
 //        variablesglobales = (VariableGlobal)getApplication();
         if (Build.VERSION.SDK_INT >= 23)
         {
@@ -160,7 +164,6 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
 
-
         int id = item.getItemId();
         if(getSupportFragmentManager().getFragments()!=null){
             for(Fragment fragment:getSupportFragmentManager().getFragments()){
@@ -169,6 +172,7 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
                 //getSupportFragmentManager().beginTransaction().remove(fragment).commit();
             }
         }
+        relativeLayout.clearDisappearingChildren();
 
         if (id == R.id.mov_configuracion) {
 

@@ -36,15 +36,30 @@ public class OrdenservicioclienteDao extends BaseDao<Ordenserviciocliente> {
 		for(Ordenserviciocliente obj : lst){
 			cliente=clientedao.getClientexempresa_codigo(obj.getIdempresa(),obj.getIdclieprov());
 			if(cliente!=null){
-				obj.setCliente(cliente.getApellidopaterno()+ " "
-								+cliente.getApellidomaterno()+" "
-								+cliente.getNombres()
+				obj.setCliente(cliente.getRazon_social()
 				);
 				obj.setRuc(cliente.getRuc());
 				lst.set(i,obj);
 			}
 			i++;
 		}
+		return lst;
+	}
+	public List<Ordenserviciocliente> listOrdenServicioxClienteFiltro(String filtro)throws Exception{
+		ClieprovDao clientedao = new ClieprovDao();
+		List<Clieprov> clieprovList = clientedao.listar("LTRIM(RTRIM(t0.IDCLIEPROV)) like '%'+ ? + '%' OR LTRIM(RTRIM(t0.RAZON_SOCIAL)) like '%'+ ? + '%'",filtro,filtro);
+		List<Ordenserviciocliente> lst=null;
+		List<Ordenserviciocliente> lstotal=new ArrayList<>();
+		if(!lst.isEmpty()){
+			for(Clieprov obj : clieprovList){
+				lst=listar("LTRIM(RTRIM(t0.IDCLIEPROV)) = ? ",obj.getIdclieprov());
+				if(!lst.isEmpty()){
+					lstotal.addAll(lst);
+				}
+			}
+		}
+
+
 		return lst;
 	}
 }
