@@ -1,5 +1,8 @@
 package com.nisira.core.dao;
 
+import com.nisira.core.Consulta;
+import com.nisira.core.EntityTuple;
+import com.nisira.core.database.SqlLiteConsulta;
 import com.nisira.core.entity.*;
 import java.util.List;
 import android.database.sqlite.SQLiteDatabase;
@@ -35,20 +38,40 @@ public class OrdenservicioclienteDao extends BaseDao<Ordenserviciocliente> {
 		int i=0;
 		for(Ordenserviciocliente obj : lst){
 			cliente=clientedao.getClientexempresa_codigo(obj.getIdempresa(),obj.getIdclieprov());
-			if(cliente!=null){
-				obj.setCliente(cliente.getRazon_social()
-				);
-				obj.setRuc(cliente.getRuc());
-				lst.set(i,obj);
-			}
+            if(cliente!=null){
+                obj.setCliente(cliente.getRazon_social()
+                );
+                obj.setRuc(cliente.getRuc());
+                lst.set(i,obj);
+            }
 			i++;
 		}
 		return lst;
 	}
 	public List<Ordenserviciocliente> listOrdenServicioxClienteFiltro(String filtro)throws Exception{
-		ClieprovDao clientedao = new ClieprovDao();
-		List<Clieprov> clieprovList = clientedao.listar("LTRIM(RTRIM(t0.IDCLIEPROV)) like '%' || ? || '%' OR LTRIM(RTRIM(t0.RAZON_SOCIAL)) like '%' || ? || '%'",filtro,filtro);
-		System.out.println("TAMAÑO "+clieprovList.size());
+		//ClieprovDao clientedao = new ClieprovDao();
+		//List<Clieprov> clieprovList = clientedao.listar("LTRIM(RTRIM(t0.IDCLIEPROV)) like '%' || ? || '%' OR LTRIM(RTRIM(t0.RAZON_SOCIAL)) like '%' || ? || '%'",filtro,filtro);
+        String where = "t1.IDCLIEPROV like '%'||?||'%' OR t1.RAZON_SOCIAL like '%'||?||'%' ";
+        SqlLiteConsulta c = getInstancia();
+        c.join("inner", Clieprov.class, "t1", "t0.IDCLIEPROV = t1.IDCLIEPROV");
+        c.where(where, filtro, filtro);
+        List<EntityTuple> lista = c.execSelect();
+        List<Ordenserviciocliente> ordenservicioclienteList =(List<Ordenserviciocliente>) EntityTuple.getListForAlias(c.execSelect(), "t0");
+        ClieprovDao clientedao = new ClieprovDao();
+        Clieprov cliente = null;
+        int i=0;
+        for(Ordenserviciocliente obj : ordenservicioclienteList){
+            cliente=clientedao.getClientexempresa_codigo(obj.getIdempresa(),obj.getIdclieprov());
+            if(cliente!=null){
+                obj.setCliente(cliente.getRazon_social()
+                );
+                obj.setRuc(cliente.getRuc());
+                ordenservicioclienteList.set(i,obj);
+            }
+            i++;
+        }
+        /*
+        System.out.println("TAMAÑO "+clieprovList.size());
         List<Ordenserviciocliente> lst=null;
 		List<Ordenserviciocliente> lstotal=new ArrayList<>();
 		if(!clieprovList.isEmpty()){
@@ -66,7 +89,8 @@ public class OrdenservicioclienteDao extends BaseDao<Ordenserviciocliente> {
 				}
 			}
 			return lstotal;
-		}
-		return lstotal;
+		}*/
+		return ordenservicioclienteList;
+
 	}
 }
