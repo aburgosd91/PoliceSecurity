@@ -9,8 +9,12 @@ import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.nisira.core.dao.OrdenservicioclienteDao;
 import com.nisira.core.entity.Ordenserviciocliente;
 import com.nisira.core.interfaces.FragmentNisira;
@@ -32,6 +36,9 @@ public class lst_OrdenServicio_Fragment extends FragmentNisira {
     private SwipeRefreshLayout swipeRefresh;
     List<Ordenserviciocliente> listServCliente;
     OrdenservicioclienteDao ordenservicioclienteDao;
+    FloatingActionButton fab_abrir,fab_filtrar;
+    EditText edit_filtro;
+    RelativeLayout rlfiltro;
 
     // TODO: PARAMETROS DE ENTRADA
     private String mParam1;
@@ -71,13 +78,26 @@ public class lst_OrdenServicio_Fragment extends FragmentNisira {
         recycler = (RecyclerView) view.findViewById(R.id.reciclador);
         recycler.setHasFixedSize(true);
         swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
-
+        fab_abrir = (FloatingActionButton)view.findViewById(R.id.fab_abrir);
+        fab_filtrar = (FloatingActionButton)view.findViewById(R.id.fab_filtrar);
+        rlfiltro = (RelativeLayout)view.findViewById(R.id.rlfiltro);
+        edit_filtro = (EditText)view.findViewById(R.id.edit_filtro);
         // Usar un administrador para LinearLayout
         lManager = new LinearLayoutManager(getContext());
         recycler.setLayoutManager(lManager);
+        LlenarCampos();
+        Listeners();
+        return view;
+    }
 
-        //Cargar datos desde la BD(items)
+    public void animacionEntrada(){
+        // TODO: TRANSICIONES Y ANIMACIONES
+        Slide slide = (Slide) TransitionInflater.from(getContext()).inflateTransition(R.transition.activity_slide);
+        setExitTransition(slide);
+        setEnterTransition(slide);
+    }
 
+    public void LlenarCampos(){
         try {
             ordenservicioclienteDao = new OrdenservicioclienteDao();
             listServCliente = ordenservicioclienteDao.listOrdenServicioxCliente();
@@ -92,8 +112,9 @@ public class lst_OrdenServicio_Fragment extends FragmentNisira {
             Toast.makeText(getContext(),"Error :"+e.getMessage(),Toast.LENGTH_SHORT).show();
         }
 
+    }
+    public void Listeners(){
         // TODO: EVENTOS
-
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -106,21 +127,29 @@ public class lst_OrdenServicio_Fragment extends FragmentNisira {
                 }
             }
         });
-
-        return view;
-    }
-    // TODO: TRANSICIONES Y ANIMACIONES
-
-    public void animacionEntrada(){
-        Slide slide = (Slide) TransitionInflater.from(getContext()).inflateTransition(R.transition.activity_slide);
-        setExitTransition(slide);
-        setEnterTransition(slide);
-    }
-    @Override
-    public  void onPostExecuteWebService(ConsumerService cws, String result) {
-        /*NO UTILIZADO*/
-        if(cws.getMethod().trim().equals(TypeMethod.METHOD_LIST_CLIEPROV)){
-        }
+        fab_abrir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rlfiltro.setVisibility(View.VISIBLE);
+            }
+        });
+        fab_filtrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    listServCliente = ordenservicioclienteDao.listOrdenServicioxClienteFiltro(edit_filtro.getText().toString());
+                    rlfiltro.setVisibility(View.GONE);
+                    adapter = new Adapter_lst_OrdenServicio(mParam1,listServCliente,getFragmentManager());
+                    recycler.setAdapter(adapter);
+                    /*
+                    getActivity().getWindow().setSoftInputMode(
+                            WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+                    );*/
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
 }

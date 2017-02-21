@@ -10,7 +10,7 @@
         android:id="@+id/rlfiltro"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_alignParentStart="true">
         <EditText
             android:id="@+id/edit_filtro"
@@ -53,7 +53,7 @@
         android:id="@+id/fab_abrir"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        fab:fab_colorNormal="@color/blue_gray"
+        fab:fab_colorNormal="@color/colorPrimary"
         fab:fab_icon="@drawable/ic_search_white"
         fab:fab_size="normal"
         fab:fab_colorPressed="@color/colorAccent"

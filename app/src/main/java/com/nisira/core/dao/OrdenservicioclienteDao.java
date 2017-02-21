@@ -47,19 +47,26 @@ public class OrdenservicioclienteDao extends BaseDao<Ordenserviciocliente> {
 	}
 	public List<Ordenserviciocliente> listOrdenServicioxClienteFiltro(String filtro)throws Exception{
 		ClieprovDao clientedao = new ClieprovDao();
-		List<Clieprov> clieprovList = clientedao.listar("LTRIM(RTRIM(t0.IDCLIEPROV)) like '%'+ ? + '%' OR LTRIM(RTRIM(t0.RAZON_SOCIAL)) like '%'+ ? + '%'",filtro,filtro);
-		List<Ordenserviciocliente> lst=null;
+		List<Clieprov> clieprovList = clientedao.listar("LTRIM(RTRIM(t0.IDCLIEPROV)) like '%' || ? || '%' OR LTRIM(RTRIM(t0.RAZON_SOCIAL)) like '%' || ? || '%'",filtro,filtro);
+		System.out.println("TAMAÑO "+clieprovList.size());
+        List<Ordenserviciocliente> lst=null;
 		List<Ordenserviciocliente> lstotal=new ArrayList<>();
-		if(!lst.isEmpty()){
+		if(!clieprovList.isEmpty()){
 			for(Clieprov obj : clieprovList){
 				lst=listar("LTRIM(RTRIM(t0.IDCLIEPROV)) = ? ",obj.getIdclieprov());
 				if(!lst.isEmpty()){
+                    int i=0;
+                    for(Ordenserviciocliente elem:lst){
+                        elem.setCliente(obj.getRazon_social());
+                        elem.setRuc(obj.getRuc());
+                        lst.set(i,elem);
+                        i++;
+                    }
 					lstotal.addAll(lst);
 				}
 			}
+			return lstotal;
 		}
-
-
-		return lst;
+		return lstotal;
 	}
 }
