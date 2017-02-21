@@ -49,14 +49,12 @@ public class OrdenservicioclienteDao extends BaseDao<Ordenserviciocliente> {
 		return lst;
 	}
 	public List<Ordenserviciocliente> listOrdenServicioxClienteFiltro(String filtro)throws Exception{
-		//ClieprovDao clientedao = new ClieprovDao();
-		//List<Clieprov> clieprovList = clientedao.listar("LTRIM(RTRIM(t0.IDCLIEPROV)) like '%' || ? || '%' OR LTRIM(RTRIM(t0.RAZON_SOCIAL)) like '%' || ? || '%'",filtro,filtro);
+
         String where = "t1.IDCLIEPROV like '%'||?||'%' OR t1.RAZON_SOCIAL like '%'||?||'%' ";
         SqlLiteConsulta c = getInstancia();
         c.join("inner", Clieprov.class, "t1", "t0.IDCLIEPROV = t1.IDCLIEPROV");
         c.where(where, filtro, filtro);
-        List<EntityTuple> lista = c.execSelect();
-        List<Ordenserviciocliente> ordenservicioclienteList =(List<Ordenserviciocliente>) EntityTuple.getListForAlias(c.execSelect(), "t0");
+        List<Ordenserviciocliente> ordenservicioclienteList=(List<Ordenserviciocliente>) EntityTuple.getListForAlias(c.execSelect(), "t0");
         ClieprovDao clientedao = new ClieprovDao();
         Clieprov cliente = null;
         int i=0;
@@ -70,27 +68,6 @@ public class OrdenservicioclienteDao extends BaseDao<Ordenserviciocliente> {
             }
             i++;
         }
-        /*
-        System.out.println("TAMAÑO "+clieprovList.size());
-        List<Ordenserviciocliente> lst=null;
-		List<Ordenserviciocliente> lstotal=new ArrayList<>();
-		if(!clieprovList.isEmpty()){
-			for(Clieprov obj : clieprovList){
-				lst=listar("LTRIM(RTRIM(t0.IDCLIEPROV)) = ? ",obj.getIdclieprov());
-				if(!lst.isEmpty()){
-                    int i=0;
-                    for(Ordenserviciocliente elem:lst){
-                        elem.setCliente(obj.getRazon_social());
-                        elem.setRuc(obj.getRuc());
-                        lst.set(i,elem);
-                        i++;
-                    }
-					lstotal.addAll(lst);
-				}
-			}
-			return lstotal;
-		}*/
 		return ordenservicioclienteList;
-
 	}
 }

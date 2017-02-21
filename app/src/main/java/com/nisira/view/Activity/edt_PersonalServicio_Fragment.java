@@ -131,6 +131,9 @@ public class edt_PersonalServicio_Fragment extends FragmentNisira {
         personal_servicioDao = new Personal_servicioDao();
         try {
             list = personal_servicioDao.listarxDordenservicio(dordenserviciocliente);
+            if(list==null){
+                multiple_fab.setVisibility(GONE);
+            }
             switch (mParam1){
                 case "Asignacion Personal":
                     Adapter_edt_PersonalServicio adapter = new Adapter_edt_PersonalServicio(mParam1,list,getFragmentManager());

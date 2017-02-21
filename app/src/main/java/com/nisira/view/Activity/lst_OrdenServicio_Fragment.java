@@ -1,5 +1,6 @@
 package com.nisira.view.Activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -141,10 +143,8 @@ public class lst_OrdenServicio_Fragment extends FragmentNisira {
                     rlfiltro.setVisibility(View.GONE);
                     adapter = new Adapter_lst_OrdenServicio(mParam1,listServCliente,getFragmentManager());
                     recycler.setAdapter(adapter);
-                    /*
-                    getActivity().getWindow().setSoftInputMode(
-                            WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
-                    );*/
+                    InputMethodManager inputMethodManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(edit_filtro.getWindowToken(), 0);
                 }catch (Exception e){
                     e.printStackTrace();
                 }

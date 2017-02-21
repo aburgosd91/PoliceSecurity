@@ -30,7 +30,7 @@
         <android.support.design.widget.AppBarLayout
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="250dp"
             android:fitsSystemWindows="true"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -174,7 +174,7 @@
                             android:src="@drawable/ic_check_white" />
 
                         <android.support.design.widget.TextInputLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:hintTextAppearance="@color/white"
                             android:layout_marginLeft="10dp">
