@@ -87,7 +87,7 @@ public static class ListaViewHolder extends RecyclerView.ViewHolder {
         SimpleDateFormat sm = new SimpleDateFormat("dd-MM-yyyy");
         String strDate = sm.format(items.get(i).getFecha());
         viewHolder.fecha.setText("Fecha: "+strDate);
-        viewHolder.txtid.setText("Id cliente: "+items.get(i).getIdclieprov());
+        viewHolder.txtid.setText("Doc: "+items.get(i).getIdclieprov());
         Gson gson = new GsonBuilder().serializeSpecialFloatingPointValues().create();
         System.out.println(gson.toJson(items.get(i)));
 
