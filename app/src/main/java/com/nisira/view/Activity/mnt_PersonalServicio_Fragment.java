@@ -1,8 +1,6 @@
 package com.nisira.view.Activity;
 
 import android.app.Activity;
-import android.content.Context;
-import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.transition.Fade;
@@ -18,7 +16,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.nisira.core.dao.ClieprovDao;
@@ -102,7 +99,7 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
 
     public void LlenarCampos(){
 
-        TextView view = (TextView) getActivity().findViewById(R.id.campo_titulo);
+        TextView view = (TextView) getActivity().findViewById(R.id.campo_titulo2);
         view.setText(getString(R.string.mnt_PersonalServicio));
         campo_ID.setText(personal_servicio.getItem2());
         campo_cargo.setText(personal_servicio.getDescripcion_cargo());

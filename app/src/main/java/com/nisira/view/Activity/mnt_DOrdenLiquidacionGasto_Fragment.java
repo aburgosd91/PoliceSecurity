@@ -2,8 +2,6 @@ package com.nisira.view.Activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.transition.Fade;
 import android.transition.Slide;
 import android.transition.TransitionInflater;
@@ -12,25 +10,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.nisira.core.dao.ClieprovDao;
 import com.nisira.core.dao.Concepto_cuentaDao;
-import com.nisira.core.dao.ConsumidorDao;
 import com.nisira.core.dao.DestinoadquisicionDao;
 import com.nisira.core.entity.Clieprov;
 import com.nisira.core.entity.Concepto_cuenta;
-import com.nisira.core.entity.Consumidor;
 import com.nisira.core.entity.Destinoadquisicion;
 import com.nisira.core.entity.Dordenliquidaciongasto;
 import com.nisira.core.interfaces.FragmentNisira;
 import com.nisira.gcalderon.policesecurity.R;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
-import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
-import java.util.Calendar;
 import java.util.List;
 
 
@@ -82,7 +74,7 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mnt_dordenliquidaciongasto, container, false);
         animacionEntrada();
-        TextView view1 = (TextView) getActivity().findViewById(R.id.campo_titulo);
+        TextView view1 = (TextView) getActivity().findViewById(R.id.campo_titulo2);
         view1.setText(getString(R.string.mnt_DOrdenLiquidacionGasto));
         campo_proveedor = (AutoCompleteTextView)view.findViewById(R.id.campo_proveedor);
         campo_concepto = (AutoCompleteTextView)view.findViewById(R.id.campo_concepto);

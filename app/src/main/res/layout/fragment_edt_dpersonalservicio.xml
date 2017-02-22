@@ -179,7 +179,7 @@
                             android:src="@drawable/ic_check_white" />
 
                         <android.support.design.widget.TextInputLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:hintTextAppearance="@color/white"
                             android:layout_marginLeft="10dp">
@@ -190,7 +190,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:ems="10"
-                                android:textSize="15sp"
+                                android:textSize="10sp"
                                 android:enabled="false"
                                 android:textColorHint="@color/white"
                                 android:id="@+id/txt_producto" />

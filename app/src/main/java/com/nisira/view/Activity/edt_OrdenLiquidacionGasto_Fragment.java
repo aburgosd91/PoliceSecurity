@@ -7,22 +7,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.nisira.core.dao.DordenliquidaciongastoDao;
-import com.nisira.core.dao.OrdenliquidaciongastoDao;
-import com.nisira.core.dao.OrdenservicioclienteDao;
 import com.nisira.core.entity.Dordenliquidaciongasto;
 import com.nisira.core.entity.Ordenliquidaciongasto;
-import com.nisira.core.entity.Ordenserviciocliente;
 import com.nisira.core.interfaces.FragmentNisira;
 import com.nisira.gcalderon.policesecurity.R;
 import com.nisira.view.Adapter.Adapter_edt_OrdenLiquidacionGasto;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.StringJoiner;
 
 
 public class edt_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
@@ -90,7 +85,7 @@ public class edt_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
     }
 
     public void LlenarCampos() {
-        TextView view = (TextView) getActivity().findViewById(R.id.campo_titulo);
+        TextView view = (TextView) getActivity().findViewById(R.id.campo_titulo2);
         view.setText(getString(R.string.edt_OrdenLiquidacionGasto));
 
         txt_documento.setText(ordenliquidaciongasto.getIddocumento() + " - " +

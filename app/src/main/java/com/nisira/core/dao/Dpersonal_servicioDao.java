@@ -31,8 +31,9 @@ public class Dpersonal_servicioDao extends BaseDao<Dpersonal_servicio> {
 		}
 	}
 	public List<Dpersonal_servicio> listarxPersonalServicio(Personal_servicio obj) throws Exception {
+		List<Dpersonal_servicio> lst= new ArrayList<>();
 		if(obj !=null) {
-			List<Dpersonal_servicio> lst = listar("LTRIM(RTRIM(t0.IDEMPRESA)) =? AND LTRIM(RTRIM(t0.IDORDENSERVICIO))=? AND " +
+			lst = listar("LTRIM(RTRIM(t0.IDEMPRESA)) =? AND LTRIM(RTRIM(t0.IDORDENSERVICIO))=? AND " +
 							"LTRIM(RTRIM(t0.ITEM_DORDENSERVICIO))=? AND LTRIM(RTRIM(t0.ITEM2))=? ", obj.getIdempresa().trim(),
 					obj.getIdordenservicio().trim(), obj.getItem().trim(), obj.getItem2().trim());
 			if(!lst.isEmpty())return lst;

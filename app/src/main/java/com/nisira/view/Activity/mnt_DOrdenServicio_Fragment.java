@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.transition.Fade;
 import android.transition.Slide;
 import android.transition.TransitionInflater;
@@ -22,16 +21,12 @@ import android.widget.TextView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.nisira.core.dao.ConsumidorDao;
 import com.nisira.core.dao.DordenservicioclienteDao;
-import com.nisira.core.entity.Clieprov;
 import com.nisira.core.entity.Consumidor;
 import com.nisira.core.entity.Dordenserviciocliente;
 import com.nisira.core.entity.Ordenserviciocliente;
 import com.nisira.gcalderon.policesecurity.R;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
-import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 
@@ -100,7 +95,7 @@ public class mnt_DOrdenServicio_Fragment extends Fragment {
     }
 
     public void LlenarCampos(){
-        TextView view = (TextView) getActivity().findViewById(R.id.campo_titulo);
+        TextView view = (TextView) getActivity().findViewById(R.id.campo_titulo2);
         view.setText(getString(R.string.mnt_DPersonalServicio));
         txt_vehiculos.setText(dordenserviciocliente.getDescripcion_vehiculo());
         txtplaca.setText(dordenserviciocliente.getPlaca_cliente());

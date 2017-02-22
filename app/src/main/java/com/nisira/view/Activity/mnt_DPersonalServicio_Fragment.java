@@ -1,17 +1,13 @@
 package com.nisira.view.Activity;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.transition.Fade;
 import android.transition.Slide;
 import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -25,7 +21,6 @@ import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 
 public class mnt_DPersonalServicio_Fragment extends Fragment {
@@ -103,7 +98,7 @@ public class mnt_DPersonalServicio_Fragment extends Fragment {
     }
 
     public void LlenarCampos(){
-        TextView view = (TextView) getActivity().findViewById(R.id.campo_titulo);
+        TextView view = (TextView) getActivity().findViewById(R.id.campo_titulo2);
         view.setText(getString(R.string.mnt_DPersonalServicio));
         txt_titulo.setText(mParam2);
         switch (mParam2){

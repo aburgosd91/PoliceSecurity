@@ -2,7 +2,6 @@ package com.nisira.view.Activity;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -16,24 +15,19 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.nisira.core.database.DataBaseClass;
 import com.nisira.core.interfaces.ActivityNisiraCompat;
 import com.nisira.core.service.ConsumerService;
-import com.nisira.core.service.TypeMethod;
 import com.nisira.core.util.Util;
 import com.nisira.gcalderon.policesecurity.R;
-import com.thoughtworks.xstream.core.util.Fields;
 
 import static com.nisira.view.Activity.Login_Activity.startInstalledAppDetailsActivity;
 
@@ -183,7 +177,7 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
                     .beginTransaction()
                     .replace(R.id.main_content, fragment)
                     .commit();
-            campo_titulo.setText(getString(R.string.lst_OrdenServicio));
+            campo_titulo2.setText(getString(R.string.lst_OrdenServicio));
 
         } else if (id == R.id.mov_registro_horas_cmt) {
 
@@ -193,7 +187,7 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
                     .beginTransaction()
                     .replace(R.id.main_content, fragment)
                     .commit();
-            campo_titulo.setText(getString(R.string.lst_OrdenServicio));
+            campo_titulo2.setText(getString(R.string.lst_OrdenServicio));
 
         } else if (id == R.id.mov_registro_vehiculo) {
 
@@ -203,7 +197,7 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
                     .beginTransaction()
                     .replace(R.id.main_content, fragment)
                     .commit();
-            campo_titulo.setText(getString(R.string.lst_OrdenServicio));
+            campo_titulo2.setText(getString(R.string.lst_OrdenServicio));
 
         } else if (id == R.id.mov_liquidacion_gastos) {
 
@@ -213,7 +207,7 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
                     .beginTransaction()
                     .replace(R.id.main_content, fragment)
                     .commit();
-            campo_titulo.setText(getString(R.string.lst_LiquidacionGasto));
+            campo_titulo2.setText(getString(R.string.lst_LiquidacionGasto));
 
 
         } else if (id == R.id.mov_ubicacion_gmap) {
@@ -227,7 +221,7 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
         //AQUI SE AGREGA EL TITULO DEL ELEMENTO SELECCIONADO
         //selectItem((String) item.getTitle(),id);
 
-        campo_titulo2.setText(item.getTitle());
+        campo_titulo.setText(item.getTitle());
 
         //setTitle(item.getTitle());
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

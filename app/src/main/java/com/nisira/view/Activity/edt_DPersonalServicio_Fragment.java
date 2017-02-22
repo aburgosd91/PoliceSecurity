@@ -16,10 +16,7 @@ import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
-import com.nisira.core.dao.DordenservicioclienteDao;
 import com.nisira.core.dao.Dpersonal_servicioDao;
-import com.nisira.core.dao.OrdenservicioclienteDao;
-import com.nisira.core.dao.Personal_servicioDao;
 import com.nisira.core.entity.Dordenserviciocliente;
 import com.nisira.core.entity.Dpersonal_servicio;
 import com.nisira.core.entity.Ordenserviciocliente;
@@ -27,7 +24,6 @@ import com.nisira.core.entity.Personal_servicio;
 import com.nisira.core.interfaces.FragmentNisira;
 import com.nisira.gcalderon.policesecurity.R;
 import com.nisira.view.Adapter.Adapter_edt_DPersonalServicio;
-import com.nisira.view.Adapter.Adapter_edt_PersonalServicio;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -114,7 +110,7 @@ public class edt_DPersonalServicio_Fragment extends FragmentNisira {
 
     public void LlenarCampos(){
         //TODO LLENAR CAMPOS
-        TextView view = (TextView) getActivity().findViewById(R.id.campo_titulo);
+        TextView view = (TextView) getActivity().findViewById(R.id.campo_titulo2);
         view.setText(getString(R.string.edt_DPersonalServicio));
         txt_documento.setText(ordenserviciocliente.getIddocumento()+ " " +
                 ordenserviciocliente.getSerie()+ "-"+
@@ -133,6 +129,9 @@ public class edt_DPersonalServicio_Fragment extends FragmentNisira {
         Dpersonal_servicioDao Dpersonal_servicioDao = new Dpersonal_servicioDao();
         try {
             list = Dpersonal_servicioDao.listarxPersonalServicio(personal_servicio);
+            if(list==null){
+                multiple_fab.setVisibility(GONE);
+            }
             switch (mParam1){
                 case "Registro Hora":
                     if(list!=null) {

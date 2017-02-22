@@ -39,8 +39,8 @@
                 android:title="Foto" />
             <item
                 android:id="@+id/mov_registro_horas_grd"
-                android:icon="@drawable/ic_menu_clock"
-                android:title="Registro Hora" />
+                android:icon="@drawable/ic_logout1"
+                android:title="Cerrar Sesion" />
         </menu>
     </item>
 
