@@ -44,6 +44,7 @@ public static class ListaViewHolder extends RecyclerView.ViewHolder {
     public TextView nombre;
     public TextView ordenservicio;
     public TextView fecha;
+    public TextView txtid;
     public CircleImageView seleccion;
     public RelativeLayout fondo_seleccion;
     public boolean bool_seleccion;
@@ -55,7 +56,7 @@ public static class ListaViewHolder extends RecyclerView.ViewHolder {
         seleccion = (CircleImageView) v.findViewById(R.id.seleccion);
         fondo_seleccion = (RelativeLayout) v.findViewById(R.id.fondo_seleccion);
         fecha = (TextView) v.findViewById(R.id.txtfecha);
-
+        txtid = (TextView) v.findViewById(R.id.txtid);
     }
 }
 
@@ -86,7 +87,7 @@ public static class ListaViewHolder extends RecyclerView.ViewHolder {
         SimpleDateFormat sm = new SimpleDateFormat("dd-MM-yyyy");
         String strDate = sm.format(items.get(i).getFecha());
         viewHolder.fecha.setText("Fecha: "+strDate);
-
+        viewHolder.txtid.setText("Id cliente: "+items.get(i).getIdclieprov());
         Gson gson = new GsonBuilder().serializeSpecialFloatingPointValues().create();
         System.out.println(gson.toJson(items.get(i)));
 
