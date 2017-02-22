@@ -32,6 +32,7 @@
 
         <activity
             android:name="com.nisira.view.Activity.Login_Activity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,6 +51,7 @@
         <activity
             android:name="com.nisira.view.Activity.SplashScreen_Activity"
             android:label="SplashScreen"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

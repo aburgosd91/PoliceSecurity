@@ -13,7 +13,8 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="Syncro">Sincronizar</string>
+    <string name="Syncro">Sincronizar Todo</string>
+    <string name="Syncrodocs">Sincronizar Documentos</string>
     <string name="asignacion_personal">Asignacion Personal</string>
     <string name="registro_hora">Registro Hora</string>
 

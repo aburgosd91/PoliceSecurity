@@ -2,6 +2,7 @@ package com.nisira.view.Activity;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -37,7 +38,7 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
     public TextView campo_titulo;
     public TextView campo_titulo2;
     RelativeLayout relativeLayout;
-    public int item_tabla_syncro;
+    public int item_tabla_syncro,item_tabla_syncrodoc;
     private static final int PERMISSION_REQUEST_CODE = 1;
     private static final Object[][] TABLASINCRONIZACION={
             {"METHOD_LIST_CLIEPROV",20},
@@ -56,6 +57,14 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
             {"METHOD_LIST_DORDENLIQUIDACIONGASTO",8},
             {"METHOD_LIST_DORDENSERVICIOCLIENTE",8}
     };
+    private static final Object[][] TABLASINCRONIZACIONDOCS={
+            {"METHOD_LIST_PERSONAL_SERVICIO",8},
+            {"METHOD_LIST_DPERSONAL_SERVICIO",8},
+            {"METHOD_LIST_ORDENLIQUIDACIONGASTO",8},
+            {"METHOD_LIST_ORDENSERVICIOCLIENTE",8},
+            {"METHOD_LIST_DORDENLIQUIDACIONGASTO",8},
+            {"METHOD_LIST_DORDENSERVICIOCLIENTE",8}
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +72,7 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
         setContentView(R.layout.activity_navigation_police);
 
         item_tabla_syncro = 0;
+        item_tabla_syncrodoc = 0;
         relativeLayout = (RelativeLayout) findViewById(R.id.main_content);
 //        variablesglobales = (VariableGlobal)getApplication();
         if (Build.VERSION.SDK_INT >= 23)
@@ -150,6 +160,11 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
             asyncronize();
             return true;
         }
+        if (id == R.id.action_syncronizedocs) {
+
+            asyncronizedocs();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -214,8 +229,11 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
 
         }else if (id == R.id.mov_foto) {
 
-        }else if (id == R.id.mov_registro_horas_grd) {
-
+        }else if (id == R.id.mov_logout) {
+            Intent intent = new Intent(NavigationPolice_Activity.this, Login_Activity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
         }
 
         //AQUI SE AGREGA EL TITULO DEL ELEMENTO SELECCIONADO
@@ -270,14 +288,33 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
         cws.execute("");
         cws.pd = ProgressDialog.show(NavigationPolice_Activity.this, "SINCRONIZANDO","Sincronizando Base de Datos - "+method_syncro.replace("METHOD_LIST_",""), true, false);
     }
+    public void asyncronizedocs(){
+        String method_syncro=TABLASINCRONIZACIONDOCS[item_tabla_syncro][0].toString();
+        int time = (int) TABLASINCRONIZACIONDOCS[item_tabla_syncro][1];
+        item_tabla_syncro++;
+        ConsumerService cws = new ConsumerService(NavigationPolice_Activity.this,getApplicationContext(), method_syncro, time,true);
+        cws.getAttribute().put("type","XML");
+        cws.execute("");
+        cws.pd = ProgressDialog.show(NavigationPolice_Activity.this, "SINCRONIZANDO","Sincronizando Base de Datos - "+method_syncro.replace("METHOD_LIST_",""), true, false);
+    }
+
 
     @Override
     public  void onPostExecuteWebService(ConsumerService cws, String result) {
 
         if(cws.isSyncronize()){
-            if(TABLASINCRONIZACION.length>item_tabla_syncro){
+            if(TABLASINCRONIZACION.length>item_tabla_syncro && item_tabla_syncro>0){
                 asyncronize();
             }
+            if(TABLASINCRONIZACIONDOCS.length>item_tabla_syncrodoc && item_tabla_syncrodoc>0){
+                asyncronizedocs();
+            }
+        }
+        if(TABLASINCRONIZACION.length==item_tabla_syncro){
+            item_tabla_syncro=0;
+        }
+        if(TABLASINCRONIZACIONDOCS.length==item_tabla_syncrodoc){
+            item_tabla_syncrodoc=0;
         }
     }
 

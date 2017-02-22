@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
         <item
@@ -23,7 +24,7 @@
                 android:title="Registro Vehiculo" />
             <item
                 android:id="@+id/mov_liquidacion_gastos"
-                android:icon="@drawable/ic_menu_documento"
+                android:icon="@drawable/ic_money"
                 android:title="Liquidación Gastos" />
         </menu>
     </item>
@@ -37,11 +38,13 @@
                 android:id="@+id/mov_foto"
                 android:icon="@drawable/ic_menu_camera"
                 android:title="Foto" />
-            <item
-                android:id="@+id/mov_registro_horas_grd"
-                android:icon="@drawable/ic_logout1"
-                android:title="Cerrar Sesion" />
         </menu>
     </item>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/mov_logout"
+            android:icon="@drawable/ic_logout1"
+            android:title="Cerrar Sesion" />
+    </group>
 
 </menu>

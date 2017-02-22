@@ -6,4 +6,9 @@
         android:orderInCategory="100"
         android:title="@string/Syncro"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_syncronizedocs"
+        android:orderInCategory="100"
+        android:title="@string/Syncrodocs"
+        app:showAsAction="never" />
 </menu>
