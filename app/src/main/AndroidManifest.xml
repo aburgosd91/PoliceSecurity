@@ -43,6 +43,7 @@
         <activity
             android:name="com.nisira.view.Activity.NavigationPolice_Activity"
             android:label="@string/title_activity_navigation_police"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar" >
 

@@ -130,7 +130,8 @@ public class edt_DPersonalServicio_Fragment extends FragmentNisira {
         try {
             list = Dpersonal_servicioDao.listarxPersonalServicio(personal_servicio);
             if(list==null){
-                multiple_fab.setVisibility(GONE);
+                btn_modificar.setVisibility(GONE);
+                btn_delete.setVisibility(GONE);
             }
             switch (mParam1){
                 case "Registro Hora":
