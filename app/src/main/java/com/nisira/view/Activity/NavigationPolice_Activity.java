@@ -291,7 +291,7 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
     public void asyncronizedocs(){
         String method_syncro=TABLASINCRONIZACIONDOCS[item_tabla_syncro][0].toString();
         int time = (int) TABLASINCRONIZACIONDOCS[item_tabla_syncro][1];
-        item_tabla_syncro++;
+        item_tabla_syncrodoc++;
         ConsumerService cws = new ConsumerService(NavigationPolice_Activity.this,getApplicationContext(), method_syncro, time,true);
         cws.getAttribute().put("type","XML");
         cws.execute("");
