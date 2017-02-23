@@ -176,9 +176,12 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
         int id = item.getItemId();
         if(getSupportFragmentManager().getFragments()!=null){
             for(Fragment fragment:getSupportFragmentManager().getFragments()){
-
-                getSupportFragmentManager().popBackStack();
-                //getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+                //getSupportFragmentManager().popBackStack();
+                try{
+                    getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         }
         relativeLayout.clearDisappearingChildren();
@@ -191,6 +194,7 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
             fragmentManager
                     .beginTransaction()
                     .replace(R.id.main_content, fragment)
+                    .addToBackStack(null)
                     .commit();
             campo_titulo2.setText(getString(R.string.lst_OrdenServicio));
 
@@ -201,6 +205,7 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
             fragmentManager
                     .beginTransaction()
                     .replace(R.id.main_content, fragment)
+                    .addToBackStack(null)
                     .commit();
             campo_titulo2.setText(getString(R.string.lst_OrdenServicio));
 
@@ -211,6 +216,7 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
             fragmentManager
                     .beginTransaction()
                     .replace(R.id.main_content, fragment)
+                    .addToBackStack(null)
                     .commit();
             campo_titulo2.setText(getString(R.string.lst_OrdenServicio));
 
@@ -221,6 +227,7 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
             fragmentManager
                     .beginTransaction()
                     .replace(R.id.main_content, fragment)
+                    .addToBackStack(null)
                     .commit();
             campo_titulo2.setText(getString(R.string.lst_LiquidacionGasto));
 
