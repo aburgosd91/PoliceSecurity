@@ -30,6 +30,9 @@ import com.nisira.core.service.ConsumerService;
 import com.nisira.core.util.Util;
 import com.nisira.gcalderon.policesecurity.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.nisira.view.Activity.Login_Activity.startInstalledAppDetailsActivity;
 
 public class NavigationPolice_Activity extends ActivityNisiraCompat
@@ -172,19 +175,19 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-
+        List<Fragment> fragments = new ArrayList<>();
         int id = item.getItemId();
-        if(getSupportFragmentManager().getFragments()!=null){
-            for(Fragment fragment:getSupportFragmentManager().getFragments()){
-                //getSupportFragmentManager().popBackStack();
-                try{
-                    getSupportFragmentManager().beginTransaction().remove(fragment).commit();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+
+        FragmentManager manager = getSupportFragmentManager();
+
+        if(manager.getFragments() != null) {
+            if (!manager.getFragments().isEmpty()) {
+                for(int i = 0 ; i<manager.getFragments().size()-1;i++)
+                manager.beginTransaction().hide(manager.getFragments().get(i)).commit();
             }
+            for(int i = 0 ; i<manager.getFragments().size();i++)
+                manager.popBackStack();
         }
-        relativeLayout.clearDisappearingChildren();
 
         if (id == R.id.mov_configuracion) {
 
@@ -194,9 +197,10 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
             fragmentManager
                     .beginTransaction()
                     .replace(R.id.main_content, fragment)
-                    .addToBackStack(null)
+
                     .commit();
             campo_titulo2.setText(getString(R.string.lst_OrdenServicio));
+            fragments.add(fragment);
 
         } else if (id == R.id.mov_registro_horas_cmt) {
 
@@ -205,9 +209,10 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
             fragmentManager
                     .beginTransaction()
                     .replace(R.id.main_content, fragment)
-                    .addToBackStack(null)
+
                     .commit();
             campo_titulo2.setText(getString(R.string.lst_OrdenServicio));
+            fragments.add(fragment);
 
         } else if (id == R.id.mov_registro_vehiculo) {
 
@@ -216,9 +221,10 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
             fragmentManager
                     .beginTransaction()
                     .replace(R.id.main_content, fragment)
-                    .addToBackStack(null)
+
                     .commit();
             campo_titulo2.setText(getString(R.string.lst_OrdenServicio));
+            fragments.add(fragment);
 
         } else if (id == R.id.mov_liquidacion_gastos) {
 
@@ -227,16 +233,16 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
             fragmentManager
                     .beginTransaction()
                     .replace(R.id.main_content, fragment)
-                    .addToBackStack(null)
+
                     .commit();
             campo_titulo2.setText(getString(R.string.lst_LiquidacionGasto));
-
+            fragments.add(fragment);
 
         } else if (id == R.id.mov_ubicacion_gmap) {
 
-        }else if (id == R.id.mov_foto) {
+        } else if (id == R.id.mov_foto) {
 
-        }else if (id == R.id.mov_logout) {
+        } else if (id == R.id.mov_logout) {
             Intent intent = new Intent(NavigationPolice_Activity.this, Login_Activity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
@@ -252,38 +258,6 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    private void selectItem(String title, int id) {
-        // Enviar título como arguemento del fragmento
-        Bundle args = new Bundle();
-        args.putString("numero de la seccion", title);
-        Log.i("INFO",title);
-
-        if(id == R.id.mov_ubicacion_gmap){
-            Log.i("INFO","ENTRO");
-            Fragment fragment = mnt_Ruta_Gps.newInstance("ejemplo", "ejemplo2");
-            fragment.setArguments(args);
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager
-                    .beginTransaction()
-                    .replace(R.id.main_content, fragment)
-                    .commit();
-        }
-        else {
-            Log.i("INFO","NO ENTRO");
-            Fragment fragment = List_Fragment_Personal.newInstance("ejemplo", "ejemplo2");
-            fragment.setArguments(args);
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager
-                    .beginTransaction()
-                    .replace(R.id.main_content, fragment)
-                    .commit();
-
-            // Cerrar drawer
-        }
-        setTitle(title); // Setear título actual
-
     }
 
     public void asyncronize(){

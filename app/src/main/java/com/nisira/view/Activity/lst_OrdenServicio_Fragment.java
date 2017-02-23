@@ -75,7 +75,7 @@ public class lst_OrdenServicio_Fragment extends FragmentNisira {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_lst_ordenservicio, container, false);
-        animacionEntrada();
+
         // Inflate the layout for this fragment
         recycler = (RecyclerView) view.findViewById(R.id.reciclador);
         recycler.setHasFixedSize(true);
@@ -92,12 +92,7 @@ public class lst_OrdenServicio_Fragment extends FragmentNisira {
         return view;
     }
 
-    public void animacionEntrada(){
-        // TODO: TRANSICIONES Y ANIMACIONES
-        Slide slide = (Slide) TransitionInflater.from(getContext()).inflateTransition(R.transition.activity_slide);
-        setExitTransition(slide);
-        setEnterTransition(slide);
-    }
+
 
     public void LlenarCampos(){
         try {
