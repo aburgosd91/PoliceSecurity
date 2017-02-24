@@ -179,7 +179,7 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
         int id = item.getItemId();
 
         FragmentManager manager = getSupportFragmentManager();
-
+/*
         if(manager.getFragments() != null) {
             if (!manager.getFragments().isEmpty()) {
                 for(int i = 0 ; i<manager.getFragments().size()-1;i++)
@@ -187,6 +187,18 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
             }
             for(int i = 0 ; i<manager.getFragments().size();i++)
                 manager.popBackStack();
+        }
+*/
+        try {
+            if(manager.getFragments()!=null){
+                if(manager.getBackStackEntryCount()>0) {
+                    for (int i = 0; i < manager.getBackStackEntryCount(); i++)
+                        manager.popBackStack();
+                    manager.beginTransaction().remove(getSupportFragmentManager().findFragmentById(R.id.main_content)).commit();
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
         if (id == R.id.mov_configuracion) {
@@ -196,8 +208,8 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager
                     .beginTransaction()
-                    .replace(R.id.main_content, fragment)
-
+                    .add(R.id.main_content, fragment)
+                    .addToBackStack(null)
                     .commit();
             campo_titulo2.setText(getString(R.string.lst_OrdenServicio));
             fragments.add(fragment);
@@ -208,8 +220,8 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager
                     .beginTransaction()
-                    .replace(R.id.main_content, fragment)
-
+                    .add(R.id.main_content, fragment)
+                    .addToBackStack(null)
                     .commit();
             campo_titulo2.setText(getString(R.string.lst_OrdenServicio));
             fragments.add(fragment);
@@ -220,8 +232,8 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager
                     .beginTransaction()
-                    .replace(R.id.main_content, fragment)
-
+                    .add(R.id.main_content, fragment)
+                    .addToBackStack(null)
                     .commit();
             campo_titulo2.setText(getString(R.string.lst_OrdenServicio));
             fragments.add(fragment);
@@ -232,8 +244,8 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager
                     .beginTransaction()
-                    .replace(R.id.main_content, fragment)
-
+                    .add(R.id.main_content, fragment)
+                    .addToBackStack(null)
                     .commit();
             campo_titulo2.setText(getString(R.string.lst_LiquidacionGasto));
             fragments.add(fragment);
