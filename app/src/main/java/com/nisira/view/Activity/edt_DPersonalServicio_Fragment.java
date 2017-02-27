@@ -167,6 +167,7 @@ public class edt_DPersonalServicio_Fragment extends FragmentNisira {
                 Bundle bundle = fragment.getArguments();
                 bundle.putSerializable("DOrdenServicio", dordenserviciocliente);
                 bundle.putSerializable("DPersonalServicio",dpersonal_servicio);
+                bundle.putSerializable("PersonalServicio",personal_servicio);
                 fragment.setArguments(bundle);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(R.id.main_content, fragment, "NewFragmentTag");
@@ -188,6 +189,7 @@ public class edt_DPersonalServicio_Fragment extends FragmentNisira {
                         Bundle bundle = fragment.getArguments();
                         bundle.putSerializable("DOrdenServicio", dordenserviciocliente);
                         bundle.putSerializable("DPersonalServicio", list.get(i));
+                        bundle.putSerializable("PersonalServicio",personal_servicio);
                         fragment.setArguments(bundle);
                         FragmentTransaction ft = getFragmentManager().beginTransaction();
                         ft.replace(R.id.main_content, fragment, "NewFragmentTag");

@@ -42,6 +42,7 @@ public static class ListaViewHolder extends RecyclerView.ViewHolder {
     public TextView nombre;
     public TextView documento;
     public TextView estado;
+    public TextView cargo;
     public CircleImageView seleccion;
     public RelativeLayout fondo_seleccion;
     public boolean bool_seleccion;
@@ -52,7 +53,8 @@ public static class ListaViewHolder extends RecyclerView.ViewHolder {
         documento = (TextView) v.findViewById(R.id.txtdocumento);
         seleccion = (CircleImageView) v.findViewById(R.id.seleccion);
         fondo_seleccion = (RelativeLayout) v.findViewById(R.id.fondo_seleccion);
-        estado = (TextView) v.findViewById(R.id.txt2);
+        estado = (TextView) v.findViewById(R.id.txt3);
+        cargo = (TextView) v.findViewById(R.id.txt2);
     }
 }
 
@@ -84,6 +86,7 @@ public static class ListaViewHolder extends RecyclerView.ViewHolder {
         SimpleDateFormat sm = new SimpleDateFormat("dd-MM-yyyy");
         String strDate = sm.format(items.get(i).getFechaoperacion());
         viewHolder.estado.setText("Fecha Operacion: "+strDate);
+        viewHolder.cargo.setText("Cargo: "+items.get(i).getDescripcion_cargo());
 
         if(items.get(i).isSeleccion()){
             viewHolder.seleccion.setBackgroundColor(viewHolder.itemView.getResources().getColor(R.color.amarillo));

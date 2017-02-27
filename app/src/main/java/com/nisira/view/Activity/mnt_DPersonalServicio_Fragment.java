@@ -18,6 +18,7 @@ import android.widget.TimePicker;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.nisira.core.dao.Dpersonal_servicioDao;
 import com.nisira.core.entity.Dpersonal_servicio;
+import com.nisira.core.entity.Personal_servicio;
 import com.nisira.core.util.Util;
 import com.nisira.gcalderon.policesecurity.R;
 
@@ -31,6 +32,7 @@ public class mnt_DPersonalServicio_Fragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private Dpersonal_servicio dpersonal_servicio;
+    private Personal_servicio personal_servicio;
     private EditText hora_llegada;
     private EditText hora_requerida;
     private EditText hora_inicio;
@@ -66,7 +68,7 @@ public class mnt_DPersonalServicio_Fragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
             dpersonal_servicio = (Dpersonal_servicio) getArguments().getSerializable("DPersonalServicio");
-
+            personal_servicio = (Personal_servicio) getArguments().getSerializable("PersonalServicio");
         }
     }
 
