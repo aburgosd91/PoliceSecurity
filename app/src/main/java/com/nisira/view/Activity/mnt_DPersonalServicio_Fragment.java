@@ -1,5 +1,7 @@
 package com.nisira.view.Activity;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.transition.Fade;
@@ -8,19 +10,20 @@ import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.nisira.core.dao.Dpersonal_servicioDao;
 import com.nisira.core.entity.Dpersonal_servicio;
 import com.nisira.core.util.Util;
 import com.nisira.gcalderon.policesecurity.R;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
-import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.stream.Stream;
 
 
 public class mnt_DPersonalServicio_Fragment extends Fragment {
@@ -135,18 +138,17 @@ public class mnt_DPersonalServicio_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Calendar now = Calendar.getInstance();
-                TimePickerDialog tpd = TimePickerDialog.newInstance(
-                        new TimePickerDialog.OnTimeSetListener() {
-                            @Override
-                            public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
-                                hora_requerida.setText(hourOfDay+":"+minute);
-                            }
-                        },
-                        now.get(Calendar.HOUR_OF_DAY),
-                        now.get(Calendar.MINUTE),
-                        true
-                );
-                tpd.show(getActivity().getFragmentManager(), "Timepickerdialog");
+                TimePickerDialog tpd1 = new TimePickerDialog(getContext(),
+                    android.app.TimePickerDialog.THEME_HOLO_LIGHT,
+                    new android.app.TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        hora_requerida.setText(hourOfDay+":"+minute);
+                    }
+                },
+                    now.get(Calendar.HOUR_OF_DAY),
+                    now.get(Calendar.MINUTE),false);
+                tpd1.show();
             }
         });
 
@@ -154,18 +156,17 @@ public class mnt_DPersonalServicio_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Calendar now = Calendar.getInstance();
-                TimePickerDialog tpd = TimePickerDialog.newInstance(
-                        new TimePickerDialog.OnTimeSetListener() {
+                TimePickerDialog tpd1 = new TimePickerDialog(getContext(),
+                        android.app.TimePickerDialog.THEME_HOLO_LIGHT,
+                        new android.app.TimePickerDialog.OnTimeSetListener() {
                             @Override
-                            public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                                 hora_llegada.setText(hourOfDay+":"+minute);
                             }
                         },
                         now.get(Calendar.HOUR_OF_DAY),
-                        now.get(Calendar.MINUTE),
-                        true
-                );
-                tpd.show(getActivity().getFragmentManager(), "Timepickerdialog");
+                        now.get(Calendar.MINUTE),false);
+                tpd1.show();
             }
         });
 
@@ -173,18 +174,17 @@ public class mnt_DPersonalServicio_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Calendar now = Calendar.getInstance();
-                TimePickerDialog tpd = TimePickerDialog.newInstance(
-                        new TimePickerDialog.OnTimeSetListener() {
+                TimePickerDialog tpd1 = new TimePickerDialog(getContext(),
+                        android.app.TimePickerDialog.THEME_HOLO_LIGHT,
+                        new android.app.TimePickerDialog.OnTimeSetListener() {
                             @Override
-                            public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                                 hora_inicio.setText(hourOfDay+":"+minute);
                             }
                         },
                         now.get(Calendar.HOUR_OF_DAY),
-                        now.get(Calendar.MINUTE),
-                        true
-                );
-                tpd.show(getActivity().getFragmentManager(), "Timepickerdialog");
+                        now.get(Calendar.MINUTE),false);
+                tpd1.show();
             }
         });
 
@@ -192,18 +192,17 @@ public class mnt_DPersonalServicio_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Calendar now = Calendar.getInstance();
-                TimePickerDialog tpd = TimePickerDialog.newInstance(
-                        new TimePickerDialog.OnTimeSetListener() {
+                TimePickerDialog tpd1 = new TimePickerDialog(getContext(),
+                        android.app.TimePickerDialog.THEME_HOLO_LIGHT,
+                        new android.app.TimePickerDialog.OnTimeSetListener() {
                             @Override
-                            public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                                 hora_fin.setText(hourOfDay+":"+minute);
                             }
                         },
                         now.get(Calendar.HOUR_OF_DAY),
-                        now.get(Calendar.MINUTE),
-                        true
-                );
-                tpd.show(getActivity().getFragmentManager(), "Timepickerdialog");
+                        now.get(Calendar.MINUTE),false);
+                tpd1.show();
             }
         });
 
@@ -211,18 +210,17 @@ public class mnt_DPersonalServicio_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Calendar now = Calendar.getInstance();
-                TimePickerDialog tpd = TimePickerDialog.newInstance(
-                        new TimePickerDialog.OnTimeSetListener() {
+                TimePickerDialog tpd1 = new TimePickerDialog(getContext(),
+                        android.app.TimePickerDialog.THEME_HOLO_LIGHT,
+                        new android.app.TimePickerDialog.OnTimeSetListener() {
                             @Override
-                            public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                                 hora_liberacion.setText(hourOfDay+":"+minute);
                             }
                         },
                         now.get(Calendar.HOUR_OF_DAY),
-                        now.get(Calendar.MINUTE),
-                        true
-                );
-                tpd.show(getActivity().getFragmentManager(), "Timepickerdialog");
+                        now.get(Calendar.MINUTE),false);
+                tpd1.show();
             }
         });
 
@@ -230,18 +228,19 @@ public class mnt_DPersonalServicio_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Calendar now = Calendar.getInstance();
-                DatePickerDialog dpd = DatePickerDialog.newInstance(
+                DatePickerDialog dpd = new DatePickerDialog(
+                        getContext(),
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
-                            public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-                                fecha_operacion.setText(dayOfMonth+"/"+monthOfYear+1+"/"+year);
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                fecha_operacion.setText(dayOfMonth+"/"+month+1+"/"+year);
                             }
                         },
                         now.get(Calendar.YEAR),
                         now.get(Calendar.MONTH),
                         now.get(Calendar.DAY_OF_MONTH)
                 );
-                dpd.show(getActivity().getFragmentManager(), "Datepickerdialog");
+                dpd.show();
             }
         });
 
@@ -284,6 +283,9 @@ public class mnt_DPersonalServicio_Fragment extends Fragment {
         });
     }
 
+    String TimetoString(int time){
 
+return "";
+    }
 
 }

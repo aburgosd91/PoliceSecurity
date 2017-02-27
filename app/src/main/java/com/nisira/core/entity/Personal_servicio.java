@@ -55,6 +55,11 @@ public class Personal_servicio implements Serializable {
 	@XStreamAlias("IDCARGO") 
 	private String idcargo = "" ;
 
+	@Columna
+	@SerializedName("fechafin")
+	@XStreamAlias("FECHAFIN")
+	private Date fechafin;
+
 	private boolean seleccion;
 
 	private String descripcion_cargo="";
@@ -148,6 +153,14 @@ public class Personal_servicio implements Serializable {
 
 	public void setDescripcion_cargo(String descripcion_cargo) {
 		this.descripcion_cargo = descripcion_cargo;
+	}
+
+	public Date getFechafin() {
+		return fechafin;
+	}
+
+	public void setFechafin(Date fechafin) {
+		this.fechafin = fechafin;
 	}
 
 
