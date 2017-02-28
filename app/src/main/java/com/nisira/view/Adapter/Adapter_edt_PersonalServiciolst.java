@@ -9,9 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.nisira.core.dao.Personal_servicioDao;
 import com.nisira.core.entity.Dordenserviciocliente;
 import com.nisira.core.entity.Ordenserviciocliente;
 import com.nisira.core.entity.Personal_servicio;
@@ -20,6 +23,8 @@ import com.nisira.view.Activity.edt_DPersonalServicio_Fragment;
 import com.nisira.view.Activity.edt_PersonalServicio_Fragment;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -43,8 +48,11 @@ public static class ListaViewHolder extends RecyclerView.ViewHolder {
     public TextView documento;
     public TextView estado;
     public TextView cargo;
+    public TextView fecha_fin;
     public CircleImageView seleccion;
     public RelativeLayout fondo_seleccion;
+    public LinearLayout ll_fecha;
+    public FloatingActionButton fab_fecha;
     public boolean bool_seleccion;
     public ListaViewHolder(View v) {
         super(v);
@@ -55,6 +63,10 @@ public static class ListaViewHolder extends RecyclerView.ViewHolder {
         fondo_seleccion = (RelativeLayout) v.findViewById(R.id.fondo_seleccion);
         estado = (TextView) v.findViewById(R.id.txt3);
         cargo = (TextView) v.findViewById(R.id.txt2);
+        ll_fecha = (LinearLayout)v.findViewById(R.id.ll_fecha);
+        fecha_fin = (TextView)v.findViewById(R.id.txt4);
+        fab_fecha = (FloatingActionButton)v.findViewById(R.id.fab_fecha);
+
     }
 }
 
@@ -87,6 +99,15 @@ public static class ListaViewHolder extends RecyclerView.ViewHolder {
         String strDate = sm.format(items.get(i).getFechaoperacion());
         viewHolder.estado.setText("Fecha Operacion: "+strDate);
         viewHolder.cargo.setText("Cargo: "+items.get(i).getDescripcion_cargo());
+        viewHolder.ll_fecha.setVisibility(View.VISIBLE);
+
+        if(items.get(i).getFechafin()!=null){
+
+        }else{
+            viewHolder.fab_fecha.setVisibility(View.GONE);
+            String datefin =  sm.format(items.get(i).getFechafin());
+            viewHolder.fecha_fin.setText("Fecha fin: " + datefin);
+        }
 
         if(items.get(i).isSeleccion()){
             viewHolder.seleccion.setBackgroundColor(viewHolder.itemView.getResources().getColor(R.color.amarillo));
@@ -100,6 +121,24 @@ public static class ListaViewHolder extends RecyclerView.ViewHolder {
 
 
         //TODO: EVENTOS
+        viewHolder.fab_fecha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar now = Calendar.getInstance();
+                SimpleDateFormat sm = new SimpleDateFormat("dd-MM-yyyy");
+                String strDate = sm.format(now.getTime());
+                viewHolder.fecha_fin.setText("Fecha fin: "+ strDate);
+                items.get(i).setFechafin(now.getTime());
+                Personal_servicioDao dao = new Personal_servicioDao();
+                try {
+                    dao.mezclarLocal(items.get(i));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                viewHolder.fab_fecha.setVisibility(View.GONE);
+            }
+        });
+
         viewHolder.seleccion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,12 +1,14 @@
 package com.nisira.view.Adapter;
 
 import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -37,6 +39,7 @@ public static class ListaViewHolder extends RecyclerView.ViewHolder {
     public TextView cargo;
     public CircleImageView seleccion;
     public RelativeLayout fondo_seleccion;
+    public LinearLayout ll_fecha;
     public boolean bool_seleccion;
     public ListaViewHolder(View v) {
         super(v);
@@ -47,6 +50,7 @@ public static class ListaViewHolder extends RecyclerView.ViewHolder {
         fondo_seleccion = (RelativeLayout) v.findViewById(R.id.fondo_seleccion);
         estado = (TextView) v.findViewById(R.id.txt3);
         cargo = (TextView)v.findViewById(R.id.txt2);
+        ll_fecha = (LinearLayout)v.findViewById(R.id.ll_fecha);
     }
 }
 
@@ -70,6 +74,7 @@ public static class ListaViewHolder extends RecyclerView.ViewHolder {
     @Override
     public void onBindViewHolder(ListaViewHolder viewHolder, int i) {
 
+        viewHolder.ll_fecha.setVisibility(View.GONE);
         viewHolder.nombre.setText(items.get(i).getNombres());
         viewHolder.documento.setText("Dni: "+items.get(i).getDni());
         SimpleDateFormat sm = new SimpleDateFormat("dd-MM-yyyy");

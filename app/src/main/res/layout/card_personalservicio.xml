@@ -80,7 +80,31 @@
             android:layout_below="@+id/txt2"
             android:layout_alignLeft="@+id/nombre" />
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt3"
+            android:id="@+id/ll_fecha"
+            android:visibility="gone"
+            android:layout_alignLeft="@+id/nombre">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt4"
+                android:layout_gravity="center"
+                android:text="Fecha fin:"
+                />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fab_fecha"
+                app:fab_colorNormal="@color/blue_gray"
+                app:fab_icon="@drawable/ic_date_white"
+                app:fab_colorPressed="@color/colorAccent"
+                app:fab_size="mini" />
+        </LinearLayout>
     </RelativeLayout>
 
 

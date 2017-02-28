@@ -145,7 +145,7 @@ public class mnt_DPersonalServicio_Fragment extends Fragment {
                     new android.app.TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        hora_requerida.setText(hourOfDay+":"+minute);
+                        hora_requerida.setText(TimetoString(hourOfDay)+":"+TimetoString(minute));
                     }
                 },
                     now.get(Calendar.HOUR_OF_DAY),
@@ -163,7 +163,7 @@ public class mnt_DPersonalServicio_Fragment extends Fragment {
                         new android.app.TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                                hora_llegada.setText(hourOfDay+":"+minute);
+                                hora_llegada.setText(TimetoString(hourOfDay)+":"+TimetoString(minute));
                             }
                         },
                         now.get(Calendar.HOUR_OF_DAY),
@@ -181,7 +181,7 @@ public class mnt_DPersonalServicio_Fragment extends Fragment {
                         new android.app.TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                                hora_inicio.setText(hourOfDay+":"+minute);
+                                hora_inicio.setText(TimetoString(hourOfDay)+":"+TimetoString(minute));
                             }
                         },
                         now.get(Calendar.HOUR_OF_DAY),
@@ -199,7 +199,7 @@ public class mnt_DPersonalServicio_Fragment extends Fragment {
                         new android.app.TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                                hora_fin.setText(hourOfDay+":"+minute);
+                                hora_fin.setText(TimetoString(hourOfDay)+":"+TimetoString(minute));
                             }
                         },
                         now.get(Calendar.HOUR_OF_DAY),
@@ -217,7 +217,7 @@ public class mnt_DPersonalServicio_Fragment extends Fragment {
                         new android.app.TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                                hora_liberacion.setText(hourOfDay+":"+minute);
+                                hora_liberacion.setText(TimetoString(hourOfDay)+":"+TimetoString(minute));
                             }
                         },
                         now.get(Calendar.HOUR_OF_DAY),
@@ -286,8 +286,10 @@ public class mnt_DPersonalServicio_Fragment extends Fragment {
     }
 
     String TimetoString(int time){
-
-return "";
+        if(time<=9){
+            return "0"+time;
+        }
+        return time+"";
     }
 
 }
