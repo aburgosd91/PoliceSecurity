@@ -102,8 +102,6 @@ public static class ListaViewHolder extends RecyclerView.ViewHolder {
         viewHolder.ll_fecha.setVisibility(View.VISIBLE);
 
         if(items.get(i).getFechafin()!=null){
-
-        }else{
             viewHolder.fab_fecha.setVisibility(View.GONE);
             String datefin =  sm.format(items.get(i).getFechafin());
             viewHolder.fecha_fin.setText("Fecha fin: " + datefin);
