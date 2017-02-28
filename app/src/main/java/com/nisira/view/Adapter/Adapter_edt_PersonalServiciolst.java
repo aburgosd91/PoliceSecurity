@@ -102,7 +102,6 @@ public static class ListaViewHolder extends RecyclerView.ViewHolder {
         viewHolder.ll_fecha.setVisibility(View.VISIBLE);
 
         if(items.get(i).getFechafin()!=null){
-            viewHolder.fab_fecha.setVisibility(View.GONE);
             String datefin =  sm.format(items.get(i).getFechafin());
             viewHolder.fecha_fin.setText("Fecha fin: " + datefin);
         }
@@ -122,18 +121,28 @@ public static class ListaViewHolder extends RecyclerView.ViewHolder {
         viewHolder.fab_fecha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar now = Calendar.getInstance();
-                SimpleDateFormat sm = new SimpleDateFormat("dd-MM-yyyy");
-                String strDate = sm.format(now.getTime());
-                viewHolder.fecha_fin.setText("Fecha fin: "+ strDate);
-                items.get(i).setFechafin(now.getTime());
-                Personal_servicioDao dao = new Personal_servicioDao();
-                try {
-                    dao.mezclarLocal(items.get(i));
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if(items.get(i).getFechafin()== null) {
+                    Calendar now = Calendar.getInstance();
+                    SimpleDateFormat sm = new SimpleDateFormat("dd-MM-yyyy");
+                    String strDate = sm.format(now.getTime());
+                    viewHolder.fecha_fin.setText("Fecha fin: " + strDate);
+                    items.get(i).setFechafin(now.getTime());
+                    Personal_servicioDao dao = new Personal_servicioDao();
+                    try {
+                        dao.mezclarLocal(items.get(i));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    viewHolder.fecha_fin.setText("Fecha fin: ");
+                    items.get(i).setFechafin(null);
+                    Personal_servicioDao dao = new Personal_servicioDao();
+                    try {
+                        dao.mezclarLocal(items.get(i));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-                viewHolder.fab_fecha.setVisibility(View.GONE);
             }
         });
 
