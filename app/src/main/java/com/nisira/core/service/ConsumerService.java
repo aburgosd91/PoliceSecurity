@@ -31,12 +31,13 @@ public class ConsumerService extends AsyncTask<String, Void, String> {
     private LinkedHashMap attribute;
     private Basedatos WSBasedatos;
     private boolean syncronize;
+    private int type_syncronize;
     private int timeout;
 //    private Empresa WSEmpresa;
 //    private Usuario WSUsuario;
 
 
-    public ConsumerService(Activity activity, Context context, String method, Integer parametro_timeout,boolean _method_syncronize) {
+    public ConsumerService(Activity activity, Context context, String method, Integer parametro_timeout,boolean _method_syncronize, int type_syncronize) {
         this.context1 = context;
         this.activity =activity;
         this.setMethod(method);
@@ -44,8 +45,9 @@ public class ConsumerService extends AsyncTask<String, Void, String> {
         this.setAttribute(new LinkedHashMap());
         this.WSBasedatos = new Basedatos();
         WSBasedatos.setWsurl(Service.URL);
-        WSBasedatos.setIdbasedatosconexion("AUTONOR");
+        WSBasedatos.setIdbasedatosconexion("PSS");
         this.setSyncronize(_method_syncronize);
+        this.type_syncronize=type_syncronize;
         this.timeout=parametro_timeout;
     }
     public ConsumerService(Activity activity, Context context, String method, Integer parametro_timeout) {
@@ -56,7 +58,7 @@ public class ConsumerService extends AsyncTask<String, Void, String> {
         this.setAttribute(new LinkedHashMap());
         this.WSBasedatos = new Basedatos();
         WSBasedatos.setWsurl(Service.URL);
-        WSBasedatos.setIdbasedatosconexion("AUTONOR");
+        WSBasedatos.setIdbasedatosconexion("PSS");
         this.setSyncronize(false);
         this.timeout=parametro_timeout;
     }
@@ -68,7 +70,7 @@ public class ConsumerService extends AsyncTask<String, Void, String> {
         this.setAttribute(new LinkedHashMap());
         this.WSBasedatos = new Basedatos();
         WSBasedatos.setWsurl(Service.URL);
-        WSBasedatos.setIdbasedatosconexion("AUTONOR");
+        WSBasedatos.setIdbasedatosconexion("PSS");
         this.setSyncronize(false);
         this.timeout=parametro_timeout;
     }
@@ -80,7 +82,7 @@ public class ConsumerService extends AsyncTask<String, Void, String> {
         this.setAttribute(new LinkedHashMap());
         this.WSBasedatos = new Basedatos();
         WSBasedatos.setWsurl(Service.URL);
-        WSBasedatos.setIdbasedatosconexion("AUTONOR");
+        WSBasedatos.setIdbasedatosconexion("PSS");
         this.setSyncronize(_method_syncronize);
         this.timeout=parametro_timeout;
     }
@@ -211,6 +213,14 @@ public class ConsumerService extends AsyncTask<String, Void, String> {
 
     public void setSyncronize(boolean syncronize) {
         this.syncronize = syncronize;
+    }
+
+    public int getType_syncronize() {
+        return type_syncronize;
+    }
+
+    public void setType_syncronize(int type_syncronize) {
+        this.type_syncronize = type_syncronize;
     }
 }
 

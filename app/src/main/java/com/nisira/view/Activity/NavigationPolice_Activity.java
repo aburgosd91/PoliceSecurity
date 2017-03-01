@@ -276,16 +276,16 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
         String method_syncro=TABLASINCRONIZACION[item_tabla_syncro][0].toString();
         int time = (int) TABLASINCRONIZACION[item_tabla_syncro][1];
         item_tabla_syncro++;
-        ConsumerService cws = new ConsumerService(NavigationPolice_Activity.this,getApplicationContext(), method_syncro, time,true);
+        ConsumerService cws = new ConsumerService(NavigationPolice_Activity.this,getApplicationContext(), method_syncro, time,true,1);
         cws.getAttribute().put("type","XML");
         cws.execute("");
         cws.pd = ProgressDialog.show(NavigationPolice_Activity.this, "SINCRONIZANDO","Sincronizando Base de Datos - "+method_syncro.replace("METHOD_LIST_",""), true, false);
     }
     public void asyncronizedocs(){
-        String method_syncro=TABLASINCRONIZACIONDOCS[item_tabla_syncro][0].toString();
-        int time = (int) TABLASINCRONIZACIONDOCS[item_tabla_syncro][1];
+        String method_syncro=TABLASINCRONIZACIONDOCS[item_tabla_syncrodoc][0].toString();
+        int time = (int) TABLASINCRONIZACIONDOCS[item_tabla_syncrodoc][1];
         item_tabla_syncrodoc++;
-        ConsumerService cws = new ConsumerService(NavigationPolice_Activity.this,getApplicationContext(), method_syncro, time,true);
+        ConsumerService cws = new ConsumerService(NavigationPolice_Activity.this,getApplicationContext(), method_syncro, time,true,2);
         cws.getAttribute().put("type","XML");
         cws.execute("");
         cws.pd = ProgressDialog.show(NavigationPolice_Activity.this, "SINCRONIZANDO","Sincronizando Base de Datos - "+method_syncro.replace("METHOD_LIST_",""), true, false);
