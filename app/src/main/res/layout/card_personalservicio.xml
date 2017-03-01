@@ -86,15 +86,7 @@
             android:layout_below="@+id/txt3"
             android:id="@+id/ll_fecha"
             android:visibility="gone"
-            android:layout_alignLeft="@+id/nombre">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/txt4"
-                android:layout_gravity="center"
-                android:text="Fecha fin:"
-                />
+            android:layout_alignLeft="@+id/imagen_personal">
 
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:layout_width="wrap_content"
@@ -104,6 +96,13 @@
                 app:fab_icon="@drawable/ic_date_white"
                 app:fab_colorPressed="@color/colorAccent"
                 app:fab_size="mini" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt4"
+                android:layout_gravity="center"
+                android:text="Fecha fin: "
+                />
         </LinearLayout>
     </RelativeLayout>
 
