@@ -23,8 +23,8 @@ public class Service {
     /*
         CONSTANTES
     */
-    //static final String URL="http://190.102.145.230:8080/WebServiceNisira?wsdl";/*FUERA DE OFICINA*/
-    static final String URL="http://10.250.50.88:8080/WebServiceNisira?wsdl";/*DENTRO DE OFICINA*/
+    static final String URL="http://190.102.145.230:8080/WebServiceNisira?wsdl";/*FUERA DE OFICINA*/
+    //static final String URL="http://10.250.50.88:8080/WebServiceNisira?wsdl";/*DENTRO DE OFICINA*/
     static final String NAMESPACE="http://webservice/";
     static final Integer timeout_=10*1000;
     /*

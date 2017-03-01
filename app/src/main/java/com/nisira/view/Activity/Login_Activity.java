@@ -219,7 +219,7 @@ public class Login_Activity extends ActivityNisiraCompat implements ActivityComp
         String method_syncro=TABLASINCRONIZACION[item_tabla_syncro][0].toString();
         int time = (int) TABLASINCRONIZACION[item_tabla_syncro][1];
         item_tabla_syncro++;
-        ConsumerService cws = new ConsumerService(Login_Activity.this,getApplicationContext(), method_syncro, time,true);
+        ConsumerService cws = new ConsumerService(Login_Activity.this,getApplicationContext(), method_syncro, time,true,1);
         cws.getAttribute().put("type","XML");
         cws.execute("");
         cws.pd = ProgressDialog.show(Login_Activity.this, "SINCRONIZANDO","Sincronizando Base de Datos - "+method_syncro.replace("METHOD_LIST_",""), true, false);

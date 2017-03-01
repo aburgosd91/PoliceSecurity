@@ -296,18 +296,21 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
     public  void onPostExecuteWebService(ConsumerService cws, String result) {
 
         if(cws.isSyncronize()){
-            if(TABLASINCRONIZACION.length>item_tabla_syncro && item_tabla_syncro>0){
-                asyncronize();
+            if(cws.getType_syncronize()==1){/*SINCRONIZACION TOTAL*/
+                if(TABLASINCRONIZACION.length>item_tabla_syncro && item_tabla_syncro>0){
+                    asyncronize();
+                }
+                if(TABLASINCRONIZACION.length==item_tabla_syncro){
+                    item_tabla_syncro=0;
+                }
+            }else if(cws.getType_syncronize()==2){/*SINCRONIZACION DOCUMENTOS*/
+                if(TABLASINCRONIZACIONDOCS.length>item_tabla_syncrodoc && item_tabla_syncrodoc>0){
+                    asyncronizedocs();
+                }
+                if(TABLASINCRONIZACIONDOCS.length==item_tabla_syncrodoc){
+                    item_tabla_syncrodoc=0;
+                }
             }
-            if(TABLASINCRONIZACIONDOCS.length>item_tabla_syncrodoc && item_tabla_syncrodoc>0){
-                asyncronizedocs();
-            }
-        }
-        if(TABLASINCRONIZACION.length==item_tabla_syncro){
-            item_tabla_syncro=0;
-        }
-        if(TABLASINCRONIZACIONDOCS.length==item_tabla_syncrodoc){
-            item_tabla_syncrodoc=0;
         }
     }
 

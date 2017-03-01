@@ -51,10 +51,8 @@ public class ActionService {
         try {
             Usuario usuario = (Usuario) Util.stringObject("com.nisira.core.entity.Usuario",response);
             if(usuario!=null){
-                //boolean request= (new UsuarioDao()).insertar(usuario);
                 usuario.setFechacreacion(new Date());
                 usuario.setEstado(1);
-//                (new UsuarioDao()).insertar(usuario);
                 return "OK";
             }
             return "";
@@ -63,14 +61,6 @@ public class ActionService {
         {
             Log.i("ActionService ->",e.getMessage());
             return e.getMessage();
-//            if(VERERRORESSINCRONIZACION==1)
-//            {
-//                return e.toString();
-//            }
-//            else
-//            {
-//                return "Error de conectividad, Intente de nuevo";
-//            }
         }
     }
     public static String ACTION_SYNCRONIZE_CLIEPROV (String db,String response){
@@ -90,14 +80,6 @@ public class ActionService {
         {
             Log.i("ActionService ->",e.getMessage());
             return e.getMessage();
-//            if(VERERRORESSINCRONIZACION==1)
-//            {
-//                return e.toString();
-//            }
-//            else
-//            {
-//                return "Error de conectividad, Intente de nuevo";
-//            }
         }
     }
     public static String ACTION_SYNCRONIZE_CONSUMIDOR (String db,String response){
@@ -109,7 +91,6 @@ public class ActionService {
                     Consumidor obj= (Consumidor)consumidores.get(i);
                     consumidorDao.mezclarLocal(obj);
                 }
-                //boolean request= (new UsuarioDao()).insertar(usuario);
                 return "OK";
             }
             return "";
@@ -117,14 +98,6 @@ public class ActionService {
         catch (Exception e)
         {
             return e.getMessage();
-//            if(VERERRORESSINCRONIZACION==1)
-//            {
-//                return e.toString();
-//            }
-//            else
-//            {
-//                return "Error de conectividad, Intente de nuevo";
-//            }
         }
     }
     public static String ACTION_SYNCRONIZE_CARGOS_PERSONAL (String db,String response){
@@ -136,7 +109,6 @@ public class ActionService {
                     Cargos_personal obj= (Cargos_personal)cargos_personals.get(i);
                     cargos_personalDao.mezclarLocal(obj);
                 }
-                //boolean request= (new UsuarioDao()).insertar(usuario);
                 return "OK";
             }
             return "";
@@ -144,14 +116,6 @@ public class ActionService {
         catch (Exception e)
         {
             return e.getMessage();
-//            if(VERERRORESSINCRONIZACION==1)
-//            {
-//                return e.toString();
-//            }
-//            else
-//            {
-//                return "Error de conectividad, Intente de nuevo";
-//            }
         }
     }
     public static String ACTION_SYNCRONIZE_CONCEPTO_CUENTA (String db,String response){
@@ -163,7 +127,6 @@ public class ActionService {
                     Concepto_cuenta obj= (Concepto_cuenta)concepto_cuentas.get(i);
                     concepto_cuentaDao.mezclarLocal(obj);
                 }
-                //boolean request= (new UsuarioDao()).insertar(usuario);
                 return "OK";
             }
             return "";
@@ -171,14 +134,6 @@ public class ActionService {
         catch (Exception e)
         {
             return e.getMessage();
-//            if(VERERRORESSINCRONIZACION==1)
-//            {
-//                return e.toString();
-//            }
-//            else
-//            {
-//                return "Error de conectividad, Intente de nuevo";
-//            }
         }
     }
     public static String ACTION_SYNCRONIZE_DOCUMENTOS (String db,String response){
@@ -190,7 +145,6 @@ public class ActionService {
                     Documentos obj= (Documentos)lstdocumentos.get(i);
                     documentosDao.mezclarLocal(obj);
                 }
-                //boolean request= (new UsuarioDao()).insertar(usuario);
                 return "OK";
             }
             return "";
@@ -198,14 +152,6 @@ public class ActionService {
         catch (Exception e)
         {
             return e.getMessage();
-//            if(VERERRORESSINCRONIZACION==1)
-//            {
-//                return e.toString();
-//            }
-//            else
-//            {
-//                return "Error de conectividad, Intente de nuevo";
-//            }
         }
     }
     public static String ACTION_SYNCRONIZE_NUMEMISOR (String db,String response){
@@ -216,60 +162,6 @@ public class ActionService {
                 for(int i=0;i<numemisors.size();i++){
                     Numemisor obj= (Numemisor)numemisors.get(i);
                     numemisorDao.mezclarLocal(obj);
-                }
-                //boolean request= (new UsuarioDao()).insertar(usuario);
-                return "OK";
-            }
-            return "";
-        }
-        catch (Exception e)
-        {
-            return e.getMessage();
-//            if(VERERRORESSINCRONIZACION==1)
-//            {
-//                return e.toString();
-//            }
-//            else
-//            {
-//                return "Error de conectividad, Intente de nuevo";
-//            }
-        }
-    }
-    public static String ACTION_SYNCRONIZE_PERSONAL_SERVICIO (String db,String response){
-        try {
-            List personal_servicios = (List<Personal_servicio>) Util.stringObject("com.nisira.core.entity.Personal_servicio",response);
-            Personal_servicioDao personal_servicioDao = new Personal_servicioDao();
-            if(personal_servicios!=null){
-                for(int i=0;i<personal_servicios.size();i++){
-                    Personal_servicio obj= (Personal_servicio)personal_servicios.get(i);
-                    personal_servicioDao.mezclarLocal(obj);
-                }
-                //boolean request= (new UsuarioDao()).insertar(usuario);
-                return "OK";
-            }
-            return "";
-        }
-        catch (Exception e)
-        {
-            return e.getMessage();
-//            if(VERERRORESSINCRONIZACION==1)
-//            {
-//                return e.toString();
-//            }
-//            else
-//            {
-//                return "Error de conectividad, Intente de nuevo";
-//            }
-        }
-    }
-    public static String ACTION_SYNCRONIZE_DPERSONAL_SERVICIO (String db,String response){
-        try {
-            List dpersonal_servicios = (List<Dpersonal_servicio>) Util.stringObject("com.nisira.core.entity.Dpersonal_servicio",response);
-            Dpersonal_servicioDao dpersonal_servicioDao = new Dpersonal_servicioDao();
-            if(dpersonal_servicios!=null){
-                for(int i=0;i<dpersonal_servicios.size();i++){
-                    Dpersonal_servicio obj= (Dpersonal_servicio)dpersonal_servicios.get(i);
-                    dpersonal_servicioDao.mezclarLocal(obj);
                 }
                 //boolean request= (new UsuarioDao()).insertar(usuario);
                 return "OK";
@@ -370,7 +262,7 @@ public class ActionService {
 //            }
         }
     }
-    /* DOCUMENTOS PRINCIPALES*/
+    /* DOCUMENTOS PRINCIPALES -> descent*/
     public static String ACTION_SYNCRONIZE_ORDENSERVICIOCLIENTE  (String db,String response){
         try {
             List lstordenserviciocliente = (List<Ordenserviciocliente>) Util.stringObject("com.nisira.core.entity.Ordenserviciocliente",response);
@@ -406,6 +298,60 @@ public class ActionService {
                 for(int i=0;i<lstdordenserviciocliente.size();i++){
                     Dordenserviciocliente obj= (Dordenserviciocliente)lstdordenserviciocliente.get(i);
                     dordenservicioclienteDao.mezclarLocal(obj);
+                }
+                //boolean request= (new UsuarioDao()).insertar(usuario);
+                return "OK";
+            }
+            return "";
+        }
+        catch (Exception e)
+        {
+            return e.getMessage();
+//            if(VERERRORESSINCRONIZACION==1)
+//            {
+//                return e.toString();
+//            }
+//            else
+//            {
+//                return "Error de conectividad, Intente de nuevo";
+//            }
+        }
+    }
+    public static String ACTION_SYNCRONIZE_PERSONAL_SERVICIO (String db,String response){
+        try {
+            List personal_servicios = (List<Personal_servicio>) Util.stringObject("com.nisira.core.entity.Personal_servicio",response);
+            Personal_servicioDao personal_servicioDao = new Personal_servicioDao();
+            if(personal_servicios!=null){
+                for(int i=0;i<personal_servicios.size();i++){
+                    Personal_servicio obj= (Personal_servicio)personal_servicios.get(i);
+                    personal_servicioDao.mezclarLocal(obj);
+                }
+                //boolean request= (new UsuarioDao()).insertar(usuario);
+                return "OK";
+            }
+            return "";
+        }
+        catch (Exception e)
+        {
+            return e.getMessage();
+//            if(VERERRORESSINCRONIZACION==1)
+//            {
+//                return e.toString();
+//            }
+//            else
+//            {
+//                return "Error de conectividad, Intente de nuevo";
+//            }
+        }
+    }
+    public static String ACTION_SYNCRONIZE_DPERSONAL_SERVICIO (String db,String response){
+        try {
+            List dpersonal_servicios = (List<Dpersonal_servicio>) Util.stringObject("com.nisira.core.entity.Dpersonal_servicio",response);
+            Dpersonal_servicioDao dpersonal_servicioDao = new Dpersonal_servicioDao();
+            if(dpersonal_servicios!=null){
+                for(int i=0;i<dpersonal_servicios.size();i++){
+                    Dpersonal_servicio obj= (Dpersonal_servicio)dpersonal_servicios.get(i);
+                    dpersonal_servicioDao.mezclarLocal(obj);
                 }
                 //boolean request= (new UsuarioDao()).insertar(usuario);
                 return "OK";
@@ -506,5 +452,9 @@ public class ActionService {
 //            }
         }
     }
+
+    /* DOCUMENTOS PRINCIPALES -> ascent*/
+
+
 
 }
