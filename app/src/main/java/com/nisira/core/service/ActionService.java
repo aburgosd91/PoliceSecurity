@@ -454,7 +454,110 @@ public class ActionService {
     }
 
     /* DOCUMENTOS PRINCIPALES -> ascent*/
-
-
+    public static String ACTION_ASCENT_ORDENSERVICIOCLIENTE  (String db,String response){
+        try {
+            OrdenservicioclienteDao ordenservicioclienteDao = new OrdenservicioclienteDao();
+            List lstordenserviciocliente = ordenservicioclienteDao.listar();
+            String xml_ordenserviciocliente = Util.objectXml("com.nisira.core.entity.Ordenserviciocliente", lstordenserviciocliente);
+            if(xml_ordenserviciocliente!=null){
+                return xml_ordenserviciocliente;
+            }
+            return "";
+        }
+        catch (Exception e)
+        {
+            return e.getMessage();
+        }
+    }
+    public static String ACTION_ASCENT_DORDENSERVICIOCLIENTE  (String db,String response){
+        try {
+            DordenservicioclienteDao dordenservicioclienteDao = new DordenservicioclienteDao();
+            List lstdordenserviciocliente = dordenservicioclienteDao.listar();
+            String xml_dordenserviciocliente = Util.objectXml("com.nisira.core.entity.Dordenserviciocliente", lstdordenserviciocliente);
+            if(xml_dordenserviciocliente!=null){
+                return xml_dordenserviciocliente;
+            }
+            return "";
+        }
+        catch (Exception e)
+        {
+            return e.getMessage();
+        }
+    }
+    public static String ACTION_ASCENT_PERSONAL_SERVICIO (String db,String response){
+        try {
+            Personal_servicioDao personal_servicioDao = new Personal_servicioDao();
+            List personal_servicios = personal_servicioDao.listar();
+            String xml_personal_servicio = Util.objectXml("com.nisira.core.entity.Personal_servicio", personal_servicios);
+            if(xml_personal_servicio!=null){
+                return xml_personal_servicio;
+            }
+            return "";
+        }
+        catch (Exception e)
+        {
+            return e.getMessage();
+        }
+    }
+    public static String ACTION_ASCENT_DPERSONAL_SERVICIO (String db,String response){
+        try {
+            Dpersonal_servicioDao dpersonal_servicioDao = new Dpersonal_servicioDao();
+            List dpersonal_servicios = dpersonal_servicioDao.listar();
+            String xml_dpersonal_servicios = Util.objectXml("com.nisira.core.entity.Dpersonal_servicio", dpersonal_servicios);
+            if(xml_dpersonal_servicios!=null){
+                return xml_dpersonal_servicios;
+            }
+            return "";
+        }
+        catch (Exception e)
+        {
+            return e.getMessage();
+        }
+    }
+    public static String ACTION_ASCENT_ORDENLIQUIDACIONGASTO  (String db,String response){
+        try {
+            OrdenliquidaciongastoDao ordenliquidaciongastoDao = new OrdenliquidaciongastoDao();
+            List lstordenliquidaciongasto = ordenliquidaciongastoDao.listar();
+            String xml_ordenliquidaciongasto = Util.objectXml("com.nisira.core.entity.Ordenliquidaciongasto", lstordenliquidaciongasto);
+            if(xml_ordenliquidaciongasto!=null){
+                return xml_ordenliquidaciongasto;
+            }
+            return "";
+        }
+        catch (Exception e)
+        {
+            return e.getMessage();
+        }
+    }
+    public static String ACTION_ASCENT_DORDENLIQUIDACIONGASTO (String db,String response){
+        try {
+            DordenliquidaciongastoDao dordenliquidaciongastoDao = new DordenliquidaciongastoDao();
+            List lstdordenliquidaciongasto = dordenliquidaciongastoDao.listar();
+            String xml_ordenliquidaciongasto = Util.objectXml("com.nisira.core.entity.Dordenliquidaciongasto", lstdordenliquidaciongasto);
+            if(xml_ordenliquidaciongasto!=null){
+                return xml_ordenliquidaciongasto;
+            }
+            return "";
+        }
+        catch (Exception e)
+        {
+            return e.getMessage();
+        }
+    }
+    public static String ACTION_ASCENT_DESTINOADQUISICION  (String db,String response){
+        try {
+            DestinoadquisicionDao destinoadquisicionDao = new DestinoadquisicionDao();
+            List destinoadquisiciones = destinoadquisicionDao.listar();
+            String xml_ordenliquidaciongasto = Util.objectXml("com.nisira.core.entity.Destinoadquisicion", destinoadquisiciones);
+            if(xml_ordenliquidaciongasto!=null){
+                return xml_ordenliquidaciongasto;
+            }
+            return "";
+        }
+        catch (Exception e)
+        {
+            return e.getMessage();
+        }
+    }
 
 }

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.nisira.gcalderon.policesecurity.R;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.mapper.CannotResolveClassException;
@@ -165,5 +166,32 @@ public final class Util {
             obj= hora+":"+minutos;
         return obj;
     }
+    public static String objectGson(int total,Object obj){
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        return "{\"total\":"+total+",\"datos\":"+gson.toJson(obj)+"}";
+    }
+    public static String objectGson(Object obj){
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        return gson.toJson(obj);
+    }
+    public static String objectXml(String _class,Object obj) throws ClassNotFoundException{
+        Class oClase =  Class.forName(_class);
+        String xml="<?xml version='1.0' encoding='ISO-8859-1'?>";
 
+        XStream xStream= new XStream(){
+            protected MapperWrapper wrapMapper(MapperWrapper next) {
+                return new MapperWrapper(next) {
+                    public boolean shouldSerializeMember(Class definedIn, String fieldName) {
+                        try {
+                            return definedIn != Object.class || realClass(fieldName) != null;
+                        } catch (CannotResolveClassException cnrce) {
+                            return false;
+                        }
+                    }
+                };
+            }
+        };
+        xStream.processAnnotations(oClase);
+        return xml+xStream.toXML(obj);
+    }
 }
