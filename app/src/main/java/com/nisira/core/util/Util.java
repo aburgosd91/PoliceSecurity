@@ -194,4 +194,9 @@ public final class Util {
         xStream.processAnnotations(oClase);
         return xml+xStream.toXML(obj);
     }
+    public static String idGeneradoTres(int id){
+        if(id<10) return "00"+id;
+        else if(id<100) return "0"+id;
+        else return String.valueOf(id);
+    }
 }

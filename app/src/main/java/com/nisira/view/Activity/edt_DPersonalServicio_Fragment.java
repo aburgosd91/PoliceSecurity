@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
@@ -22,6 +23,7 @@ import com.nisira.core.entity.Dpersonal_servicio;
 import com.nisira.core.entity.Ordenserviciocliente;
 import com.nisira.core.entity.Personal_servicio;
 import com.nisira.core.interfaces.FragmentNisira;
+import com.nisira.core.util.Util;
 import com.nisira.gcalderon.policesecurity.R;
 import com.nisira.view.Adapter.Adapter_edt_DPersonalServicio;
 
@@ -154,26 +156,29 @@ public class edt_DPersonalServicio_Fragment extends FragmentNisira {
         btn_agregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                try{
+                    Dpersonal_servicio dpersonal_servicio = new Dpersonal_servicio();
+                    dpersonal_servicio.setIdcargo(personal_servicio.getIdcargo());
+                    dpersonal_servicio.setIdempresa(personal_servicio.getIdempresa());
+                    dpersonal_servicio.setItem_dordenservicio(personal_servicio.getItem());
+                    dpersonal_servicio.setItem2(personal_servicio.getItem2());
+                    dpersonal_servicio.setItem(agregarItemDPersonal_servicio(personal_servicio));
+                    dpersonal_servicio.setIdordenservicio(personal_servicio.getIdordenservicio());
+                    dpersonal_servicio.setFecharegistro(Calendar.getInstance().getTime());
 
-                Dpersonal_servicio dpersonal_servicio = new Dpersonal_servicio();
-                dpersonal_servicio.setIdcargo(personal_servicio.getIdcargo());
-                dpersonal_servicio.setIdempresa(personal_servicio.getIdempresa());
-                dpersonal_servicio.setItem_dordenservicio(personal_servicio.getItem());
-                dpersonal_servicio.setItem2(personal_servicio.getItem2());
-                dpersonal_servicio.setIdordenservicio(personal_servicio.getIdordenservicio());
-                dpersonal_servicio.setFecharegistro(Calendar.getInstance().getTime());
-
-                Fragment fragment = mnt_DPersonalServicio_Fragment.newInstance(mParam1, "Agregar");
-                Bundle bundle = fragment.getArguments();
-                bundle.putSerializable("DOrdenServicio", dordenserviciocliente);
-                bundle.putSerializable("DPersonalServicio",dpersonal_servicio);
-                bundle.putSerializable("PersonalServicio",personal_servicio);
-                fragment.setArguments(bundle);
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.main_content, fragment, "NewFragmentTag");
-                ft.addToBackStack(null);
-                ft.commit();
-
+                    Fragment fragment = mnt_DPersonalServicio_Fragment.newInstance(mParam1, "Agregar");
+                    Bundle bundle = fragment.getArguments();
+                    bundle.putSerializable("DOrdenServicio", dordenserviciocliente);
+                    bundle.putSerializable("DPersonalServicio",dpersonal_servicio);
+                    bundle.putSerializable("PersonalServicio",personal_servicio);
+                    fragment.setArguments(bundle);
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.replace(R.id.main_content, fragment, "NewFragmentTag");
+                    ft.addToBackStack(null);
+                    ft.commit();
+                }catch (Exception ex){
+                    Toast.makeText(getContext(),"Error:"+ex.getMessage().trim(),Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -221,5 +226,25 @@ public class edt_DPersonalServicio_Fragment extends FragmentNisira {
             }
         });
     }
+    public String agregarItemDPersonal_servicio(Personal_servicio personal_servicio)throws Exception{
+        List<Dpersonal_servicio> lst = (new Dpersonal_servicioDao()).listar("t0.IDEMPRESA=? AND t0.IDORDENSERVICIO = ? AND " +
+                        "t0.ITEM_DORDENSERVICIO = ? AND t0.ITEM2 = ?",
+                personal_servicio.getIdempresa(),personal_servicio.getIdordenservicio(),
+                personal_servicio.getItem(),personal_servicio.getItem2());
+        int dato = 1;
+        int may=-999999999;
+        if(!lst.isEmpty()){
+            for(Dpersonal_servicio obj:lst){
+                dato = Integer.parseInt(obj.getItem());
+                if(dato>may)
+                    may=dato;
+            }
+        }
+        if(may==-999999999)
+            may=1;
+        else
+            may++;
 
+        return Util.idGeneradoTres(may);
+    }
 }
