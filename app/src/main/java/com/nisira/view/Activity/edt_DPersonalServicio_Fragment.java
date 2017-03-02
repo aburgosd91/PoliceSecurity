@@ -165,6 +165,7 @@ public class edt_DPersonalServicio_Fragment extends FragmentNisira {
                     dpersonal_servicio.setItem(agregarItemDPersonal_servicio(personal_servicio));
                     dpersonal_servicio.setIdordenservicio(personal_servicio.getIdordenservicio());
                     dpersonal_servicio.setFecharegistro(Calendar.getInstance().getTime());
+                    dpersonal_servicio.setHora_req(dordenserviciocliente.getHora_req());
 
                     Fragment fragment = mnt_DPersonalServicio_Fragment.newInstance(mParam1, "Agregar");
                     Bundle bundle = fragment.getArguments();

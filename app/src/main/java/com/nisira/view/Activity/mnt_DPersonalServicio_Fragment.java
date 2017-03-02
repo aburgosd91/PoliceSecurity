@@ -107,6 +107,8 @@ public class mnt_DPersonalServicio_Fragment extends Fragment {
         TextView view = (TextView) getActivity().findViewById(R.id.campo_titulo2);
         view.setText(getString(R.string.mnt_DPersonalServicio));
         txt_titulo.setText(mParam2);
+        SimpleDateFormat sm = new SimpleDateFormat("dd-MM-yyyy");
+        String strDate="";
         switch (mParam2){
             case "Modificar":
                 hora_requerida.setText(Util.convertDecimalTime(
@@ -124,12 +126,16 @@ public class mnt_DPersonalServicio_Fragment extends Fragment {
                 hora_liberacion.setText(Util.convertDecimalTime(
                         dpersonal_servicio.getHora_liberacion()
                 ));
-                SimpleDateFormat sm = new SimpleDateFormat("dd-MM-yyyy");
-                String strDate = sm.format(dpersonal_servicio.getFecharegistro());
+                strDate = sm.format(dpersonal_servicio.getFecharegistro());
                 fecha_operacion.setText(strDate);
                 break;
             case "Agregar":
-
+                hora_requerida.setText(Util.convertDecimalTime(
+                        dpersonal_servicio.getHora_req()
+                ));
+                sm = new SimpleDateFormat("dd-MM-yyyy");
+                strDate = sm.format(dpersonal_servicio.getFecharegistro());
+                fecha_operacion.setText(strDate);
                 break;
         }
 
