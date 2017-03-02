@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 
 import com.nisira.core.database.DataBaseClass;
@@ -12,6 +14,7 @@ import com.nisira.core.entity.Basedatos;
 import com.nisira.core.interfaces.ActivityNisira;
 import com.nisira.core.interfaces.ActivityNisiraCompat;
 import com.nisira.core.interfaces.FragmentNisira;
+import com.nisira.view.Inicio;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -88,9 +91,10 @@ public class ConsumerService extends AsyncTask<String, Void, String> {
     }
 
     //protected Integer doInBackground(String... args) {
+    @RequiresApi(api = Build.VERSION_CODES.N)
     protected String doInBackground(String... args) {
         try {
-            String trama = "",zip="";
+            String trama = "";
             switch (getMethod().trim()){
                 case TypeMethod.METHOD_VERIFICATION_USER           :
                     trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_VERIFICATION_USER, getAttribute(),this.timeout);
@@ -145,6 +149,49 @@ public class ConsumerService extends AsyncTask<String, Void, String> {
                 case TypeMethod.METHOD_LIST_DORDENSERVICIOCLIENTE   :
                     trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_DORDENSERVICIOCLIENTE, getAttribute(),this.timeout);
                     response = ActionService.ACTION_SYNCRONIZE_DORDENSERVICIOCLIENTE(WSBasedatos.getIdbasedatos(),trama);break;
+                /*************************************************SINCRONIZACION***********************************************/
+                case TypeMethod.METHOD_ASCENT_ORDENSERVICIOCLIENTE    :
+                    trama = ActionService.ACTION_ASCENT_ORDENSERVICIOCLIENTE(WSBasedatos.getIdbasedatos());
+                    if(!trama.equals("")) {
+                        getAttribute().put("datos", trama);
+                        getAttribute().put("user", Inicio.IDUSUARIO);
+                    }
+                    response = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_ASCENT_ORDENSERVICIOCLIENTE, getAttribute(),this.timeout);break;
+                case TypeMethod.METHOD_ASCENT_DORDENSERVICIOCLIENTE   :
+                    trama = ActionService.ACTION_ASCENT_DORDENSERVICIOCLIENTE(WSBasedatos.getIdbasedatos());
+                    if(!trama.equals("")) {
+                        getAttribute().put("datos", trama);
+                        getAttribute().put("user", Inicio.IDUSUARIO);
+                    }
+                    response = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_ASCENT_DORDENSERVICIOCLIENTE, getAttribute(),this.timeout);break;
+                case TypeMethod.METHOD_ASCENT_PERSONAL_SERVICIO       :
+                    trama = ActionService.ACTION_ASCENT_PERSONAL_SERVICIO(WSBasedatos.getIdbasedatos());
+                    if(!trama.equals("")) {
+                        getAttribute().put("datos", trama);
+                        getAttribute().put("user", Inicio.IDUSUARIO);
+                    }
+                    response = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_ASCENT_PERSONAL_SERVICIO, getAttribute(),this.timeout);break;
+                case TypeMethod.METHOD_ASCENT_DPERSONAL_SERVICIO       :
+                    trama = ActionService.ACTION_ASCENT_DPERSONAL_SERVICIO(WSBasedatos.getIdbasedatos());
+                    if(!trama.equals("")) {
+                        getAttribute().put("datos", trama);
+                        getAttribute().put("user", Inicio.IDUSUARIO);
+                    }
+                    response = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_ASCENT_DPERSONAL_SERVICIO, getAttribute(),this.timeout);break;
+                case TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO   :
+                    trama = ActionService.ACTION_ASCENT_ORDENLIQUIDACIONGASTO(WSBasedatos.getIdbasedatos());
+                    if(!trama.equals("")) {
+                        getAttribute().put("datos", trama);
+                        getAttribute().put("user", Inicio.IDUSUARIO);
+                    }
+                    response = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO, getAttribute(),this.timeout);break;
+                case TypeMethod.METHOD_ASCENT_DORDENLIQUIDACIONGASTO  :
+                    trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_ASCENT_DORDENLIQUIDACIONGASTO, getAttribute(),this.timeout);
+                    if(!trama.equals("")) {
+                        getAttribute().put("datos", trama);
+                        getAttribute().put("user", Inicio.IDUSUARIO);
+                    }
+                    response = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_ASCENT_DORDENLIQUIDACIONGASTO, getAttribute(),this.timeout);break;
             }
         } catch (IOException | XmlPullParserException e) {
             response = e.getMessage();

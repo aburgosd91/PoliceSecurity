@@ -96,8 +96,13 @@ public static class ListaViewHolder extends RecyclerView.ViewHolder {
         viewHolder.nombre.setText(items.get(i).getNombres());
         viewHolder.documento.setText("Dni: "+items.get(i).getDni());
         SimpleDateFormat sm = new SimpleDateFormat("dd-MM-yyyy");
-        String strDate = sm.format(items.get(i).getFechaoperacion());
-        viewHolder.estado.setText("Fecha Operacion: "+strDate);
+        if(items.get(i).getFechaoperacion()!=null){
+            String strDate = sm.format(items.get(i).getFechaoperacion());
+            viewHolder.estado.setText("Fecha Operacion: "+strDate);
+        }else{
+            viewHolder.estado.setText("Fecha Operacion: "+"");
+        }
+
         viewHolder.cargo.setText("Cargo: "+items.get(i).getDescripcion_cargo());
         viewHolder.ll_fecha.setVisibility(View.VISIBLE);
 

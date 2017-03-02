@@ -24,6 +24,7 @@ import com.nisira.core.service.ConsumerService;
 import com.nisira.core.service.TypeMethod;
 import com.nisira.core.util.Util;
 import com.nisira.gcalderon.policesecurity.R;
+import com.nisira.view.Inicio;
 
 public class Login_Activity extends ActivityNisiraCompat implements ActivityCompat.OnRequestPermissionsResultCallback,SearchView.OnQueryTextListener,SearchView.OnCloseListener{
     private static final Object[][] TABLASINCRONIZACION={
@@ -202,12 +203,14 @@ public class Login_Activity extends ActivityNisiraCompat implements ActivityComp
 
         if(cws.getMethod().trim().equals(TypeMethod.METHOD_VERIFICATION_USER)){
             if(result.trim().equals("OK")){
+                Inicio.IDUSUARIO=txtuser.getText().toString().trim();
                 Toast.makeText(getApplicationContext(),"Session Exitosa !!!.",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(Login_Activity.this, SplashScreen_Activity.class));
                 //llenar();
             }
             else{
                 Toast.makeText(getApplicationContext(),"Error:"+result.trim(),Toast.LENGTH_SHORT).show();
+                Inicio.IDUSUARIO="";
             }
         }else if(cws.isSyncronize()){
             if(TABLASINCRONIZACION.length>item_tabla_syncro){

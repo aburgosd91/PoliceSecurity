@@ -41,7 +41,7 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
     public TextView campo_titulo;
     public TextView campo_titulo2;
     RelativeLayout relativeLayout;
-    public int item_tabla_syncro,item_tabla_syncrodoc;
+    public int item_tabla_syncro,item_tabla_syncrodoc,item_tabla_ascentdoc;
     private static final int PERMISSION_REQUEST_CODE = 1;
     private static final Object[][] TABLASINCRONIZACION={
             {"METHOD_LIST_CLIEPROV",20},
@@ -61,21 +61,30 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
             {"METHOD_LIST_DORDENSERVICIOCLIENTE",8}
     };
     private static final Object[][] TABLASINCRONIZACIONDOCS={
+            {"METHOD_LIST_ORDENSERVICIOCLIENTE",8},
+            {"METHOD_LIST_DORDENSERVICIOCLIENTE",8},
             {"METHOD_LIST_PERSONAL_SERVICIO",8},
             {"METHOD_LIST_DPERSONAL_SERVICIO",8},
             {"METHOD_LIST_ORDENLIQUIDACIONGASTO",8},
-            {"METHOD_LIST_ORDENSERVICIOCLIENTE",8},
-            {"METHOD_LIST_DORDENLIQUIDACIONGASTO",8},
-            {"METHOD_LIST_DORDENSERVICIOCLIENTE",8}
+            {"METHOD_LIST_DORDENLIQUIDACIONGASTO",8}
+    };
+    private static final Object[][] TABLA_ASCENT_DOCS={
+            //{"METHOD_ASCENT_ORDENSERVICIOCLIENTE",8},
+            {"METHOD_ASCENT_DORDENSERVICIOCLIENTE",8},
+            {"METHOD_ASCENT_PERSONAL_SERVICIO",8},
+            {"METHOD_ASCENT_DPERSONAL_SERVICIO",8}
+            //{"METHOD_ASCENT_ORDENLIQUIDACIONGASTO",8},
+            //{"METHOD_ASCENT_DORDENLIQUIDACIONGASTO",8}
+
     };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_police);
-
         item_tabla_syncro = 0;
         item_tabla_syncrodoc = 0;
+        item_tabla_ascentdoc = 0;
         relativeLayout = (RelativeLayout) findViewById(R.id.main_content);
 //        variablesglobales = (VariableGlobal)getApplication();
         if (Build.VERSION.SDK_INT >= 23)
@@ -159,13 +168,17 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
 
         int id = item.getItemId();
         if (id == R.id.action_syncronize) {
-
             asyncronize();
             return true;
         }
         if (id == R.id.action_syncronizedocs) {
 
             asyncronizedocs();
+            return true;
+        }
+        if (id == R.id.action_ascentdocs) {
+
+            ascentdocs();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -290,11 +303,19 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
         cws.execute("");
         cws.pd = ProgressDialog.show(NavigationPolice_Activity.this, "SINCRONIZANDO","Sincronizando Base de Datos - "+method_syncro.replace("METHOD_LIST_",""), true, false);
     }
+    public void ascentdocs(){
+        String method_syncro=TABLA_ASCENT_DOCS[item_tabla_ascentdoc][0].toString();
+        int time = (int) TABLA_ASCENT_DOCS[item_tabla_ascentdoc][1];
+        item_tabla_ascentdoc++;
+        ConsumerService cws = new ConsumerService(NavigationPolice_Activity.this,getApplicationContext(), method_syncro, time,true,3);
+        cws.getAttribute().put("type","XML");
+        cws.execute("");
+        cws.pd = ProgressDialog.show(NavigationPolice_Activity.this, "SUBIENDO","Sincronizando Base de Datos - "+method_syncro.replace("METHOD_ASCENT_",""), true, false);
+    }
 
 
     @Override
     public  void onPostExecuteWebService(ConsumerService cws, String result) {
-
         if(cws.isSyncronize()){
             if(cws.getType_syncronize()==1){/*SINCRONIZACION TOTAL*/
                 if(TABLASINCRONIZACION.length>item_tabla_syncro && item_tabla_syncro>0){
@@ -309,6 +330,13 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
                 }
                 if(TABLASINCRONIZACIONDOCS.length==item_tabla_syncrodoc){
                     item_tabla_syncrodoc=0;
+                }
+            }else if(cws.getType_syncronize()==3){/*ASCENT DOCUMENTOS*/
+                if(TABLA_ASCENT_DOCS.length>item_tabla_ascentdoc && item_tabla_ascentdoc>0){
+                    ascentdocs();
+                }
+                if(TABLA_ASCENT_DOCS.length==item_tabla_ascentdoc){
+                    item_tabla_ascentdoc=0;
                 }
             }
         }

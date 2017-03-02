@@ -77,9 +77,14 @@ public class Adapter_edt_DPersonalServicio extends RecyclerView.Adapter<Adapter_
     public void onBindViewHolder(ListaViewHolder viewHolder, int i) {
 
         viewHolder.nombre.setText(personal_servicio.getNombres());
-        SimpleDateFormat sm = new SimpleDateFormat("dd-MM-yyyy");
-        String strDate = sm.format(items.get(i).getFecharegistro());
-        viewHolder.documento.setText("Fecha: "+strDate);
+        if(items.get(i).getFecharegistro()!=null){
+            SimpleDateFormat sm = new SimpleDateFormat("dd-MM-yyyy");
+            String strDate = sm.format(items.get(i).getFecharegistro());
+            viewHolder.documento.setText("Fecha: "+strDate);
+        }else{
+            String strDate = "";
+            viewHolder.documento.setText("Fecha: "+strDate);
+        }
         viewHolder.hora_req_llegada.setText("Req.: "+
                 Util.convertDecimalTime(items.get(i).getHora_req())+ "| Llegada:"+
                 Util.convertDecimalTime(items.get(i).getHora_llegada()));

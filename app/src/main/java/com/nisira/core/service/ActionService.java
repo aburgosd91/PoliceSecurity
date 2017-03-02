@@ -265,9 +265,10 @@ public class ActionService {
     /* DOCUMENTOS PRINCIPALES -> descent*/
     public static String ACTION_SYNCRONIZE_ORDENSERVICIOCLIENTE  (String db,String response){
         try {
-            List lstordenserviciocliente = (List<Ordenserviciocliente>) Util.stringObject("com.nisira.core.entity.Ordenserviciocliente",response);
+            List<Ordenserviciocliente> lstordenserviciocliente = (List<Ordenserviciocliente>) Util.stringObject("com.nisira.core.entity.Ordenserviciocliente",response);
             OrdenservicioclienteDao ordenservicioclienteDao = new OrdenservicioclienteDao();
             if(lstordenserviciocliente!=null){
+                ordenservicioclienteDao.borrar("IDEMPRESA = ?",lstordenserviciocliente.get(0).getIdempresa());
                 for(int i=0;i<lstordenserviciocliente.size();i++){
                     Ordenserviciocliente obj= (Ordenserviciocliente)lstordenserviciocliente.get(i);
                     ordenservicioclienteDao.mezclarLocal(obj);
@@ -292,9 +293,10 @@ public class ActionService {
     }
     public static String ACTION_SYNCRONIZE_DORDENSERVICIOCLIENTE  (String db,String response){
         try {
-            List lstdordenserviciocliente = (List<Dordenserviciocliente>) Util.stringObject("com.nisira.core.entity.Dordenserviciocliente",response);
+            List<Dordenserviciocliente> lstdordenserviciocliente = (List<Dordenserviciocliente>) Util.stringObject("com.nisira.core.entity.Dordenserviciocliente",response);
             DordenservicioclienteDao dordenservicioclienteDao = new DordenservicioclienteDao();
             if(lstdordenserviciocliente!=null){
+                dordenservicioclienteDao.borrar("IDEMPRESA = ?",lstdordenserviciocliente.get(0).getIdempresa());
                 for(int i=0;i<lstdordenserviciocliente.size();i++){
                     Dordenserviciocliente obj= (Dordenserviciocliente)lstdordenserviciocliente.get(i);
                     dordenservicioclienteDao.mezclarLocal(obj);
@@ -319,9 +321,10 @@ public class ActionService {
     }
     public static String ACTION_SYNCRONIZE_PERSONAL_SERVICIO (String db,String response){
         try {
-            List personal_servicios = (List<Personal_servicio>) Util.stringObject("com.nisira.core.entity.Personal_servicio",response);
+            List<Personal_servicio> personal_servicios = (List<Personal_servicio>) Util.stringObject("com.nisira.core.entity.Personal_servicio",response);
             Personal_servicioDao personal_servicioDao = new Personal_servicioDao();
             if(personal_servicios!=null){
+                personal_servicioDao.borrar("IDEMPRESA = ?",personal_servicios.get(0).getIdempresa());
                 for(int i=0;i<personal_servicios.size();i++){
                     Personal_servicio obj= (Personal_servicio)personal_servicios.get(i);
                     personal_servicioDao.mezclarLocal(obj);
@@ -346,9 +349,10 @@ public class ActionService {
     }
     public static String ACTION_SYNCRONIZE_DPERSONAL_SERVICIO (String db,String response){
         try {
-            List dpersonal_servicios = (List<Dpersonal_servicio>) Util.stringObject("com.nisira.core.entity.Dpersonal_servicio",response);
+            List<Dpersonal_servicio> dpersonal_servicios = (List<Dpersonal_servicio>) Util.stringObject("com.nisira.core.entity.Dpersonal_servicio",response);
             Dpersonal_servicioDao dpersonal_servicioDao = new Dpersonal_servicioDao();
             if(dpersonal_servicios!=null){
+                dpersonal_servicioDao.borrar("IDEMPRESA = ?",dpersonal_servicios.get(0).getIdempresa());
                 for(int i=0;i<dpersonal_servicios.size();i++){
                     Dpersonal_servicio obj= (Dpersonal_servicio)dpersonal_servicios.get(i);
                     dpersonal_servicioDao.mezclarLocal(obj);
@@ -361,14 +365,6 @@ public class ActionService {
         catch (Exception e)
         {
             return e.getMessage();
-//            if(VERERRORESSINCRONIZACION==1)
-//            {
-//                return e.toString();
-//            }
-//            else
-//            {
-//                return "Error de conectividad, Intente de nuevo";
-//            }
         }
     }
     public static String ACTION_SYNCRONIZE_ORDENLIQUIDACIONGASTO  (String db,String response){
@@ -454,7 +450,7 @@ public class ActionService {
     }
 
     /* DOCUMENTOS PRINCIPALES -> ascent*/
-    public static String ACTION_ASCENT_ORDENSERVICIOCLIENTE  (String db,String response){
+    public static String ACTION_ASCENT_ORDENSERVICIOCLIENTE  (String db){
         try {
             OrdenservicioclienteDao ordenservicioclienteDao = new OrdenservicioclienteDao();
             List lstordenserviciocliente = ordenservicioclienteDao.listar();
@@ -469,7 +465,7 @@ public class ActionService {
             return e.getMessage();
         }
     }
-    public static String ACTION_ASCENT_DORDENSERVICIOCLIENTE  (String db,String response){
+    public static String ACTION_ASCENT_DORDENSERVICIOCLIENTE  (String db){
         try {
             DordenservicioclienteDao dordenservicioclienteDao = new DordenservicioclienteDao();
             List lstdordenserviciocliente = dordenservicioclienteDao.listar();
@@ -484,7 +480,7 @@ public class ActionService {
             return e.getMessage();
         }
     }
-    public static String ACTION_ASCENT_PERSONAL_SERVICIO (String db,String response){
+    public static String ACTION_ASCENT_PERSONAL_SERVICIO (String db){
         try {
             Personal_servicioDao personal_servicioDao = new Personal_servicioDao();
             List personal_servicios = personal_servicioDao.listar();
@@ -499,7 +495,7 @@ public class ActionService {
             return e.getMessage();
         }
     }
-    public static String ACTION_ASCENT_DPERSONAL_SERVICIO (String db,String response){
+    public static String ACTION_ASCENT_DPERSONAL_SERVICIO (String db){
         try {
             Dpersonal_servicioDao dpersonal_servicioDao = new Dpersonal_servicioDao();
             List dpersonal_servicios = dpersonal_servicioDao.listar();
@@ -514,7 +510,7 @@ public class ActionService {
             return e.getMessage();
         }
     }
-    public static String ACTION_ASCENT_ORDENLIQUIDACIONGASTO  (String db,String response){
+    public static String ACTION_ASCENT_ORDENLIQUIDACIONGASTO  (String db){
         try {
             OrdenliquidaciongastoDao ordenliquidaciongastoDao = new OrdenliquidaciongastoDao();
             List lstordenliquidaciongasto = ordenliquidaciongastoDao.listar();
@@ -529,7 +525,7 @@ public class ActionService {
             return e.getMessage();
         }
     }
-    public static String ACTION_ASCENT_DORDENLIQUIDACIONGASTO (String db,String response){
+    public static String ACTION_ASCENT_DORDENLIQUIDACIONGASTO (String db){
         try {
             DordenliquidaciongastoDao dordenliquidaciongastoDao = new DordenliquidaciongastoDao();
             List lstdordenliquidaciongasto = dordenliquidaciongastoDao.listar();
@@ -544,7 +540,7 @@ public class ActionService {
             return e.getMessage();
         }
     }
-    public static String ACTION_ASCENT_DESTINOADQUISICION  (String db,String response){
+    public static String ACTION_ASCENT_DESTINOADQUISICION  (String db){
         try {
             DestinoadquisicionDao destinoadquisicionDao = new DestinoadquisicionDao();
             List destinoadquisiciones = destinoadquisicionDao.listar();

@@ -85,9 +85,15 @@ public class Adapter_edt_DOrdenServicio_vehiculo extends RecyclerView.Adapter<Ad
     public void onBindViewHolder(Adapter_edt_DOrdenServicio_vehiculo.ListaViewHolder viewHolder, int i) {
 
         viewHolder.nombre.setText("Placa: "+items.get(i).getPlaca_cliente());
-        SimpleDateFormat sm = new SimpleDateFormat("MM-dd-yyyy");
-        String strDate = sm.format(items.get(i).getFecha_fin_servicio());
-        viewHolder.fecha_fin.setText("Fin servicio: "+strDate);
+
+        if(items.get(i).getFecha_fin_servicio()!=null){
+            SimpleDateFormat sm = new SimpleDateFormat("dd-MM-yyyy");
+            String strDate = sm.format(items.get(i).getFecha_fin_servicio());
+            viewHolder.fecha_fin.setText("Fin servicio: "+strDate);
+        }else{
+            String strDate="";
+            viewHolder.fecha_fin.setText("Fin servicio: "+strDate);
+        }
         viewHolder.placa.setText(items.get(i).getDescripcion_servicio());
         viewHolder.txtnombrecarro.setText(items.get(i).getDescripcion_vehiculo());
 

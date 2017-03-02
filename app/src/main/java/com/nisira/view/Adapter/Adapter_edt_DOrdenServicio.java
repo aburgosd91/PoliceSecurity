@@ -85,9 +85,14 @@ public class Adapter_edt_DOrdenServicio extends RecyclerView.Adapter<Adapter_edt
     public void onBindViewHolder(Adapter_edt_DOrdenServicio.ListaViewHolder viewHolder, int i) {
 
         viewHolder.nombre.setText(items.get(i).getDescripcion_servicio());
-        SimpleDateFormat sm = new SimpleDateFormat("MM-dd-yyyy");
-        String strDate = sm.format(items.get(i).getFecha_fin_servicio());
-        viewHolder.fecha_fin.setText("Fin servicio: "+strDate);
+        if(items.get(i).getFecha_fin_servicio()!=null){
+            SimpleDateFormat sm = new SimpleDateFormat("dd-MM-yyyy");
+            String strDate = sm.format(items.get(i).getFecha_fin_servicio());
+            viewHolder.fecha_fin.setText("Fin servicio: "+strDate);
+        }else{
+            String strDate="";
+            viewHolder.fecha_fin.setText("Fin servicio: "+strDate);
+        }
         viewHolder.placa.setText("Placa: "+items.get(i).getPlaca_cliente());
 
         viewHolder.seleccion.setBackgroundColor(viewHolder.itemView.getResources().getColor(R.color.blue_gray));

@@ -15,6 +15,7 @@
     <string name="action_settings">Settings</string>
     <string name="Syncro">Sincronizar Todo</string>
     <string name="Syncrodocs">Sincronizar Documentos</string>
+    <string name="Ascentdocs">Subir Documentos</string>
     <string name="asignacion_personal">Asignacion Personal</string>
     <string name="registro_hora">Registro Hora</string>
 
