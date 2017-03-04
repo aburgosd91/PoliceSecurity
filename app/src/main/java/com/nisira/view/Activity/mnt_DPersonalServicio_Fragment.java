@@ -138,7 +138,6 @@ public class mnt_DPersonalServicio_Fragment extends Fragment {
                 fecha_operacion.setText(strDate);
                 break;
         }
-
     }
 
     public void Listeners(){
