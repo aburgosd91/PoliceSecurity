@@ -1,12 +1,18 @@
 package com.nisira.view.Activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -21,6 +27,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -30,16 +37,22 @@ import com.nisira.core.service.ConsumerService;
 import com.nisira.core.util.Util;
 import com.nisira.gcalderon.policesecurity.R;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.nisira.view.Activity.Login_Activity.startInstalledAppDetailsActivity;
 
 public class NavigationPolice_Activity extends ActivityNisiraCompat
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final int TAKE_PICTURE = 1;
+    private Uri imageUri;
     public TextView campo_titulo;
     public TextView campo_titulo2;
+    public CircleImageView imageViewprofile;
     RelativeLayout relativeLayout;
     public int item_tabla_syncro,item_tabla_syncrodoc,item_tabla_ascentdoc;
     private static final int PERMISSION_REQUEST_CODE = 1;
@@ -86,6 +99,10 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
         item_tabla_syncrodoc = 0;
         item_tabla_ascentdoc = 0;
         relativeLayout = (RelativeLayout) findViewById(R.id.main_content);
+        View layout = getLayoutInflater().inflate(R.layout.nav_header_navigation_police,null);
+        imageViewprofile = (CircleImageView)layout.findViewById(R.id.imageViewprofile);
+
+
 //        variablesglobales = (VariableGlobal)getApplication();
         if (Build.VERSION.SDK_INT >= 23)
         {
@@ -266,6 +283,12 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
         } else if (id == R.id.mov_ubicacion_gmap) {
 
         } else if (id == R.id.mov_foto) {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            File photo = new File(Environment.getExternalStorageDirectory(),  "Pic.jpg");
+            intent.putExtra(MediaStore.EXTRA_OUTPUT,
+                    Uri.fromFile(photo));
+            imageUri = Uri.fromFile(photo);
+            startActivityForResult(intent, TAKE_PICTURE);
 
         } else if (id == R.id.mov_logout) {
             Intent intent = new Intent(NavigationPolice_Activity.this, Login_Activity.class);
@@ -369,4 +392,27 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case TAKE_PICTURE:
+                if (resultCode == Activity.RESULT_OK) {
+                    Uri selectedImage = imageUri;
+                    getContentResolver().notifyChange(selectedImage, null);
+                    ContentResolver cr = getContentResolver();
+                    Bitmap bitmap;
+                    try {
+                        bitmap = android.provider.MediaStore.Images.Media
+                                .getBitmap(cr, selectedImage);
+                        imageViewprofile.setImageBitmap(bitmap);
+
+                    } catch (Exception e) {
+
+                        Log.e("Camera", e.toString());
+                    }
+                    System.out.println("GG1");
+                }
+        }
+
+    }
 }
