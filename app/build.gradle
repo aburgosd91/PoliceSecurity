@@ -23,7 +23,7 @@ android {
     }
     dexOptions {
         incremental true
-        javaMaxHeapSize "4g"
+        javaMaxHeapSize "6g"
     }
     compileOptions {
         sourceCompatibility = org.gradle.api.JavaVersion.VERSION_1_8
@@ -61,7 +61,9 @@ dependencies {
     compile group: 'com.thoughtworks.xstream', name: 'xstream', version: '1.4.7'
     compile group: 'commons-codec', name: 'commons-codec', version: '1.9'
     compile group: 'log4j', name: 'log4j', version: '1.2.17'
-    compile 'com.google.android.gms:play-services:10.0.1'
+    //compile 'com.google.android.gms:play-services:9.4.0'
+    //compile 'com.google.android.gms:play-services:10.0.1'
+    compile 'com.google.android.gms:play-services-maps:8.4.0'
     compile 'com.github.jorgecastilloprz:fillableloaders:1.03@aar'
     /*VZAVALA*/
     compile files('src/main/java/libs/NisiraCore.jar')
