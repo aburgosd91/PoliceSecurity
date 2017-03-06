@@ -24,6 +24,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/psssinfondo"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
             android:id="@+id/imageView"
             android:layout_above="@+id/linearl_1"
             android:paddingBottom="15dp" />
@@ -33,6 +35,7 @@
             android:orientation="vertical"
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
+            android:layout_marginBottom="10dp"
             android:layout_height="wrap_content">
 
 
