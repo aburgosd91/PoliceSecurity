@@ -27,6 +27,7 @@ import com.nisira.core.util.Util;
 import com.nisira.gcalderon.policesecurity.R;
 import com.nisira.view.Adapter.Adapter_edt_DPersonalServicio;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;

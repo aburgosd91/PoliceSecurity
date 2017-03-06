@@ -3,7 +3,10 @@ package com.nisira.view.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.transition.Fade;
 import android.transition.Slide;
 import android.transition.TransitionInflater;
@@ -19,8 +22,10 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.nisira.core.dao.Dpersonal_servicioDao;
 import com.nisira.core.entity.Dpersonal_servicio;
 import com.nisira.core.entity.Personal_servicio;
+import com.nisira.core.interfaces.FragmentNisira;
 import com.nisira.core.util.Util;
 import com.nisira.gcalderon.policesecurity.R;
+import com.nisira.view.CustomDialogFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -28,7 +33,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 
-public class mnt_DPersonalServicio_Fragment extends Fragment {
+    public class mnt_DPersonalServicio_Fragment extends FragmentNisira {
     // TODO: ELEMENTOS DE LAYOUT
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -218,6 +223,7 @@ public class mnt_DPersonalServicio_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Calendar now = Calendar.getInstance();
+                now.set(1,1,1);
                 TimePickerDialog tpd1 = new TimePickerDialog(getContext(),
                         android.app.TimePickerDialog.THEME_HOLO_LIGHT,
                         new android.app.TimePickerDialog.OnTimeSetListener() {
@@ -236,12 +242,16 @@ public class mnt_DPersonalServicio_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Calendar now = Calendar.getInstance();
+                if(fecha_operacion.getText().toString().isEmpty()){
+                    String[] fechas = fecha_operacion.getText().toString().split("-");
+                    now.set(Integer.parseInt(fechas[2]),Integer.parseInt(fechas[1]),Integer.parseInt(fechas[0]));
+                }
                 DatePickerDialog dpd = new DatePickerDialog(
                         getContext(),
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                fecha_operacion.setText(dayOfMonth+"/"+month+1+"/"+year);
+                                fecha_operacion.setText(dayOfMonth+"-"+month+1+"-"+year);
                             }
                         },
                         now.get(Calendar.YEAR),
@@ -263,30 +273,46 @@ public class mnt_DPersonalServicio_Fragment extends Fragment {
         btn_acaptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean okflag=false;
                 Dpersonal_servicioDao dao = new Dpersonal_servicioDao();
-                dpersonal_servicio.setHora_req((double) Util.convertTimeDecimal(
-                        hora_requerida.getText().toString()
-                ));
-                dpersonal_servicio.setHora_llegada((double) Util.convertTimeDecimal(
-                        hora_llegada.getText().toString()
-                ));
-                dpersonal_servicio.setHora_inicio_serv((double) Util.convertTimeDecimal(
-                        hora_inicio.getText().toString()
-                ));
-                dpersonal_servicio.setHora_fin_serv((double) Util.convertTimeDecimal(
-                        hora_fin.getText().toString()
-                ));
-                dpersonal_servicio.setHora_liberacion((double) Util.convertTimeDecimal(
-                        hora_liberacion.getText().toString()
-                ));
-
                 try {
-                    dao.mezclarLocal(dpersonal_servicio);
-                } catch (Exception e) {
+                    dpersonal_servicio.setHora_req((double) Util.convertTimeDecimal(
+                            hora_requerida.getText().toString()
+                    ));
+                    dpersonal_servicio.setHora_llegada((double) Util.convertTimeDecimal(
+                            hora_llegada.getText().toString()
+                    ));
+                    dpersonal_servicio.setHora_inicio_serv((double) Util.convertTimeDecimal(
+                            hora_inicio.getText().toString()
+                    ));
+                    dpersonal_servicio.setHora_fin_serv((double) Util.convertTimeDecimal(
+                            hora_fin.getText().toString()
+                    ));
+                    dpersonal_servicio.setHora_liberacion((double) Util.convertTimeDecimal(
+                            hora_liberacion.getText().toString()
+                    ));
+                    okflag=true;
+                }catch (Exception e){
                     e.printStackTrace();
+                    DialogFragment popup = new CustomDialogFragment();
+                    Bundle args = new Bundle();
+                    args.putString("titulo", "Advertencia");
+                    args.putString("mensaje", "No se termino de llenar todos los campos");
+                    popup.setArguments(args);
+                    popup.show(getActivity().getSupportFragmentManager(),"dialog");
+
+                }finally {
+                    if(okflag==true){
+                        try {
+                            dao.mezclarLocal(dpersonal_servicio);
+                            getActivity().onBackPressed();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
 
-                getActivity().onBackPressed();
+
             }
         });
     }
