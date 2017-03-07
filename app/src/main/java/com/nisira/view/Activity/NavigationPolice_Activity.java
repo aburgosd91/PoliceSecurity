@@ -7,6 +7,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -15,6 +16,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
@@ -36,8 +38,11 @@ import com.nisira.core.interfaces.ActivityNisiraCompat;
 import com.nisira.core.service.ConsumerService;
 import com.nisira.core.util.Util;
 import com.nisira.gcalderon.policesecurity.R;
+import com.nisira.view.CustomDialogFragment;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +59,7 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
     public TextView campo_titulo2;
     public CircleImageView imageViewprofile;
     RelativeLayout relativeLayout;
+    NavigationView navigationView;
     File photo;
     public int item_tabla_syncro,item_tabla_syncrodoc,item_tabla_ascentdoc;
     private static final int PERMISSION_REQUEST_CODE = 1;
@@ -100,8 +106,13 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
         item_tabla_syncrodoc = 0;
         item_tabla_ascentdoc = 0;
         relativeLayout = (RelativeLayout) findViewById(R.id.main_content);
-
-//        variablesglobales = (VariableGlobal)getApplication();
+        photo = new File(Environment.getExternalStorageDirectory(),  "Pic.jpg");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        campo_titulo = (TextView)findViewById(R.id.campo_titulo);
+        campo_titulo2 = (TextView)findViewById(R.id.campo_titulo2);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         if (Build.VERSION.SDK_INT >= 23)
         {
             if (checkPermission())
@@ -127,12 +138,7 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
             }
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        //getSupportActionBar().setIcon(R.drawable.ic_menu_manage);
-        campo_titulo = (TextView)findViewById(R.id.campo_titulo);
-        campo_titulo2 = (TextView)findViewById(R.id.campo_titulo2);
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        //EVENTO DE ABRIR Y CERRAR DRAWABLE
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         Drawable drawable = ResourcesCompat.getDrawable(getResources(),   R.drawable.nisiralogoxxs, this.getTheme() );
@@ -150,14 +156,9 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
                 }
             }
         });
-        photo = new File(Environment.getExternalStorageDirectory(),  "Pic.jpg");
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        View hView =  navigationView.getHeaderView(0);
-        imageViewprofile = (CircleImageView)hView.findViewById(R.id.imageViewprofile);
-        if(photo.exists()){
-            imageViewprofile.setImageURI(Uri.fromFile(photo));
-        }
+        //FIN DEL EVENTO DEL DRAWABLE
+        setFotoPerfil();
     }
 
     @Override
@@ -213,16 +214,7 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
         int id = item.getItemId();
 
         FragmentManager manager = getSupportFragmentManager();
-/*
-        if(manager.getFragments() != null) {
-            if (!manager.getFragments().isEmpty()) {
-                for(int i = 0 ; i<manager.getFragments().size()-1;i++)
-                manager.beginTransaction().hide(manager.getFragments().get(i)).commit();
-            }
-            for(int i = 0 ; i<manager.getFragments().size();i++)
-                manager.popBackStack();
-        }
-*/
+
         try {
             if(manager.getFragments()!=null){
                 if(manager.getBackStackEntryCount()>0) {
@@ -305,8 +297,6 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
         //selectItem((String) item.getTitle(),id);
 
         campo_titulo.setText(item.getTitle());
-
-        //setTitle(item.getTitle());
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -340,7 +330,6 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
         cws.pd = ProgressDialog.show(NavigationPolice_Activity.this, "SUBIENDO","Sincronizando Base de Datos - "+method_syncro.replace("METHOD_ASCENT_",""), true, false);
     }
 
-
     @Override
     public  void onPostExecuteWebService(ConsumerService cws, String result) {
         if(cws.isSyncronize()){
@@ -368,7 +357,6 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
             }
         }
     }
-
     private void requestPermission() {
 
         if (ActivityCompat.shouldShowRequestPermissionRationale(NavigationPolice_Activity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
@@ -404,11 +392,13 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
                     Uri selectedImage = imageUri;
                     getContentResolver().notifyChange(selectedImage, null);
                     ContentResolver cr = getContentResolver();
-                    Bitmap bitmap;
                     try {
-                        bitmap = android.provider.MediaStore.Images.Media
-                                .getBitmap(cr, selectedImage);
-                        imageViewprofile.setImageURI(imageUri);
+                        Bitmap bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(),imageUri);
+                        FileOutputStream os;
+                        Matrix matrix = new Matrix();
+                        matrix.postRotate(90);
+                        bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
+                        imageViewprofile.setImageBitmap(bmp);
 
                     } catch (Exception e) {
 
@@ -418,5 +408,30 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
                 }
         }
 
+    }
+
+    public void setFotoPerfil(){
+        View hView =  navigationView.getHeaderView(0);
+        imageViewprofile = (CircleImageView)hView.findViewById(R.id.imageViewprofile);
+        if(photo.exists()){
+            try {
+                imageUri = Uri.fromFile(photo);
+                Bitmap bmp = null;
+                bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(),imageUri);
+                Matrix matrix = new Matrix();
+                matrix.postRotate(90);
+                bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
+                imageViewprofile.setImageBitmap(bmp);
+            } catch (Exception e) {
+                e.printStackTrace();
+                DialogFragment popup = new CustomDialogFragment();
+                Bundle args = new Bundle();
+                args.putString("titulo", "Error");
+                args.putString("mensaje", "No se pudo cargar la foto de perfil");
+                popup.setArguments(args);
+                popup.show(getSupportFragmentManager(),"dialog");
+            }
+
+        }
     }
 }
