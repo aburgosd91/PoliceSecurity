@@ -13,7 +13,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_warning_white"
-                android:layout_weight="0.20" />
+                android:layout_margin="3dp"
+                android:layout_weight="0.03" />
             <TextView
                 android:id="@+id/txttitulo1"
                 android:layout_width="wrap_content"
@@ -24,8 +25,9 @@
                 android:text="TITTLE"/>
             </LinearLayout>
         <TextView
-            android:layout_margin="5dp"
-            android:layout_width="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:textAlignment="center"
             android:id="@+id/txtmessage"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:layout_height="wrap_content"
