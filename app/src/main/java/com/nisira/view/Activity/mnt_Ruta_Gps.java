@@ -109,6 +109,7 @@ public class mnt_Ruta_Gps extends SupportMapFragment implements OnMapReadyCallba
         mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
             @Override
             public void onMyLocationChange(Location location) {
+                /*
                 LatLng cali = new LatLng(location.getLatitude(), location.getLongitude());
                 googleMap.addMarker(new MarkerOptions()
                         .position(cali)
@@ -119,6 +120,7 @@ public class mnt_Ruta_Gps extends SupportMapFragment implements OnMapReadyCallba
                         .zoom(10)
                         .build();
                 googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                */
             }
         });
 
