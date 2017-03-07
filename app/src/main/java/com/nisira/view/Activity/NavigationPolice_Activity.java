@@ -99,9 +99,6 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
         item_tabla_syncrodoc = 0;
         item_tabla_ascentdoc = 0;
         relativeLayout = (RelativeLayout) findViewById(R.id.main_content);
-        View layout = getLayoutInflater().inflate(R.layout.nav_header_navigation_police,null);
-        imageViewprofile = (CircleImageView)layout.findViewById(R.id.imageViewprofile);
-
 
 //        variablesglobales = (VariableGlobal)getApplication();
         if (Build.VERSION.SDK_INT >= 23)
@@ -154,6 +151,8 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
         });
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View hView =  navigationView.getHeaderView(0);
+        imageViewprofile = (CircleImageView)hView.findViewById(R.id.imageViewprofile);
     }
 
     @Override
