@@ -54,6 +54,7 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
     public TextView campo_titulo2;
     public CircleImageView imageViewprofile;
     RelativeLayout relativeLayout;
+    File photo;
     public int item_tabla_syncro,item_tabla_syncrodoc,item_tabla_ascentdoc;
     private static final int PERMISSION_REQUEST_CODE = 1;
     private static final Object[][] TABLASINCRONIZACION={
@@ -149,10 +150,14 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
                 }
             }
         });
+        photo = new File(Environment.getExternalStorageDirectory(),  "Pic.jpg");
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View hView =  navigationView.getHeaderView(0);
         imageViewprofile = (CircleImageView)hView.findViewById(R.id.imageViewprofile);
+        if(photo.exists()){
+            imageViewprofile.setImageURI(Uri.fromFile(photo));
+        }
     }
 
     @Override
@@ -283,7 +288,7 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
 
         } else if (id == R.id.mov_foto) {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            File photo = new File(Environment.getExternalStorageDirectory(),  "Pic.jpg");
+
             intent.putExtra(MediaStore.EXTRA_OUTPUT,
                     Uri.fromFile(photo));
             imageUri = Uri.fromFile(photo);
@@ -403,7 +408,7 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
                     try {
                         bitmap = android.provider.MediaStore.Images.Media
                                 .getBitmap(cr, selectedImage);
-                        imageViewprofile.setImageBitmap(bitmap);
+                        imageViewprofile.setImageURI(imageUri);
 
                     } catch (Exception e) {
 
