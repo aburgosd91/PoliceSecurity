@@ -277,6 +277,15 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
             fragments.add(fragment);
 
         } else if (id == R.id.mov_ubicacion_gmap) {
+            Fragment fragment = mnt_Ruta_Gps.newInstance("Liquidacion Gastos", "NavigationPolice_Activity");
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager
+                    .beginTransaction()
+                    .add(R.id.main_content, fragment)
+                    .addToBackStack(null)
+                    .commit();
+            campo_titulo2.setText(getString(R.string.lst_LiquidacionGasto));
+            fragments.add(fragment);
 
         } else if (id == R.id.mov_foto) {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);

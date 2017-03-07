@@ -1,8 +1,13 @@
 package com.nisira.view.Activity;
 
 
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.SupportMapFragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +15,9 @@ import android.view.ViewGroup;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.nisira.gcalderon.policesecurity.R;
 
 /**
@@ -17,7 +25,7 @@ import com.nisira.gcalderon.policesecurity.R;
  * Use the {@link mnt_Ruta_Gps#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class mnt_Ruta_Gps extends Fragment implements OnMapReadyCallback {
+public class mnt_Ruta_Gps extends SupportMapFragment implements OnMapReadyCallback {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -29,19 +37,9 @@ public class mnt_Ruta_Gps extends Fragment implements OnMapReadyCallback {
     private String mParam1;
     private String mParam2;
 
-
     public mnt_Ruta_Gps() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment mnt_Ruta_Gps.
-     */
     // TODO: Rename and change types and number of parameters
     public static mnt_Ruta_Gps newInstance(String param1, String param2) {
         mnt_Ruta_Gps fragment = new mnt_Ruta_Gps();
@@ -65,11 +63,32 @@ public class mnt_Ruta_Gps extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mnt__gps__ubicacion, container, false);
+        //return inflater.inflate(R.layout.fragment_mnt__gps__ubicacion, container, false);
+        View root = super.onCreateView(inflater, container, savedInstanceState);
+        return root;
+
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        GoogleMap mMap = googleMap;
+        LatLng cali = new LatLng(0,0);
+        googleMap.addMarker(new MarkerOptions()
+                .position(cali)
+                .title("Police Security"));
+
+        CameraPosition cameraPosition = CameraPosition.builder()
+                .target(cali)
+                .zoom(10)
+                .build();
+
+        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
+            @Override
+            public void onMyLocationChange(Location location) {
+
+            }
+        });
 
     }
 }
