@@ -50,9 +50,19 @@ public class Dordenserviciocliente implements Serializable {
 	@XStreamAlias("FECHACREACION") 
 	private Date fechacreacion;
 	@Columna
-	@SerializedName("idservicio") 
-	@XStreamAlias("IDSERVICIO") 
+	@SerializedName("idreferencia")
+	@XStreamAlias("IDREFERENCIA")
+	private String idreferencia = "" ;
+
+	@Columna
+	@SerializedName("itemreferencia")
+	@XStreamAlias("ITEMREFERENCIA")
+	private String itemreferencia = "" ;
+	@Columna
+	@SerializedName("idservicio")
+	@XStreamAlias("IDSERVICIO")
 	private String idservicio = "" ;
+
 
 	private boolean Seleccion;
 
@@ -159,6 +169,21 @@ public class Dordenserviciocliente implements Serializable {
 		this.descripcion_vehiculo = descripcion_vehiculo;
 	}
 
+	public String getIdreferencia() {
+		return idreferencia;
+	}
+
+	public void setIdreferencia(String idreferencia) {
+		this.idreferencia = idreferencia;
+	}
+
+	public String getItemreferencia() {
+		return itemreferencia;
+	}
+
+	public void setItemreferencia(String itemreferencia) {
+		this.itemreferencia = itemreferencia;
+	}
 
 
 	/* Sets & Gets FK*/
