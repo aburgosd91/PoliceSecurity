@@ -33,6 +33,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.nisira.core.dao.Cargos_personalDao;
 import com.nisira.core.database.DataBaseClass;
 import com.nisira.core.interfaces.ActivityNisiraCompat;
 import com.nisira.core.service.ConsumerService;
@@ -81,7 +82,8 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
             {"METHOD_LIST_DORDENSERVICIOCLIENTE",8}
     };
     private static final Object[][] TABLASINCRONIZACIONDOCS={
-            {"METHOD_LIST_ORDENSERVICIOCLIENTE",8},
+            {"METHOD_LIST_CARGOS_PERSONAL", 5},
+            //{"METHOD_LIST_ORDENSERVICIOCLIENTE",8},
             {"METHOD_LIST_DORDENSERVICIOCLIENTE",8},
             {"METHOD_LIST_PERSONAL_SERVICIO",8},
             {"METHOD_LIST_DPERSONAL_SERVICIO",8},
