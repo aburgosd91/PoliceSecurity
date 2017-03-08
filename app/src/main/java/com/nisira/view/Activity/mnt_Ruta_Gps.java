@@ -18,6 +18,8 @@ import android.view.ViewGroup;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -35,6 +37,7 @@ public class mnt_Ruta_Gps extends SupportMapFragment implements OnMapReadyCallba
     private static final String ARG_PARAM2 = "param2";
     MapView mMapView;
     private GoogleMap googleMap;
+    boolean flag_location;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -78,13 +81,6 @@ public class mnt_Ruta_Gps extends SupportMapFragment implements OnMapReadyCallba
         GoogleMap mMap = googleMap;
 
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         mMap.setMyLocationEnabled(true);
@@ -92,35 +88,27 @@ public class mnt_Ruta_Gps extends SupportMapFragment implements OnMapReadyCallba
         mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)));
 
         Location location = mMap.getMyLocation();
-        if(location!=null) {
-            LatLng cali = new LatLng(location.getLatitude(), location.getLongitude());
-            googleMap.addMarker(new MarkerOptions()
-                    .position(cali)
-                    .title("Police Security"));
-
-            CameraPosition cameraPosition = CameraPosition.builder()
-                    .target(cali)
-                    .zoom(10)
-                    .build();
-            googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-        }
-
+        flag_location=true;
 
         mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
             @Override
             public void onMyLocationChange(Location location) {
-                /*
-                LatLng cali = new LatLng(location.getLatitude(), location.getLongitude());
-                googleMap.addMarker(new MarkerOptions()
-                        .position(cali)
-                        .title("Police Security"));
 
-                CameraPosition cameraPosition = CameraPosition.builder()
-                        .target(cali)
-                        .zoom(10)
-                        .build();
-                googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-                */
+                if(flag_location) {
+                    LatLng cali = new LatLng(location.getLatitude(), location.getLongitude());
+                    BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.icon_police_black);
+                    googleMap.addMarker(new MarkerOptions()
+                            .position(cali)
+                            .icon(icon)
+                            .title("Police Security"));
+
+                    CameraPosition cameraPosition = CameraPosition.builder()
+                            .target(cali)
+                            .zoom(15)
+                            .build();
+                    googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                    flag_location=false;
+                }
             }
         });
 
