@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.SupportMapFragment;
 
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,7 @@ public class mnt_Ruta_Gps extends SupportMapFragment implements OnMapReadyCallba
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final int LOCATION_REQUEST_CODE = 1;
     MapView mMapView;
     private GoogleMap googleMap;
     boolean flag_location;
@@ -81,6 +83,31 @@ public class mnt_Ruta_Gps extends SupportMapFragment implements OnMapReadyCallba
     @Override
     public void onMapReady(GoogleMap googleMap) {
         GoogleMap mMap = googleMap;
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mMap.setMyLocationEnabled(true);
+        } else {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+                // Mostrar diálogo explicativo
+            } else {
+                // Solicitar permiso
+                ActivityCompat.requestPermissions(
+                        getActivity(),
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        LOCATION_REQUEST_CODE);
+            }
+        }
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
+        mMap.getUiSettings().setMapToolbarEnabled(true);
+        mMap.getUiSettings().setScrollGesturesEnabled(true);
+        mMap.getUiSettings().setIndoorLevelPickerEnabled(true);
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setRotateGesturesEnabled(true);
+        LatLng cali = new LatLng(0,0);
+        googleMap.addMarker(new MarkerOptions()
+                .position(cali)
+                .title("Police Security"));
 
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
@@ -91,6 +118,25 @@ public class mnt_Ruta_Gps extends SupportMapFragment implements OnMapReadyCallba
 
         Location location = mMap.getMyLocation();
         flag_location=true;
+        if(location!=null) {
+            LatLng cali = new LatLng(location.getLatitude(), location.getLongitude());
+            googleMap.addMarker(new MarkerOptions()
+                    .position(cali)
+                    .title("Police Security"));
+
+        CameraPosition cameraPosition = CameraPosition.builder()
+                .target(cali)
+                .zoom(100)
+                .build();
+
+        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            CameraPosition cameraPosition = CameraPosition.builder()
+                    .target(cali)
+                    .zoom(10)
+                    .build();
+            googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        }
+
 
         mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
             @Override
