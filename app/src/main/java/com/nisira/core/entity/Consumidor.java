@@ -81,8 +81,8 @@ public class Consumidor implements Serializable {
 	@XStreamAlias("ES_TITULO") 
 	private Double es_titulo = 0.00 ;
 	@Columna
-	@SerializedName("final_") 
-	@XStreamAlias("FINAL_") 
+	@SerializedName("final")
+	@XStreamAlias("FINAL")
 	private Double final_ = 0.00 ;
 	@Columna
 	@SerializedName("es_produccion") 

@@ -120,10 +120,6 @@ public class Clieprov implements Serializable {
 	@SerializedName("codequivalente") 
 	@XStreamAlias("CODEQUIVALENTE") 
 	private String codequivalente = "" ;
-	@Columna
-	@SerializedName("seleccion") 
-	@XStreamAlias("SELECCION") 
-	private Integer seleccion;
 
 
 	/* Sets & Gets */
@@ -333,14 +329,6 @@ public class Clieprov implements Serializable {
 
 	public String getCodequivalente() {
 		return this.codequivalente;
-	}
-
-	public void setSeleccion(Integer seleccion) {
-		this.seleccion = seleccion;
-	}
-
-	public Integer getSeleccion() {
-		return this.seleccion;
 	}
 
 	@Override

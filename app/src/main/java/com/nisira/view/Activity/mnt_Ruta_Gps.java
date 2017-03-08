@@ -3,6 +3,8 @@ package com.nisira.view.Activity;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -96,10 +98,13 @@ public class mnt_Ruta_Gps extends SupportMapFragment implements OnMapReadyCallba
 
                 if(flag_location) {
                     LatLng cali = new LatLng(location.getLatitude(), location.getLongitude());
-                    BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.icon_police_black);
+                    /*
+                    BitmapDrawable icon = (BitmapDrawable)getResources().getDrawable(R.drawable.icon_police_black);
+                    Bitmap b=icon.getBitmap();
+                    Bitmap smallMarker = Bitmap.createScaledBitmap(b, 80, 80, false);*/
                     googleMap.addMarker(new MarkerOptions()
                             .position(cali)
-                            .icon(icon)
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_police_small))
                             .title("Police Security"));
 
                     CameraPosition cameraPosition = CameraPosition.builder()
