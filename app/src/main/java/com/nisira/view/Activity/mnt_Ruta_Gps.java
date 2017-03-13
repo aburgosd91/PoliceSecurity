@@ -119,7 +119,7 @@ public class mnt_Ruta_Gps extends SupportMapFragment implements OnMapReadyCallba
         Location location = mMap.getMyLocation();
         flag_location=true;
         if(location!=null) {
-            LatLng cali = new LatLng(location.getLatitude(), location.getLongitude());
+            cali = new LatLng(location.getLatitude(), location.getLongitude());
             googleMap.addMarker(new MarkerOptions()
                     .position(cali)
                     .title("Police Security"));
@@ -130,7 +130,7 @@ public class mnt_Ruta_Gps extends SupportMapFragment implements OnMapReadyCallba
                 .build();
 
         googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-            CameraPosition cameraPosition = CameraPosition.builder()
+            cameraPosition = CameraPosition.builder()
                     .target(cali)
                     .zoom(10)
                     .build();
