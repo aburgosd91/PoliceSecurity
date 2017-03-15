@@ -124,31 +124,32 @@ public class mnt_Ruta_Gps extends SupportMapFragment implements OnMapReadyCallba
                             LOCATION_REQUEST_CODE);
                 }
             }
-            mMap.getUiSettings().setMyLocationButtonEnabled(true);
-            mMap.getUiSettings().setMapToolbarEnabled(true);
-            mMap.getUiSettings().setScrollGesturesEnabled(true);
-            mMap.getUiSettings().setIndoorLevelPickerEnabled(true);
-            mMap.getUiSettings().setZoomControlsEnabled(true);
-            mMap.getUiSettings().setRotateGesturesEnabled(true);
-            LatLng cali = new LatLng(0, 0);
+
+            /*LatLng cali = new LatLng(0, 0);
             googleMap.addMarker(new MarkerOptions()
                     .position(cali)
-                    .title("Police Security"));
+                    .title("Police Security"));*/
 
             if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
             mMap.setMyLocationEnabled(true);
             // Marcadores
-            mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)));
+            //mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)));
 
             Location location = mMap.getMyLocation();
             flag_location = true;
             if (location != null) {
-                cali = new LatLng(location.getLatitude(), location.getLongitude());
+                mMap.getUiSettings().setMyLocationButtonEnabled(true);
+                mMap.getUiSettings().setMapToolbarEnabled(true);
+                mMap.getUiSettings().setScrollGesturesEnabled(true);
+                mMap.getUiSettings().setIndoorLevelPickerEnabled(true);
+                mMap.getUiSettings().setZoomControlsEnabled(true);
+                mMap.getUiSettings().setRotateGesturesEnabled(true);
+                LatLng cali = new LatLng(location.getLatitude(), location.getLongitude());
                 googleMap.addMarker(new MarkerOptions()
                         .position(cali)
-                        .title("Police Security"));
+                        .title("Posicion Actual P.S."));
 
                 CameraPosition cameraPosition = CameraPosition.builder()
                         .target(cali)
@@ -162,8 +163,6 @@ public class mnt_Ruta_Gps extends SupportMapFragment implements OnMapReadyCallba
                         .build();
                 googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
-
-
             mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
                 @Override
                 public void onMyLocationChange(Location location){
@@ -211,8 +210,5 @@ public class mnt_Ruta_Gps extends SupportMapFragment implements OnMapReadyCallba
             AlertDialog alert = alertDialogBuilder.create();
             alert.show();
         }
-
     }
-
-
 }
