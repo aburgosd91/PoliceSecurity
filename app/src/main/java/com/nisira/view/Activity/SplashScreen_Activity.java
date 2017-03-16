@@ -47,7 +47,7 @@ public class SplashScreen_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
         ButterKnife.bind(this);
         fillableLoader = (FillableLoader)findViewById(R.id.fillableLoader);
-        fillableLoader.setSvgPath(getString(R.string.xml_nisira));
+        fillableLoader.setSvgPath(getString(R.string.xmlLogo));
         fillableLoader.start();
         pgBar = new ProgressBar(this);
         pgBar.setMax(max_progress());

@@ -37,28 +37,28 @@ public class Adapter_lst_OrdenServicio extends RecyclerView.Adapter<Adapter_lst_
     public FragmentManager fragmentManager;
     public String OPCION;
 
-public static class ListaViewHolder extends RecyclerView.ViewHolder {
-    // Campos respectivos de un item
+    public static class ListaViewHolder extends RecyclerView.ViewHolder {
+        // Campos respectivos de un item
 
-    public ImageView imagen;
-    public TextView nombre;
-    public TextView ordenservicio;
-    public TextView fecha;
-    public TextView txtid;
-    public CircleImageView seleccion;
-    public RelativeLayout fondo_seleccion;
-    public boolean bool_seleccion;
-    public ListaViewHolder(View v) {
-        super(v);
-        imagen = (ImageView) v.findViewById(R.id.imagen_personal);
-        nombre = (TextView) v.findViewById(R.id.nombre);
-        ordenservicio = (TextView) v.findViewById(R.id.txtdocumento);
-        seleccion = (CircleImageView) v.findViewById(R.id.seleccion);
-        fondo_seleccion = (RelativeLayout) v.findViewById(R.id.fondo_seleccion);
-        fecha = (TextView) v.findViewById(R.id.txtfecha);
-        txtid = (TextView) v.findViewById(R.id.txtid);
+        public ImageView imagen;
+        public TextView nombre;
+        public TextView ordenservicio;
+        public TextView fecha;
+        public TextView txtid;
+        public CircleImageView seleccion;
+        public RelativeLayout fondo_seleccion;
+        public boolean bool_seleccion;
+        public ListaViewHolder(View v) {
+            super(v);
+            imagen = (ImageView) v.findViewById(R.id.imagen_personal);
+            nombre = (TextView) v.findViewById(R.id.nombre);
+            ordenservicio = (TextView) v.findViewById(R.id.txtdocumento);
+            seleccion = (CircleImageView) v.findViewById(R.id.seleccion);
+            fondo_seleccion = (RelativeLayout) v.findViewById(R.id.fondo_seleccion);
+            fecha = (TextView) v.findViewById(R.id.txtfecha);
+            txtid = (TextView) v.findViewById(R.id.txtid);
+        }
     }
-}
 
     public Adapter_lst_OrdenServicio(String OPCION,List<Ordenserviciocliente> items, FragmentManager fragmentManager) {
         this.OPCION = OPCION;

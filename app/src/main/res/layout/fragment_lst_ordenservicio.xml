@@ -37,6 +37,7 @@
         android:id="@+id/swiperefresh"
         android:layout_below="@id/rlfiltro"
         android:layout_width="match_parent"
+        android:layout_marginBottom="75dp"
         android:layout_height="match_parent">
 
         <!-- TODO: Update blank fragment layout -->

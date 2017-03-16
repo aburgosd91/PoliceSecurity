@@ -36,7 +36,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.server.converter.StringToIntConverter;
 import com.nisira.core.dao.Cargos_personalDao;
 import com.nisira.core.database.DataBaseClass;
 import com.nisira.core.interfaces.ActivityNisiraCompat;

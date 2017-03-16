@@ -29,8 +29,8 @@
         tristique consectetur, lacus ligula dignissim turpis, cursus commodo turpis
         libero in purus. Phasellus tempus gravida tempor.
     </string>
-    
-    <string name="lst_OrdenServicio">Lista Orden Servicio</string>
+
+  <string name="lst_OrdenServicio">Lista Orden Servicio</string>
     <string name="edt_OrdenServicio">Editar Orden Servicio</string>
     <string name="edt_PersonalServicio">Editar Personal Servicio</string>
     <string name="edt_DPersonalServicio">Editar Detalle Personal Servicio</string>

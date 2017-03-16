@@ -71,4 +71,6 @@ dependencies {
     compile files('src/main/java/libs/ksoap2-android-assembly-3.2.0-jar-with-dependencies.jar')
     testCompile 'junit:junit:4.12'
 
+    compile "com.daimajia.swipelayout:library:1.2.0@aar"
+
 }
