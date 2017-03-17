@@ -171,7 +171,8 @@ public class edt_OrdenServicio2_Fragment extends FragmentNisira {
         }
 
         expandableLayout.setInRecyclerView(true);
-        expandableLayout.setBackgroundColor(Color.DKGRAY);
+        expandableLayout.setExpanded(true);
+
 
 
         expandableLayout.setListener(new ExpandableLayoutListenerAdapter() {
