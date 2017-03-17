@@ -19,6 +19,7 @@ import com.google.gson.JsonObject;
 import com.nisira.core.entity.Ordenserviciocliente;
 import com.nisira.gcalderon.policesecurity.R;
 import com.nisira.view.Activity.NavigationPolice_Activity;
+import com.nisira.view.Activity.edt_OrdenServicio2_Fragment;
 import com.nisira.view.Activity.edt_OrdenServicio_Fragment;
 import com.nisira.view.Activity.edt_PersonalServicio_Fragment;
 
@@ -100,7 +101,7 @@ public class Adapter_lst_OrdenServicio extends RecyclerView.Adapter<Adapter_lst_
                 viewHolder.seleccion.setImageResource(R.drawable.ic_check_big);
                 viewHolder.fondo_seleccion.setBackgroundColor(v.getResources().getColor(R.color.amarillo));
 
-                Fragment fragment = edt_OrdenServicio_Fragment.newInstance(OPCION, "lst_OrdenServicio_Fragment");
+                Fragment fragment = edt_OrdenServicio2_Fragment.newInstance(OPCION, "lst_OrdenServicio_Fragment");
                 Bundle bundle = fragment.getArguments();
                 fragment.setArguments(bundle);
                 bundle.putSerializable("OrdenServicio", items.get(i));
