@@ -164,17 +164,10 @@ public class edt_OrdenServicio2_Fragment extends FragmentNisira {
                     multiple_fab.setVisibility(View.VISIBLE);
                     break;
             }
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         expandableLayout.setInRecyclerView(true);
-        expandableLayout.setExpanded(true);
-
-
-
         expandableLayout.setListener(new ExpandableLayoutListenerAdapter() {
             @Override
             public void onPreOpen() {
@@ -200,14 +193,12 @@ public class edt_OrdenServicio2_Fragment extends FragmentNisira {
     }
     public ObjectAnimator createRotateAnimator(final View target, final float from, final float to) {
         ObjectAnimator animator = ObjectAnimator.ofFloat(target, "rotation", from, to);
-        animator.setDuration(300);
+        animator.setDuration(200);
         animator.setInterpolator(Utils.createInterpolator(Utils.LINEAR_INTERPOLATOR));
         return animator;
     }
 
     public void Listeners(){
-
-
 
             fab_modificar.setOnClickListener(new View.OnClickListener() {
                 @Override
