@@ -19,6 +19,7 @@ import com.google.gson.JsonObject;
 import com.nisira.core.entity.Ordenserviciocliente;
 import com.nisira.gcalderon.policesecurity.R;
 import com.nisira.view.Activity.NavigationPolice_Activity;
+import com.nisira.view.Activity.edt_OrdenServicio2_Fragment;
 import com.nisira.view.Activity.edt_OrdenServicio_Fragment;
 import com.nisira.view.Activity.edt_PersonalServicio_Fragment;
 
@@ -37,28 +38,28 @@ public class Adapter_lst_OrdenServicio extends RecyclerView.Adapter<Adapter_lst_
     public FragmentManager fragmentManager;
     public String OPCION;
 
-public static class ListaViewHolder extends RecyclerView.ViewHolder {
-    // Campos respectivos de un item
+    public static class ListaViewHolder extends RecyclerView.ViewHolder {
+        // Campos respectivos de un item
 
-    public ImageView imagen;
-    public TextView nombre;
-    public TextView ordenservicio;
-    public TextView fecha;
-    public TextView txtid;
-    public CircleImageView seleccion;
-    public RelativeLayout fondo_seleccion;
-    public boolean bool_seleccion;
-    public ListaViewHolder(View v) {
-        super(v);
-        imagen = (ImageView) v.findViewById(R.id.imagen_personal);
-        nombre = (TextView) v.findViewById(R.id.nombre);
-        ordenservicio = (TextView) v.findViewById(R.id.txtdocumento);
-        seleccion = (CircleImageView) v.findViewById(R.id.seleccion);
-        fondo_seleccion = (RelativeLayout) v.findViewById(R.id.fondo_seleccion);
-        fecha = (TextView) v.findViewById(R.id.txtfecha);
-        txtid = (TextView) v.findViewById(R.id.txtid);
+        public ImageView imagen;
+        public TextView nombre;
+        public TextView ordenservicio;
+        public TextView fecha;
+        public TextView txtid;
+        public CircleImageView seleccion;
+        public RelativeLayout fondo_seleccion;
+        public boolean bool_seleccion;
+        public ListaViewHolder(View v) {
+            super(v);
+            imagen = (ImageView) v.findViewById(R.id.imagen_personal);
+            nombre = (TextView) v.findViewById(R.id.nombre);
+            ordenservicio = (TextView) v.findViewById(R.id.txtdocumento);
+            seleccion = (CircleImageView) v.findViewById(R.id.seleccion);
+            fondo_seleccion = (RelativeLayout) v.findViewById(R.id.fondo_seleccion);
+            fecha = (TextView) v.findViewById(R.id.txtfecha);
+            txtid = (TextView) v.findViewById(R.id.txtid);
+        }
     }
-}
 
     public Adapter_lst_OrdenServicio(String OPCION,List<Ordenserviciocliente> items, FragmentManager fragmentManager) {
         this.OPCION = OPCION;
@@ -100,7 +101,7 @@ public static class ListaViewHolder extends RecyclerView.ViewHolder {
                 viewHolder.seleccion.setImageResource(R.drawable.ic_check_big);
                 viewHolder.fondo_seleccion.setBackgroundColor(v.getResources().getColor(R.color.amarillo));
 
-                Fragment fragment = edt_OrdenServicio_Fragment.newInstance(OPCION, "lst_OrdenServicio_Fragment");
+                Fragment fragment = edt_OrdenServicio2_Fragment.newInstance(OPCION, "lst_OrdenServicio_Fragment");
                 Bundle bundle = fragment.getArguments();
                 fragment.setArguments(bundle);
                 bundle.putSerializable("OrdenServicio", items.get(i));

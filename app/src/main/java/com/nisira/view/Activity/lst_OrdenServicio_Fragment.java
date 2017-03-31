@@ -81,6 +81,7 @@ public class lst_OrdenServicio_Fragment extends FragmentNisira {
         recycler.setHasFixedSize(true);
         swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
         fab_abrir = (FloatingActionButton)view.findViewById(R.id.fab_abrir);
+
         fab_filtrar = (FloatingActionButton)view.findViewById(R.id.fab_filtrar);
         rlfiltro = (RelativeLayout)view.findViewById(R.id.rlfiltro);
         edit_filtro = (EditText)view.findViewById(R.id.edit_filtro);

@@ -1,5 +1,6 @@
 package com.nisira.view.Activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -9,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,6 +35,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.nisira.core.dao.Cargos_personalDao;
 import com.nisira.core.database.DataBaseClass;
 import com.nisira.core.interfaces.ActivityNisiraCompat;
@@ -62,43 +65,48 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
     RelativeLayout relativeLayout;
     NavigationView navigationView;
     File photo;
-    public int item_tabla_syncro,item_tabla_syncrodoc,item_tabla_ascentdoc;
+    public int item_tabla_syncro, item_tabla_syncrodoc, item_tabla_ascentdoc;
     private static final int PERMISSION_REQUEST_CODE = 1;
-    private static final Object[][] TABLASINCRONIZACION={
-            {"METHOD_LIST_CLIEPROV",20},
+    private static final Object[][] TABLASINCRONIZACION = {
+            {"METHOD_LIST_CLIEPROV", 20},
             {"METHOD_LIST_CONSUMIDOR", 8},
-            //{"METHOD_LIST_CONCEPTO_CUENTA", 5},
+            {"METHOD_LIST_CONCEPTO_CUENTA", 5},
             {"METHOD_LIST_CARGOS_PERSONAL", 5},
-            //{"METHOD_LIST_DOCUMENTOS",6},
-            //{"METHOD_LIST_NUMEMISOR",10},
-            {"METHOD_LIST_PERSONAL_SERVICIO",8},
-            {"METHOD_LIST_DPERSONAL_SERVICIO",8},
-            {"METHOD_LIST_PRODUCTOS",8},
-            //{"METHOD_LIST_RUTAS",8},
-            //{"METHOD_LIST_SUCURSALES",5},
-            {"METHOD_LIST_ORDENLIQUIDACIONGASTO",8},
-            {"METHOD_LIST_ORDENSERVICIOCLIENTE",8},
-            {"METHOD_LIST_DORDENLIQUIDACIONGASTO",8},
-            {"METHOD_LIST_DORDENSERVICIOCLIENTE",8}
+            {"METHOD_LIST_DOCUMENTOS", 6},
+            {"METHOD_LIST_NUMEMISOR", 10},
+            {"METHOD_LIST_PERSONAL_SERVICIO", 8},
+            {"METHOD_LIST_DPERSONAL_SERVICIO", 8},
+            {"METHOD_LIST_PRODUCTOS", 8},
+            {"METHOD_LIST_RUTAS", 8},
+            {"METHOD_LIST_SUCURSALES", 5},
+            {"METHOD_LIST_ORDENLIQUIDACIONGASTO", 8},
+            {"METHOD_LIST_ORDENSERVICIOCLIENTE", 8},
+            {"METHOD_LIST_DORDENLIQUIDACIONGASTO", 8},
+            {"METHOD_LIST_DORDENSERVICIOCLIENTE", 8}
     };
-    private static final Object[][] TABLASINCRONIZACIONDOCS={
+    private static final Object[][] TABLASINCRONIZACIONDOCS = {
             {"METHOD_LIST_CARGOS_PERSONAL", 5},
             //{"METHOD_LIST_ORDENSERVICIOCLIENTE",8},
-            {"METHOD_LIST_DORDENSERVICIOCLIENTE",8},
-            {"METHOD_LIST_PERSONAL_SERVICIO",8},
-            {"METHOD_LIST_DPERSONAL_SERVICIO",8},
-            {"METHOD_LIST_ORDENLIQUIDACIONGASTO",8},
-            {"METHOD_LIST_DORDENLIQUIDACIONGASTO",8}
+            {"METHOD_LIST_DORDENSERVICIOCLIENTE", 8},
+            {"METHOD_LIST_PERSONAL_SERVICIO", 8},
+            {"METHOD_LIST_DPERSONAL_SERVICIO", 8},
+            {"METHOD_LIST_ORDENLIQUIDACIONGASTO", 8},
+            {"METHOD_LIST_DORDENLIQUIDACIONGASTO", 8}
     };
-    private static final Object[][] TABLA_ASCENT_DOCS={
+    private static final Object[][] TABLA_ASCENT_DOCS = {
             //{"METHOD_ASCENT_ORDENSERVICIOCLIENTE",8},
-            {"METHOD_ASCENT_DORDENSERVICIOCLIENTE",8},
-            {"METHOD_ASCENT_PERSONAL_SERVICIO",8},
-            {"METHOD_ASCENT_DPERSONAL_SERVICIO",8}
+            {"METHOD_ASCENT_DORDENSERVICIOCLIENTE", 8},
+            {"METHOD_ASCENT_PERSONAL_SERVICIO", 8},
+            {"METHOD_ASCENT_DPERSONAL_SERVICIO", 8}
             //{"METHOD_ASCENT_ORDENLIQUIDACIONGASTO",8},
             //{"METHOD_ASCENT_DORDENLIQUIDACIONGASTO",8}
 
     };
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,34 +116,28 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
         item_tabla_syncrodoc = 0;
         item_tabla_ascentdoc = 0;
         relativeLayout = (RelativeLayout) findViewById(R.id.main_content);
-        photo = new File(Environment.getExternalStorageDirectory(),  "Pic.jpg");
+        photo = new File(Environment.getExternalStorageDirectory(), "Pic.jpg");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        campo_titulo = (TextView)findViewById(R.id.campo_titulo);
-        campo_titulo2 = (TextView)findViewById(R.id.campo_titulo2);
+        campo_titulo = (TextView) findViewById(R.id.campo_titulo);
+        campo_titulo2 = (TextView) findViewById(R.id.campo_titulo2);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
-        if (Build.VERSION.SDK_INT >= 23)
-        {
-            if (checkPermission())
-            {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkPermission()) {
                 try {
                     DataBaseClass.SincronizarDB(getApplication());
-                }catch (Exception ex)
-                {
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             } else {
                 requestPermission();
                 return;
             }
-        }
-        else
-        {
+        } else {
             try {
                 DataBaseClass.SincronizarDB(getApplication());
-            }catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
@@ -143,7 +145,7 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
         //EVENTO DE ABRIR Y CERRAR DRAWABLE
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        Drawable drawable = ResourcesCompat.getDrawable(getResources(),   R.drawable.nisiralogoxxs, this.getTheme() );
+        Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.nisiralogoxxs, this.getTheme());
         toggle.setDrawerIndicatorEnabled(false);
         drawer.setDrawerListener(toggle);
         toggle.setHomeAsUpIndicator(drawable);
@@ -218,14 +220,14 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
         FragmentManager manager = getSupportFragmentManager();
 
         try {
-            if(manager.getFragments()!=null){
-                if(manager.getBackStackEntryCount()>0) {
+            if (manager.getFragments() != null) {
+                if (manager.getBackStackEntryCount() > 0) {
                     for (int i = 0; i < manager.getBackStackEntryCount(); i++)
                         manager.popBackStack();
                     manager.beginTransaction().remove(getSupportFragmentManager().findFragmentById(R.id.main_content)).commit();
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -313,67 +315,70 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
         return true;
     }
 
-    public void asyncronize(){
-        String method_syncro=TABLASINCRONIZACION[item_tabla_syncro][0].toString();
+    public void asyncronize() {
+        String method_syncro = TABLASINCRONIZACION[item_tabla_syncro][0].toString();
         int time = (int) TABLASINCRONIZACION[item_tabla_syncro][1];
         item_tabla_syncro++;
-        ConsumerService cws = new ConsumerService(NavigationPolice_Activity.this,getApplicationContext(), method_syncro, time,true,1);
-        cws.getAttribute().put("type","XML");
+        ConsumerService cws = new ConsumerService(NavigationPolice_Activity.this, getApplicationContext(), method_syncro, time, true, 1);
+        cws.getAttribute().put("type", "XML");
         cws.execute("");
-        cws.pd = ProgressDialog.show(NavigationPolice_Activity.this, "SINCRONIZANDO","Sincronizando Base de Datos - "+method_syncro.replace("METHOD_LIST_",""), true, false);
+        cws.pd = ProgressDialog.show(NavigationPolice_Activity.this, "SINCRONIZANDO", "Sincronizando Base de Datos - " + method_syncro.replace("METHOD_LIST_", ""), true, false);
     }
-    public void asyncronizedocs(){
-        String method_syncro=TABLASINCRONIZACIONDOCS[item_tabla_syncrodoc][0].toString();
+
+    public void asyncronizedocs() {
+        String method_syncro = TABLASINCRONIZACIONDOCS[item_tabla_syncrodoc][0].toString();
         int time = (int) TABLASINCRONIZACIONDOCS[item_tabla_syncrodoc][1];
         item_tabla_syncrodoc++;
-        ConsumerService cws = new ConsumerService(NavigationPolice_Activity.this,getApplicationContext(), method_syncro, time,true,2);
-        cws.getAttribute().put("type","XML");
+        ConsumerService cws = new ConsumerService(NavigationPolice_Activity.this, getApplicationContext(), method_syncro, time, true, 2);
+        cws.getAttribute().put("type", "XML");
         cws.execute("");
-        cws.pd = ProgressDialog.show(NavigationPolice_Activity.this, "SINCRONIZANDO","Sincronizando Base de Datos - "+method_syncro.replace("METHOD_LIST_",""), true, false);
+        cws.pd = ProgressDialog.show(NavigationPolice_Activity.this, "SINCRONIZANDO", "Sincronizando Base de Datos - " + method_syncro.replace("METHOD_LIST_", ""), true, false);
     }
-    public void ascentdocs(){
-        String method_syncro=TABLA_ASCENT_DOCS[item_tabla_ascentdoc][0].toString();
+
+    public void ascentdocs() {
+        String method_syncro = TABLA_ASCENT_DOCS[item_tabla_ascentdoc][0].toString();
         int time = (int) TABLA_ASCENT_DOCS[item_tabla_ascentdoc][1];
         item_tabla_ascentdoc++;
-        ConsumerService cws = new ConsumerService(NavigationPolice_Activity.this,getApplicationContext(), method_syncro, time,true,3);
-        cws.getAttribute().put("type","XML");
+        ConsumerService cws = new ConsumerService(NavigationPolice_Activity.this, getApplicationContext(), method_syncro, time, true, 3);
+        cws.getAttribute().put("type", "XML");
         cws.execute("");
-        cws.pd = ProgressDialog.show(NavigationPolice_Activity.this, "SUBIENDO","Sincronizando Base de Datos - "+method_syncro.replace("METHOD_ASCENT_",""), true, false);
+        cws.pd = ProgressDialog.show(NavigationPolice_Activity.this, "SUBIENDO", "Sincronizando Base de Datos - " + method_syncro.replace("METHOD_ASCENT_", ""), true, false);
     }
 
     @Override
-    public  void onPostExecuteWebService(ConsumerService cws, String result) {
-        if(cws.isSyncronize()){
-            if(cws.getType_syncronize()==1){/*SINCRONIZACION TOTAL*/
-                if(TABLASINCRONIZACION.length>item_tabla_syncro && item_tabla_syncro>0){
+    public void onPostExecuteWebService(ConsumerService cws, String result) {
+        if (cws.isSyncronize()) {
+            if (cws.getType_syncronize() == 1) {/*SINCRONIZACION TOTAL*/
+                if (TABLASINCRONIZACION.length > item_tabla_syncro && item_tabla_syncro > 0) {
                     asyncronize();
                 }
-                if(TABLASINCRONIZACION.length==item_tabla_syncro){
-                    item_tabla_syncro=0;
+                if (TABLASINCRONIZACION.length == item_tabla_syncro) {
+                    item_tabla_syncro = 0;
                 }
-            }else if(cws.getType_syncronize()==2){/*SINCRONIZACION DOCUMENTOS*/
-                if(TABLASINCRONIZACIONDOCS.length>item_tabla_syncrodoc && item_tabla_syncrodoc>0){
+            } else if (cws.getType_syncronize() == 2) {/*SINCRONIZACION DOCUMENTOS*/
+                if (TABLASINCRONIZACIONDOCS.length > item_tabla_syncrodoc && item_tabla_syncrodoc > 0) {
                     asyncronizedocs();
                 }
-                if(TABLASINCRONIZACIONDOCS.length==item_tabla_syncrodoc){
-                    item_tabla_syncrodoc=0;
+                if (TABLASINCRONIZACIONDOCS.length == item_tabla_syncrodoc) {
+                    item_tabla_syncrodoc = 0;
                 }
-            }else if(cws.getType_syncronize()==3){/*ASCENT DOCUMENTOS*/
-                if(TABLA_ASCENT_DOCS.length>item_tabla_ascentdoc && item_tabla_ascentdoc>0){
+            } else if (cws.getType_syncronize() == 3) {/*ASCENT DOCUMENTOS*/
+                if (TABLA_ASCENT_DOCS.length > item_tabla_ascentdoc && item_tabla_ascentdoc > 0) {
                     ascentdocs();
                 }
-                if(TABLA_ASCENT_DOCS.length==item_tabla_ascentdoc){
-                    item_tabla_ascentdoc=0;
+                if (TABLA_ASCENT_DOCS.length == item_tabla_ascentdoc) {
+                    item_tabla_ascentdoc = 0;
                 }
             }
         }
     }
+
     private void requestPermission() {
 
-        if (ActivityCompat.shouldShowRequestPermissionRationale(NavigationPolice_Activity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(NavigationPolice_Activity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 
             String mensaje = "El aplicativo no tiene permiso de almacenamiento.?Ir a ajustes para brindar el permiso de almacenamiento al aplicativo.?";
-            AlertDialog alert =  Util.msgboxConfirmacion(NavigationPolice_Activity.this,mensaje,"PERMISO DE ALMACENAMIENTO");
+            AlertDialog alert = Util.msgboxConfirmacion(NavigationPolice_Activity.this, mensaje, "PERMISO DE ALMACENAMIENTO");
             alert.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -383,11 +388,12 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
             });
 
         } else {
-            ActivityCompat.requestPermissions(NavigationPolice_Activity.this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+            ActivityCompat.requestPermissions(NavigationPolice_Activity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
         }
     }
+
     private boolean checkPermission() {
-        int result = ContextCompat.checkSelfPermission(NavigationPolice_Activity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int result = ContextCompat.checkSelfPermission(NavigationPolice_Activity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (result == PackageManager.PERMISSION_GRANTED) {
             return true;
         } else {
@@ -403,36 +409,63 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
                     Uri selectedImage = imageUri;
                     getContentResolver().notifyChange(selectedImage, null);
                     ContentResolver cr = getContentResolver();
+                    //
                     try {
-                        Bitmap bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(),imageUri);
+
+                        Bitmap myBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                        ExifInterface exif = new ExifInterface(imageUri.getPath());
+                        int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
                         FileOutputStream os;
                         Matrix matrix = new Matrix();
-                        matrix.postRotate(90);
-                        bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
-                        imageViewprofile.setImageBitmap(bmp);
+                        if (orientation == 6) {
+                            matrix.postRotate(90);
+                        } else if (orientation == 3) {
+                            matrix.postRotate(180);
+                        } else if (orientation == 8) {
+                            matrix.postRotate(270);
+                        }
+                        myBitmap = Bitmap.createBitmap(myBitmap, 0, 0, myBitmap.getWidth(), myBitmap.getHeight(), matrix, true);
+                        imageViewprofile.setImageBitmap(myBitmap);
 
                     } catch (Exception e) {
-
-                        Log.e("Camera", e.toString());
+                        e.printStackTrace();
+                        DialogFragment popup = new CustomDialogFragment();
+                        Bundle args = new Bundle();
+                        args.putString("titulo", "Error");
+                        args.putString("mensaje", "No se pudo cargar la foto de perfil");
+                        popup.setArguments(args);
+                        popup.show(getSupportFragmentManager(),"dialog");
                     }
-                    System.out.println("GG1");
+                    //
                 }
         }
 
     }
+    public void setFotoPerfil() {
+        View hView = navigationView.getHeaderView(0);
+        imageViewprofile = (CircleImageView) hView.findViewById(R.id.imageViewprofile);
+        if (photo.exists()) {
 
-    public void setFotoPerfil(){
-        View hView =  navigationView.getHeaderView(0);
-        imageViewprofile = (CircleImageView)hView.findViewById(R.id.imageViewprofile);
-        if(photo.exists()){
             try {
+                //comprueba que hay foto
                 imageUri = Uri.fromFile(photo);
                 Bitmap bmp = null;
-                bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(),imageUri);
+                //
+                Bitmap myBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                ExifInterface exif = new ExifInterface(imageUri.getPath());
+                int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
+                FileOutputStream os;
                 Matrix matrix = new Matrix();
-                matrix.postRotate(90);
-                bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
-                imageViewprofile.setImageBitmap(bmp);
+                if (orientation == 6) {
+                    matrix.postRotate(90);
+                } else if (orientation == 3) {
+                    matrix.postRotate(180);
+                } else if (orientation == 8) {
+                    matrix.postRotate(270);
+                }
+                myBitmap = Bitmap.createBitmap(myBitmap, 0, 0, myBitmap.getWidth(), myBitmap.getHeight(), matrix, true);
+                imageViewprofile.setImageBitmap(myBitmap);
+
             } catch (Exception e) {
                 e.printStackTrace();
                 DialogFragment popup = new CustomDialogFragment();
@@ -445,4 +478,5 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
 
         }
     }
+
 }
