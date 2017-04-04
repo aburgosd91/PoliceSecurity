@@ -97,7 +97,7 @@ public class mnt_DOrdenServicio_Fragment extends Fragment {
     public void LlenarCampos(){
         TextView view = (TextView) getActivity().findViewById(R.id.campo_titulo2);
         view.setText(getString(R.string.mnt_DPersonalServicio));
-        txt_vehiculos.setText(dordenserviciocliente.getDescripcion_vehiculo());
+        txt_vehiculos.setText(dordenserviciocliente.getIdvehiculo());
         txtplaca.setText(dordenserviciocliente.getPlaca_cliente());
         ConsumidorDao dao = new ConsumidorDao();
         List<Consumidor> consumidors= new ArrayList<>();

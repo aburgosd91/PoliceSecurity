@@ -303,7 +303,8 @@ public class ConsumerService extends AsyncTask<String, Void, String> {
     }
     //protected void onPostExecute(Object result) {
     public void onPostExecute(String result) {
-        pd.dismiss();
+        if(pd!=null)
+            pd.dismiss();
 
         if(response.trim().contains("failed to connect to") ){
             response = "ERROR: No se puede conectar con NISIRA ERP.";

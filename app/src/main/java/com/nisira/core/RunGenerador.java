@@ -752,8 +752,6 @@ public class RunGenerador {
 			{
 				imports += "import java.sql.ResultSet;";
 			}
-
-
 			wr.append(paquete);
 			wr.append("\n");
 			wr.append(imports);
@@ -871,11 +869,11 @@ public class RunGenerador {
 
 			// ********************************************INICIO CONEXION*******************************************************
 			EConexion e = new EConexion();
-			e.BASEDATOS = "PSS_R";
+			e.BASEDATOS = "PSS_SQLITE";
 			e.CLAVE = "amadeus2010";
 			e.INSTANCIA = "";
 			e.USUARIO = "sa";
-			e.SERVIDOR = "localhost";
+			e.SERVIDOR = "ABURGOS";
 			e.TIPO = "MSSQL";
 
 			CoreUtil.conexiones.put("default", e);
