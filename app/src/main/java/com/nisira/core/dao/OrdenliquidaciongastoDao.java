@@ -29,4 +29,5 @@ public class OrdenliquidaciongastoDao extends BaseDao<Ordenliquidaciongasto> {
 		}
 	}
 
+
 }

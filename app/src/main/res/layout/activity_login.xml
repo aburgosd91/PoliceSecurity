@@ -59,7 +59,7 @@
             android:paddingBottom="15dp"
             android:id="@+id/txtPassword"
             android:textStyle="normal"
-            android:text="adminM010" />
+            android:text="admin2017" />
 
             <Button
                 android:text="@string/login"

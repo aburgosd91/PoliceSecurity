@@ -20,6 +20,7 @@ import com.nisira.core.entity.Clieprov;
 import com.nisira.core.entity.Concepto_cuenta;
 import com.nisira.core.entity.Destinoadquisicion;
 import com.nisira.core.entity.Dordenliquidaciongasto;
+import com.nisira.core.entity.Ordenliquidaciongasto;
 import com.nisira.core.interfaces.FragmentNisira;
 import com.nisira.gcalderon.policesecurity.R;
 
@@ -31,6 +32,7 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private Dordenliquidaciongasto dordenliquidaciongasto;
+    private Ordenliquidaciongasto ordenliquidaciongasto;
 
     private AutoCompleteTextView listbox;
     private AutoCompleteTextView campo_proveedor;
@@ -39,7 +41,7 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
 
 
     private FloatingActionButton btn_cancelar;
-    private FloatingActionButton btn_acaptar;
+    private FloatingActionButton btn_aceptar;
 
     // TODO: PARAMETROS DE ENTRADA
     private String mParam1;
@@ -65,6 +67,7 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            ordenliquidaciongasto = (Ordenliquidaciongasto) getArguments().getSerializable("OrdenLiquidacionGasto");
             dordenliquidaciongasto = (Dordenliquidaciongasto) getArguments().getSerializable("DOrdenLiquidacionGasto");
         }
     }
@@ -72,16 +75,16 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_mnt_dordenliquidaciongasto, container, false);
+        View view = inflater.inflate(R.layout.fragment_mnt_dordenliquidaciongasto2, container, false);
         animacionEntrada();
         TextView view1 = (TextView) getActivity().findViewById(R.id.campo_titulo2);
         view1.setText(getString(R.string.mnt_DOrdenLiquidacionGasto));
-        campo_proveedor = (AutoCompleteTextView)view.findViewById(R.id.campo_proveedor);
-        campo_concepto = (AutoCompleteTextView)view.findViewById(R.id.campo_concepto);
-        campo_destino = (AutoCompleteTextView)view.findViewById(R.id.campo_destino);
+        //campo_proveedor = (AutoCompleteTextView)view.findViewById(R.id.campo_proveedor);
+        //campo_concepto = (AutoCompleteTextView)view.findViewById(R.id.campo_concepto);
+        //campo_destino = (AutoCompleteTextView)view.findViewById(R.id.campo_destino);
         btn_cancelar = (FloatingActionButton)view.findViewById(R.id.fab_cancelar);
-        btn_acaptar = (FloatingActionButton)view.findViewById(R.id.fab_aceptar);
-        listbox = (AutoCompleteTextView) view.findViewById(R.id.autocompletetext1);
+        btn_aceptar = (FloatingActionButton)view.findViewById(R.id.fab_aceptar);
+
         LlenarCampos();
         Listeners();
         return view;
@@ -96,6 +99,7 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
     }
 
     public void LlenarCampos(){
+        /*
         ClieprovDao dao = new ClieprovDao();
         try {
             List<Clieprov> list = dao.getPersonalxTipo(dordenliquidaciongasto.getIdempresa(),"P");
@@ -114,6 +118,8 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
         DestinoadquisicionDao dao2 = new DestinoadquisicionDao();
         try {
             List<Destinoadquisicion> list3 = dao2.listar();
@@ -123,6 +129,7 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        */
     }
 
     public void Listeners(){
@@ -133,7 +140,7 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
 
             }
         });
-        btn_acaptar.setOnClickListener(new View.OnClickListener() {
+        btn_aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

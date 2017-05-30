@@ -1,6 +1,10 @@
 package com.nisira.view.Activity;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,8 +14,12 @@ import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.nisira.core.dao.OrdenliquidaciongastoDao;
 import com.nisira.core.dao.OrdenservicioclienteDao;
 import com.nisira.core.entity.Ordenliquidaciongasto;
@@ -23,6 +31,7 @@ import com.nisira.gcalderon.policesecurity.R;
 import com.nisira.view.Adapter.Adapter_lst_OrdenLiquidacionGasto;
 import com.nisira.view.Adapter.Adapter_lst_OrdenServicio;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
@@ -35,7 +44,11 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
     private RecyclerView.LayoutManager lManager;
     private SwipeRefreshLayout swipeRefreshLayout;
     List<Ordenliquidaciongasto> listServCliente;
+    FloatingActionButton fab_abrir,fab_filtrar,fab_nuevo;
     OrdenliquidaciongastoDao dao;
+    EditText edit_filtro;
+    RelativeLayout rlfiltro;
+    ConsumerService cs;
 
     // TODO: PARAMETROS DE ENTRADA
     private String mParam1;
@@ -69,13 +82,18 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_lst_ordenservicio, container, false);
+        View view = inflater.inflate(R.layout.fragment_lst_ordenliquidaciongasto, container, false);
         animacionEntrada();
+        cs = new ConsumerService(this,getContext(), TypeMethod.METHOD_WEB_RETURNID,3);
         // Inflate the layout for this fragment
         recycler = (RecyclerView) view.findViewById(R.id.reciclador);
         recycler.setHasFixedSize(true);
         swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swiperefresh);
-
+        fab_abrir = (FloatingActionButton)view.findViewById(R.id.fab_abrir);
+        fab_nuevo = (FloatingActionButton)view.findViewById(R.id.fab_nuevo);
+        fab_filtrar = (FloatingActionButton)view.findViewById(R.id.fab_filtrar);
+        rlfiltro = (RelativeLayout)view.findViewById(R.id.rlfiltro);
+        edit_filtro = (EditText)view.findViewById(R.id.edit_filtro);
         // Usar un administrador para LinearLayout
         lManager = new LinearLayoutManager(getContext());
         recycler.setLayoutManager(lManager);
@@ -98,19 +116,7 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
 
         // TODO: EVENTOS
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                try {
-                    dao = new OrdenliquidaciongastoDao();
-                    listServCliente = dao.listar();
-                    adapter.notifyDataSetChanged();
-
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        });
+        listeners();
 
         return view;
     }
@@ -121,10 +127,67 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
         setExitTransition(slide);
         setEnterTransition(slide);
     }
+
+    public void listeners(){
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                try {
+                    listServCliente = dao.listar();
+                    adapter.notifyDataSetChanged();
+                    swipeRefreshLayout.setRefreshing(false);
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+        fab_filtrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    //listServCliente = dao.(edit_filtro.getText().toString());
+                    rlfiltro.setVisibility(View.GONE);
+                    adapter = new Adapter_lst_OrdenLiquidacionGasto(mParam1,listServCliente,getFragmentManager());
+                    recycler.setAdapter(adapter);
+                    InputMethodManager inputMethodManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(edit_filtro.getWindowToken(), 0);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+        fab_nuevo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+
+                    OrdenliquidaciongastoDao ordenliquidaciongastoDao = new OrdenliquidaciongastoDao();
+                    cs.execute("");
+                    //ordenliquidaciongastoDao.insertar();
+                    Snackbar.make(getView(), "Orden Liquidacion Creada", Snackbar.LENGTH_LONG)
+                            .show();
+
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
     @Override
     public  void onPostExecuteWebService(ConsumerService cws, String result) {
         /*NO UTILIZADO*/
-        if(cws.getMethod().trim().equals(TypeMethod.METHOD_LIST_CLIEPROV)){
+        if(cws.getMethod().trim().equals(TypeMethod.METHOD_WEB_RETURNID)){
+
+            Fragment fragment = mnt_DOrdenLiquidacionGasto_Fragment.newInstance(OPCION, "lst_OrdenServicio_Fragment");
+            Bundle bundle = fragment.getArguments();
+            fragment.setArguments(bundle);
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.replace(R.id.main_content, fragment, "NewFragmentTag");
+            ft.addToBackStack(null);
+            ft.commit();
         }
     }
 }

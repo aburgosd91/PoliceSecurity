@@ -873,7 +873,7 @@ public class RunGenerador {
 			e.CLAVE = "amadeus2010";
 			e.INSTANCIA = "";
 			e.USUARIO = "sa";
-			e.SERVIDOR = "ABURGOS";
+			e.SERVIDOR = "localhost";
 			e.TIPO = "MSSQL";
 
 			CoreUtil.conexiones.put("default", e);

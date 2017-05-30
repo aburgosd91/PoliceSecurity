@@ -22,8 +22,10 @@ public class TypeMethod {
     public static final String METHOD_LIST_ORDENSERVICIOCLIENTE    ="METHOD_LIST_ORDENSERVICIOCLIENTE";
     public static final String METHOD_LIST_DORDENLIQUIDACIONGASTO  ="METHOD_LIST_DORDENLIQUIDACIONGASTO";
     public static final String METHOD_LIST_DORDENSERVICIOCLIENTE   ="METHOD_LIST_DORDENSERVICIOCLIENTE";
+
     /****************************************************************************************************/
     public static final String METHOD_SYNCRONIZE   ="METHOD_SYNCRONIZE";
+    public static final String METHOD_WEB_RETURNID   ="METHOD_WEB_RETURNID";
     /*****************************************ASCENT DATOS SERVIDOR**********************************************/
     public static final String METHOD_ASCENT_ORDENSERVICIOCLIENTE    ="METHOD_ASCENT_ORDENSERVICIOCLIENTE";
     public static final String METHOD_ASCENT_DORDENSERVICIOCLIENTE   ="METHOD_ASCENT_DORDENSERVICIOCLIENTE";
