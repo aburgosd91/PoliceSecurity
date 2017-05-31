@@ -123,9 +123,13 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
     // TODO: TRANSICIONES Y ANIMACIONES
 
     public void animacionEntrada(){
-        Fade slide = (Fade) TransitionInflater.from(getContext()).inflateTransition(R.transition.activity_fade);
-        setExitTransition(slide);
-        setEnterTransition(slide);
+        Fade slide = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+            slide = (Fade) TransitionInflater.from(getContext()).inflateTransition(R.transition.activity_fade);
+            setExitTransition(slide);
+            setEnterTransition(slide);
+        }
+
     }
 
     public void listeners(){
@@ -178,7 +182,7 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
 
     @Override
     public  void onPostExecuteWebService(ConsumerService cws, String result) {
-        /*NO UTILIZADO*/
+        /*DESPUES DE BOTON NUEVO*/
         if(cws.getMethod().trim().equals(TypeMethod.METHOD_WEB_RETURNID)){
 
             Fragment fragment = mnt_DOrdenLiquidacionGasto_Fragment.newInstance(OPCION, "lst_OrdenServicio_Fragment");

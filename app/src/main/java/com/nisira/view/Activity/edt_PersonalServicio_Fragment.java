@@ -106,9 +106,13 @@ public class edt_PersonalServicio_Fragment extends FragmentNisira {
     }
 
     public void animacionEntrada(){
-        Slide slide = (Slide) TransitionInflater.from(getContext()).inflateTransition(R.transition.activity_slide);
-        setExitTransition(slide);
-        setEnterTransition(slide);
+        Slide slide = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+            slide = (Slide) TransitionInflater.from(getContext()).inflateTransition(R.transition.activity_slide);
+            setExitTransition(slide);
+            setEnterTransition(slide);
+        }
+
     }
 
     public void LlenarCampos(){

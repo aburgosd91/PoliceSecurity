@@ -102,10 +102,12 @@ import java.util.stream.Stream;
     // TODO: TRANSICIONES Y ANIMACIONES
 
     public void animacionEntrada(){
-        Fade fade = (Fade) TransitionInflater.from(this.getContext()).inflateTransition(R.transition.activity_fade);
-        setEnterTransition(fade);
-        Slide slide = (Slide) TransitionInflater.from(getContext()).inflateTransition(R.transition.activity_slide);
-        setExitTransition(slide);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+            Fade fade = (Fade) TransitionInflater.from(this.getContext()).inflateTransition(R.transition.activity_fade);
+            setEnterTransition(fade);
+            Slide slide = (Slide) TransitionInflater.from(getContext()).inflateTransition(R.transition.activity_slide);
+            setExitTransition(slide);
+        }
     }
 
     public void LlenarCampos(){

@@ -91,10 +91,12 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
 
     public void animacionEntrada(){
         // TODO: TRANSICIONES Y ANIMACIONES
-        Fade fade = (Fade) TransitionInflater.from(this.getContext()).inflateTransition(R.transition.activity_fade);
-        setEnterTransition(fade);
-        Slide slide = (Slide) TransitionInflater.from(getContext()).inflateTransition(R.transition.activity_slide);
-        setExitTransition(slide);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+            Fade fade = (Fade) TransitionInflater.from(this.getContext()).inflateTransition(R.transition.activity_fade);
+            setEnterTransition(fade);
+            Slide slide = (Slide) TransitionInflater.from(getContext()).inflateTransition(R.transition.activity_slide);
+            setExitTransition(slide);
+        }
     }
 
     public void LlenarCampos(){
