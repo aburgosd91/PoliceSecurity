@@ -4,11 +4,13 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.transition.Fade;
 import android.transition.Slide;
 import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -59,7 +61,7 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
     private AutoCompleteTextView campo_concepto;
     private AutoCompleteTextView campo_destino;
 
-    private EditText txtfecha,txtmonto,txtserie,txtnumero;
+    private EditText txtfecha,txtmonto,txtserie,txtnumero,txtruc,txtdetalle;
 
     private Spinner spinner_tipoPago;
 
@@ -108,6 +110,8 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
         txtmonto = (EditText)view.findViewById(R.id.txtmonto);
         txtserie = (EditText)view.findViewById(R.id.txtserie);
         txtnumero = (EditText)view.findViewById(R.id.txtnumero);
+        txtruc = (EditText)view.findViewById(R.id.txtruc);
+        txtdetalle = (EditText)view.findViewById(R.id.txtdetalle);
         btn_cancelar = (FloatingActionButton)view.findViewById(R.id.fab_cancelar);
         btn_aceptar = (FloatingActionButton)view.findViewById(R.id.fab_aceptar);
         spinner_tipoPago = (Spinner)view.findViewById(R.id.spinnerpago);
@@ -131,38 +135,70 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
         SimpleDateFormat sm = new SimpleDateFormat("dd-MM-yyyy");
         String strDate="";
         sm = new SimpleDateFormat("dd-MM-yyyy");
+        List<Documentos> lista1 = new ArrayList<>();
+        try{
+            TipogastoDao daogasto_concepto = new TipogastoDao();
+            DocumentosDao daodocs_tipodoc = new DocumentosDao();
+            /*+++++SPINNER++++++*/
+
+            lista1 = daodocs_tipodoc.listar_comprobantes();
+            ArrayAdapter<Documentos> adapterps = new ArrayAdapter<>(this.getActivity(),
+                    android.R.layout.simple_spinner_item, lista1);
+            adapterps.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner_tipoPago.setAdapter(adapterps);
+                    /*+++++AUTOCOMPLETE++++++*/
+            List<Tipogasto> listatg = new ArrayList<>();
+            listatg = daogasto_concepto.listar();
+            ArrayAdapter<Tipogasto> adapter = new ArrayAdapter<Tipogasto>(getContext(),
+                    android.R.layout.simple_dropdown_item_1line, listatg);
+            list_concepto.setAdapter(adapter);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         switch (tipo_entrada) {
             case "NUEVO":
                 try {
                     strDate = sm.format(Calendar.getInstance().getTime());
                     txtfecha.setText(strDate);
-                    TipogastoDao daogasto_concepto = new TipogastoDao();
-                    DocumentosDao daodocs_tipodoc = new DocumentosDao();
                     dordenliquidaciongasto = new Dordenliquidaciongasto();
                     DordenliquidaciongastoDao dordenliquidaciongastoDao = new DordenliquidaciongastoDao();
-                    List<Dordenliquidaciongasto> dordenliquidaciongastoList = dordenliquidaciongastoDao.listar(dordenliquidaciongasto);
-                    Dordenliquidaciongasto dordenliquidaciongasto1 = dordenliquidaciongastoList.get(dordenliquidaciongastoList.size()-1);
-                    int num = Integer.parseInt(dordenliquidaciongasto1.getItem());
-                    num++;
-                    dordenliquidaciongasto.setItem("00"+num);
+                    List<Dordenliquidaciongasto> dordenliquidaciongastoList = dordenliquidaciongastoDao.listarxOrdenLG(ordenliquidaciongasto);
+                    if(dordenliquidaciongastoList.size()==0 )
+                        dordenliquidaciongasto.setItem("001");
+                    else{
+                        Dordenliquidaciongasto dordenliquidaciongasto1 = dordenliquidaciongastoList.get(dordenliquidaciongastoList.size()-1);
+                        int num = Integer.parseInt(dordenliquidaciongasto1.getItem());
+                        num++;
+                        dordenliquidaciongasto.setItem("00"+num);
+                    }
+
                     dordenliquidaciongasto.setIdorden(ordenliquidaciongasto.getIdorden());
                     dordenliquidaciongasto.setIdempresa(ordenliquidaciongasto.getIdempresa());
-                    dordenliquidaciongasto.setIdclieprov(ordenliquidaciongasto.getIdclieprov());
 
-                    /*+++++SPINNER++++++*/
-                    List<Documentos> lista = new ArrayList<>();
-                    lista = daodocs_tipodoc.listar_comprobantes();
-                    ArrayAdapter<Documentos> adapterps = new ArrayAdapter<>(this.getActivity(),
-                            android.R.layout.simple_spinner_item, lista);
-                    adapterps.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    spinner_tipoPago.setAdapter(adapterps);
-                    /*+++++AUTOCOMPLETE++++++*/
-                    List<Tipogasto> listatg = new ArrayList<>();
-                    listatg = daogasto_concepto.listar();
-                    ArrayAdapter<Tipogasto> adapter = new ArrayAdapter<Tipogasto>(getContext(),
-                            android.R.layout.simple_dropdown_item_1line, listatg);
-                    list_concepto.setAdapter(adapter);
                 } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "ACTUALIZAR":
+                try{
+                    TipogastoDao tipogastoDao = new TipogastoDao();
+                    List<Tipogasto> tipogastoList = tipogastoDao.listarxID(dordenliquidaciongasto.getIdconcepto());
+                    txtfecha.setText(""+dordenliquidaciongasto.getFecha());
+                    txtmonto.setText(""+dordenliquidaciongasto.getImporte());
+                    txtnumero.setText(""+dordenliquidaciongasto.getNumero());
+                    txtserie.setText(""+dordenliquidaciongasto.getSerie());
+                    txtruc.setText(""+dordenliquidaciongasto.getIdclieprov());
+                    txtdetalle.setText(""+dordenliquidaciongasto.getGlosa());
+                    list_concepto.setText(""+tipogastoList.get(0).getDescripcion());
+                    for(int i = 0;i<lista1.size();i++){
+                        if(lista1.get(i).getIddocumento().equals(dordenliquidaciongasto.getIddocumento())){
+                            spinner_tipoPago.setSelection(i);
+                            i=lista1.size();
+                        }
+                    }
+
+                }catch (Exception e){
                     e.printStackTrace();
                 }
                 break;
@@ -181,18 +217,53 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
         btn_aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dordenliquidaciongasto.setFecha((Date) txtfecha.getText());
-                dordenliquidaciongasto.setImporte(Double.valueOf(txtmonto.getText().toString()));
-                dordenliquidaciongasto.setSerie(txtserie.getText().toString());
-                dordenliquidaciongasto.setNumero(txtnumero.getText().toString());
+                try {
+                    dordenliquidaciongasto.getIdconcepto();
+                    dordenliquidaciongasto.setFecha(txtfecha.getText().toString());
+                    dordenliquidaciongasto.setImporte(Double.valueOf(txtmonto.getText().toString()));
+                    dordenliquidaciongasto.setIdclieprov("" + txtruc.getText().toString());
+                    dordenliquidaciongasto.setGlosa("" + txtdetalle.getText().toString());
+                    DordenliquidaciongastoDao dao2 = new DordenliquidaciongastoDao();
+                    if(dordenliquidaciongasto.getIdconcepto()!=null && dordenliquidaciongasto.getIdconcepto()!=""){
+                        if(Validardatos()){
+                            String serie1="";
+                            String num1 ="";
+                            for(int i=0; i<4-txtserie.getText().toString().length();i++){
+                                serie1+="0";
+                            }
+                            for(int i=0; i<7-txtnumero.getText().toString().length();i++){
+                                num1+="0";
+                            }
+                            dordenliquidaciongasto.setSerie(serie1 + txtserie.getText().toString());
+                            dordenliquidaciongasto.setNumero(num1 + txtnumero.getText().toString());
+                            dao2.mezclarLocal(dordenliquidaciongasto);
+                            Snackbar.make(getView(), "Detalle Orden Liquidacion Guardado", Snackbar.LENGTH_SHORT).show();
+                            getActivity().onBackPressed();
+                        }
+                    }else{
+                        list_concepto.setText("");
+                        Snackbar.make(getView(), "Error. Verifique los datos", Snackbar.LENGTH_SHORT).show();
+                    }
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                    Snackbar.make(getView(), "Error. No se pudo guardar", Snackbar.LENGTH_SHORT).show();
+                }
+
             }
         });
 
-        spinner_tipoPago.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        spinner_tipoPago.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Documentos selected = (Documentos) parent.getAdapter().getItem(position);
                 dordenliquidaciongasto.setIddocumento(selected.getIddocumento());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
 
@@ -200,9 +271,17 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Tipogasto selected = (Tipogasto) parent.getAdapter().getItem(position);
-                dordenliquidaciongasto.setIdtipomov(selected.getIdtipogasto());
+                dordenliquidaciongasto.setIdconcepto(selected.getIdtipogasto());
             }
         });
+        list_concepto.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event){
+                list_concepto.showDropDown();
+                return false;
+            }
+        });
+
         txtfecha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -221,6 +300,22 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
                 tpd1.show();
             }
         });
+    }
+    boolean Validardatos(){
+        if(txtruc.getText().toString().length()!=11){
+            Snackbar.make(getView(), "El RUC debe contener 11 digitos", Snackbar.LENGTH_SHORT).show();
+            return false;
+        }
+        if(txtserie.getText().length()==0){
+            Snackbar.make(getView(), "Ingresar Serie", Snackbar.LENGTH_SHORT).show();
+            return false;
+        }
+        if(txtnumero.getText().length()==0){
+            Snackbar.make(getView(), "Ingresar Numero", Snackbar.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
     }
 
 }

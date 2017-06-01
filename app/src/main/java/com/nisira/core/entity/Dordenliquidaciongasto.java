@@ -68,7 +68,7 @@ public class Dordenliquidaciongasto implements Serializable {
 	@Columna
 	@SerializedName("fecha") 
 	@XStreamAlias("FECHA") 
-	private Date fecha;
+	private String fecha;
 	@Columna
 	@SerializedName("iddestino") 
 	@XStreamAlias("IDDESTINO") 
@@ -265,11 +265,11 @@ public class Dordenliquidaciongasto implements Serializable {
 		return this.numero;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 
-	public Date getFecha() {
+	public String getFecha() {
 		return this.fecha;
 	}
 

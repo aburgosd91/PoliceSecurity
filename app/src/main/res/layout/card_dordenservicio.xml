@@ -27,6 +27,8 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/colorPrimaryDark"
+            android:maxLines="3"
+            android:minLines="1"
             android:text="Nombre"
             android:id="@+id/nombre"
             android:layout_toRightOf="@+id/imagen_personal"
@@ -37,6 +39,8 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="########"
+            android:maxLines="2"
+            android:minLines="1"
             android:id="@+id/txtplaca"
             android:layout_below="@+id/nombre"
             android:layout_alignLeft="@+id/nombre" />

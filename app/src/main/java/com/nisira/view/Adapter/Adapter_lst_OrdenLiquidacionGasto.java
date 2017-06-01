@@ -83,7 +83,7 @@ public static class ListaViewHolder extends RecyclerView.ViewHolder {
         viewHolder.nombre.setText(items.get(i).getRazonsocial());
         viewHolder.ordenservicio.setText("Orden: "+items.get(i).getIddocumento()+" - "+items.get(i).getSerie()+" - "+items.get(i).getNumero());
         SimpleDateFormat sm = new SimpleDateFormat("dd-MM-yyyy");
-        String strDate = sm.format(items.get(i).getFecha());
+        String strDate = sm.format(items.get(i).getFechacreacion());
         viewHolder.fecha.setText("Fecha: "+strDate);
 
         Gson gson = new GsonBuilder().serializeSpecialFloatingPointValues().create();

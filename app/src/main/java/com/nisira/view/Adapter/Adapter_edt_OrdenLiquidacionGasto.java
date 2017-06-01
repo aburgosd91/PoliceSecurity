@@ -15,14 +15,18 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.nisira.core.dao.TipogastoDao;
 import com.nisira.core.entity.Dordenliquidaciongasto;
 import com.nisira.core.entity.Dordenserviciocliente;
+import com.nisira.core.entity.Ordenliquidaciongasto;
 import com.nisira.core.entity.Ordenserviciocliente;
+import com.nisira.core.entity.Tipogasto;
 import com.nisira.gcalderon.policesecurity.R;
 import com.nisira.view.Activity.edt_PersonalServicio_Fragment;
 import com.nisira.view.Activity.mnt_DOrdenLiquidacionGasto_Fragment;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -37,6 +41,7 @@ public class Adapter_edt_OrdenLiquidacionGasto extends RecyclerView.Adapter<Adap
     public String OPCION;
     Context context;
     FragmentManager fragmentManager;
+    Ordenliquidaciongasto ordenliquidaciongasto;
 
     public class ListaViewHolder extends RecyclerView.ViewHolder {
         public ImageView imagen;
@@ -60,10 +65,11 @@ public class Adapter_edt_OrdenLiquidacionGasto extends RecyclerView.Adapter<Adap
         }
     }
 
-    public Adapter_edt_OrdenLiquidacionGasto(String OPCION, List<Dordenliquidaciongasto> items,FragmentManager fragmentManager) {
+    public Adapter_edt_OrdenLiquidacionGasto(String OPCION, List<Dordenliquidaciongasto> items, FragmentManager fragmentManager, Ordenliquidaciongasto ordenliquidaciongasto) {
         this.OPCION = OPCION;
         this.items = items;
         this.fragmentManager = fragmentManager;
+        this.ordenliquidaciongasto = ordenliquidaciongasto;
     }
 
     @Override
@@ -82,11 +88,18 @@ public class Adapter_edt_OrdenLiquidacionGasto extends RecyclerView.Adapter<Adap
     @Override
     public void onBindViewHolder(Adapter_edt_OrdenLiquidacionGasto.ListaViewHolder viewHolder, int i) {
 
-        viewHolder.nombre.setText(items.get(i).getDescripcion_concepto());
+        TipogastoDao tipogastoDao = new TipogastoDao();
+        try {
+            List<Tipogasto> tipogastoList = tipogastoDao.listarxID(items.get(i).getIdconcepto());
+            viewHolder.nombre.setText(tipogastoList.get(0).getDescripcion()+" : "+items.get(i).getItem() );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         SimpleDateFormat sm = new SimpleDateFormat("MM-dd-yyyy");
-        String strDate = sm.format(items.get(i).getFecha());
-        viewHolder.fecha_fin.setText("Fecha: "+strDate);
-        viewHolder.placa.setText("Destino: "+items.get(i).getIddestino());
+        //String strDate = sm.format(""+items.get(i).getFecha().toString());
+        viewHolder.fecha_fin.setText("Fecha: "+items.get(i).getFecha().toString());
+        viewHolder.placa.setText("Descripcion: "+ items.get(i).getGlosa());
 
         viewHolder.seleccion.setBackgroundColor(viewHolder.itemView.getResources().getColor(R.color.blue_gray));
         viewHolder.seleccion.setImageResource(R.drawable.ic_arrow_white);
@@ -105,6 +118,8 @@ public class Adapter_edt_OrdenLiquidacionGasto extends RecyclerView.Adapter<Adap
                 Fragment fragment = mnt_DOrdenLiquidacionGasto_Fragment.newInstance(OPCION, "edt_OrdenLiquidacionGasto_Fragment");
                 Bundle bundle = fragment.getArguments();
                 bundle.putSerializable("DOrdenLiquidacionGasto", items.get(i));
+                bundle.putSerializable("OrdenLiquidacionGasto",ordenliquidaciongasto);
+                bundle.putSerializable("tipo_entrada","ACTUALIZAR");
                 fragment.setArguments(bundle);
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.main_content, fragment, "NewFragmentTag");

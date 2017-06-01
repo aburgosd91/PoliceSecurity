@@ -28,6 +28,10 @@ public class TipogastoDao extends BaseDao<Tipogasto> {
 				actualizar(obj);
 		}
 	}
+	public  List<Tipogasto> listarxID(String id)throws  Exception{
+		List<Tipogasto> list= listar("LTRIM(RTRIM(t0.idtipogasto)) =?",id);
+		return list;
+	}
 
 	public Boolean insert(Tipogasto tipogasto) {
 		Boolean resultado = false;

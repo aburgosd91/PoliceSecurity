@@ -2,6 +2,8 @@ package com.nisira.view.Activity;
 
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.nisira.core.dao.DordenliquidaciongastoDao;
 import com.nisira.core.entity.Dordenliquidaciongasto;
 import com.nisira.core.entity.Ordenliquidaciongasto;
@@ -30,12 +33,15 @@ public class edt_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private static final String OPCION = "param1";
+    private static final String ANTERIOR = "param2";
     private TextInputEditText txt_documento;
     private TextInputEditText txt_cliente;
     private TextView fecha,txt_estado;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager lManager;
+    private FloatingActionButton fabnuevo;
     View view;
 
     public edt_OrdenLiquidacionGasto_Fragment() {
@@ -79,6 +85,7 @@ public class edt_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
         fecha = (TextView)view.findViewById(R.id.txt_fecha);
         txt_estado = (TextView)view.findViewById(R.id.txt_estado);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_os);
+        fabnuevo = (FloatingActionButton)view.findViewById(R.id.fabnuevo);
         LlenarCampos();
         Listeners();
         return view;
@@ -93,7 +100,7 @@ public class edt_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
                 ordenliquidaciongasto.getNumero());
         txt_cliente.setText(ordenliquidaciongasto.getRazonsocial());
         SimpleDateFormat sm = new SimpleDateFormat("dd-MM-yyyy");
-        String strDate = sm.format(ordenliquidaciongasto.getFecha());
+        String strDate = sm.format(ordenliquidaciongasto.getFechacreacion());
         fecha.setText(strDate);
         String estado = ordenliquidaciongasto.getIdestado();
         if(estado.equals("PE")){
@@ -105,8 +112,8 @@ public class edt_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
         recyclerView.setLayoutManager(lManager);
         DordenliquidaciongastoDao dao = new DordenliquidaciongastoDao();
         try {
-            List<Dordenliquidaciongasto> dordenliquidaciongastos = dao.ListarxOrdenLiq(ordenliquidaciongasto);
-            Adapter_edt_OrdenLiquidacionGasto adapter = new Adapter_edt_OrdenLiquidacionGasto("",dordenliquidaciongastos,getFragmentManager());
+            List<Dordenliquidaciongasto> dordenliquidaciongastos = dao.listarxOrdenLG(ordenliquidaciongasto);
+            Adapter_edt_OrdenLiquidacionGasto adapter = new Adapter_edt_OrdenLiquidacionGasto("",dordenliquidaciongastos,getFragmentManager(),ordenliquidaciongasto);
             recyclerView.setAdapter(adapter);
         } catch (Exception e) {
             e.printStackTrace();
@@ -114,7 +121,20 @@ public class edt_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
     }
 
     public void Listeners(){
-
+        fabnuevo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = mnt_DOrdenLiquidacionGasto_Fragment.newInstance(OPCION, "lst_OrdenServicio_Fragment");
+                Bundle bundle = fragment.getArguments();
+                bundle.putSerializable("OrdenLiquidacionGasto",ordenliquidaciongasto);
+                bundle.putSerializable("tipo_entrada","NUEVO");
+                fragment.setArguments(bundle);
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(R.id.main_content, fragment, "NewFragmentTag");
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
     }
 
 

@@ -217,6 +217,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="text"
+                                android:maxLength="4"
                                 android:ems="10"
                                 android:hint="Serie" />
                         </android.support.design.widget.TextInputLayout>
@@ -247,6 +248,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:ems="10"
+                                android:maxLength="7"
                                 android:hint="Numero"
                                 android:inputType="text"
                                 android:singleLine="true" />
@@ -278,8 +280,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:ems="10"
+                                android:maxLength="11"
                                 android:hint="RUC"
-                                android:inputType="text"
+                                android:inputType="number"
                                 android:singleLine="true" />
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>

@@ -27,6 +27,7 @@ public class SplashScreen_Activity extends ActivityNisiraCompat {
     ProgressBar pgBar;
     FillableLoader fillableLoader;
     TextView txt_progressbar;
+    float percentage =0;
     /*VARIABLES DE CLASE*/
     public static final int seconds=8;
     public static final int miliseconds_total=seconds*1000;
@@ -68,28 +69,31 @@ public class SplashScreen_Activity extends ActivityNisiraCompat {
         ButterKnife.bind(this);
         fillableLoader = (FillableLoader)findViewById(R.id.fillableLoader);
         fillableLoader.setSvgPath(getString(R.string.xmlLogo));
+        fillableLoader.setPercentage(percentage);
         fillableLoader.start();
         item_tabla_syncrodoc = 0;
         pgBar = new ProgressBar(this);
         txt_progressbar = (TextView)findViewById(R.id.txt_progressbar);
         //pgBar.setMax(max_progress());
-        //asyncronizedocs();
-        initAnimation();
+        asyncronizedocs();
+        //initAnimation();
     }
 
     public void initAnimation(){
         new CountDownTimer(miliseconds_total,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                pgBar.setProgress(progress(millisUntilFinished));
+                //pgBar.setProgress(progress(millisUntilFinished));
+
             }
 
             @Override
             public void onFinish() {
+                /*
                 Intent intent = new Intent(SplashScreen_Activity.this, NavigationPolice_Activity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
-                finish();
+                finish();*/
             }
         }.start();
     }
@@ -114,6 +118,9 @@ public class SplashScreen_Activity extends ActivityNisiraCompat {
     @Override
     public void onPostExecuteWebService(ConsumerService cws, String result) {
         if (cws.isSyncronize()) {
+            percentage+=25;
+            fillableLoader.setPercentage(percentage);
+            fillableLoader.start();
             if (cws.getType_syncronize() == 2) {/*SINCRONIZACION DOCUMENTOS*/
                 if (TABLASINCRONIZACIONDOCS.length > item_tabla_syncrodoc && item_tabla_syncrodoc > 0) {
                     value += rango;

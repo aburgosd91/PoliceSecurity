@@ -196,7 +196,7 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
             String ws_result = result;
             try {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-                alertDialogBuilder.setMessage("Desea generar una nueva Orden de Liquidación")
+                alertDialogBuilder.setMessage("¿Desea generar una nueva Orden de Liquidacion?")
                         .setCancelable(false)
                         .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
@@ -213,12 +213,13 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
                                 ol.setIdorden(x[0]);
                                 ol.setIddocumento(x[1]);
                                 ol.setSerie(x[2]);
-                                ol.setIddocumento(x[3]);
+                                ol.setNumero(x[3]);
                                 ol.setIdemisor("001");
                                 ol.setPeriodo(now.get(Calendar.YEAR)+"-"+now.get(Calendar.MONTH));
                                 ol.setIdclieprov(usuario.getIdclieprov());
                                 ol.setIdsucursal("001");
                                 ol.setRazonsocial(usuario.getUsr_nombres());
+                                ol.setFechacreacion(now.getTime());
 
                                 dao_ol.mezclarLocal(ol);
                                 Snackbar.make(getView(), "Orden Liquidacion Creada", Snackbar.LENGTH_LONG).show();
