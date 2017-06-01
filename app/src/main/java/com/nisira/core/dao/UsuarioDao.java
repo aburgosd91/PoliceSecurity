@@ -27,10 +27,11 @@ public class UsuarioDao extends BaseDao<Usuario> {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			ContentValues initialValues = new ContentValues();
 			initialValues.put("IDBASEDATOS",usuario.getIdbasedatos()); 
-			initialValues.put("IDEMPRESA",usuario.getIdempresa()); 
+			//initialValues.put("IDEMPRESA",usuario.getIdempresa());
 			initialValues.put("IDUSUARIO",usuario.getIdusuario()); 
 			initialValues.put("USR_NOMBRES",usuario.getUsr_nombres()); 
-			initialValues.put("PASSWORD",usuario.getPassword()); 
+			initialValues.put("PASSWORD",usuario.getPassword());
+			initialValues.put("IDCLIEPROV",usuario.getIdclieprov());
 			initialValues.put("ESTADO",usuario.getEstado()); 
 			initialValues.put("FECHACREACION",dateFormat.format(usuario.getFechacreacion() ) ); 
 			resultado = mDb.insert("USUARIO",null,initialValues)>0; 
@@ -48,10 +49,11 @@ public class UsuarioDao extends BaseDao<Usuario> {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			ContentValues initialValues = new ContentValues();
 			initialValues.put("IDBASEDATOS",usuario.getIdbasedatos()) ; 
-			initialValues.put("IDEMPRESA",usuario.getIdempresa()) ; 
+			//initialValues.put("IDEMPRESA",usuario.getIdempresa()) ;
 			initialValues.put("IDUSUARIO",usuario.getIdusuario()) ; 
 			initialValues.put("USR_NOMBRES",usuario.getUsr_nombres()) ; 
-			initialValues.put("PASSWORD",usuario.getPassword()) ; 
+			initialValues.put("PASSWORD",usuario.getPassword()) ;
+			initialValues.put("IDCLIEPROV",usuario.getIdclieprov());
 			initialValues.put("ESTADO",usuario.getEstado()) ; 
 			initialValues.put("FECHACREACION",dateFormat.format(usuario.getFechacreacion() ) ) ; 
 			resultado = mDb.update("USUARIO",initialValues,where,null)>0; 
@@ -85,12 +87,13 @@ public class UsuarioDao extends BaseDao<Usuario> {
 			Cursor cur =  mDb.query("USUARIO",
 					new String[] {
 							 "IDBASEDATOS" ,
-							 "IDEMPRESA" ,
+							 //"IDEMPRESA" ,
 							 "IDUSUARIO" ,
 							 "USR_NOMBRES" ,
 							 "PASSWORD" ,
 							 "ESTADO" ,
-							 "FECHACREACION" 
+							 "FECHACREACION",
+							 "IDCLIEPROV"
 					},
 			where, null, null, null, order);
 			if (cur!=null){
@@ -100,12 +103,13 @@ public class UsuarioDao extends BaseDao<Usuario> {
 					int j=0;
 					Usuario usuario = new Usuario() ;
 					usuario.setIdbasedatos(cur.getString(j++));
-					usuario.setIdempresa(cur.getString(j++));
+					//usuario.setIdempresa(cur.getString(j++));
 					usuario.setIdusuario(cur.getString(j++));
 					usuario.setUsr_nombres(cur.getString(j++));
 					usuario.setPassword(cur.getString(j++));
 					usuario.setEstado(cur.getInt(j++));
 					usuario.setFechacreacion(dateFormat.parse(cur.getString(j++)) );
+					usuario.setIdclieprov(cur.getString(j++));
 
 					lista.add(usuario); 
 					i++; 

@@ -28,6 +28,17 @@ public class DordenliquidaciongastoDao extends BaseDao<Dordenliquidaciongasto> {
 				actualizar(obj);
 		}
 	}
+	public List<Dordenliquidaciongasto> listar(Dordenliquidaciongasto obj)throws Exception{
+		if(obj !=null){
+			List<Dordenliquidaciongasto> lst= listar("LTRIM(RTRIM(t0.IDEMPRESA)) =? AND LTRIM(RTRIM(t0.IDORDEN))=? ORDER BY LTRIM(RTRIM(t0.ITEM)) ",obj.getIdempresa().trim(),obj.getIdorden().trim());
+			if(lst.isEmpty())
+				return null;
+			else
+				return lst;
+		}
+		return null;
+	}
+
 	public  List<Dordenliquidaciongasto> ListarxOrdenLiq(Ordenliquidaciongasto obj)throws Exception{
 		if (obj != null){
 			List<Dordenliquidaciongasto> lst = listar("LTRIM(RTRIM(t0.IDEMPRESA)) =? AND LTRIM(RTRIM(t0.IDORDEN))=? ",obj.getIdempresa().trim(),obj.getIdorden().trim());

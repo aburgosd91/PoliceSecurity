@@ -55,6 +55,12 @@ public class ActionService {
             if(usuario!=null){
                 usuario.setFechacreacion(new Date());
                 usuario.setEstado(1);
+                UsuarioDao usuarioDao = new UsuarioDao();
+                if(usuarioDao.listar().size()==0){
+                    usuarioDao.insert(usuario);
+                }else{
+                    usuarioDao.update(usuario,"1=1");
+                }
                 return "OK";
             }
             return null;

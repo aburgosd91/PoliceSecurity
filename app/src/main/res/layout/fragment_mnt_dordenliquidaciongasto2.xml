@@ -135,8 +135,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="32dp">
 
-                            <AutoCompleteTextView
-                                android:id="@+id/txt_vehiculos"
+                            <EditText
+                                android:id="@+id/txtmonto"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:lines="1"
@@ -212,7 +212,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="32dp">
 
-                            <AutoCompleteTextView
+                            <EditText
                                 android:id="@+id/txtserie"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"

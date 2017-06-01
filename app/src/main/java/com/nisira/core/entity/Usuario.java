@@ -8,7 +8,6 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import java.io.Serializable;
 
 import java.util.Date;
-import java.util.ArrayList;
 
 @Tabla(nombre = "USUARIO")
 @XStreamAlias("USUARIO")
@@ -19,11 +18,13 @@ public class Usuario implements Serializable {
 	@SerializedName("idbasedatos") 
 	@XStreamAlias("IDBASEDATOS") 
 	private String idbasedatos = "" ;
+	/*
 	@ClavePrimaria
 	@Columna
-	@SerializedName("idempresa") 
-	@XStreamAlias("IDEMPRESA") 
+	@SerializedName("idempresa")
+	@XStreamAlias("IDEMPRESA")
 	private String idempresa = "" ;
+	*/
 	@ClavePrimaria
 	@Columna
 	@SerializedName("idusuario") 
@@ -45,8 +46,10 @@ public class Usuario implements Serializable {
 	@SerializedName("fechacreacion") 
 	@XStreamAlias("FECHACREACION") 
 	private Date fechacreacion;
-
-
+	@Columna
+	@SerializedName("idclieprov")
+	@XStreamAlias("IDCLIEPROV")
+	private String idclieprov;
 
 	/* Sets & Gets */
 	public void setIdbasedatos(String idbasedatos) {
@@ -57,6 +60,8 @@ public class Usuario implements Serializable {
 		return this.idbasedatos;
 	}
 
+	/*
+
 	public void setIdempresa(String idempresa) {
 		this.idempresa = idempresa;
 	}
@@ -64,6 +69,8 @@ public class Usuario implements Serializable {
 	public String getIdempresa() {
 		return this.idempresa;
 	}
+
+	*/
 
 	public void setIdusuario(String idusuario) {
 		this.idusuario = idusuario;
@@ -103,6 +110,14 @@ public class Usuario implements Serializable {
 
 	public Date getFechacreacion() {
 		return this.fechacreacion;
+	}
+
+	public String getIdclieprov() {
+		return idclieprov;
+	}
+
+	public void setIdclieprov(String idclieprov) {
+		this.idclieprov = idclieprov;
 	}
 
 

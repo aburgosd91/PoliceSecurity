@@ -104,7 +104,10 @@ public class Tipogasto implements Serializable {
 		return this.fechacreacion;
 	}
 
-
+	@Override
+	public String toString() {
+		return descripcion;
+	}
 
 	/* Sets & Gets FK*/
 

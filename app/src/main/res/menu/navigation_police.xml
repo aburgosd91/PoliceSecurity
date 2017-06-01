@@ -5,19 +5,18 @@
         android:id="@+id/action_syncronizedocs"
         android:orderInCategory="100"
         android:title="@string/Syncrodocs"
-        android:icon="@drawable/ic_pull_black"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_pull_black" />
 
     <item
         android:id="@+id/action_syncronize"
         android:orderInCategory="100"
         android:title="@string/Syncro"
         android:icon="@drawable/ic_pull_black"
-        app:showAsAction="never" />
+        />
     <item
         android:id="@+id/action_ascentdocs"
         android:orderInCategory="100"
         android:title="@string/Ascentdocs"
         android:icon="@drawable/ic_push_black"
-        app:showAsAction="never" />
+        />
 </menu>

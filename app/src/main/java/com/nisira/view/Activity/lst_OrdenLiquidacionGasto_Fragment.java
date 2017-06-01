@@ -31,8 +31,10 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.nisira.core.dao.OrdenliquidaciongastoDao;
 import com.nisira.core.dao.OrdenservicioclienteDao;
+import com.nisira.core.dao.UsuarioDao;
 import com.nisira.core.entity.Ordenliquidaciongasto;
 import com.nisira.core.entity.Ordenserviciocliente;
+import com.nisira.core.entity.Usuario;
 import com.nisira.core.interfaces.FragmentNisira;
 import com.nisira.core.service.ConsumerService;
 import com.nisira.core.service.TypeMethod;
@@ -177,13 +179,7 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
             @Override
             public void onClick(View v) {
                 try {
-
-                    OrdenliquidaciongastoDao ordenliquidaciongastoDao = new OrdenliquidaciongastoDao();
                     cs.execute("");
-                    //ordenliquidaciongastoDao.insertar();
-                    Snackbar.make(getView(), "Orden Liquidacion Creada", Snackbar.LENGTH_LONG).show();
-
-
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -204,10 +200,12 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
                         .setCancelable(false)
                         .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-
+                                try {
                                 String[] x= ws_result.split(",");
                                 OrdenliquidaciongastoDao dao_ol = new OrdenliquidaciongastoDao();
                                 Ordenliquidaciongasto ol = new Ordenliquidaciongasto();
+                                UsuarioDao usuarioDao = new UsuarioDao();
+                                Usuario usuario = usuarioDao.listar().get(0);
                                 //AGREGAR LO DEL USUARIO
                                 Calendar now = Calendar.getInstance();
                                 now.getTime();
@@ -218,17 +216,21 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
                                 ol.setIddocumento(x[3]);
                                 ol.setIdemisor("001");
                                 ol.setPeriodo(now.get(Calendar.YEAR)+"-"+now.get(Calendar.MONTH));
+                                ol.setIdclieprov(usuario.getIdclieprov());
+                                ol.setIdsucursal("001");
+                                ol.setRazonsocial(usuario.getUsr_nombres());
 
-
-                                try {
-                                    dao_ol.mezclarLocal(ol);
-                                    Fragment fragment = mnt_DOrdenLiquidacionGasto_Fragment.newInstance(OPCION, "lst_OrdenServicio_Fragment");
-                                    Bundle bundle = fragment.getArguments();
-                                    fragment.setArguments(bundle);
-                                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                                    ft.replace(R.id.main_content, fragment, "NewFragmentTag");
-                                    ft.addToBackStack(null);
-                                    ft.commit();
+                                dao_ol.mezclarLocal(ol);
+                                Snackbar.make(getView(), "Orden Liquidacion Creada", Snackbar.LENGTH_LONG).show();
+                                Fragment fragment = mnt_DOrdenLiquidacionGasto_Fragment.newInstance(OPCION, "lst_OrdenServicio_Fragment");
+                                Bundle bundle = fragment.getArguments();
+                                bundle.putSerializable("OrdenLiquidacionGasto",ol);
+                                bundle.putSerializable("tipo_entrada","NUEVO");
+                                fragment.setArguments(bundle);
+                                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                ft.replace(R.id.main_content, fragment, "NewFragmentTag");
+                                ft.addToBackStack(null);
+                                ft.commit();
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
