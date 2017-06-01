@@ -149,9 +149,14 @@ public class ConsumerService extends AsyncTask<String, Void, String> {
                 case TypeMethod.METHOD_LIST_DORDENSERVICIOCLIENTE   :
                     trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_DORDENSERVICIOCLIENTE, getAttribute(),this.timeout);
                     response = ActionService.ACTION_SYNCRONIZE_DORDENSERVICIOCLIENTE(WSBasedatos.getIdbasedatos(),trama);break;
+                case TypeMethod.METHOD_LIST_TIPOGASTO   :
+                    trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_TIPOGASTO, getAttribute(),this.timeout);
+                    response = ActionService.ACTION_SYNCRONIZE_TIPOGASTO(WSBasedatos.getIdbasedatos(),trama);break;
+
                 case TypeMethod.METHOD_WEB_RETURNID   :
                     trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_WEB_RETURNID, getAttribute(),this.timeout);
                     response = trama;//ActionService.ACTION_SYNCRONIZE_DORDENSERVICIOCLIENTE(WSBasedatos.getIdbasedatos(),trama);break;
+                    break;
                 /*************************************************SINCRONIZACION***********************************************/
                 case TypeMethod.METHOD_ASCENT_ORDENSERVICIOCLIENTE    :
                     trama = ActionService.ACTION_ASCENT_ORDENSERVICIOCLIENTE(WSBasedatos.getIdbasedatos());
@@ -253,10 +258,14 @@ public class ConsumerService extends AsyncTask<String, Void, String> {
                     case TypeMethod.METHOD_LIST_DORDENSERVICIOCLIENTE   :
                         trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_DORDENSERVICIOCLIENTE, getAttribute(),this.timeout);
                         response = ActionService.ACTION_SYNCRONIZE_DORDENSERVICIOCLIENTE(WSBasedatos.getIdbasedatos(),trama);break;
+                    case TypeMethod.METHOD_LIST_TIPOGASTO   :
+                        trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_TIPOGASTO, getAttribute(),this.timeout);
+                        response = ActionService.ACTION_SYNCRONIZE_TIPOGASTO(WSBasedatos.getIdbasedatos(),trama);break;
                     /*************************************************SINCRONIZACION***********************************************/
                     case TypeMethod.METHOD_WEB_RETURNID :
                         trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_WEB_RETURNID, getAttribute(),this.timeout);
                         response = trama;
+                        break;
                     case TypeMethod.METHOD_ASCENT_ORDENSERVICIOCLIENTE    :
                         trama = ActionService.ACTION_ASCENT_ORDENSERVICIOCLIENTE(WSBasedatos.getIdbasedatos());
                         if(!trama.equals("")) {

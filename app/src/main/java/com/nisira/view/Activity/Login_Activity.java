@@ -202,10 +202,14 @@ public class Login_Activity extends ActivityNisiraCompat implements ActivityComp
     public  void onPostExecuteWebService(ConsumerService cws, String result) {
 
         if(cws.getMethod().trim().equals(TypeMethod.METHOD_VERIFICATION_USER)){
+
+            Log.i("User",result);
             if(result.trim().equals("OK")){
                 Inicio.IDUSUARIO=txtuser.getText().toString().trim();
                 //Toast.makeText(getApplicationContext(),"Session Exitosa !!!.",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(Login_Activity.this, SplashScreen_Activity.class));
+                Log.i("USUARIO",result);
+
             }
             else{
                 Toast.makeText(getApplicationContext(),"Error:"+result.trim(),Toast.LENGTH_SHORT).show();

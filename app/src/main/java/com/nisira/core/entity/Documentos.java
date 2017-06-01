@@ -428,7 +428,10 @@ public class Documentos implements Serializable {
 		return this.para_ppago;
 	}
 
-
+	@Override
+	public String toString() {
+		return descripcion;
+	}
 
 	/* Sets & Gets FK*/
 

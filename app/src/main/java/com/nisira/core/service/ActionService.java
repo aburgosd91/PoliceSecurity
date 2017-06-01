@@ -18,6 +18,7 @@ import com.nisira.core.dao.Personal_servicioDao;
 import com.nisira.core.dao.ProductosDao;
 import com.nisira.core.dao.RutasDao;
 import com.nisira.core.dao.SucursalesDao;
+import com.nisira.core.dao.TipogastoDao;
 import com.nisira.core.dao.UsuarioDao;
 import com.nisira.core.entity.Cargos_personal;
 import com.nisira.core.entity.Clieprov;
@@ -35,6 +36,7 @@ import com.nisira.core.entity.Personal_servicio;
 import com.nisira.core.entity.Productos;
 import com.nisira.core.entity.Rutas;
 import com.nisira.core.entity.Sucursales;
+import com.nisira.core.entity.Tipogasto;
 import com.nisira.core.entity.Usuario;
 import com.nisira.core.util.Util;
 
@@ -55,12 +57,13 @@ public class ActionService {
                 usuario.setEstado(1);
                 return "OK";
             }
-            return "";
+            return null;
         }
         catch (Exception e)
         {
             Log.i("ActionService ->",e.getMessage());
-            return e.getMessage();
+            e.printStackTrace();
+            return null;
         }
     }
     public static String ACTION_SYNCRONIZE_CLIEPROV (String db,String response){
@@ -429,6 +432,33 @@ public class ActionService {
                 for(int i=0;i<destinoadquisiciones.size();i++){
                     Destinoadquisicion obj= (Destinoadquisicion)destinoadquisiciones.get(i);
                     destinoadquisicionDao.mezclarLocal(obj);
+                }
+                //boolean request= (new UsuarioDao()).insertar(usuario);
+                return "OK";
+            }
+            return "";
+        }
+        catch (Exception e)
+        {
+            return e.getMessage();
+//            if(VERERRORESSINCRONIZACION==1)
+//            {
+//                return e.toString();
+//            }
+//            else
+//            {
+//                return "Error de conectividad, Intente de nuevo";
+//            }
+        }
+    }
+    public static String ACTION_SYNCRONIZE_TIPOGASTO (String db,String response){
+        try {
+            List tipogastos = (List<Tipogasto>) Util.stringObject("com.nisira.core.entity.Tipogasto",response);
+            TipogastoDao tipogastosDao = new TipogastoDao();
+            if(tipogastos!=null){
+                for(int i=0;i<tipogastos.size();i++){
+                    Tipogasto obj= (Tipogasto)tipogastos.get(i);
+                    tipogastosDao.mezclarLocal(obj);
                 }
                 //boolean request= (new UsuarioDao()).insertar(usuario);
                 return "OK";

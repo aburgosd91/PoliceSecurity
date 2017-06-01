@@ -1,6 +1,7 @@
 package com.nisira.view.Activity;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.transition.Fade;
 import android.transition.Slide;
@@ -10,20 +11,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.nisira.core.dao.ClieprovDao;
 import com.nisira.core.dao.Concepto_cuentaDao;
 import com.nisira.core.dao.DestinoadquisicionDao;
+import com.nisira.core.dao.DocumentosDao;
+import com.nisira.core.dao.TipogastoDao;
 import com.nisira.core.entity.Clieprov;
 import com.nisira.core.entity.Concepto_cuenta;
+import com.nisira.core.entity.Consumidor;
 import com.nisira.core.entity.Destinoadquisicion;
+import com.nisira.core.entity.Documentos;
 import com.nisira.core.entity.Dordenliquidaciongasto;
 import com.nisira.core.entity.Ordenliquidaciongasto;
 import com.nisira.core.interfaces.FragmentNisira;
 import com.nisira.gcalderon.policesecurity.R;
 
+import org.kxml2.kdom.Document;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -34,11 +47,14 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
     private Dordenliquidaciongasto dordenliquidaciongasto;
     private Ordenliquidaciongasto ordenliquidaciongasto;
 
-    private AutoCompleteTextView listbox;
+    private AutoCompleteTextView list_concepto;
     private AutoCompleteTextView campo_proveedor;
     private AutoCompleteTextView campo_concepto;
     private AutoCompleteTextView campo_destino;
 
+    private EditText txtfecha;
+
+    private Spinner spinner_tipoPago;
 
     private FloatingActionButton btn_cancelar;
     private FloatingActionButton btn_aceptar;
@@ -79,12 +95,11 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
         animacionEntrada();
         TextView view1 = (TextView) getActivity().findViewById(R.id.campo_titulo2);
         view1.setText(getString(R.string.mnt_DOrdenLiquidacionGasto));
-        //campo_proveedor = (AutoCompleteTextView)view.findViewById(R.id.campo_proveedor);
-        //campo_concepto = (AutoCompleteTextView)view.findViewById(R.id.campo_concepto);
-        //campo_destino = (AutoCompleteTextView)view.findViewById(R.id.campo_destino);
+        txtfecha = (EditText)view.findViewById(R.id.txt_fecha);
         btn_cancelar = (FloatingActionButton)view.findViewById(R.id.fab_cancelar);
         btn_aceptar = (FloatingActionButton)view.findViewById(R.id.fab_aceptar);
-
+        spinner_tipoPago = (Spinner)view.findViewById(R.id.spinnerpago);
+        list_concepto = (AutoCompleteTextView)view.findViewById(R.id.list_concepto);
         LlenarCampos();
         Listeners();
         return view;
@@ -101,37 +116,34 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
     }
 
     public void LlenarCampos(){
-        /*
-        ClieprovDao dao = new ClieprovDao();
+        SimpleDateFormat sm = new SimpleDateFormat("dd-MM-yyyy");
+        String strDate="";
+        sm = new SimpleDateFormat("dd-MM-yyyy");
+        strDate = sm.format(Calendar.getInstance().getTime());
+        txtfecha.setText(strDate);
+        TipogastoDao daogasto_concepto = new TipogastoDao();
+        DocumentosDao daodocs_tipodoc = new DocumentosDao();
         try {
-            List<Clieprov> list = dao.getPersonalxTipo(dordenliquidaciongasto.getIdempresa(),"P");
-            ArrayAdapter<Clieprov> adapter = new ArrayAdapter<Clieprov>(getContext(),
-                    android.R.layout.simple_dropdown_item_1line,list);
-            campo_proveedor.setAdapter(adapter);
+            List<Documentos> lista = new ArrayList<>();
+            lista = daodocs_tipodoc.listar_comprobantes();
+            ArrayAdapter<Documentos> adapterps = new ArrayAdapter<>(this.getActivity(),
+                    android.R.layout.simple_spinner_item, lista);
+            adapterps.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner_tipoPago.setAdapter(adapterps);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Concepto_cuentaDao dao1 = new Concepto_cuentaDao();
+/*
         try {
-            List<Concepto_cuenta> list2 = dao1.ListarConsumidor(dordenliquidaciongasto);
-            ArrayAdapter<Concepto_cuenta> adapter = new ArrayAdapter<Concepto_cuenta>(getContext(),
-                    android.R.layout.simple_dropdown_item_1line,list2);
-            campo_concepto.setAdapter(adapter);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            List<Documentos>
+            ArrayAdapter<Consumidor> adapter = new ArrayAdapter<Consumidor>(getContext(),
+                    android.R.layout.simple_dropdown_item_1line, consumidors);
+            list_concepto.setAdapter(adapter);
 
-
-        DestinoadquisicionDao dao2 = new DestinoadquisicionDao();
-        try {
-            List<Destinoadquisicion> list3 = dao2.listar();
-            ArrayAdapter<Destinoadquisicion> adapter = new ArrayAdapter<Destinoadquisicion>(getContext(),
-                    android.R.layout.simple_dropdown_item_1line,list3);
-            campo_concepto.setAdapter(adapter);
-        } catch (Exception e) {
+        }catch (Exception e){
             e.printStackTrace();
         }
-        */
+*/
     }
 
     public void Listeners(){
@@ -139,7 +151,7 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
         btn_cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                getActivity().onBackPressed();
             }
         });
         btn_aceptar.setOnClickListener(new View.OnClickListener() {
@@ -148,8 +160,24 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
 
             }
         });
+        txtfecha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar now = Calendar.getInstance();
+                now.getTime();
+                DatePickerDialog tpd1 = new DatePickerDialog(getContext(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                txtfecha.setText(dayOfMonth+"-"+month+1+"-"+year);
+                            }
+                        },now.get(Calendar.YEAR),
+                        now.get(Calendar.MONTH),
+                        now.get(Calendar.DAY_OF_MONTH)
+                );
+                tpd1.show();
+            }
+        });
     }
-
-
 
 }

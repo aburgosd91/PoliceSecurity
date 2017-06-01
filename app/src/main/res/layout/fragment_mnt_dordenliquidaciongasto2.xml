@@ -24,7 +24,7 @@
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:layout_toStartOf="@+id/fab_cancelar"
-            android:text="Bitacora"
+            android:text="Datos de comprobante"
             android:textSize="24dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
@@ -140,7 +140,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:lines="1"
-                                android:textSize="15sp"
                                 android:inputType="numberDecimal"
                                 android:ems="5"
                                 android:hint="Monto S/." />
@@ -163,7 +162,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:lines="1"
-                                android:textSize="15sp"
                                 android:inputType="text"
                                 android:focusableInTouchMode="false"
                                 android:hint="Fecha" />
@@ -184,12 +182,11 @@
                             android:layout_marginLeft="9dp"
                             android:src="@drawable/ic_menu_documento" />
                             <Spinner
-                                android:id="@+id/spinner_tipoPago"
+                                android:id="@+id/spinnerpago"
                                 android:layout_width="match_parent"
                                 android:layout_height="fill_parent"
                                 android:ems="10"
                                 android:textSize="20dp"
-
                                 android:layout_marginLeft="32dp"
                                 android:layout_marginRight="5dp"
                                 android:inputType="text" />
@@ -197,7 +194,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/area_4"
+                        android:id="@+id/area3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/area_nombre"
@@ -211,25 +208,32 @@
                             android:src="@drawable/ic_check_black" />
 
                         <android.support.design.widget.TextInputLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="32dp">
 
                             <AutoCompleteTextView
                                 android:id="@+id/txtserie"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:lines="1"
-                                android:textSize="15sp"
                                 android:inputType="text"
-                                android:ems="7"
+                                android:ems="10"
                                 android:hint="Serie" />
                         </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/area4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:orientation="horizontal">
+
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="29dp"
+                            android:layout_marginLeft="9dp"
                             android:src="@drawable/ic_check_black" />
 
                         <android.support.design.widget.TextInputLayout
@@ -242,10 +246,10 @@
                                 android:id="@+id/txtnumero"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:lines="1"
-                                android:textSize="15sp"
+                                android:ems="10"
+                                android:hint="Numero"
                                 android:inputType="text"
-                                android:hint="Numero" />
+                                android:singleLine="true" />
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
 
@@ -290,8 +294,9 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
+                            android:layout_gravity="center_horizontal"
                             android:layout_marginLeft="9dp"
+                            android:paddingTop="20dp"
                             android:src="@drawable/ic_check_black" />
 
                         <android.support.design.widget.TextInputLayout
@@ -306,8 +311,12 @@
                                 android:layout_height="wrap_content"
                                 android:ems="10"
                                 android:hint="Detalles"
-                                android:lines="5"
-                                android:inputType="text" />
+                                android:lines="8"
+                                android:minLines="6"
+                                android:gravity="top|left"
+                                android:maxLines="10"
+                                android:scrollbars="vertical"
+                                android:inputType="textMultiLine" />
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
 

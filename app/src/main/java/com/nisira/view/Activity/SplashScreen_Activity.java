@@ -73,8 +73,8 @@ public class SplashScreen_Activity extends ActivityNisiraCompat {
         pgBar = new ProgressBar(this);
         txt_progressbar = (TextView)findViewById(R.id.txt_progressbar);
         //pgBar.setMax(max_progress());
-        asyncronizedocs();
-        //initAnimation();
+        //asyncronizedocs();
+        initAnimation();
     }
 
     public void initAnimation(){

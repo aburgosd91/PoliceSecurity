@@ -26,4 +26,12 @@ public class DocumentosDao extends BaseDao<Documentos> {
 		else
 			actualizar(obj);
 	}
+	public List<Documentos> listar_comprobantes()throws  Exception{
+		List<Documentos> lst = listar("LTRIM(RTRIM(t0.CODIGO_SUNAT))!= ? ","");
+		if(lst.isEmpty())
+			return null;
+		else
+			return lst;
+	}
+
 }

@@ -19,6 +19,15 @@ public class TipogastoDao extends BaseDao<Tipogasto> {
 	public TipogastoDao(boolean usaCnBase) throws Exception {
 		super(Tipogasto.class, usaCnBase);
 	}
+	public void mezclarLocal(Tipogasto obj)throws Exception{
+		if(obj !=null){
+			List<Tipogasto> lst= listar("LTRIM(RTRIM(t0.IDEMPRESA)) =?",obj.getIdempresa().trim());
+			if(lst.isEmpty())
+				insertar(obj);
+			else
+				actualizar(obj);
+		}
+	}
 
 	public Boolean insert(Tipogasto tipogasto) {
 		Boolean resultado = false;

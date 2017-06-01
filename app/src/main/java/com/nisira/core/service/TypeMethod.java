@@ -22,6 +22,7 @@ public class TypeMethod {
     public static final String METHOD_LIST_ORDENSERVICIOCLIENTE    ="METHOD_LIST_ORDENSERVICIOCLIENTE";
     public static final String METHOD_LIST_DORDENLIQUIDACIONGASTO  ="METHOD_LIST_DORDENLIQUIDACIONGASTO";
     public static final String METHOD_LIST_DORDENSERVICIOCLIENTE   ="METHOD_LIST_DORDENSERVICIOCLIENTE";
+    public static final String METHOD_LIST_TIPOGASTO               ="METHOD_LIST_TIPOGASTO";
 
     /****************************************************************************************************/
     public static final String METHOD_SYNCRONIZE   ="METHOD_SYNCRONIZE";

@@ -1,6 +1,11 @@
 package com.nisira.view.Activity;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -11,15 +16,19 @@ import android.support.v7.widget.RecyclerView;
 import android.transition.Fade;
 import android.transition.Slide;
 import android.transition.TransitionInflater;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.nisira.core.dao.OrdenliquidaciongastoDao;
 import com.nisira.core.dao.OrdenservicioclienteDao;
 import com.nisira.core.entity.Ordenliquidaciongasto;
@@ -32,6 +41,8 @@ import com.nisira.view.Adapter.Adapter_lst_OrdenLiquidacionGasto;
 import com.nisira.view.Adapter.Adapter_lst_OrdenServicio;
 
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
@@ -114,15 +125,13 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
             Toast.makeText(getContext(),"Error :"+e.getMessage(),Toast.LENGTH_SHORT).show();
         }
 
-        // TODO: EVENTOS
-
-        listeners();
-
+        LlenarCampos();
+        Listeners();
         return view;
     }
-    // TODO: TRANSICIONES Y ANIMACIONES
 
-    public void animacionEntrada(){
+
+    public void animacionEntrada(){    // TODO: TRANSICIONES Y ANIMACIONES
         Fade slide = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
             slide = (Fade) TransitionInflater.from(getContext()).inflateTransition(R.transition.activity_fade);
@@ -131,8 +140,11 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
         }
 
     }
+    public void LlenarCampos(){
 
-    public void listeners(){
+    }
+
+    public void Listeners(){        // TODO: EVENTOS
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -169,8 +181,7 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
                     OrdenliquidaciongastoDao ordenliquidaciongastoDao = new OrdenliquidaciongastoDao();
                     cs.execute("");
                     //ordenliquidaciongastoDao.insertar();
-                    Snackbar.make(getView(), "Orden Liquidacion Creada", Snackbar.LENGTH_LONG)
-                            .show();
+                    Snackbar.make(getView(), "Orden Liquidacion Creada", Snackbar.LENGTH_LONG).show();
 
 
                 }catch (Exception e){
@@ -185,13 +196,61 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
         /*DESPUES DE BOTON NUEVO*/
         if(cws.getMethod().trim().equals(TypeMethod.METHOD_WEB_RETURNID)){
 
-            Fragment fragment = mnt_DOrdenLiquidacionGasto_Fragment.newInstance(OPCION, "lst_OrdenServicio_Fragment");
-            Bundle bundle = fragment.getArguments();
-            fragment.setArguments(bundle);
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.replace(R.id.main_content, fragment, "NewFragmentTag");
-            ft.addToBackStack(null);
-            ft.commit();
+            Log.i("Resultado",result);
+            String ws_result = result;
+            try {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                alertDialogBuilder.setMessage("Desea generar una nueva Orden de Liquidación")
+                        .setCancelable(false)
+                        .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                String[] x= ws_result.split(",");
+                                OrdenliquidaciongastoDao dao_ol = new OrdenliquidaciongastoDao();
+                                Ordenliquidaciongasto ol = new Ordenliquidaciongasto();
+                                //AGREGAR LO DEL USUARIO
+                                Calendar now = Calendar.getInstance();
+                                now.getTime();
+                                ol.setIdempresa("001");
+                                ol.setIdorden(x[0]);
+                                ol.setIddocumento(x[1]);
+                                ol.setSerie(x[2]);
+                                ol.setIddocumento(x[3]);
+                                ol.setIdemisor("001");
+                                ol.setPeriodo(now.get(Calendar.YEAR)+"-"+now.get(Calendar.MONTH));
+
+
+                                try {
+                                    dao_ol.mezclarLocal(ol);
+                                    Fragment fragment = mnt_DOrdenLiquidacionGasto_Fragment.newInstance(OPCION, "lst_OrdenServicio_Fragment");
+                                    Bundle bundle = fragment.getArguments();
+                                    fragment.setArguments(bundle);
+                                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                    ft.replace(R.id.main_content, fragment, "NewFragmentTag");
+                                    ft.addToBackStack(null);
+                                    ft.commit();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        })
+                        .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                               //NADA PASA
+                            }
+                        });
+                alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog alert = alertDialogBuilder.create();
+                alert.show();
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
+
 }
