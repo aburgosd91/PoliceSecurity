@@ -169,6 +169,32 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/areaigv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/area_nombre"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="9dp"
+                            android:src="@drawable/ic_check_black" />
+
+                            <CheckBox
+                                android:id="@+id/txtIGV"
+                                android:textSize="20dp"
+                                android:layout_marginLeft="32dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="5dp"
+                                android:ems="10"
+                                android:text="IGV" />
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:id="@+id/area2"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
