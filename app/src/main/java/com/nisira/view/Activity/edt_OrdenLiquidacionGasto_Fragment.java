@@ -1,6 +1,9 @@
 package com.nisira.view.Activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -13,13 +16,17 @@ import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.nisira.core.dao.DordenliquidaciongastoDao;
+import com.nisira.core.dao.OrdenliquidaciongastoDao;
+import com.nisira.core.dao.UsuarioDao;
 import com.nisira.core.entity.Dordenliquidaciongasto;
 import com.nisira.core.entity.Ordenliquidaciongasto;
+import com.nisira.core.entity.Usuario;
 import com.nisira.core.interfaces.FragmentNisira;
 import com.nisira.gcalderon.policesecurity.R;
 import com.nisira.view.Adapter.Adapter_edt_OrdenLiquidacionGasto;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -39,9 +46,11 @@ public class edt_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
     private TextInputEditText txt_cliente;
     private TextView fecha,txt_estado;
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
+    private Adapter_edt_OrdenLiquidacionGasto adapter;
     private RecyclerView.LayoutManager lManager;
-    private FloatingActionButton fabnuevo;
+    private FloatingActionButton fabnuevo,fab_modificar,fab_eliminar;
+    List<Dordenliquidaciongasto> List_dordenliquidaciongastos;
+    DordenliquidaciongastoDao dordenliquidaciongastoDao ;
     View view;
 
     public edt_OrdenLiquidacionGasto_Fragment() {
@@ -86,6 +95,8 @@ public class edt_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
         txt_estado = (TextView)view.findViewById(R.id.txt_estado);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_os);
         fabnuevo = (FloatingActionButton)view.findViewById(R.id.fabnuevo);
+        fab_modificar  =(FloatingActionButton)view.findViewById(R.id.fab_modificar);
+        fab_eliminar = (FloatingActionButton)view.findViewById(R.id.fab_eliminar);
         LlenarCampos();
         Listeners();
         return view;
@@ -94,7 +105,7 @@ public class edt_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
     public void LlenarCampos() {
         TextView view = (TextView) getActivity().findViewById(R.id.campo_titulo2);
         view.setText(getString(R.string.edt_OrdenLiquidacionGasto));
-
+        dordenliquidaciongastoDao = new DordenliquidaciongastoDao();
         txt_documento.setText(ordenliquidaciongasto.getIddocumento() + " - " +
                 ordenliquidaciongasto.getSerie() + " - " +
                 ordenliquidaciongasto.getNumero());
@@ -112,8 +123,8 @@ public class edt_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
         recyclerView.setLayoutManager(lManager);
         DordenliquidaciongastoDao dao = new DordenliquidaciongastoDao();
         try {
-            List<Dordenliquidaciongasto> dordenliquidaciongastos = dao.listarxOrdenLG(ordenliquidaciongasto);
-            Adapter_edt_OrdenLiquidacionGasto adapter = new Adapter_edt_OrdenLiquidacionGasto("",dordenliquidaciongastos,getFragmentManager(),ordenliquidaciongasto);
+            List_dordenliquidaciongastos = dao.listarxOrdenLG(ordenliquidaciongasto);
+            adapter = new Adapter_edt_OrdenLiquidacionGasto("",List_dordenliquidaciongastos,getFragmentManager(),ordenliquidaciongasto);
             recyclerView.setAdapter(adapter);
         } catch (Exception e) {
             e.printStackTrace();
@@ -135,6 +146,68 @@ public class edt_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
                 ft.commit();
             }
         });
+        fab_modificar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (int i = 0; i < List_dordenliquidaciongastos.size(); i++) {
+                    if (List_dordenliquidaciongastos.get(i).isSeleccion()) {
+                        Fragment fragment = mnt_DOrdenLiquidacionGasto_Fragment.newInstance(OPCION, "edt_OrdenLiquidacionGasto_Fragment");
+                        Bundle bundle = fragment.getArguments();
+                        bundle.putSerializable("DOrdenLiquidacionGasto", List_dordenliquidaciongastos.get(i));
+                        bundle.putSerializable("OrdenLiquidacionGasto", ordenliquidaciongasto);
+                        bundle.putSerializable("tipo_entrada", "ACTUALIZAR");
+                        fragment.setArguments(bundle);
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        ft.replace(R.id.main_content, fragment, "NewFragmentTag");
+                        ft.addToBackStack(null);
+                        ft.commit();
+                    }
+                }
+            }
+        });
+        fab_eliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                    alertDialogBuilder.setMessage("Desea Eliminar el registro?")
+                            .setCancelable(false)
+                            .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    try {
+                                    for (int i = 0; i < List_dordenliquidaciongastos.size(); i++) {
+                                        if (List_dordenliquidaciongastos.get(i).isSeleccion()) {
+                                                dordenliquidaciongastoDao.borrar(List_dordenliquidaciongastos.get(i));
+                                                List_dordenliquidaciongastos.remove(i);
+                                                adapter.notifyDataSetChanged();
+                                        }
+                                    }
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    Snackbar.make(getView(), "Detalles Eliminados", Snackbar.LENGTH_SHORT).show();
+                                }
+                            })
+                            .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,int id) {
+                                    //NADA PASA
+                                }
+                            });
+                    alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+                    AlertDialog alert = alertDialogBuilder.create();
+                    alert.show();
+
+                } catch (Exception e){
+                    e.printStackTrace();
+
+                }
+            }
+        });
+
     }
 
 

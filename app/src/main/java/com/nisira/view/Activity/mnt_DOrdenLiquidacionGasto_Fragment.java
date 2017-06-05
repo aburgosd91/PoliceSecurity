@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.transition.Fade;
 import android.transition.Slide;
 import android.transition.TransitionInflater;
@@ -17,6 +19,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -55,6 +58,8 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
     private static final String ARG_PARAM2 = "param2";
     private Dordenliquidaciongasto dordenliquidaciongasto;
     private Ordenliquidaciongasto ordenliquidaciongasto;
+    public static String OPCION;
+    public static String ANTERIOR;
 
     private AutoCompleteTextView list_concepto;
     private AutoCompleteTextView campo_proveedor;
@@ -62,6 +67,8 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
     private AutoCompleteTextView campo_destino;
 
     private EditText txtfecha,txtmonto,txtserie,txtnumero,txtruc,txtdetalle;
+
+    private CheckBox checkboxIGV;
 
     private Spinner spinner_tipoPago;
 
@@ -81,8 +88,8 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
     public static mnt_DOrdenLiquidacionGasto_Fragment newInstance(String param1, String param2) {
         mnt_DOrdenLiquidacionGasto_Fragment fragment = new mnt_DOrdenLiquidacionGasto_Fragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(OPCION, param1);
+        args.putString(ANTERIOR, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -91,8 +98,8 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mParam2 = getArguments().getString(ANTERIOR);
+            mParam1 = getArguments().getString(OPCION);
             tipo_entrada = (String)getArguments().getSerializable("tipo_entrada");
             ordenliquidaciongasto = (Ordenliquidaciongasto) getArguments().getSerializable("OrdenLiquidacionGasto");
             dordenliquidaciongasto = (Dordenliquidaciongasto) getArguments().getSerializable("DOrdenLiquidacionGasto");
@@ -116,6 +123,7 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
         btn_aceptar = (FloatingActionButton)view.findViewById(R.id.fab_aceptar);
         spinner_tipoPago = (Spinner)view.findViewById(R.id.spinnerpago);
         list_concepto = (AutoCompleteTextView)view.findViewById(R.id.list_concepto);
+        checkboxIGV = (CheckBox)view.findViewById(R.id.checkboxIGV);
         LlenarCampos();
         Listeners();
         return view;
@@ -191,6 +199,9 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
                     txtruc.setText(""+dordenliquidaciongasto.getIdclieprov());
                     txtdetalle.setText(""+dordenliquidaciongasto.getGlosa());
                     list_concepto.setText(""+tipogastoList.get(0).getDescripcion());
+                    if(dordenliquidaciongasto.getImpuesto()!= null && dordenliquidaciongasto.getImpuesto()==1){
+                        checkboxIGV.setChecked(true);
+                    }
                     for(int i = 0;i<lista1.size();i++){
                         if(lista1.get(i).getIddocumento().equals(dordenliquidaciongasto.getIddocumento())){
                             spinner_tipoPago.setSelection(i);
@@ -223,6 +234,10 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
                     dordenliquidaciongasto.setImporte(Double.valueOf(txtmonto.getText().toString()));
                     dordenliquidaciongasto.setIdclieprov("" + txtruc.getText().toString());
                     dordenliquidaciongasto.setGlosa("" + txtdetalle.getText().toString());
+                    if(checkboxIGV.isChecked()){
+                        dordenliquidaciongasto.setImpuesto(1.0);
+                    }else
+                        dordenliquidaciongasto.setImpuesto(0.0);
                     DordenliquidaciongastoDao dao2 = new DordenliquidaciongastoDao();
                     if(dordenliquidaciongasto.getIdconcepto()!=null && dordenliquidaciongasto.getIdconcepto()!=""){
                         if(Validardatos()){
@@ -238,7 +253,11 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
                             dordenliquidaciongasto.setNumero(num1 + txtnumero.getText().toString());
                             dao2.mezclarLocal(dordenliquidaciongasto);
                             Snackbar.make(getView(), "Detalle Orden Liquidacion Guardado", Snackbar.LENGTH_SHORT).show();
-                            getActivity().onBackPressed();
+                            if(tipo_entrada.equals("NUEVO")){
+                                getActivity().onBackPressed();
+                            }else {
+                                getActivity().onBackPressed();
+                            }
                         }
                     }else{
                         list_concepto.setText("");

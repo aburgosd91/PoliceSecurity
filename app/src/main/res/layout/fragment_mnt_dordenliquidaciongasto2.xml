@@ -183,7 +183,7 @@
                             android:src="@drawable/ic_check_black" />
 
                             <CheckBox
-                                android:id="@+id/txtIGV"
+                                android:id="@+id/checkboxIGV"
                                 android:textSize="20dp"
                                 android:layout_marginLeft="32dp"
                                 android:layout_width="match_parent"

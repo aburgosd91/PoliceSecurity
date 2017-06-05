@@ -101,12 +101,19 @@ public class Adapter_edt_OrdenLiquidacionGasto extends RecyclerView.Adapter<Adap
         viewHolder.fecha_fin.setText("Fecha: "+items.get(i).getFecha().toString());
         viewHolder.placa.setText("Descripcion: "+ items.get(i).getGlosa());
 
-        viewHolder.seleccion.setBackgroundColor(viewHolder.itemView.getResources().getColor(R.color.blue_gray));
-        viewHolder.seleccion.setImageResource(R.drawable.ic_arrow_white);
-        viewHolder.fondo_seleccion.setBackgroundColor(viewHolder.itemView.getResources().getColor(R.color.blue_gray));
-
+        if(items.get(i).isSeleccion()){
+            viewHolder.seleccion.setBackgroundColor(viewHolder.itemView.getResources().getColor(R.color.amarillo));
+            viewHolder.seleccion.setImageResource(R.drawable.ic_check_big);
+            viewHolder.fondo_seleccion.setBackgroundColor(viewHolder.itemView.getResources().getColor(R.color.amarillo));
+        }else {
+            viewHolder.seleccion.setBackgroundColor(viewHolder.itemView.getResources().getColor(R.color.blue_gray));
+            viewHolder.seleccion.setImageResource(R.drawable.ic_none);
+            viewHolder.fondo_seleccion.setBackgroundColor(viewHolder.itemView.getResources().getColor(R.color.blue_gray));
+        }
         Gson gson = new GsonBuilder().serializeSpecialFloatingPointValues().create();
         System.out.println("DOrdenServicio: "+gson.toJson(items.get(i)));
+
+
 
         viewHolder.fondo_seleccion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +121,7 @@ public class Adapter_edt_OrdenLiquidacionGasto extends RecyclerView.Adapter<Adap
                 viewHolder.seleccion.setBackgroundColor(v.getResources().getColor(R.color.amarillo));
                 viewHolder.seleccion.setImageResource(R.drawable.ic_check_big);
                 viewHolder.fondo_seleccion.setBackgroundColor(v.getResources().getColor(R.color.amarillo));
-
+                /*
                 Fragment fragment = mnt_DOrdenLiquidacionGasto_Fragment.newInstance(OPCION, "edt_OrdenLiquidacionGasto_Fragment");
                 Bundle bundle = fragment.getArguments();
                 bundle.putSerializable("DOrdenLiquidacionGasto", items.get(i));
@@ -125,7 +132,25 @@ public class Adapter_edt_OrdenLiquidacionGasto extends RecyclerView.Adapter<Adap
                 ft.replace(R.id.main_content, fragment, "NewFragmentTag");
                 ft.addToBackStack(null);
                 ft.commit();
+                */
+                if(!(items.get(i).isSeleccion())) {
+                    viewHolder.fondo_seleccion.setBackgroundColor(v.getResources().getColor(R.color.amarillo));
+                    viewHolder.seleccion.setBackgroundColor(v.getResources().getColor(R.color.amarillo));
+                    viewHolder.seleccion.setImageResource(R.drawable.ic_check_big);
 
+                    for(int j=0;j<items.size();j++){
+                        items.get(j).setSeleccion(false);
+                        notifyItemChanged(j);
+                    }
+                    items.get(i).setSeleccion(true);
+
+                }else{
+                    items.get(i).setSeleccion(false);
+                    viewHolder.seleccion.setBackgroundColor(v.getResources().getColor(R.color.blue_gray));
+                    viewHolder.seleccion.setImageResource(R.drawable.ic_none);
+                    viewHolder.fondo_seleccion.setBackgroundColor(v.getResources().getColor(R.color.blue_gray));
+                }
+                notifyItemChanged(i);
             }
         });
 

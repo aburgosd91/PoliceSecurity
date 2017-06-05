@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -98,7 +99,11 @@ public class Login_Activity extends ActivityNisiraCompat implements ActivityComp
             @Override
             public void onClick(View v) {
 //                startActivity(new Intent(Login_Activity.this, progressdialog_Activity.class));
-                verification_login();
+                try {
+                    verification_login();
+                }catch (Exception e){
+                    Toast.makeText(getApplicationContext(),"Error al iniciar la aplicacion",Toast.LENGTH_SHORT).show();
+                }
                 //startActivity(new Intent(Login_Activity.this, SplashScreen_Activity.class));
                 //startActivity(new Intent(Login_Activity.this, NavigationPolice_Activity.class));
             }

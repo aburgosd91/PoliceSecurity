@@ -1,7 +1,9 @@
 package com.nisira.view.Activity;
 
+import android.accounts.NetworkErrorException;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -180,8 +182,10 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
             public void onClick(View v) {
                 try {
                     cs.execute("");
+                    cs.pd = ProgressDialog.show(getActivity(), "SINCRONIZANDO", "Generando Token de Orden Liquidacion Gasto", true, false);
                 }catch (Exception e){
                     e.printStackTrace();
+
                 }
             }
         });
@@ -190,13 +194,17 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
     @Override
     public  void onPostExecuteWebService(ConsumerService cws, String result) {
         /*DESPUES DE BOTON NUEVO*/
+
+        if(result.equals("ERROR: No se puede conectar con NISIRA ERP.")){
+            Snackbar.make(getView(), result, Snackbar.LENGTH_SHORT).show();
+        }else
         if(cws.getMethod().trim().equals(TypeMethod.METHOD_WEB_RETURNID)){
 
             Log.i("Resultado",result);
             String ws_result = result;
             try {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-                alertDialogBuilder.setMessage("¿Desea generar una nueva Orden de Liquidacion?")
+                alertDialogBuilder.setMessage("Desea generar una nueva Orden de Liquidacion?")
                         .setCancelable(false)
                         .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
@@ -223,15 +231,24 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
 
                                 dao_ol.mezclarLocal(ol);
                                 Snackbar.make(getView(), "Orden Liquidacion Creada", Snackbar.LENGTH_LONG).show();
-                                Fragment fragment = mnt_DOrdenLiquidacionGasto_Fragment.newInstance(OPCION, "lst_OrdenServicio_Fragment");
+                                Fragment fragment = edt_OrdenLiquidacionGasto_Fragment.newInstance(mParam1, "lst_OrdenLiquidacionGasto");
                                 Bundle bundle = fragment.getArguments();
-                                bundle.putSerializable("OrdenLiquidacionGasto",ol);
-                                bundle.putSerializable("tipo_entrada","NUEVO");
                                 fragment.setArguments(bundle);
+                                bundle.putSerializable("OrdenLiquidacionGasto", ol);
                                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                                 ft.replace(R.id.main_content, fragment, "NewFragmentTag");
                                 ft.addToBackStack(null);
                                 ft.commit();
+
+                                Fragment fragment2 = mnt_DOrdenLiquidacionGasto_Fragment.newInstance(OPCION, "lst_OrdenServicio_Fragment");
+                                Bundle bundle2 = fragment2.getArguments();
+                                bundle2.putSerializable("OrdenLiquidacionGasto",ol);
+                                bundle2.putSerializable("tipo_entrada","NUEVO");
+                                fragment2.setArguments(bundle2);
+                                FragmentTransaction ft2 = getFragmentManager().beginTransaction();
+                                ft2.replace(R.id.main_content, fragment2, "NewFragmentTag");
+                                ft2.addToBackStack(null);
+                                ft2.commit();
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
@@ -250,9 +267,11 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
                 AlertDialog alert = alertDialogBuilder.create();
                 alert.show();
 
-            }catch (Exception e){
+            } catch (Exception e){
                 e.printStackTrace();
+
             }
+
         }
     }
 

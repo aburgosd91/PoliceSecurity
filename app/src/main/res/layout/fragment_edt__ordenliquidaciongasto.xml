@@ -170,8 +170,7 @@
 
 
         </android.support.design.widget.AppBarLayout>
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabnuevo"
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             fab:fab_colorNormal="@color/colorPrimary"
@@ -179,9 +178,51 @@
             fab:fab_size="normal"
             fab:fab_colorPressed="@color/colorAccent"
             android:layout_alignParentRight="true"
+            fab:fab_expandDirection="left"
+            fab:fab_addButtonColorNormal="@color/colorPrimary"
+            fab:fab_addButtonColorPressed="@color/colorAccent"
             android:layout_gravity="bottom|end"
-            android:layout_alignParentBottom="true"
-            />
+            android:layout_alignParentBottom="true">
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabnuevo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                fab:fab_colorNormal="@color/colorPrimary"
+                fab:fab_icon="@drawable/ic_add_white"
+                fab:fab_size="normal"
+                fab:fab_colorPressed="@color/colorAccent"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="bottom|end"
+                android:layout_alignParentBottom="true"
+                />
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_modificar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                fab:fab_colorNormal="@color/colorPrimary"
+                fab:fab_icon="@drawable/ic_build_white"
+                fab:fab_size="normal"
+                fab:fab_colorPressed="@color/colorAccent"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="bottom|end"
+                android:layout_alignParentBottom="true"
+                />
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_eliminar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                fab:fab_colorNormal="@color/colorPrimary"
+                fab:fab_icon="@drawable/ic_delete_white"
+                fab:fab_size="normal"
+                fab:fab_colorPressed="@color/colorAccent"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="bottom|end"
+                android:layout_alignParentBottom="true"
+                />
+
+
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
     </android.support.design.widget.CoordinatorLayout>
 
 </FrameLayout>
