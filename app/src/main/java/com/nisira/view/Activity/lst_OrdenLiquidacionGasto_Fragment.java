@@ -233,6 +233,12 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
                                 ol.setRazonsocial(usuario.getUsr_nombres());
                                 ol.setFechacreacion(now.getTime());
 
+                                ConsumerService cws = new ConsumerService(getActivity(), getContext(), TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO2, 5, true, 1);
+                                cws.getAttribute().put("type", "XML");
+                                cws.getAttribute().put("lista1",ol);
+                                //cws.getAttribute().put("lista2",);
+                                cws.execute("");
+
                                 dao_ol.mezclarLocal(ol);
                                 Snackbar.make(getView(), "Orden Liquidacion Creada", Snackbar.LENGTH_LONG).show();
                                 Fragment fragment = edt_OrdenLiquidacionGasto_Fragment.newInstance(mParam1, "lst_OrdenLiquidacionGasto");
@@ -277,6 +283,7 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
             }
 
         }
+
     }
 
 }

@@ -40,6 +40,7 @@ import com.nisira.core.entity.Tipogasto;
 import com.nisira.core.entity.Usuario;
 import com.nisira.core.util.Util;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -561,6 +562,24 @@ public class ActionService {
             return e.getMessage();
         }
     }
+    public static String ACTION_ASCENT_ORDENLIQUIDACIONGASTOxID  (String db,Ordenliquidaciongasto od){
+        try {
+            OrdenliquidaciongastoDao ordenliquidaciongastoDao = new OrdenliquidaciongastoDao();
+            List lstordenliquidaciongasto = new ArrayList();
+            lstordenliquidaciongasto.add(od);
+            String xml_ordenliquidaciongasto = Util.objectXml("com.nisira.core.entity.Ordenliquidaciongasto", lstordenliquidaciongasto);
+            if(xml_ordenliquidaciongasto!=null){
+                return xml_ordenliquidaciongasto;
+            }
+            return "";
+        }
+        catch (Exception e)
+        {
+            return e.getMessage();
+        }
+    }
+
+
     public static String ACTION_ASCENT_DORDENLIQUIDACIONGASTO (String db){
         try {
             DordenliquidaciongastoDao dordenliquidaciongastoDao = new DordenliquidaciongastoDao();

@@ -186,7 +186,7 @@ public class ConsumerService extends AsyncTask<String, Void, String> {
                         getAttribute().put("user", Inicio.IDUSUARIO);
                     }
                     response = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_ASCENT_DPERSONAL_SERVICIO, getAttribute(),this.timeout);break;
-                case TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO   :
+               /* case TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO   :
                     trama = ActionService.ACTION_ASCENT_ORDENLIQUIDACIONGASTO(WSBasedatos.getIdbasedatos());
                     if(!trama.equals("")) {
                         getAttribute().put("datos", trama);
@@ -200,6 +200,14 @@ public class ConsumerService extends AsyncTask<String, Void, String> {
                         getAttribute().put("user", Inicio.IDUSUARIO);
                     }
                     response = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_ASCENT_DORDENLIQUIDACIONGASTO, getAttribute(),this.timeout);break;
+                */
+                case TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO2  :
+                    //trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO, getAttribute(),this.timeout);
+                    if(!trama.equals("")) {
+                        //NECESITA "lista1" -> OLG y "lista2" -> DOLG
+                        getAttribute().put("user", Inicio.IDUSUARIO);
+                    }
+                    response = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO2, getAttribute(),this.timeout);break;
             }
         } catch (IOException | XmlPullParserException e) {
             try {
@@ -294,7 +302,7 @@ public class ConsumerService extends AsyncTask<String, Void, String> {
                             getAttribute().put("user", Inicio.IDUSUARIO);
                         }
                         response = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_ASCENT_DPERSONAL_SERVICIO, getAttribute(),this.timeout);break;
-                    case TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO   :
+                    /*case TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO   :
                         trama = ActionService.ACTION_ASCENT_ORDENLIQUIDACIONGASTO(WSBasedatos.getIdbasedatos());
                         if(!trama.equals("")) {
                             getAttribute().put("datos", trama);
@@ -308,6 +316,14 @@ public class ConsumerService extends AsyncTask<String, Void, String> {
                             getAttribute().put("user", Inicio.IDUSUARIO);
                         }
                         response = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_ASCENT_DORDENLIQUIDACIONGASTO, getAttribute(),this.timeout);break;
+                        */
+                    case TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO2  :
+                        //trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO, getAttribute(),this.timeout);
+                        if(!trama.equals("")) {
+                            //NECESITA "lista1" -> OLG y "lista2" -> DOLG
+                            getAttribute().put("user", Inicio.IDUSUARIO);
+                        }
+                        response = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO2, getAttribute(),this.timeout);break;
                 }
             }catch (IOException | XmlPullParserException e1) {
                 response = e1.getMessage();
