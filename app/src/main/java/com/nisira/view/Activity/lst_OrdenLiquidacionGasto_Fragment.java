@@ -117,7 +117,9 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
         try {
             dao = new OrdenliquidaciongastoDao();
             //List<Clieprov> listClieprov = (List<Clieprov>) Util.stringListObject("com.nisira.core.entity.Clieprov",result);
-            listServCliente = dao.listar();
+            UsuarioDao dao2= new UsuarioDao();
+            Usuario user = dao2.listar().get(0);
+            listServCliente = dao.ListarxUsuario(user.getIdclieprov());
             // Crear un nuevo adaptador
             adapter = new Adapter_lst_OrdenLiquidacionGasto(mParam1,listServCliente,getFragmentManager());
             recycler.setAdapter(adapter);
@@ -185,7 +187,6 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
                     cs.pd = ProgressDialog.show(getActivity(), "SINCRONIZANDO", "Generando Token de Orden Liquidacion Gasto", true, false);
                 }catch (Exception e){
                     e.printStackTrace();
-
                 }
             }
         });
@@ -222,6 +223,9 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
                                 ol.setIddocumento(x[1]);
                                 ol.setSerie(x[2]);
                                 ol.setNumero(x[3]);
+                                ol.setIdmoneda(x[4]);
+                                ol.setIdestado(x[5]);
+                                ol.setIgv(Double.valueOf(x[6]));
                                 ol.setIdemisor("001");
                                 ol.setPeriodo(now.get(Calendar.YEAR)+"-"+now.get(Calendar.MONTH));
                                 ol.setIdclieprov(usuario.getIdclieprov());

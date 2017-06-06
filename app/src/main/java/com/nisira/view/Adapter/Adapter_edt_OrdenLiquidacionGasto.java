@@ -91,7 +91,7 @@ public class Adapter_edt_OrdenLiquidacionGasto extends RecyclerView.Adapter<Adap
         TipogastoDao tipogastoDao = new TipogastoDao();
         try {
             List<Tipogasto> tipogastoList = tipogastoDao.listarxID(items.get(i).getIdconcepto());
-            viewHolder.nombre.setText(tipogastoList.get(0).getDescripcion()+" : "+items.get(i).getItem() );
+            viewHolder.nombre.setText(items.get(i).getIddocumento()+" : "+items.get(i).getSerie()+ "-"+items.get(i).getNumero());
         } catch (Exception e) {
             e.printStackTrace();
         }

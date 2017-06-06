@@ -33,5 +33,11 @@ public class DocumentosDao extends BaseDao<Documentos> {
 		else
 			return lst;
 	}
-
+	public List<Documentos> listar_xID(String ID)throws  Exception{
+		List<Documentos> lst = listar("LTRIM(RTRIM(t0.IDDOCUMENTO))!= ? ",ID);
+		if(lst.isEmpty())
+			return null;
+		else
+			return lst;
+	}
 }

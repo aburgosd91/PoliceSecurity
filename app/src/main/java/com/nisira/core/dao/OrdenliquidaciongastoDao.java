@@ -28,6 +28,12 @@ public class OrdenliquidaciongastoDao extends BaseDao<Ordenliquidaciongasto> {
 				actualizar(obj);
 		}
 	}
+	public List<Ordenliquidaciongasto> ListarxUsuario(String IDUSUARIO)throws Exception{
+
+			List<Ordenliquidaciongasto> lst= listar("LTRIM(RTRIM(t0.IDCLIEPROV)) =?",IDUSUARIO.trim());
+				return lst;
+
+	}
 
 
 }

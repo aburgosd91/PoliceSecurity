@@ -231,13 +231,22 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
                 try {
                     dordenliquidaciongasto.getIdconcepto();
                     dordenliquidaciongasto.setFecha(txtfecha.getText().toString());
-                    dordenliquidaciongasto.setImporte(Double.valueOf(txtmonto.getText().toString()));
+                    //dordenliquidaciongasto.setImporte();
                     dordenliquidaciongasto.setIdclieprov("" + txtruc.getText().toString());
                     dordenliquidaciongasto.setGlosa("" + txtdetalle.getText().toString());
                     if(checkboxIGV.isChecked()){
-                        dordenliquidaciongasto.setImpuesto(1.0);
-                    }else
+                        dordenliquidaciongasto.setAfecto(Double.valueOf(txtmonto.getText().toString()));
+                        dordenliquidaciongasto.setInafecto(0.0);
+                        dordenliquidaciongasto.setPimpuesto(ordenliquidaciongasto.getIgv());
+                        dordenliquidaciongasto.setImpuesto(Double.valueOf(txtmonto.getText().toString())*ordenliquidaciongasto.getIgv());
+                        dordenliquidaciongasto.setImporte(Double.valueOf(txtmonto.getText().toString())+dordenliquidaciongasto.getImpuesto());
+                    }else{
+                        dordenliquidaciongasto.setAfecto(0.0);
+                        dordenliquidaciongasto.setInafecto(Double.valueOf(txtmonto.getText().toString()));
+                        dordenliquidaciongasto.setPimpuesto(0.0);
                         dordenliquidaciongasto.setImpuesto(0.0);
+                        dordenliquidaciongasto.setImporte(Double.valueOf(txtmonto.getText().toString()));
+                    }
                     DordenliquidaciongastoDao dao2 = new DordenliquidaciongastoDao();
                     if(dordenliquidaciongasto.getIdconcepto()!=null && dordenliquidaciongasto.getIdconcepto()!=""){
                         if(Validardatos()){
@@ -320,6 +329,7 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
             }
         });
     }
+    
     boolean Validardatos(){
         if(txtruc.getText().toString().length()!=11){
             Snackbar.make(getView(), "El RUC debe contener 11 digitos", Snackbar.LENGTH_SHORT).show();

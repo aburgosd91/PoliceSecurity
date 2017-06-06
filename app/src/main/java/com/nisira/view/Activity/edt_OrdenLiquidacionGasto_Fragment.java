@@ -149,6 +149,9 @@ public class edt_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
         fab_modificar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(List_dordenliquidaciongastos.size()==0){
+                    Snackbar.make(getView(), "No hay datos", Snackbar.LENGTH_SHORT).show();
+                }
                 for (int i = 0; i < List_dordenliquidaciongastos.size(); i++) {
                     if (List_dordenliquidaciongastos.get(i).isSeleccion()) {
                         Fragment fragment = mnt_DOrdenLiquidacionGasto_Fragment.newInstance(OPCION, "edt_OrdenLiquidacionGasto_Fragment");
@@ -169,27 +172,30 @@ public class edt_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
             @Override
             public void onClick(View v) {
                 try {
+                    if(List_dordenliquidaciongastos.size()==0){
+                        Snackbar.make(getView(), "No hay datos", Snackbar.LENGTH_SHORT).show();
+                    }else{
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
                     alertDialogBuilder.setMessage("Desea Eliminar el registro?")
                             .setCancelable(false)
                             .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     try {
-                                    for (int i = 0; i < List_dordenliquidaciongastos.size(); i++) {
-                                        if (List_dordenliquidaciongastos.get(i).isSeleccion()) {
+                                        for (int i = 0; i < List_dordenliquidaciongastos.size(); i++) {
+                                            if (List_dordenliquidaciongastos.get(i).isSeleccion()) {
                                                 dordenliquidaciongastoDao.borrar(List_dordenliquidaciongastos.get(i));
                                                 List_dordenliquidaciongastos.remove(i);
                                                 adapter.notifyDataSetChanged();
+                                            }
                                         }
-                                    }
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
                                     Snackbar.make(getView(), "Detalles Eliminados", Snackbar.LENGTH_SHORT).show();
                                 }
                             })
-                            .setNegativeButton("No",new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog,int id) {
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
                                     //NADA PASA
                                 }
                             });
@@ -200,6 +206,7 @@ public class edt_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
                     });
                     AlertDialog alert = alertDialogBuilder.create();
                     alert.show();
+                }
 
                 } catch (Exception e){
                     e.printStackTrace();
