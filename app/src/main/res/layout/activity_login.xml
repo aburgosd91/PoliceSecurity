@@ -40,26 +40,27 @@
 
 
             <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:hint="@string/usuario"
-            android:layout_marginBottom="10dp"
-            android:ems="10"
-            android:id="@+id/txtUser"
-                android:text="ADMINISTRADOR" />
+                android:id="@+id/txtUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:ems="10"
+                android:hint="@string/usuario"
+                android:inputType="textPersonName"
+                android:singleLine="false"
+                android:text="AHEREDIA" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:ems="10"
-            android:layout_marginBottom="10dp"
-            android:hint="@string/password"
-            android:paddingBottom="15dp"
-            android:id="@+id/txtPassword"
-            android:textStyle="normal"
-            android:text="admin2017" />
+            <EditText
+                android:id="@+id/txtPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:ems="10"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:paddingBottom="15dp"
+                android:text="alexander1477"
+                android:textStyle="normal" />
 
             <Button
                 android:text="@string/login"

@@ -262,7 +262,7 @@ public class Consumidor implements Serializable {
 
 	@Override
 	public String toString() {
-		return descripcion;
+		return idconsumidor;
 	}
 
 	/* Sets & Gets FK*/

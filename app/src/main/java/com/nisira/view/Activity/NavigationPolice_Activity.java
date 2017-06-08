@@ -38,6 +38,7 @@ import android.widget.TextView;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.nisira.core.dao.Cargos_personalDao;
 import com.nisira.core.database.DataBaseClass;
+import com.nisira.core.entity.Usuario;
 import com.nisira.core.interfaces.ActivityNisiraCompat;
 import com.nisira.core.service.ConsumerService;
 import com.nisira.core.util.Util;
@@ -61,6 +62,8 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
     private Uri imageUri;
     public TextView campo_titulo;
     public TextView campo_titulo2;
+    public TextView txt_user_name_header;
+    public TextView txt_user_email_header;
     public CircleImageView imageViewprofile;
     RelativeLayout relativeLayout;
     NavigationView navigationView;
@@ -122,6 +125,8 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
         setSupportActionBar(toolbar);
         campo_titulo = (TextView) findViewById(R.id.campo_titulo);
         campo_titulo2 = (TextView) findViewById(R.id.campo_titulo2);
+        txt_user_name_header= (TextView) findViewById(R.id.txt_user_name_header);
+        txt_user_email_header= (TextView) findViewById(R.id.txt_user_email_header);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         if (Build.VERSION.SDK_INT >= 23) {
@@ -219,9 +224,8 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
         int id = item.getItemId();
 
         FragmentManager manager = getSupportFragmentManager();
-
         try {
-            if (manager.getFragments() != null) {
+            if (!manager.getFragments().isEmpty()) {
                 if (manager.getBackStackEntryCount() > 0) {
                     for (int i = 0; i < manager.getBackStackEntryCount(); i++)
                         manager.popBackStack();
@@ -257,7 +261,8 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
             campo_titulo2.setText(getString(R.string.lst_OrdenServicio));
             fragments.add(fragment);
 
-        } else if (id == R.id.mov_registro_vehiculo) {
+        } /*
+        else if (id == R.id.mov_registro_vehiculo) {
 
             Fragment fragment = lst_OrdenServicio_Fragment.newInstance("Registro Vehiculo", "NavigationPolice_Activity");
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -269,7 +274,8 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
             campo_titulo2.setText(getString(R.string.lst_OrdenServicio));
             fragments.add(fragment);
 
-        } else if (id == R.id.mov_liquidacion_gastos) {
+        } */
+        else if (id == R.id.mov_liquidacion_gastos) {
 
             Fragment fragment = lst_OrdenLiquidacionGasto_Fragment.newInstance("Liquidacion Gastos", "NavigationPolice_Activity");
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -438,6 +444,15 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
                         popup.show(getSupportFragmentManager(),"dialog");
                     }
                     //
+                };break;
+            default:
+                /*RECUPERAR USER*/
+                Usuario user = Util.session_object(this.getApplicationContext());
+                if(user !=null){
+                    if(!user.getUsr_nombres().isEmpty())
+                        txt_user_name_header.setText(user.getUsr_nombres());
+                    if(!user.getEmail().isEmpty())
+                        txt_user_email_header.setText(user.getEmail());
                 }
         }
 

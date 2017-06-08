@@ -19,9 +19,11 @@ import android.widget.Toast;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.nisira.core.dao.OrdenservicioclienteDao;
 import com.nisira.core.entity.Ordenserviciocliente;
+import com.nisira.core.entity.Usuario;
 import com.nisira.core.interfaces.FragmentNisira;
 import com.nisira.core.service.ConsumerService;
 import com.nisira.core.service.TypeMethod;
+import com.nisira.core.util.Util;
 import com.nisira.gcalderon.policesecurity.R;
 import com.nisira.view.Adapter.Adapter_lst_OrdenServicio;
 
@@ -41,7 +43,7 @@ public class lst_OrdenServicio_Fragment extends FragmentNisira {
     FloatingActionButton fab_abrir,fab_filtrar;
     EditText edit_filtro;
     RelativeLayout rlfiltro;
-
+    Usuario user ;
     // TODO: PARAMETROS DE ENTRADA
     private String mParam1;
     private String mParam2;
@@ -67,7 +69,7 @@ public class lst_OrdenServicio_Fragment extends FragmentNisira {
             mParam1 = getArguments().getString(OPCION);
             mParam2 = getArguments().getString(ANTERIOR);
         }
-
+        user = Util.session_object(this.getContext());
     }
 
     @Override
@@ -98,7 +100,7 @@ public class lst_OrdenServicio_Fragment extends FragmentNisira {
     public void LlenarCampos(){
         try {
             ordenservicioclienteDao = new OrdenservicioclienteDao();
-            listServCliente = ordenservicioclienteDao.listOrdenServicioxCliente();
+            listServCliente = ordenservicioclienteDao.listOrdenServicioxCliente(user);
             // Crear un nuevo adaptador
             adapter = new Adapter_lst_OrdenServicio(mParam1,listServCliente,getFragmentManager());
             recycler.setAdapter(adapter);

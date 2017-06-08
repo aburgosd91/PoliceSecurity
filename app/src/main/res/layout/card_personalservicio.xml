@@ -9,26 +9,26 @@
     card_view:cardUseCompatPadding="true">
 
     <RelativeLayout
-            android:id="@+id/fondo_seleccion"
-            android:layout_width="90dp"
-            android:orientation="vertical"
-            android:layout_height="match_parent"
-            android:background="@color/blue_gray"
-            android:layout_gravity="right"
-            >
+        android:id="@+id/fondo_seleccion"
+        android:layout_width="90dp"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:background="@color/blue_gray"
+        android:layout_gravity="right"
+        >
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/seleccion"
-                android:layout_width="@dimen/fab_size_normal"
-                android:layout_height="@dimen/fab_size_normal"
-                android:src="@drawable/ic_none"
-                app:civ_border_width="2dp"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                app:civ_border_color="@color/white"
-                />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/seleccion"
+            android:layout_width="@dimen/fab_size_normal"
+            android:layout_height="@dimen/fab_size_normal"
+            android:src="@drawable/ic_none"
+            app:civ_border_width="2dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            app:civ_border_color="@color/white"
+            />
 
-        </RelativeLayout>
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -75,8 +75,16 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="########"
-            android:id="@+id/txt3"
+            android:id="@+id/txt_vehiculo_lst"
             android:layout_below="@+id/txt2"
+            android:layout_alignLeft="@+id/nombre" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="########"
+            android:id="@+id/txt3"
+            android:layout_below="@+id/txt_vehiculo_lst"
             android:layout_alignLeft="@+id/nombre" />
 
         <LinearLayout

@@ -50,7 +50,7 @@ public class Usuario implements Serializable {
 	@SerializedName("idclieprov")
 	@XStreamAlias("IDCLIEPROV")
 	private String idclieprov;
-
+	private String email;
 	/* Sets & Gets */
 	public void setIdbasedatos(String idbasedatos) {
 		this.idbasedatos = idbasedatos;
@@ -118,6 +118,14 @@ public class Usuario implements Serializable {
 
 	public void setIdclieprov(String idclieprov) {
 		this.idclieprov = idclieprov;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 

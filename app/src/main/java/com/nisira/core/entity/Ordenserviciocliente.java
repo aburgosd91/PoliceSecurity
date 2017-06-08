@@ -80,6 +80,21 @@ public class Ordenserviciocliente implements Serializable {
 	@SerializedName("nro_oservicio") 
 	@XStreamAlias("NRO_OSERVICIO") 
 	private String nro_oservicio = "" ;
+	@Columna
+	@SerializedName("idmotivo")
+	@XStreamAlias("IDMOTIVO")
+	private String idmotivo = "" ;
+
+	@Columna
+	@SerializedName("glosa")
+	@XStreamAlias("GLOSA")
+	private String glosa = "" ;
+
+	@Columna
+	@SerializedName("idoperario")
+	@XStreamAlias("IDOPERARIO")
+	private String idoperario = "" ;
+
 	private String cliente = "";
 	private String ruc = "";
 
@@ -226,6 +241,14 @@ public class Ordenserviciocliente implements Serializable {
 
 	public void setRuc(String ruc) {
 		this.ruc = ruc;
+	}
+
+	public String getIdoperario() {
+		return idoperario;
+	}
+
+	public void setIdoperario(String idoperario) {
+		this.idoperario = idoperario;
 	}
 
 

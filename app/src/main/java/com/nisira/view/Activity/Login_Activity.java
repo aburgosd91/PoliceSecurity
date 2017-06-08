@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -19,7 +20,9 @@ import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.nisira.core.dao.UsuarioDao;
 import com.nisira.core.database.DataBaseClass;
+import com.nisira.core.entity.Usuario;
 import com.nisira.core.interfaces.ActivityNisiraCompat;
 import com.nisira.core.service.ConsumerService;
 import com.nisira.core.service.TypeMethod;
@@ -205,26 +208,31 @@ public class Login_Activity extends ActivityNisiraCompat implements ActivityComp
     }
     @Override
     public  void onPostExecuteWebService(ConsumerService cws, String result) {
-
-        if(cws.getMethod().trim().equals(TypeMethod.METHOD_VERIFICATION_USER)){
-
-            Log.i("User",result);
-            if(result.trim().equals("OK")){
-                Inicio.IDUSUARIO=txtuser.getText().toString().trim();
-                //Toast.makeText(getApplicationContext(),"Session Exitosa !!!.",Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(Login_Activity.this, SplashScreen_Activity.class));
-                Log.i("USUARIO",result);
-
+        try{
+            if(cws.getMethod().trim().equals(TypeMethod.METHOD_VERIFICATION_USER)){
+                if(result.trim().equals("OK")){
+                    UsuarioDao usuarioDao = new UsuarioDao();
+                    Usuario user = usuarioDao.getUsuario_base(txtuser.getText().toString().trim());
+                    //Toast.makeText(getApplicationContext(),"Session Exitosa !!!.",Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(Login_Activity.this, SplashScreen_Activity.class));
+                    /*** SAVE SESSION****/
+                    if(user!=null){
+                        SharedPreferences.Editor editor = getSharedPreferences("USER_SESSION", MODE_PRIVATE).edit();
+                        editor.putString("IDUSUARIO", user.getIdusuario());
+                        editor.putString("USR_NOMBRES", user.getUsr_nombres());
+                        editor.putString("IDCLIEPROV", user.getIdclieprov());
+                        editor.putString("EMAIL", user.getEmail());
+                        editor.commit();
+                    }
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),"Error:"+result.trim(),Toast.LENGTH_SHORT).show();
+                }
             }
-            else{
-                Toast.makeText(getApplicationContext(),"Error:"+result.trim(),Toast.LENGTH_SHORT).show();
-                Inicio.IDUSUARIO="";
-            }
-        }else if(cws.isSyncronize()){
-            if(TABLASINCRONIZACION.length>item_tabla_syncro){
-                asyncronize();
-            }
+        }catch (Exception ex){
+            Toast.makeText(getApplicationContext(),"Error:"+ex.getMessage(),Toast.LENGTH_SHORT).show();
         }
+
     }
     public void asyncronize(){
         String method_syncro=TABLASINCRONIZACION[item_tabla_syncro][0].toString();

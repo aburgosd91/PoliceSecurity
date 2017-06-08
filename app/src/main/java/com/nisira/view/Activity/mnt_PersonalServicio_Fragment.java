@@ -19,8 +19,10 @@ import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.nisira.core.dao.ClieprovDao;
+import com.nisira.core.dao.ConsumidorDao;
 import com.nisira.core.dao.Personal_servicioDao;
 import com.nisira.core.entity.Clieprov;
+import com.nisira.core.entity.Consumidor;
 import com.nisira.core.entity.Dordenserviciocliente;
 import com.nisira.core.entity.Personal_servicio;
 import com.nisira.gcalderon.policesecurity.R;
@@ -34,6 +36,7 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
     private static final String TIPO = "param2";
     private Personal_servicio personal_servicio;
     private Dordenserviciocliente dordenserviciocliente;
+    private AutoCompleteTextView txt_vehiculos;
     private AutoCompleteTextView campo_personal;
     private FloatingActionButton btn_cancelar;
     private FloatingActionButton btn_acaptar;
@@ -83,6 +86,7 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
         campo_cargo = (EditText)view.findViewById(R.id.campo_cargo);
         txt_titulo = (TextView) view.findViewById(R.id.txt_titulo);
         campo_personal = (AutoCompleteTextView)view.findViewById(R.id.campo_personal);
+        txt_vehiculos = (AutoCompleteTextView) view.findViewById(R.id.txt_vehiculos_ps);
         LlenarCampos();
         Listeners();
 
@@ -91,12 +95,10 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
 
     public void animacionEntrada(){
         // TODO: TRANSICIONES Y ANIMACIONES
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-            Fade fade = (Fade) TransitionInflater.from(this.getContext()).inflateTransition(R.transition.activity_fade);
-            setEnterTransition(fade);
-            Slide slide = (Slide) TransitionInflater.from(getContext()).inflateTransition(R.transition.activity_slide);
-            setExitTransition(slide);
-        }
+        Fade fade = (Fade) TransitionInflater.from(this.getContext()).inflateTransition(R.transition.activity_fade);
+        setEnterTransition(fade);
+        Slide slide = (Slide) TransitionInflater.from(getContext()).inflateTransition(R.transition.activity_slide);
+        setExitTransition(slide);
     }
 
     public void LlenarCampos(){
@@ -107,17 +109,22 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
         campo_cargo.setText(personal_servicio.getDescripcion_cargo());
         campo_numero.setText(personal_servicio.getDni());
         campo_personal.setText(personal_servicio.getNombres());
+        txt_vehiculos.setText(personal_servicio.getIdvehiculo());
         txt_titulo.setText("Modificar");
 
         ClieprovDao clieprovDao = new ClieprovDao();
+
+        ConsumidorDao dao = new ConsumidorDao();
+        List<Consumidor> consumidors= new ArrayList<>();
 
         try {
             list_ps = clieprovDao.getPersonalxTipo(dordenserviciocliente.getIdempresa(),"E");
             for(int i=0;i<list_ps.size();i++){
                 empleados.add(list_ps.get(i).getNombres() + " "+
-                                list_ps.get(i).getApellidopaterno()+" "+
-                                list_ps.get(i).getApellidomaterno());
+                        list_ps.get(i).getApellidopaterno()+" "+
+                        list_ps.get(i).getApellidomaterno());
             }
+            consumidors = dao.ListarConsumidor(personal_servicio.getIdempresa());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -126,6 +133,10 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
                 android.R.layout.simple_dropdown_item_1line,list_ps);
         campo_personal.setThreshold(1);
         campo_personal.setAdapter(adapterps);
+
+        ArrayAdapter<Consumidor> adapter = new ArrayAdapter<Consumidor>(getContext(),
+                android.R.layout.simple_dropdown_item_1line,consumidors);
+        txt_vehiculos.setAdapter(adapter);
 
     }
 
@@ -173,6 +184,17 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
                 }
                 //Toast.makeText(getContext(),"Modificado con exito",Toast.LENGTH_SHORT);
                 getActivity().onBackPressed();
+            }
+        });
+        txt_vehiculos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Consumidor selected = (Consumidor) parent.getAdapter().getItem(position);
+                personal_servicio1.setIdvehiculo(selected.getIdconsumidor());
+                Log.i("Clicked " , selected.getIdconsumidor() + " " + selected.getDescripcion());
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
             }
         });
     }
