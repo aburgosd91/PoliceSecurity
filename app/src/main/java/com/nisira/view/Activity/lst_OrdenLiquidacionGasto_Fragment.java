@@ -34,6 +34,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.nisira.core.dao.OrdenliquidaciongastoDao;
 import com.nisira.core.dao.OrdenservicioclienteDao;
 import com.nisira.core.dao.UsuarioDao;
+import com.nisira.core.entity.Dordenliquidaciongasto;
 import com.nisira.core.entity.Ordenliquidaciongasto;
 import com.nisira.core.entity.Ordenserviciocliente;
 import com.nisira.core.entity.Usuario;
@@ -216,8 +217,11 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
                                 UsuarioDao usuarioDao = new UsuarioDao();
                                 Usuario usuario = usuarioDao.listar().get(0);
                                 //AGREGAR LO DEL USUARIO
+                                SimpleDateFormat sm = new SimpleDateFormat("dd-MM-yyyy");
+                                String strDate="";
                                 Calendar now = Calendar.getInstance();
                                 now.getTime();
+                                strDate=sm.format(Calendar.getInstance().getTime());
                                 ol.setIdempresa("001");
                                 ol.setIdorden(x[0]);
                                 ol.setIddocumento(x[1]);
@@ -232,13 +236,15 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
                                 ol.setIdsucursal("001");
                                 ol.setRazonsocial(usuario.getUsr_nombres());
                                 ol.setFechacreacion(now.getTime());
-
+                                /* NO FUNCIONA
+                                Dordenliquidaciongasto dol = new Dordenliquidaciongasto();
                                 ConsumerService cws = new ConsumerService(getActivity(), getContext(), TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO2, 5, true, 1);
                                 cws.getAttribute().put("type", "XML");
                                 cws.getAttribute().put("lista1",ol);
-                                //cws.getAttribute().put("lista2",);
+                                cws.getAttribute().put("lista2",dol);
                                 cws.execute("");
-
+                                cws.pd = ProgressDialog.show(getActivity(), "SINCRONIZANDO", "Insertando Orden Liquidacion Gasto", true, false);
+                                */
                                 dao_ol.mezclarLocal(ol);
                                 Snackbar.make(getView(), "Orden Liquidacion Creada", Snackbar.LENGTH_LONG).show();
                                 Fragment fragment = edt_OrdenLiquidacionGasto_Fragment.newInstance(mParam1, "lst_OrdenLiquidacionGasto");
@@ -282,8 +288,12 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
 
             }
 
-        }
+        }else
+            if(cws.getMethod().trim().equals(TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO2)){
+
+            }
 
     }
+
 
 }
