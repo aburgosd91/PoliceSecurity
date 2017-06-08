@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.Html;
@@ -12,6 +13,7 @@ import android.view.WindowManager;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.nisira.core.entity.Usuario;
 import com.nisira.gcalderon.policesecurity.R;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.mapper.CannotResolveClassException;
@@ -198,5 +200,14 @@ public final class Util {
         if(id<10) return "00"+id;
         else if(id<100) return "0"+id;
         else return String.valueOf(id);
+    }
+    public static Usuario session_object(Context context1){
+        Usuario user_session = new Usuario();
+        SharedPreferences prefs = context1.getSharedPreferences("USER_SESSION", context1.MODE_PRIVATE);
+        user_session.setIdusuario(prefs.getString("IDUSUARIO", null));
+        user_session.setUsr_nombres(prefs.getString("USR_NOMBRES", null));
+        user_session.setIdclieprov(prefs.getString("IDCLIEPROV", null));
+        user_session.setEmail(prefs.getString("EMAIL", null));
+        return user_session;
     }
 }

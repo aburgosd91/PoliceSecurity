@@ -67,6 +67,10 @@ public class Dpersonal_servicio implements Serializable {
 	@SerializedName("fecharegistro") 
 	@XStreamAlias("FECHAREGISTRO") 
 	private Date fecharegistro;
+	@Columna
+	@SerializedName("fechafinregistro")
+	@XStreamAlias("FECHAFINREGISTRO")
+	private Date fechafinregistro;
 
 	private boolean seleccion;
 
@@ -175,6 +179,14 @@ public class Dpersonal_servicio implements Serializable {
 
 	public void setSeleccion(boolean seleccion) {
 		this.seleccion = seleccion;
+	}
+
+	public Date getFechafinregistro() {
+		return fechafinregistro;
+	}
+
+	public void setFechafinregistro(Date fechafinregistro) {
+		this.fechafinregistro = fechafinregistro;
 	}
 
 

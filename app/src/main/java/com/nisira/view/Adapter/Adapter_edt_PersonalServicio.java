@@ -30,29 +30,31 @@ public class Adapter_edt_PersonalServicio extends RecyclerView.Adapter<Adapter_e
     private List<Personal_servicio> items;
     public String OPCION;
 
-public static class ListaViewHolder extends RecyclerView.ViewHolder {
-    // Campos respectivos de un item
-    public ImageView imagen;
-    public TextView nombre;
-    public TextView documento;
-    public TextView estado;
-    public TextView cargo;
-    public CircleImageView seleccion;
-    public RelativeLayout fondo_seleccion;
-    public LinearLayout ll_fecha;
-    public boolean bool_seleccion;
-    public ListaViewHolder(View v) {
-        super(v);
-        imagen = (ImageView) v.findViewById(R.id.imagen_personal);
-        nombre = (TextView) v.findViewById(R.id.nombre);
-        documento = (TextView) v.findViewById(R.id.txtdocumento);
-        seleccion = (CircleImageView) v.findViewById(R.id.seleccion);
-        fondo_seleccion = (RelativeLayout) v.findViewById(R.id.fondo_seleccion);
-        estado = (TextView) v.findViewById(R.id.txt3);
-        cargo = (TextView)v.findViewById(R.id.txt2);
-        ll_fecha = (LinearLayout)v.findViewById(R.id.ll_fecha);
+    public static class ListaViewHolder extends RecyclerView.ViewHolder {
+        // Campos respectivos de un item
+        public ImageView imagen;
+        public TextView nombre;
+        public TextView documento;
+        public TextView estado;
+        public TextView cargo;
+        public TextView vehiculo;
+        public CircleImageView seleccion;
+        public RelativeLayout fondo_seleccion;
+        public LinearLayout ll_fecha;
+        public boolean bool_seleccion;
+        public ListaViewHolder(View v) {
+            super(v);
+            imagen = (ImageView) v.findViewById(R.id.imagen_personal);
+            nombre = (TextView) v.findViewById(R.id.nombre);
+            documento = (TextView) v.findViewById(R.id.txtdocumento);
+            seleccion = (CircleImageView) v.findViewById(R.id.seleccion);
+            fondo_seleccion = (RelativeLayout) v.findViewById(R.id.fondo_seleccion);
+            estado = (TextView) v.findViewById(R.id.txt3);
+            cargo = (TextView)v.findViewById(R.id.txt2);
+            vehiculo = (TextView)v.findViewById(R.id.txt_vehiculo_lst);
+            ll_fecha = (LinearLayout)v.findViewById(R.id.ll_fecha);
+        }
     }
-}
 
     public Adapter_edt_PersonalServicio(String OPCION,List<Personal_servicio> items, FragmentManager fragmentManager) {
         this.OPCION = OPCION;
@@ -81,7 +83,7 @@ public static class ListaViewHolder extends RecyclerView.ViewHolder {
         String strDate = sm.format(items.get(i).getFechaoperacion());
         viewHolder.estado.setText("Fecha Operacion: "+strDate);
         viewHolder.cargo.setText("Cargo: "+items.get(i).getDescripcion_cargo());
-
+        viewHolder.vehiculo.setText("Vehículo: "+items.get(i).getIdvehiculo());
         if(items.get(i).isSeleccion()){
             viewHolder.seleccion.setBackgroundColor(viewHolder.itemView.getResources().getColor(R.color.amarillo));
             viewHolder.seleccion.setImageResource(R.drawable.ic_check_big);

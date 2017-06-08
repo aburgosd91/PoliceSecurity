@@ -13,15 +13,11 @@
             <item
                 android:id="@+id/mov_asignacion_personal"
                 android:icon="@drawable/ic_menu_people"
-                android:title="Asignación Personal" />
+                android:title="Personal - Vehículo" />
             <item
                 android:id="@+id/mov_registro_horas_cmt"
                 android:icon="@drawable/ic_menu_clock"
-                android:title="Registro Hora" />
-            <item
-                android:id="@+id/mov_registro_vehiculo"
-                android:icon="@drawable/ic_menu_bus"
-                android:title="Registro Vehiculo" />
+                android:title="Tareo Personal" />
             <item
                 android:id="@+id/mov_liquidacion_gastos"
                 android:icon="@drawable/ic_money"

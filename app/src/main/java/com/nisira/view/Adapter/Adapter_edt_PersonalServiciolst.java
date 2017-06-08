@@ -41,34 +41,36 @@ public class Adapter_edt_PersonalServiciolst extends RecyclerView.Adapter<Adapte
     private Dordenserviciocliente dordenserviciocliente;
     public String OPCION;
 
-public static class ListaViewHolder extends RecyclerView.ViewHolder {
-    // Campos respectivos de un item
-    public ImageView imagen;
-    public TextView nombre;
-    public TextView documento;
-    public TextView estado;
-    public TextView cargo;
-    public TextView fecha_fin;
-    public CircleImageView seleccion;
-    public RelativeLayout fondo_seleccion;
-    public LinearLayout ll_fecha;
-    public FloatingActionButton fab_fecha;
-    public boolean bool_seleccion;
-    public ListaViewHolder(View v) {
-        super(v);
-        imagen = (ImageView) v.findViewById(R.id.imagen_personal);
-        nombre = (TextView) v.findViewById(R.id.nombre);
-        documento = (TextView) v.findViewById(R.id.txtdocumento);
-        seleccion = (CircleImageView) v.findViewById(R.id.seleccion);
-        fondo_seleccion = (RelativeLayout) v.findViewById(R.id.fondo_seleccion);
-        estado = (TextView) v.findViewById(R.id.txt3);
-        cargo = (TextView) v.findViewById(R.id.txt2);
-        ll_fecha = (LinearLayout)v.findViewById(R.id.ll_fecha);
-        fecha_fin = (TextView)v.findViewById(R.id.txt4);
-        fab_fecha = (FloatingActionButton)v.findViewById(R.id.fab_fecha);
+    public static class ListaViewHolder extends RecyclerView.ViewHolder {
+        // Campos respectivos de un item
+        public ImageView imagen;
+        public TextView nombre;
+        public TextView documento;
+        public TextView estado;
+        public TextView cargo;
+        public TextView vehiculo;
+        public TextView fecha_fin;
+        public CircleImageView seleccion;
+        public RelativeLayout fondo_seleccion;
+        public LinearLayout ll_fecha;
+        public FloatingActionButton fab_fecha;
+        public boolean bool_seleccion;
+        public ListaViewHolder(View v) {
+            super(v);
+            imagen = (ImageView) v.findViewById(R.id.imagen_personal);
+            nombre = (TextView) v.findViewById(R.id.nombre);
+            documento = (TextView) v.findViewById(R.id.txtdocumento);
+            seleccion = (CircleImageView) v.findViewById(R.id.seleccion);
+            fondo_seleccion = (RelativeLayout) v.findViewById(R.id.fondo_seleccion);
+            estado = (TextView) v.findViewById(R.id.txt3);
+            cargo = (TextView) v.findViewById(R.id.txt2);
+            vehiculo = (TextView)v.findViewById(R.id.txt_vehiculo_lst);
+            ll_fecha = (LinearLayout)v.findViewById(R.id.ll_fecha);
+            fecha_fin = (TextView)v.findViewById(R.id.txt4);
+            fab_fecha = (FloatingActionButton)v.findViewById(R.id.fab_fecha);
 
+        }
     }
-}
 
     public Adapter_edt_PersonalServiciolst(String OPCION, List<Personal_servicio> items, FragmentManager fragmentManager, Ordenserviciocliente ordenserviciocliente, Dordenserviciocliente dordenserviciocliente) {
         this.OPCION = OPCION;

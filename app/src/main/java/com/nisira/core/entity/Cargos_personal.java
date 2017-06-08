@@ -84,7 +84,10 @@ public class Cargos_personal implements Serializable {
 	@SerializedName("tipo_cargo") 
 	@XStreamAlias("TIPO_CARGO") 
 	private Double tipo_cargo = 0.00 ;
-
+	@Columna
+	@SerializedName("es_chofer")
+	@XStreamAlias("ES_CHOFER")
+	private Double es_chofer = 0.00 ;
 
 
 	/* Sets & Gets */
@@ -222,6 +225,14 @@ public class Cargos_personal implements Serializable {
 
 	public Double getTipo_cargo() {
 		return this.tipo_cargo;
+	}
+
+	public Double getEs_chofer() {
+		return es_chofer;
+	}
+
+	public void setEs_chofer(Double es_chofer) {
+		this.es_chofer = es_chofer;
 	}
 
 

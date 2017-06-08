@@ -48,6 +48,23 @@ public class OrdenservicioclienteDao extends BaseDao<Ordenserviciocliente> {
 		}
 		return lst;
 	}
+	public List<Ordenserviciocliente> listOrdenServicioxCliente(Usuario user)throws Exception{
+		List<Ordenserviciocliente> lst= listar("t0.IDOPERARIO = ?",user.getIdclieprov());
+		ClieprovDao clientedao = new ClieprovDao();
+		Clieprov cliente = null;
+		int i=0;
+		for(Ordenserviciocliente obj : lst){
+			cliente=clientedao.getClientexempresa_codigo(obj.getIdempresa(),obj.getIdclieprov());
+			if(cliente!=null){
+				obj.setCliente(cliente.getRazon_social()
+				);
+				obj.setRuc(cliente.getRuc());
+				lst.set(i,obj);
+			}
+			i++;
+		}
+		return lst;
+	}
 	public List<Ordenserviciocliente> listOrdenServicioxClienteFiltro(String filtro)throws Exception{
 
         String where = "t1.IDCLIEPROV like '%'||?||'%' OR t1.RAZON_SOCIAL like '%'||?||'%' ";

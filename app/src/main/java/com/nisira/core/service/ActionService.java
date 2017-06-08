@@ -2,6 +2,7 @@ package com.nisira.core.service;
 
 import android.util.Log;
 
+import com.nisira.core.dao.AppmovilusuarioDao;
 import com.nisira.core.dao.Cargos_personalDao;
 import com.nisira.core.dao.ClieprovDao;
 import com.nisira.core.dao.Concepto_cuentaDao;
@@ -20,6 +21,7 @@ import com.nisira.core.dao.RutasDao;
 import com.nisira.core.dao.SucursalesDao;
 import com.nisira.core.dao.TipogastoDao;
 import com.nisira.core.dao.UsuarioDao;
+import com.nisira.core.entity.Appmovilusuario;
 import com.nisira.core.entity.Cargos_personal;
 import com.nisira.core.entity.Clieprov;
 import com.nisira.core.entity.Concepto_cuenta;
@@ -57,10 +59,8 @@ public class ActionService {
                 usuario.setFechacreacion(new Date());
                 usuario.setEstado(1);
                 UsuarioDao usuarioDao = new UsuarioDao();
-                if(usuarioDao.listar().size()==0){
-                    usuarioDao.insert(usuario);
-                }else{
-                    usuarioDao.update(usuario,"1=1");
+                if(usuario!=null){
+                    usuarioDao.mezclarLocal(usuario);
                 }
                 return "OK";
             }
@@ -71,6 +71,25 @@ public class ActionService {
             Log.i("ActionService ->",e.getMessage());
             e.printStackTrace();
             return null;
+        }
+    }
+    public static String ACTION_VERIFICATION_APPMOVILUSUARIO (String db,String response){
+        try {
+            List appmovilusuario_lst = (List<Appmovilusuario>) Util.stringObject("com.nisira.core.entity.Appmovilusuario",response);
+            AppmovilusuarioDao appmovilusuarioDao = new AppmovilusuarioDao();
+            if(appmovilusuario_lst!=null){
+                for(int i=0;i<appmovilusuario_lst.size();i++){
+                    Appmovilusuario obj= (Appmovilusuario)appmovilusuario_lst.get(i);
+                    appmovilusuarioDao.mezclarLocal(obj);
+                }
+                return "OK";
+            }
+            return "";
+        }
+        catch (Exception e)
+        {
+            Log.i("ActionService ->",e.getMessage());
+            return e.getMessage();
         }
     }
     public static String ACTION_SYNCRONIZE_CLIEPROV (String db,String response){

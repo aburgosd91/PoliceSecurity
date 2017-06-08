@@ -46,5 +46,12 @@ public class ClieprovDao extends BaseDao<Clieprov> {
 		}
 		return null;
 	}
-
+	public List<Clieprov> getPersonal_Operario(String idempresa)throws Exception{
+		if(idempresa !=null){
+			List<Clieprov> lst = listar("LTRIM(RTRIM(t0.IDEMPRESA)) =? AND t0.IDGRUPOCLIEPROV IN ('SU', 'OP')",idempresa.trim());
+			if(!lst.isEmpty())
+				return lst;
+		}
+		return null;
+	}
 }
