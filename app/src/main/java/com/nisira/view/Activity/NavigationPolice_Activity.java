@@ -73,16 +73,16 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
     private static final Object[][] TABLASINCRONIZACION = {
             {"METHOD_LIST_CLIEPROV", 20},
             {"METHOD_LIST_CONSUMIDOR", 8},
-            {"METHOD_LIST_CONCEPTO_CUENTA", 5},
+            {"METHOD_LIST_TIPOGASTO",8},
+            //{"METHOD_LIST_CONCEPTO_CUENTA", 5},
             {"METHOD_LIST_CARGOS_PERSONAL", 5},
-            {"METHOD_LIST_DOCUMENTOS", 8},
+            //{"METHOD_LIST_DOCUMENTOS", 8},
             //{"METHOD_LIST_NUMEMISOR", 10},
             {"METHOD_LIST_PERSONAL_SERVICIO", 8},
             {"METHOD_LIST_DPERSONAL_SERVICIO", 8},
             {"METHOD_LIST_PRODUCTOS", 8},
             //{"METHOD_LIST_RUTAS", 8},
             //{"METHOD_LIST_SUCURSALES", 5},
-            {"METHOD_LIST_TIPOGASTO",8},
             {"METHOD_LIST_ORDENLIQUIDACIONGASTO", 8},
             {"METHOD_LIST_ORDENSERVICIOCLIENTE", 8},
             {"METHOD_LIST_DORDENLIQUIDACIONGASTO", 8},
@@ -90,10 +90,10 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
     };
     private static final Object[][] TABLASINCRONIZACIONDOCS = {
             //{"METHOD_LIST_CARGOS_PERSONAL", 5},
-            //{"METHOD_LIST_ORDENSERVICIOCLIENTE",8},
-            //{"METHOD_LIST_DORDENSERVICIOCLIENTE", 8},
-            //{"METHOD_LIST_PERSONAL_SERVICIO", 8},
-            //{"METHOD_LIST_DPERSONAL_SERVICIO", 8},
+            {"METHOD_LIST_ORDENSERVICIOCLIENTE",8},
+            {"METHOD_LIST_DORDENSERVICIOCLIENTE", 8},
+            {"METHOD_LIST_PERSONAL_SERVICIO", 8},
+            {"METHOD_LIST_DPERSONAL_SERVICIO", 8},
             {"METHOD_LIST_ORDENLIQUIDACIONGASTO", 8},
             {"METHOD_LIST_DORDENLIQUIDACIONGASTO", 8}
     };
