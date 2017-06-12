@@ -218,7 +218,8 @@
             fab:fab_addButtonSize="normal"
             fab:fab_addButtonPlusIconColor="@color/white"
             fab:fab_addButtonStrokeVisible="false"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="16dp"
+            android:layout_alignParentRight="true">
 
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_agregar"
