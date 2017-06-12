@@ -47,8 +47,7 @@
                 android:ems="10"
                 android:hint="@string/usuario"
                 android:inputType="textPersonName"
-                android:singleLine="false"
-                android:text="AHEREDIA" />
+                android:singleLine="false" />
 
             <EditText
                 android:id="@+id/txtPassword"
@@ -59,7 +58,6 @@
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:paddingBottom="15dp"
-                android:text="alexander1477"
                 android:textStyle="normal" />
 
             <Button

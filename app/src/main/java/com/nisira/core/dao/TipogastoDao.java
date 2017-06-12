@@ -21,7 +21,8 @@ public class TipogastoDao extends BaseDao<Tipogasto> {
 	}
 	public void mezclarLocal(Tipogasto obj)throws Exception{
 		if(obj !=null){
-			List<Tipogasto> lst= listar("LTRIM(RTRIM(t0.IDEMPRESA)) =?",obj.getIdempresa().trim());
+			List<Tipogasto> lst= listar("LTRIM(RTRIM(t0.IDEMPRESA)) =? and LTRIM(RTRIM(t0.IDTIPOGASTO))",
+					obj.getIdempresa().trim(),obj.getIdtipogasto().trim());
 			if(lst.isEmpty())
 				insertar(obj);
 			else
