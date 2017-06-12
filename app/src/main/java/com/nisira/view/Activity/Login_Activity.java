@@ -223,6 +223,7 @@ public class Login_Activity extends ActivityNisiraCompat implements ActivityComp
                         editor.putString("IDCLIEPROV", user.getIdclieprov());
                         editor.putString("EMAIL", user.getEmail());
                         editor.commit();
+
                     }
                 }
                 else{

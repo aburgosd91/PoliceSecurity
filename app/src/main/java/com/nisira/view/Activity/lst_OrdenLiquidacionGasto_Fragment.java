@@ -165,11 +165,20 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
                 }
             }
         });
+        fab_abrir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rlfiltro.setVisibility(View.VISIBLE);
+            }
+        });
         fab_filtrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    //listServCliente = dao.(edit_filtro.getText().toString());
+                    UsuarioDao dao2= new UsuarioDao();
+                    Usuario user = dao2.listar().get(0);
+                    UsuarioDao dao1 = new UsuarioDao();
+                    listServCliente = dao.listOrdenLiquidacionxClienteFiltro(user.getIdclieprov(),edit_filtro.getText().toString());
                     rlfiltro.setVisibility(View.GONE);
                     adapter = new Adapter_lst_OrdenLiquidacionGasto(mParam1,listServCliente,getFragmentManager());
                     recycler.setAdapter(adapter);

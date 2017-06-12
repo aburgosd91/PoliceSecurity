@@ -65,12 +65,12 @@ public class OrdenservicioclienteDao extends BaseDao<Ordenserviciocliente> {
 		}
 		return lst;
 	}
-	public List<Ordenserviciocliente> listOrdenServicioxClienteFiltro(String filtro)throws Exception{
+	public List<Ordenserviciocliente> listOrdenServicioxClienteFiltro(String filtro, Usuario user)throws Exception{
 
-        String where = "t1.IDCLIEPROV like '%'||?||'%' OR t1.RAZON_SOCIAL like '%'||?||'%' ";
+        String where = "t1.IDCLIEPROV like '%'||?||'%' AND t1.RAZON_SOCIAL like '%'||?||'%' ";
         SqlLiteConsulta c = getInstancia();
         c.join("inner", Clieprov.class, "t1", "t0.IDCLIEPROV = t1.IDCLIEPROV");
-        c.where(where, filtro, filtro);
+        c.where(where, user.getIdclieprov(), filtro);
         List<Ordenserviciocliente> ordenservicioclienteList=(List<Ordenserviciocliente>) EntityTuple.getListForAlias(c.execSelect(), "t0");
         ClieprovDao clientedao = new ClieprovDao();
         Clieprov cliente = null;

@@ -125,7 +125,7 @@ public class edt_OrdenServicio_Fragment extends FragmentNisira {
         txt_documento.setHint("Documento: ");
         txt_cliente.setText(ordenserviciocliente.getCliente());
         txt_cliente.setHint("Cliente:");
-        SimpleDateFormat sm = new SimpleDateFormat("MM-dd-yyyy");
+        SimpleDateFormat sm = new SimpleDateFormat("dd-MM-yyyy");
         String strDate = sm.format(ordenserviciocliente.getFecha());
         txt_fecha.setText(strDate);
 

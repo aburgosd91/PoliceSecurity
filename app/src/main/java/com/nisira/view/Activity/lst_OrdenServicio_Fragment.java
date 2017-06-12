@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.nisira.core.dao.OrdenservicioclienteDao;
+import com.nisira.core.dao.UsuarioDao;
 import com.nisira.core.entity.Ordenserviciocliente;
 import com.nisira.core.entity.Usuario;
 import com.nisira.core.interfaces.FragmentNisira;
@@ -137,7 +138,8 @@ public class lst_OrdenServicio_Fragment extends FragmentNisira {
             @Override
             public void onClick(View v) {
                 try {
-                    listServCliente = ordenservicioclienteDao.listOrdenServicioxClienteFiltro(edit_filtro.getText().toString());
+                    UsuarioDao user= new UsuarioDao();
+                    listServCliente = ordenservicioclienteDao.listOrdenServicioxClienteFiltro(edit_filtro.getText().toString(),user.listar().get(0));
                     rlfiltro.setVisibility(View.GONE);
                     adapter = new Adapter_lst_OrdenServicio(mParam1,listServCliente,getFragmentManager());
                     recycler.setAdapter(adapter);

@@ -34,6 +34,10 @@ public class OrdenliquidaciongastoDao extends BaseDao<Ordenliquidaciongasto> {
 				return lst;
 
 	}
+	public List<Ordenliquidaciongasto> listOrdenLiquidacionxClienteFiltro(String IDUSUARIO,String RAZONSOCIAL)throws Exception{
+		List<Ordenliquidaciongasto> lst= listar("LTRIM(RTRIM(t0.IDCLIEPROV)) =? AND t0.RAZONSOCIAL like '%'||?||'%' ",IDUSUARIO.trim(),RAZONSOCIAL.trim());
+		return lst;
+	}
 
 
 }
