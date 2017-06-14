@@ -14,12 +14,10 @@ import java.util.ArrayList;
 @XStreamAlias("PRODUCTOS")
 
 public class Productos implements Serializable {
-	@ClavePrimaria
 	@Columna
 	@SerializedName("idempresa") 
 	@XStreamAlias("IDEMPRESA") 
 	private String idempresa = "" ;
-	@ClavePrimaria
 	@Columna
 	@SerializedName("idproducto") 
 	@XStreamAlias("IDPRODUCTO") 
@@ -505,41 +503,41 @@ public class Productos implements Serializable {
 	@XStreamAlias("PARA_DECLARACION") 
 	private Double para_declaracion = 0.00 ;
 	@Columna
+	@SerializedName("calibremm") 
+	@XStreamAlias("CALIBREMM") 
+	private String calibremm = "" ;
+	@Columna
 	@SerializedName("idpresentacion") 
 	@XStreamAlias("IDPRESENTACION") 
 	private String idpresentacion = "" ;
-	@Columna
-	@SerializedName("undxphl") 
-	@XStreamAlias("UNDXPHL") 
-	private Integer undxphl;
 	@Columna
 	@SerializedName("largo") 
 	@XStreamAlias("LARGO") 
 	private String largo = "" ;
 	@Columna
-	@SerializedName("calibremm") 
-	@XStreamAlias("CALIBREMM") 
-	private String calibremm = "" ;
+	@SerializedName("undxphl") 
+	@XStreamAlias("UNDXPHL") 
+	private Integer undxphl;
 	@Columna
 	@SerializedName("porcent_peso_permitido") 
 	@XStreamAlias("PORCENT_PESO_PERMITIDO") 
 	private Integer porcent_peso_permitido;
 	@Columna
-	@SerializedName("es_generico") 
-	@XStreamAlias("ES_GENERICO") 
-	private Double es_generico = 0.00 ;
-	@Columna
 	@SerializedName("cod_equivalente") 
 	@XStreamAlias("COD_EQUIVALENTE") 
 	private String cod_equivalente = "" ;
 	@Columna
-	@SerializedName("factorce") 
-	@XStreamAlias("FACTORCE") 
-	private Double factorce = 0.00 ;
-	@Columna
 	@SerializedName("cod_gtin") 
 	@XStreamAlias("COD_GTIN") 
 	private String cod_gtin = "" ;
+	@Columna
+	@SerializedName("es_generico") 
+	@XStreamAlias("ES_GENERICO") 
+	private Double es_generico = 0.00 ;
+	@Columna
+	@SerializedName("factorce") 
+	@XStreamAlias("FACTORCE") 
+	private Double factorce = 0.00 ;
 	@Columna
 	@SerializedName("idccosto_pt") 
 	@XStreamAlias("IDCCOSTO_PT") 
@@ -632,6 +630,14 @@ public class Productos implements Serializable {
 	@SerializedName("es_pesada") 
 	@XStreamAlias("ES_PESADA") 
 	private Double es_pesada = 0.00 ;
+	@Columna
+	@SerializedName("es_fiscalizado") 
+	@XStreamAlias("ES_FISCALIZADO") 
+	private Double es_fiscalizado = 0.00 ;
+	@Columna
+	@SerializedName("control_calidad") 
+	@XStreamAlias("CONTROL_CALIDAD") 
+	private Double control_calidad = 0.00 ;
 
 
 
@@ -1612,20 +1618,20 @@ public class Productos implements Serializable {
 		return this.para_declaracion;
 	}
 
+	public void setCalibremm(String calibremm) {
+		this.calibremm = calibremm;
+	}
+
+	public String getCalibremm() {
+		return this.calibremm;
+	}
+
 	public void setIdpresentacion(String idpresentacion) {
 		this.idpresentacion = idpresentacion;
 	}
 
 	public String getIdpresentacion() {
 		return this.idpresentacion;
-	}
-
-	public void setUndxphl(Integer undxphl) {
-		this.undxphl = undxphl;
-	}
-
-	public Integer getUndxphl() {
-		return this.undxphl;
 	}
 
 	public void setLargo(String largo) {
@@ -1636,12 +1642,12 @@ public class Productos implements Serializable {
 		return this.largo;
 	}
 
-	public void setCalibremm(String calibremm) {
-		this.calibremm = calibremm;
+	public void setUndxphl(Integer undxphl) {
+		this.undxphl = undxphl;
 	}
 
-	public String getCalibremm() {
-		return this.calibremm;
+	public Integer getUndxphl() {
+		return this.undxphl;
 	}
 
 	public void setPorcent_peso_permitido(Integer porcent_peso_permitido) {
@@ -1652,14 +1658,6 @@ public class Productos implements Serializable {
 		return this.porcent_peso_permitido;
 	}
 
-	public void setEs_generico(Double es_generico) {
-		this.es_generico = es_generico;
-	}
-
-	public Double getEs_generico() {
-		return this.es_generico;
-	}
-
 	public void setCod_equivalente(String cod_equivalente) {
 		this.cod_equivalente = cod_equivalente;
 	}
@@ -1668,20 +1666,28 @@ public class Productos implements Serializable {
 		return this.cod_equivalente;
 	}
 
-	public void setFactorce(Double factorce) {
-		this.factorce = factorce;
-	}
-
-	public Double getFactorce() {
-		return this.factorce;
-	}
-
 	public void setCod_gtin(String cod_gtin) {
 		this.cod_gtin = cod_gtin;
 	}
 
 	public String getCod_gtin() {
 		return this.cod_gtin;
+	}
+
+	public void setEs_generico(Double es_generico) {
+		this.es_generico = es_generico;
+	}
+
+	public Double getEs_generico() {
+		return this.es_generico;
+	}
+
+	public void setFactorce(Double factorce) {
+		this.factorce = factorce;
+	}
+
+	public Double getFactorce() {
+		return this.factorce;
 	}
 
 	public void setIdccosto_pt(String idccosto_pt) {
@@ -1866,6 +1872,22 @@ public class Productos implements Serializable {
 
 	public Double getEs_pesada() {
 		return this.es_pesada;
+	}
+
+	public void setEs_fiscalizado(Double es_fiscalizado) {
+		this.es_fiscalizado = es_fiscalizado;
+	}
+
+	public Double getEs_fiscalizado() {
+		return this.es_fiscalizado;
+	}
+
+	public void setControl_calidad(Double control_calidad) {
+		this.control_calidad = control_calidad;
+	}
+
+	public Double getControl_calidad() {
+		return this.control_calidad;
 	}
 
 

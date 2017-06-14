@@ -14,22 +14,18 @@ import java.util.ArrayList;
 @XStreamAlias("RUTA_SERVICIOS")
 
 public class Ruta_servicios implements Serializable {
-	@ClavePrimaria
 	@Columna
 	@SerializedName("idempresa") 
 	@XStreamAlias("IDEMPRESA") 
 	private String idempresa = "" ;
-	@ClavePrimaria
 	@Columna
 	@SerializedName("idordenservicio") 
 	@XStreamAlias("IDORDENSERVICIO") 
 	private String idordenservicio = "" ;
-	@ClavePrimaria
 	@Columna
 	@SerializedName("item") 
 	@XStreamAlias("ITEM") 
 	private String item = "" ;
-	@ClavePrimaria
 	@Columna
 	@SerializedName("itemruta") 
 	@XStreamAlias("ITEMRUTA") 

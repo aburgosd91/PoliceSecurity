@@ -24,19 +24,36 @@ public class Tsyncmovil implements Serializable {
 	@SerializedName("idappmovil") 
 	@XStreamAlias("IDAPPMOVIL") 
 	private String idappmovil = "" ;
+	@ClavePrimaria
 	@Columna
 	@SerializedName("tabla") 
 	@XStreamAlias("TABLA") 
 	private String tabla = "" ;
+	@ClavePrimaria
+	@Columna
+	@SerializedName("item") 
+	@XStreamAlias("ITEM") 
+	private Integer item;
+	@Columna
+	@SerializedName("datos") 
+	@XStreamAlias("DATOS") 
+	private String datos = "" ;
 	@Columna
 	@SerializedName("idseriemovil") 
 	@XStreamAlias("IDSERIEMOVIL") 
 	private String idseriemovil = "" ;
-	@ClavePrimaria
 	@Columna
 	@SerializedName("fecha") 
 	@XStreamAlias("FECHA") 
 	private Date fecha;
+	@Columna
+	@SerializedName("idusuario") 
+	@XStreamAlias("IDUSUARIO") 
+	private String idusuario = "" ;
+	@Columna
+	@SerializedName("type") 
+	@XStreamAlias("TYPE") 
+	private String type = "" ;
 
 
 
@@ -65,6 +82,22 @@ public class Tsyncmovil implements Serializable {
 		return this.tabla;
 	}
 
+	public void setItem(Integer item) {
+		this.item = item;
+	}
+
+	public Integer getItem() {
+		return this.item;
+	}
+
+	public void setDatos(String datos) {
+		this.datos = datos;
+	}
+
+	public String getDatos() {
+		return this.datos;
+	}
+
 	public void setIdseriemovil(String idseriemovil) {
 		this.idseriemovil = idseriemovil;
 	}
@@ -79,6 +112,22 @@ public class Tsyncmovil implements Serializable {
 
 	public Date getFecha() {
 		return this.fecha;
+	}
+
+	public void setIdusuario(String idusuario) {
+		this.idusuario = idusuario;
+	}
+
+	public String getIdusuario() {
+		return this.idusuario;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getType() {
+		return this.type;
 	}
 
 

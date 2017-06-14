@@ -8,6 +8,8 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import java.io.Serializable;
 
 import java.util.Date;
+import com.nisira.annotation.RelacionTabla;
+import com.nisira.annotation.CampoRelacionado;
 import java.util.ArrayList;
 
 @Tabla(nombre = "PERSONAL_SERVICIO")
@@ -16,59 +18,56 @@ import java.util.ArrayList;
 public class Personal_servicio implements Serializable {
 	@ClavePrimaria
 	@Columna
-	@SerializedName("idempresa")
-	@XStreamAlias("IDEMPRESA")
+	@SerializedName("idempresa") 
+	@XStreamAlias("IDEMPRESA") 
 	private String idempresa = "" ;
 	@ClavePrimaria
 	@Columna
-	@SerializedName("idordenservicio")
-	@XStreamAlias("IDORDENSERVICIO")
+	@SerializedName("idordenservicio") 
+	@XStreamAlias("IDORDENSERVICIO") 
 	private String idordenservicio = "" ;
 	@ClavePrimaria
 	@Columna
-	@SerializedName("item")
-	@XStreamAlias("ITEM")
+	@SerializedName("item") 
+	@XStreamAlias("ITEM") 
 	private String item = "" ;
 	@ClavePrimaria
 	@Columna
-	@SerializedName("item2")
-	@XStreamAlias("ITEM2")
+	@SerializedName("item2") 
+	@XStreamAlias("ITEM2") 
 	private String item2 = "" ;
 	@Columna
-	@SerializedName("idpersonal")
-	@XStreamAlias("IDPERSONAL")
+	@SerializedName("idpersonal") 
+	@XStreamAlias("IDPERSONAL") 
 	private String idpersonal = "" ;
 	@Columna
-	@SerializedName("dni")
-	@XStreamAlias("DNI")
+	@SerializedName("dni") 
+	@XStreamAlias("DNI") 
 	private String dni = "" ;
 	@Columna
-	@SerializedName("nombres")
-	@XStreamAlias("NOMBRES")
+	@SerializedName("nombres") 
+	@XStreamAlias("NOMBRES") 
 	private String nombres = "" ;
 	@Columna
-	@SerializedName("fechaoperacion")
-	@XStreamAlias("FECHAOPERACION")
+	@SerializedName("fechaoperacion") 
+	@XStreamAlias("FECHAOPERACION") 
 	private Date fechaoperacion;
 	@Columna
-	@SerializedName("idcargo")
-	@XStreamAlias("IDCARGO")
+	@SerializedName("idcargo") 
+	@XStreamAlias("IDCARGO") 
 	private String idcargo = "" ;
-
 	@Columna
-	@SerializedName("fechafin")
-	@XStreamAlias("FECHAFIN")
+	@SerializedName("fechafin") 
+	@XStreamAlias("FECHAFIN") 
 	private Date fechafin;
-
 	@Columna
-	@SerializedName("checklist")
-	@XStreamAlias("CHECKLIST")
-	private String checklist;
-
+	@SerializedName("checklist") 
+	@XStreamAlias("CHECKLIST") 
+	private String checklist = "" ;
 	@Columna
-	@SerializedName("idvehiculo")
-	@XStreamAlias("IDVEHICULO")
-	private String idvehiculo;
+	@SerializedName("idvehiculo") 
+	@XStreamAlias("IDVEHICULO") 
+	private String idvehiculo = "" ;
 
 	private boolean seleccion;
 
@@ -165,28 +164,28 @@ public class Personal_servicio implements Serializable {
 		this.descripcion_cargo = descripcion_cargo;
 	}
 
-	public Date getFechafin() {
-		return fechafin;
-	}
-
 	public void setFechafin(Date fechafin) {
 		this.fechafin = fechafin;
 	}
 
-	public String getChecklist() {
-		return checklist;
+	public Date getFechafin() {
+		return this.fechafin;
 	}
 
 	public void setChecklist(String checklist) {
 		this.checklist = checklist;
 	}
 
-	public String getIdvehiculo() {
-		return idvehiculo;
+	public String getChecklist() {
+		return this.checklist;
 	}
 
 	public void setIdvehiculo(String idvehiculo) {
 		this.idvehiculo = idvehiculo;
+	}
+
+	public String getIdvehiculo() {
+		return this.idvehiculo;
 	}
 
 

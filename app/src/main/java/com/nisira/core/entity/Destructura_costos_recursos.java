@@ -61,6 +61,11 @@ public class Destructura_costos_recursos implements Serializable {
 	@SerializedName("idproducto_ec") 
 	@XStreamAlias("IDPRODUCTO_EC") 
 	private String idproducto_ec = "" ;
+	@ClavePrimaria
+	@Columna
+	@SerializedName("itemrango") 
+	@XStreamAlias("ITEMRANGO") 
+	private String itemrango = "" ;
 
 
 
@@ -151,6 +156,14 @@ public class Destructura_costos_recursos implements Serializable {
 
 	public String getIdproducto_ec() {
 		return this.idproducto_ec;
+	}
+
+	public void setItemrango(String itemrango) {
+		this.itemrango = itemrango;
+	}
+
+	public String getItemrango() {
+		return this.itemrango;
 	}
 
 

@@ -28,6 +28,7 @@ public class Estructura_costos_mano_obra implements Serializable {
 	@SerializedName("idcargo") 
 	@XStreamAlias("IDCARGO") 
 	private String idcargo = "" ;
+	@ClavePrimaria
 	@Columna
 	@SerializedName("item") 
 	@XStreamAlias("ITEM") 
@@ -41,6 +42,10 @@ public class Estructura_costos_mano_obra implements Serializable {
 	@SerializedName("idproducto") 
 	@XStreamAlias("IDPRODUCTO") 
 	private String idproducto = "" ;
+	@Columna
+	@SerializedName("costo") 
+	@XStreamAlias("COSTO") 
+	private Double costo = 0.00 ;
 
 
 
@@ -91,6 +96,14 @@ public class Estructura_costos_mano_obra implements Serializable {
 
 	public String getIdproducto() {
 		return this.idproducto;
+	}
+
+	public void setCosto(Double costo) {
+		this.costo = costo;
+	}
+
+	public Double getCosto() {
+		return this.costo;
 	}
 
 

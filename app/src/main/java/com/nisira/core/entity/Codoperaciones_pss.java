@@ -10,40 +10,41 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.ArrayList;
 
-@Tabla(nombre = "DESTINOADQUISICION")
-@XStreamAlias("DESTINOADQUISICION")
+@Tabla(nombre = "CODOPERACIONES_PSS")
+@XStreamAlias("CODOPERACIONES_PSS")
 
-public class Destinoadquisicion implements Serializable {
+public class Codoperaciones_pss implements Serializable {
+	@ClavePrimaria
 	@Columna
-	@SerializedName("iddestino") 
-	@XStreamAlias("IDDESTINO") 
-	private String iddestino = "" ;
+	@SerializedName("idcodoperaciones") 
+	@XStreamAlias("IDCODOPERACIONES") 
+	private String idcodoperaciones = "" ;
 	@Columna
 	@SerializedName("descripcion") 
 	@XStreamAlias("DESCRIPCION") 
 	private String descripcion = "" ;
 	@Columna
-	@SerializedName("estado") 
-	@XStreamAlias("ESTADO") 
-	private Double estado = 0.00 ;
-	@Columna
-	@SerializedName("sincroniza") 
-	@XStreamAlias("SINCRONIZA") 
-	private String sincroniza = "" ;
+	@SerializedName("descripcion_corta") 
+	@XStreamAlias("DESCRIPCION_CORTA") 
+	private String descripcion_corta = "" ;
 	@Columna
 	@SerializedName("fechacreacion") 
 	@XStreamAlias("FECHACREACION") 
 	private Date fechacreacion;
+	@Columna
+	@SerializedName("estado") 
+	@XStreamAlias("ESTADO") 
+	private Double estado = 0.00 ;
 
 
 
 	/* Sets & Gets */
-	public void setIddestino(String iddestino) {
-		this.iddestino = iddestino;
+	public void setIdcodoperaciones(String idcodoperaciones) {
+		this.idcodoperaciones = idcodoperaciones;
 	}
 
-	public String getIddestino() {
-		return this.iddestino;
+	public String getIdcodoperaciones() {
+		return this.idcodoperaciones;
 	}
 
 	public void setDescripcion(String descripcion) {
@@ -54,20 +55,12 @@ public class Destinoadquisicion implements Serializable {
 		return this.descripcion;
 	}
 
-	public void setEstado(Double estado) {
-		this.estado = estado;
+	public void setDescripcion_corta(String descripcion_corta) {
+		this.descripcion_corta = descripcion_corta;
 	}
 
-	public Double getEstado() {
-		return this.estado;
-	}
-
-	public void setSincroniza(String sincroniza) {
-		this.sincroniza = sincroniza;
-	}
-
-	public String getSincroniza() {
-		return this.sincroniza;
+	public String getDescripcion_corta() {
+		return this.descripcion_corta;
 	}
 
 	public void setFechacreacion(Date fechacreacion) {
@@ -78,10 +71,15 @@ public class Destinoadquisicion implements Serializable {
 		return this.fechacreacion;
 	}
 
-	@Override
-	public String toString(){
-		return descripcion;
+	public void setEstado(Double estado) {
+		this.estado = estado;
 	}
+
+	public Double getEstado() {
+		return this.estado;
+	}
+
+
 
 	/* Sets & Gets FK*/
 

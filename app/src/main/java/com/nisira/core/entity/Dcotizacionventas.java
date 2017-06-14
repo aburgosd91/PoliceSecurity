@@ -14,17 +14,14 @@ import java.util.ArrayList;
 @XStreamAlias("DCOTIZACIONVENTAS")
 
 public class Dcotizacionventas implements Serializable {
-	@ClavePrimaria
 	@Columna
 	@SerializedName("idempresa") 
 	@XStreamAlias("IDEMPRESA") 
 	private String idempresa = "" ;
-	@ClavePrimaria
 	@Columna
 	@SerializedName("idcotizacionv") 
 	@XStreamAlias("IDCOTIZACIONV") 
 	private String idcotizacionv = "" ;
-	@ClavePrimaria
 	@Columna
 	@SerializedName("item") 
 	@XStreamAlias("ITEM") 
@@ -246,17 +243,17 @@ public class Dcotizacionventas implements Serializable {
 	@XStreamAlias("UNDXPHL") 
 	private Integer undxphl;
 	@Columna
-	@SerializedName("descuento_i") 
-	@XStreamAlias("DESCUENTO_I") 
-	private Double descuento_i = 0.00 ;
-	@Columna
 	@SerializedName("importe_isc") 
 	@XStreamAlias("IMPORTE_ISC") 
 	private Double importe_isc = 0.00 ;
 	@Columna
-	@SerializedName("accesorios_conigv") 
-	@XStreamAlias("ACCESORIOS_CONIGV") 
-	private Double accesorios_conigv = 0.00 ;
+	@SerializedName("descuento_i") 
+	@XStreamAlias("DESCUENTO_I") 
+	private Double descuento_i = 0.00 ;
+	@Columna
+	@SerializedName("vventapublico_conigv") 
+	@XStreamAlias("VVENTAPUBLICO_CONIGV") 
+	private Double vventapublico_conigv = 0.00 ;
 	@Columna
 	@SerializedName("importedscto1_conigv") 
 	@XStreamAlias("IMPORTEDSCTO1_CONIGV") 
@@ -270,17 +267,17 @@ public class Dcotizacionventas implements Serializable {
 	@XStreamAlias("IMPORTEDSCTO3_CONIGV") 
 	private Double importedscto3_conigv = 0.00 ;
 	@Columna
-	@SerializedName("importedscto_importador_real") 
-	@XStreamAlias("IMPORTEDSCTO_IMPORTADOR_REAL") 
-	private Double importedscto_importador_real = 0.00 ;
+	@SerializedName("accesorios_conigv") 
+	@XStreamAlias("ACCESORIOS_CONIGV") 
+	private Double accesorios_conigv = 0.00 ;
 	@Columna
 	@SerializedName("importedscto_maxpermitido") 
 	@XStreamAlias("IMPORTEDSCTO_MAXPERMITIDO") 
 	private Double importedscto_maxpermitido = 0.00 ;
 	@Columna
-	@SerializedName("vventapublico_conigv") 
-	@XStreamAlias("VVENTAPUBLICO_CONIGV") 
-	private Double vventapublico_conigv = 0.00 ;
+	@SerializedName("importedscto_importador_real") 
+	@XStreamAlias("IMPORTEDSCTO_IMPORTADOR_REAL") 
+	private Double importedscto_importador_real = 0.00 ;
 	@Columna
 	@SerializedName("anniomodelo") 
 	@XStreamAlias("ANNIOMODELO") 
@@ -293,6 +290,10 @@ public class Dcotizacionventas implements Serializable {
 	@SerializedName("importeaccesorios") 
 	@XStreamAlias("IMPORTEACCESORIOS") 
 	private Double importeaccesorios = 0.00 ;
+	@Columna
+	@SerializedName("nhoras") 
+	@XStreamAlias("NHORAS") 
+	private Double nhoras = 0.00 ;
 
 
 
@@ -753,14 +754,6 @@ public class Dcotizacionventas implements Serializable {
 		return this.undxphl;
 	}
 
-	public void setDescuento_i(Double descuento_i) {
-		this.descuento_i = descuento_i;
-	}
-
-	public Double getDescuento_i() {
-		return this.descuento_i;
-	}
-
 	public void setImporte_isc(Double importe_isc) {
 		this.importe_isc = importe_isc;
 	}
@@ -769,12 +762,20 @@ public class Dcotizacionventas implements Serializable {
 		return this.importe_isc;
 	}
 
-	public void setAccesorios_conigv(Double accesorios_conigv) {
-		this.accesorios_conigv = accesorios_conigv;
+	public void setDescuento_i(Double descuento_i) {
+		this.descuento_i = descuento_i;
 	}
 
-	public Double getAccesorios_conigv() {
-		return this.accesorios_conigv;
+	public Double getDescuento_i() {
+		return this.descuento_i;
+	}
+
+	public void setVventapublico_conigv(Double vventapublico_conigv) {
+		this.vventapublico_conigv = vventapublico_conigv;
+	}
+
+	public Double getVventapublico_conigv() {
+		return this.vventapublico_conigv;
 	}
 
 	public void setImportedscto1_conigv(Double importedscto1_conigv) {
@@ -801,12 +802,12 @@ public class Dcotizacionventas implements Serializable {
 		return this.importedscto3_conigv;
 	}
 
-	public void setImportedscto_importador_real(Double importedscto_importador_real) {
-		this.importedscto_importador_real = importedscto_importador_real;
+	public void setAccesorios_conigv(Double accesorios_conigv) {
+		this.accesorios_conigv = accesorios_conigv;
 	}
 
-	public Double getImportedscto_importador_real() {
-		return this.importedscto_importador_real;
+	public Double getAccesorios_conigv() {
+		return this.accesorios_conigv;
 	}
 
 	public void setImportedscto_maxpermitido(Double importedscto_maxpermitido) {
@@ -817,12 +818,12 @@ public class Dcotizacionventas implements Serializable {
 		return this.importedscto_maxpermitido;
 	}
 
-	public void setVventapublico_conigv(Double vventapublico_conigv) {
-		this.vventapublico_conigv = vventapublico_conigv;
+	public void setImportedscto_importador_real(Double importedscto_importador_real) {
+		this.importedscto_importador_real = importedscto_importador_real;
 	}
 
-	public Double getVventapublico_conigv() {
-		return this.vventapublico_conigv;
+	public Double getImportedscto_importador_real() {
+		return this.importedscto_importador_real;
 	}
 
 	public void setAnniomodelo(String anniomodelo) {
@@ -847,6 +848,14 @@ public class Dcotizacionventas implements Serializable {
 
 	public Double getImporteaccesorios() {
 		return this.importeaccesorios;
+	}
+
+	public void setNhoras(Double nhoras) {
+		this.nhoras = nhoras;
+	}
+
+	public Double getNhoras() {
+		return this.nhoras;
 	}
 
 

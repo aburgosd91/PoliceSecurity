@@ -14,22 +14,18 @@ import java.util.ArrayList;
 @XStreamAlias("DOCREFERENCIA")
 
 public class Docreferencia implements Serializable {
-	@ClavePrimaria
 	@Columna
 	@SerializedName("idempresa") 
 	@XStreamAlias("IDEMPRESA") 
 	private String idempresa = "" ;
-	@ClavePrimaria
 	@Columna
 	@SerializedName("idorigen") 
 	@XStreamAlias("IDORIGEN") 
 	private String idorigen = "" ;
-	@ClavePrimaria
 	@Columna
 	@SerializedName("tabla") 
 	@XStreamAlias("TABLA") 
 	private String tabla = "" ;
-	@ClavePrimaria
 	@Columna
 	@SerializedName("idreferencia") 
 	@XStreamAlias("IDREFERENCIA") 

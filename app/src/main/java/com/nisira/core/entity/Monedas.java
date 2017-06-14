@@ -14,7 +14,6 @@ import java.util.ArrayList;
 @XStreamAlias("MONEDAS")
 
 public class Monedas implements Serializable {
-	@ClavePrimaria
 	@Columna
 	@SerializedName("idmoneda") 
 	@XStreamAlias("IDMONEDA") 

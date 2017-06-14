@@ -14,10 +14,12 @@ import java.util.ArrayList;
 @XStreamAlias("ESTRUCTURA_COSTOS")
 
 public class Estructura_costos implements Serializable {
+	@ClavePrimaria
 	@Columna
 	@SerializedName("idempresa") 
 	@XStreamAlias("IDEMPRESA") 
 	private String idempresa = "" ;
+	@ClavePrimaria
 	@Columna
 	@SerializedName("codigo") 
 	@XStreamAlias("CODIGO") 
@@ -42,6 +44,14 @@ public class Estructura_costos implements Serializable {
 	@SerializedName("fechacreacion") 
 	@XStreamAlias("FECHACREACION") 
 	private Date fechacreacion;
+	@Columna
+	@SerializedName("incluye_vehiculo") 
+	@XStreamAlias("INCLUYE_VEHICULO") 
+	private Double incluye_vehiculo = 0.00 ;
+	@Columna
+	@SerializedName("idclieprov") 
+	@XStreamAlias("IDCLIEPROV") 
+	private String idclieprov = "" ;
 
 
 
@@ -100,6 +110,22 @@ public class Estructura_costos implements Serializable {
 
 	public Date getFechacreacion() {
 		return this.fechacreacion;
+	}
+
+	public void setIncluye_vehiculo(Double incluye_vehiculo) {
+		this.incluye_vehiculo = incluye_vehiculo;
+	}
+
+	public Double getIncluye_vehiculo() {
+		return this.incluye_vehiculo;
+	}
+
+	public void setIdclieprov(String idclieprov) {
+		this.idclieprov = idclieprov;
+	}
+
+	public String getIdclieprov() {
+		return this.idclieprov;
 	}
 
 

@@ -14,12 +14,10 @@ import java.util.ArrayList;
 @XStreamAlias("SUCURSALES")
 
 public class Sucursales implements Serializable {
-	@ClavePrimaria
 	@Columna
 	@SerializedName("idempresa") 
 	@XStreamAlias("IDEMPRESA") 
 	private String idempresa = "" ;
-	@ClavePrimaria
 	@Columna
 	@SerializedName("idsucursal") 
 	@XStreamAlias("IDSUCURSAL") 

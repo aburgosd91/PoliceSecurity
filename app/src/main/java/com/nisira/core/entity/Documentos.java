@@ -14,12 +14,10 @@ import java.util.ArrayList;
 @XStreamAlias("DOCUMENTOS")
 
 public class Documentos implements Serializable {
-	@ClavePrimaria
 	@Columna
 	@SerializedName("idempresa") 
 	@XStreamAlias("IDEMPRESA") 
 	private String idempresa = "" ;
-	@ClavePrimaria
 	@Columna
 	@SerializedName("iddocumento") 
 	@XStreamAlias("IDDOCUMENTO") 
@@ -152,6 +150,10 @@ public class Documentos implements Serializable {
 	@SerializedName("para_ppago") 
 	@XStreamAlias("PARA_PPAGO") 
 	private Double para_ppago = 0.00 ;
+	@Columna
+	@SerializedName("no_ctacteasiento") 
+	@XStreamAlias("NO_CTACTEASIENTO") 
+	private Double no_ctacteasiento = 0.00 ;
 
 
 
@@ -428,11 +430,19 @@ public class Documentos implements Serializable {
 		return this.para_ppago;
 	}
 
+	public void setNo_ctacteasiento(Double no_ctacteasiento) {
+		this.no_ctacteasiento = no_ctacteasiento;
+	}
+
+	public Double getNo_ctacteasiento() {
+		return this.no_ctacteasiento;
+	}
+
+
 	@Override
 	public String toString() {
 		return descripcion;
 	}
-
 	/* Sets & Gets FK*/
 
 }

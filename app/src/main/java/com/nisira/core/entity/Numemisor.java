@@ -14,22 +14,18 @@ import java.util.ArrayList;
 @XStreamAlias("NUMEMISOR")
 
 public class Numemisor implements Serializable {
-	@ClavePrimaria
 	@Columna
 	@SerializedName("idempresa") 
 	@XStreamAlias("IDEMPRESA") 
 	private String idempresa = "" ;
-	@ClavePrimaria
 	@Columna
 	@SerializedName("idemisor") 
 	@XStreamAlias("IDEMISOR") 
 	private String idemisor = "" ;
-	@ClavePrimaria
 	@Columna
 	@SerializedName("iddocumento") 
 	@XStreamAlias("IDDOCUMENTO") 
 	private String iddocumento = "" ;
-	@ClavePrimaria
 	@Columna
 	@SerializedName("serie") 
 	@XStreamAlias("SERIE") 

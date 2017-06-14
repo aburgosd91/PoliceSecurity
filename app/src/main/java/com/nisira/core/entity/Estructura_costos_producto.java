@@ -32,6 +32,27 @@ public class Estructura_costos_producto implements Serializable {
 	@SerializedName("descripcion") 
 	@XStreamAlias("DESCRIPCION") 
 	private String descripcion = "" ;
+	@ClavePrimaria
+	@Columna
+	@SerializedName("item") 
+	@XStreamAlias("ITEM") 
+	private String item = "" ;
+	@Columna
+	@SerializedName("ajuste") 
+	@XStreamAlias("AJUSTE") 
+	private Double ajuste = 0.00 ;
+	@Columna
+	@SerializedName("nhoras") 
+	@XStreamAlias("NHORAS") 
+	private Double nhoras = 0.00 ;
+	@Columna
+	@SerializedName("codoperativo") 
+	@XStreamAlias("CODOPERATIVO") 
+	private String codoperativo = "" ;
+	@Columna
+	@SerializedName("idruta") 
+	@XStreamAlias("IDRUTA") 
+	private String idruta = "" ;
 
 
 
@@ -66,6 +87,46 @@ public class Estructura_costos_producto implements Serializable {
 
 	public String getDescripcion() {
 		return this.descripcion;
+	}
+
+	public void setItem(String item) {
+		this.item = item;
+	}
+
+	public String getItem() {
+		return this.item;
+	}
+
+	public void setAjuste(Double ajuste) {
+		this.ajuste = ajuste;
+	}
+
+	public Double getAjuste() {
+		return this.ajuste;
+	}
+
+	public void setNhoras(Double nhoras) {
+		this.nhoras = nhoras;
+	}
+
+	public Double getNhoras() {
+		return this.nhoras;
+	}
+
+	public void setCodoperativo(String codoperativo) {
+		this.codoperativo = codoperativo;
+	}
+
+	public String getCodoperativo() {
+		return this.codoperativo;
+	}
+
+	public void setIdruta(String idruta) {
+		this.idruta = idruta;
+	}
+
+	public String getIdruta() {
+		return this.idruta;
 	}
 
 

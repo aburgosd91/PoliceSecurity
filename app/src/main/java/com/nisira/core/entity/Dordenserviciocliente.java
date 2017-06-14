@@ -14,17 +14,14 @@ import java.util.ArrayList;
 @XStreamAlias("DORDENSERVICIOCLIENTE")
 
 public class Dordenserviciocliente implements Serializable {
-	@ClavePrimaria
 	@Columna
 	@SerializedName("idempresa") 
 	@XStreamAlias("IDEMPRESA") 
 	private String idempresa = "" ;
-	@ClavePrimaria
 	@Columna
 	@SerializedName("idordenservicio") 
 	@XStreamAlias("IDORDENSERVICIO") 
 	private String idordenservicio = "" ;
-	@ClavePrimaria
 	@Columna
 	@SerializedName("item") 
 	@XStreamAlias("ITEM") 
@@ -50,25 +47,37 @@ public class Dordenserviciocliente implements Serializable {
 	@XStreamAlias("FECHACREACION") 
 	private Date fechacreacion;
 	@Columna
-	@SerializedName("idreferencia")
-	@XStreamAlias("IDREFERENCIA")
+	@SerializedName("idreferencia") 
+	@XStreamAlias("IDREFERENCIA") 
 	private String idreferencia = "" ;
-
 	@Columna
-	@SerializedName("itemreferencia")
-	@XStreamAlias("ITEMREFERENCIA")
+	@SerializedName("itemreferencia") 
+	@XStreamAlias("ITEMREFERENCIA") 
 	private String itemreferencia = "" ;
 	@Columna
-	@SerializedName("idservicio")
-	@XStreamAlias("IDSERVICIO")
+	@SerializedName("idservicio") 
+	@XStreamAlias("IDSERVICIO") 
 	private String idservicio = "" ;
-
-
-	private boolean Seleccion;
-
-	private String descripcion_servicio = "" ;
-
-	private String descripcion_vehiculo="";
+	@Columna
+	@SerializedName("conductor_cliente") 
+	@XStreamAlias("CONDUCTOR_CLIENTE") 
+	private String conductor_cliente = "" ;
+	@Columna
+	@SerializedName("glosa") 
+	@XStreamAlias("GLOSA") 
+	private String glosa = "" ;
+	@Columna
+	@SerializedName("hora_rc") 
+	@XStreamAlias("HORA_RC") 
+	private Double hora_rc = 0.00 ;
+	@Columna
+	@SerializedName("codoperaciones") 
+	@XStreamAlias("CODOPERACIONES") 
+	private String codoperaciones = "" ;
+	@Columna
+	@SerializedName("idruta_ec") 
+	@XStreamAlias("IDRUTA_EC") 
+	private String idruta_ec = "" ;
 
 
 
@@ -137,6 +146,22 @@ public class Dordenserviciocliente implements Serializable {
 		return this.fechacreacion;
 	}
 
+	public void setIdreferencia(String idreferencia) {
+		this.idreferencia = idreferencia;
+	}
+
+	public String getIdreferencia() {
+		return this.idreferencia;
+	}
+
+	public void setItemreferencia(String itemreferencia) {
+		this.itemreferencia = itemreferencia;
+	}
+
+	public String getItemreferencia() {
+		return this.itemreferencia;
+	}
+
 	public void setIdservicio(String idservicio) {
 		this.idservicio = idservicio;
 	}
@@ -145,45 +170,46 @@ public class Dordenserviciocliente implements Serializable {
 		return this.idservicio;
 	}
 
-	public String getDescripcion_servicio() {
-		return descripcion_servicio;
+	public void setConductor_cliente(String conductor_cliente) {
+		this.conductor_cliente = conductor_cliente;
 	}
 
-	public void setDescripcion_servicio(String descripcion_servicio) {
-		this.descripcion_servicio = descripcion_servicio;
+	public String getConductor_cliente() {
+		return this.conductor_cliente;
 	}
 
-	public boolean isSeleccion() {
-		return Seleccion;
+	public void setGlosa(String glosa) {
+		this.glosa = glosa;
 	}
 
-	public void setSeleccion(boolean seleccion) {
-		Seleccion = seleccion;
+	public String getGlosa() {
+		return this.glosa;
 	}
 
-	public String getDescripcion_vehiculo() {
-		return descripcion_vehiculo;
+	public void setHora_rc(Double hora_rc) {
+		this.hora_rc = hora_rc;
 	}
 
-	public void setDescripcion_vehiculo(String descripcion_vehiculo) {
-		this.descripcion_vehiculo = descripcion_vehiculo;
+	public Double getHora_rc() {
+		return this.hora_rc;
 	}
 
-	public String getIdreferencia() {
-		return idreferencia;
+	public void setCodoperaciones(String codoperaciones) {
+		this.codoperaciones = codoperaciones;
 	}
 
-	public void setIdreferencia(String idreferencia) {
-		this.idreferencia = idreferencia;
+	public String getCodoperaciones() {
+		return this.codoperaciones;
 	}
 
-	public String getItemreferencia() {
-		return itemreferencia;
+	public void setIdruta_ec(String idruta_ec) {
+		this.idruta_ec = idruta_ec;
 	}
 
-	public void setItemreferencia(String itemreferencia) {
-		this.itemreferencia = itemreferencia;
+	public String getIdruta_ec() {
+		return this.idruta_ec;
 	}
+
 
 
 	/* Sets & Gets FK*/

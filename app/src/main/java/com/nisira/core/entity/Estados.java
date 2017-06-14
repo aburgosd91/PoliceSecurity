@@ -14,7 +14,6 @@ import java.util.ArrayList;
 @XStreamAlias("ESTADOS")
 
 public class Estados implements Serializable {
-	@ClavePrimaria
 	@Columna
 	@SerializedName("idestado") 
 	@XStreamAlias("IDESTADO") 

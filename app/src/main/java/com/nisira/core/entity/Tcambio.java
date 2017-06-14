@@ -14,7 +14,6 @@ import java.util.ArrayList;
 @XStreamAlias("TCAMBIO")
 
 public class Tcambio implements Serializable {
-	@ClavePrimaria
 	@Columna
 	@SerializedName("fecha") 
 	@XStreamAlias("FECHA") 

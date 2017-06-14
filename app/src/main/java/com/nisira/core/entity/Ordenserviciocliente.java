@@ -8,18 +8,18 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import java.io.Serializable;
 
 import java.util.Date;
+import com.nisira.annotation.RelacionTabla;
+import com.nisira.annotation.CampoRelacionado;
 import java.util.ArrayList;
 
 @Tabla(nombre = "ORDENSERVICIOCLIENTE")
 @XStreamAlias("ORDENSERVICIOCLIENTE")
 
 public class Ordenserviciocliente implements Serializable {
-	@ClavePrimaria
 	@Columna
 	@SerializedName("idempresa") 
 	@XStreamAlias("IDEMPRESA") 
 	private String idempresa = "" ;
-	@ClavePrimaria
 	@Columna
 	@SerializedName("idordenservicio") 
 	@XStreamAlias("IDORDENSERVICIO") 
@@ -81,23 +81,20 @@ public class Ordenserviciocliente implements Serializable {
 	@XStreamAlias("NRO_OSERVICIO") 
 	private String nro_oservicio = "" ;
 	@Columna
-	@SerializedName("idmotivo")
-	@XStreamAlias("IDMOTIVO")
+	@SerializedName("idmotivo") 
+	@XStreamAlias("IDMOTIVO") 
 	private String idmotivo = "" ;
-
 	@Columna
-	@SerializedName("glosa")
-	@XStreamAlias("GLOSA")
+	@SerializedName("glosa") 
+	@XStreamAlias("GLOSA") 
 	private String glosa = "" ;
-
 	@Columna
-	@SerializedName("idoperario")
-	@XStreamAlias("IDOPERARIO")
+	@SerializedName("idoperario") 
+	@XStreamAlias("IDOPERARIO") 
 	private String idoperario = "" ;
 
 	private String cliente = "";
 	private String ruc = "";
-
 	/* Sets & Gets */
 	public void setIdempresa(String idempresa) {
 		this.idempresa = idempresa;
@@ -227,6 +224,30 @@ public class Ordenserviciocliente implements Serializable {
 		return this.nro_oservicio;
 	}
 
+	public void setIdmotivo(String idmotivo) {
+		this.idmotivo = idmotivo;
+	}
+
+	public String getIdmotivo() {
+		return this.idmotivo;
+	}
+
+	public void setGlosa(String glosa) {
+		this.glosa = glosa;
+	}
+
+	public String getGlosa() {
+		return this.glosa;
+	}
+
+	public void setIdoperario(String idoperario) {
+		this.idoperario = idoperario;
+	}
+
+	public String getIdoperario() {
+		return this.idoperario;
+	}
+
 	public String getCliente() {
 		return cliente;
 	}
@@ -242,18 +263,6 @@ public class Ordenserviciocliente implements Serializable {
 	public void setRuc(String ruc) {
 		this.ruc = ruc;
 	}
-
-	public String getIdoperario() {
-		return idoperario;
-	}
-
-	public void setIdoperario(String idoperario) {
-		this.idoperario = idoperario;
-	}
-
-
-
-
 
 	/* Sets & Gets FK*/
 
