@@ -26,5 +26,98 @@ public class DestinoadquisicionDao extends BaseDao<Destinoadquisicion> {
 		else
 			actualizar(obj);
 	}
+	public Boolean insert(Destinoadquisicion destinoadquisicion) {
+		Boolean resultado = false;
+		SQLiteDatabase mDb  = SQLiteDatabase.openDatabase(DataBaseClass.PATH_DATABASE,null, SQLiteDatabase.NO_LOCALIZED_COLLATORS);
+		try{
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			ContentValues initialValues = new ContentValues();
+			initialValues.put("IDDESTINO",destinoadquisicion.getIddestino()); 
+			initialValues.put("DESCRIPCION",destinoadquisicion.getDescripcion()); 
+			initialValues.put("ESTADO",destinoadquisicion.getEstado()); 
+			initialValues.put("SINCRONIZA",destinoadquisicion.getSincroniza()); 
+			initialValues.put("FECHACREACION",dateFormat.format(destinoadquisicion.getFechacreacion() ) ); 
+			resultado = mDb.insert("DESTINOADQUISICION",null,initialValues)>0; 
+		} catch (Exception e) {
+		}finally {
+			mDb.close();
+		} 
+		return resultado; 
+	} 
 
+	public Boolean update(Destinoadquisicion destinoadquisicion,String where) {
+		Boolean resultado = false;
+		SQLiteDatabase mDb  = SQLiteDatabase.openDatabase(DataBaseClass.PATH_DATABASE,null, SQLiteDatabase.NO_LOCALIZED_COLLATORS);
+		try{
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			ContentValues initialValues = new ContentValues();
+			initialValues.put("IDDESTINO",destinoadquisicion.getIddestino()) ; 
+			initialValues.put("DESCRIPCION",destinoadquisicion.getDescripcion()) ; 
+			initialValues.put("ESTADO",destinoadquisicion.getEstado()) ; 
+			initialValues.put("SINCRONIZA",destinoadquisicion.getSincroniza()) ; 
+			initialValues.put("FECHACREACION",dateFormat.format(destinoadquisicion.getFechacreacion() ) ) ; 
+			resultado = mDb.update("DESTINOADQUISICION",initialValues,where,null)>0; 
+		} catch (Exception e) {
+		}finally {
+			mDb.close();
+		} 
+		return resultado; 
+	} 
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+	public Boolean delete(String where) {
+		Boolean resultado = false;
+		SQLiteDatabase mDb  = SQLiteDatabase.openDatabase(DataBaseClass.PATH_DATABASE,null, SQLiteDatabase.NO_LOCALIZED_COLLATORS);
+		try{
+			resultado = mDb.delete("DESTINOADQUISICION",where,null)>0; 
+		} catch (Exception e) {
+		}finally {
+			mDb.close();
+		} 
+		return resultado; 
+	} 
+
+	public ArrayList<Destinoadquisicion> listar(String where,String order,Integer limit) {
+		if(limit == null){
+			limit =0;
+		}
+		ArrayList<Destinoadquisicion> lista  = new ArrayList<Destinoadquisicion>();
+		SQLiteDatabase mDb  = SQLiteDatabase.openDatabase(DataBaseClass.PATH_DATABASE,null, SQLiteDatabase.NO_LOCALIZED_COLLATORS);
+		try{
+			Cursor cur =  mDb.query("DESTINOADQUISICION",
+					new String[] {
+							 "IDDESTINO" ,
+							 "DESCRIPCION" ,
+							 "ESTADO" ,
+							 "SINCRONIZA" ,
+							 "FECHACREACION" 
+					},
+			where, null, null, null, order);
+			if (cur!=null){
+				cur.moveToFirst();
+				int i=0;
+				while (cur.isAfterLast() == false) {
+					int j=0;
+					Destinoadquisicion destinoadquisicion = new Destinoadquisicion() ;
+					destinoadquisicion.setIddestino(cur.getString(j++));
+					destinoadquisicion.setDescripcion(cur.getString(j++));
+					destinoadquisicion.setEstado(cur.getDouble(j++));
+					destinoadquisicion.setSincroniza(cur.getString(j++));
+					destinoadquisicion.setFechacreacion(dateFormat.parse(cur.getString(j++)) );
+
+					lista.add(destinoadquisicion); 
+					i++; 
+					if(i == limit){ 
+						break; 
+					} 
+					cur.moveToNext(); 
+				} 
+				cur.close(); 
+			} 
+		} catch (Exception e) {
+		}finally {
+			mDb.close();
+		} 
+		return lista; 
+	} 
 }

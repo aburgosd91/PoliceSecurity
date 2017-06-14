@@ -32,6 +32,7 @@ public class Estructura_costos_mano_obraDao extends BaseDao<Estructura_costos_ma
 			initialValues.put("ITEM",estructura_costos_mano_obra.getItem()); 
 			initialValues.put("ESTADO",estructura_costos_mano_obra.getEstado()); 
 			initialValues.put("IDPRODUCTO",estructura_costos_mano_obra.getIdproducto()); 
+			initialValues.put("COSTO",estructura_costos_mano_obra.getCosto()); 
 			resultado = mDb.insert("ESTRUCTURA_COSTOS_MANO_OBRA",null,initialValues)>0; 
 		} catch (Exception e) {
 		}finally {
@@ -52,6 +53,7 @@ public class Estructura_costos_mano_obraDao extends BaseDao<Estructura_costos_ma
 			initialValues.put("ITEM",estructura_costos_mano_obra.getItem()) ; 
 			initialValues.put("ESTADO",estructura_costos_mano_obra.getEstado()) ; 
 			initialValues.put("IDPRODUCTO",estructura_costos_mano_obra.getIdproducto()) ; 
+			initialValues.put("COSTO",estructura_costos_mano_obra.getCosto()) ; 
 			resultado = mDb.update("ESTRUCTURA_COSTOS_MANO_OBRA",initialValues,where,null)>0; 
 		} catch (Exception e) {
 		}finally {
@@ -87,7 +89,8 @@ public class Estructura_costos_mano_obraDao extends BaseDao<Estructura_costos_ma
 							 "IDCARGO" ,
 							 "ITEM" ,
 							 "ESTADO" ,
-							 "IDPRODUCTO" 
+							 "IDPRODUCTO" ,
+							 "COSTO" 
 					},
 			where, null, null, null, order);
 			if (cur!=null){
@@ -102,6 +105,7 @@ public class Estructura_costos_mano_obraDao extends BaseDao<Estructura_costos_ma
 					estructura_costos_mano_obra.setItem(cur.getString(j++));
 					estructura_costos_mano_obra.setEstado(cur.getDouble(j++));
 					estructura_costos_mano_obra.setIdproducto(cur.getString(j++));
+					estructura_costos_mano_obra.setCosto(cur.getDouble(j++));
 
 					lista.add(estructura_costos_mano_obra); 
 					i++; 

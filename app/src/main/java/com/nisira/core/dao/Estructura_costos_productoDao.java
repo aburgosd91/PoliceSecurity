@@ -30,6 +30,11 @@ public class Estructura_costos_productoDao extends BaseDao<Estructura_costos_pro
 			initialValues.put("CODIGO",estructura_costos_producto.getCodigo()); 
 			initialValues.put("IDPRODUCTO",estructura_costos_producto.getIdproducto()); 
 			initialValues.put("DESCRIPCION",estructura_costos_producto.getDescripcion()); 
+			initialValues.put("ITEM",estructura_costos_producto.getItem()); 
+			initialValues.put("AJUSTE",estructura_costos_producto.getAjuste()); 
+			initialValues.put("NHORAS",estructura_costos_producto.getNhoras()); 
+			initialValues.put("CODOPERATIVO",estructura_costos_producto.getCodoperativo()); 
+			initialValues.put("IDRUTA",estructura_costos_producto.getIdruta()); 
 			resultado = mDb.insert("ESTRUCTURA_COSTOS_PRODUCTO",null,initialValues)>0; 
 		} catch (Exception e) {
 		}finally {
@@ -48,6 +53,11 @@ public class Estructura_costos_productoDao extends BaseDao<Estructura_costos_pro
 			initialValues.put("CODIGO",estructura_costos_producto.getCodigo()) ; 
 			initialValues.put("IDPRODUCTO",estructura_costos_producto.getIdproducto()) ; 
 			initialValues.put("DESCRIPCION",estructura_costos_producto.getDescripcion()) ; 
+			initialValues.put("ITEM",estructura_costos_producto.getItem()) ; 
+			initialValues.put("AJUSTE",estructura_costos_producto.getAjuste()) ; 
+			initialValues.put("NHORAS",estructura_costos_producto.getNhoras()) ; 
+			initialValues.put("CODOPERATIVO",estructura_costos_producto.getCodoperativo()) ; 
+			initialValues.put("IDRUTA",estructura_costos_producto.getIdruta()) ; 
 			resultado = mDb.update("ESTRUCTURA_COSTOS_PRODUCTO",initialValues,where,null)>0; 
 		} catch (Exception e) {
 		}finally {
@@ -81,7 +91,12 @@ public class Estructura_costos_productoDao extends BaseDao<Estructura_costos_pro
 							 "IDEMPRESA" ,
 							 "CODIGO" ,
 							 "IDPRODUCTO" ,
-							 "DESCRIPCION" 
+							 "DESCRIPCION" ,
+							 "ITEM" ,
+							 "AJUSTE" ,
+							 "NHORAS" ,
+							 "CODOPERATIVO" ,
+							 "IDRUTA" 
 					},
 			where, null, null, null, order);
 			if (cur!=null){
@@ -94,6 +109,11 @@ public class Estructura_costos_productoDao extends BaseDao<Estructura_costos_pro
 					estructura_costos_producto.setCodigo(cur.getString(j++));
 					estructura_costos_producto.setIdproducto(cur.getString(j++));
 					estructura_costos_producto.setDescripcion(cur.getString(j++));
+					estructura_costos_producto.setItem(cur.getString(j++));
+					estructura_costos_producto.setAjuste(cur.getDouble(j++));
+					estructura_costos_producto.setNhoras(cur.getDouble(j++));
+					estructura_costos_producto.setCodoperativo(cur.getString(j++));
+					estructura_costos_producto.setIdruta(cur.getString(j++));
 
 					lista.add(estructura_costos_producto); 
 					i++; 

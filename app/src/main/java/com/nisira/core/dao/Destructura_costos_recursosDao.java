@@ -37,6 +37,7 @@ public class Destructura_costos_recursosDao extends BaseDao<Destructura_costos_r
 			initialValues.put("ES_PORCENTAJE",destructura_costos_recursos.getEs_porcentaje()); 
 			initialValues.put("IDMEDIDA",destructura_costos_recursos.getIdmedida()); 
 			initialValues.put("IDPRODUCTO_EC",destructura_costos_recursos.getIdproducto_ec()); 
+			initialValues.put("ITEMRANGO",destructura_costos_recursos.getItemrango()); 
 			resultado = mDb.insert("DESTRUCTURA_COSTOS_RECURSOS",null,initialValues)>0; 
 		} catch (Exception e) {
 		}finally {
@@ -62,6 +63,7 @@ public class Destructura_costos_recursosDao extends BaseDao<Destructura_costos_r
 			initialValues.put("ES_PORCENTAJE",destructura_costos_recursos.getEs_porcentaje()) ; 
 			initialValues.put("IDMEDIDA",destructura_costos_recursos.getIdmedida()) ; 
 			initialValues.put("IDPRODUCTO_EC",destructura_costos_recursos.getIdproducto_ec()) ; 
+			initialValues.put("ITEMRANGO",destructura_costos_recursos.getItemrango()) ; 
 			resultado = mDb.update("DESTRUCTURA_COSTOS_RECURSOS",initialValues,where,null)>0; 
 		} catch (Exception e) {
 		}finally {
@@ -102,7 +104,8 @@ public class Destructura_costos_recursosDao extends BaseDao<Destructura_costos_r
 							 "IDPRODUCTO" ,
 							 "ES_PORCENTAJE" ,
 							 "IDMEDIDA" ,
-							 "IDPRODUCTO_EC" 
+							 "IDPRODUCTO_EC" ,
+							 "ITEMRANGO" 
 					},
 			where, null, null, null, order);
 			if (cur!=null){
@@ -122,6 +125,7 @@ public class Destructura_costos_recursosDao extends BaseDao<Destructura_costos_r
 					destructura_costos_recursos.setEs_porcentaje(cur.getDouble(j++));
 					destructura_costos_recursos.setIdmedida(cur.getString(j++));
 					destructura_costos_recursos.setIdproducto_ec(cur.getString(j++));
+					destructura_costos_recursos.setItemrango(cur.getString(j++));
 
 					lista.add(destructura_costos_recursos); 
 					i++; 

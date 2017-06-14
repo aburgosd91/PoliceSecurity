@@ -83,18 +83,19 @@ public class DcotizacionventasDao extends BaseDao<Dcotizacionventas> {
 			initialValues.put("LARGO",dcotizacionventas.getLargo()); 
 			initialValues.put("TOTAL_CE",dcotizacionventas.getTotal_ce()); 
 			initialValues.put("UNDXPHL",dcotizacionventas.getUndxphl()); 
-			initialValues.put("DESCUENTO_I",dcotizacionventas.getDescuento_i()); 
 			initialValues.put("IMPORTE_ISC",dcotizacionventas.getImporte_isc()); 
-			initialValues.put("ACCESORIOS_CONIGV",dcotizacionventas.getAccesorios_conigv()); 
+			initialValues.put("DESCUENTO_I",dcotizacionventas.getDescuento_i()); 
+			initialValues.put("VVENTAPUBLICO_CONIGV",dcotizacionventas.getVventapublico_conigv()); 
 			initialValues.put("IMPORTEDSCTO1_CONIGV",dcotizacionventas.getImportedscto1_conigv()); 
 			initialValues.put("IMPORTEDSCTO2_CONIGV",dcotizacionventas.getImportedscto2_conigv()); 
 			initialValues.put("IMPORTEDSCTO3_CONIGV",dcotizacionventas.getImportedscto3_conigv()); 
-			initialValues.put("IMPORTEDSCTO_IMPORTADOR_REAL",dcotizacionventas.getImportedscto_importador_real()); 
+			initialValues.put("ACCESORIOS_CONIGV",dcotizacionventas.getAccesorios_conigv()); 
 			initialValues.put("IMPORTEDSCTO_MAXPERMITIDO",dcotizacionventas.getImportedscto_maxpermitido()); 
-			initialValues.put("VVENTAPUBLICO_CONIGV",dcotizacionventas.getVventapublico_conigv()); 
+			initialValues.put("IMPORTEDSCTO_IMPORTADOR_REAL",dcotizacionventas.getImportedscto_importador_real()); 
 			initialValues.put("ANNIOMODELO",dcotizacionventas.getAnniomodelo()); 
 			initialValues.put("IDTG20VERSIONVEH",dcotizacionventas.getIdtg20versionveh()); 
 			initialValues.put("IMPORTEACCESORIOS",dcotizacionventas.getImporteaccesorios()); 
+			initialValues.put("NHORAS",dcotizacionventas.getNhoras()); 
 			resultado = mDb.insert("DCOTIZACIONVENTAS",null,initialValues)>0; 
 		} catch (Exception e) {
 		}finally {
@@ -166,18 +167,19 @@ public class DcotizacionventasDao extends BaseDao<Dcotizacionventas> {
 			initialValues.put("LARGO",dcotizacionventas.getLargo()) ; 
 			initialValues.put("TOTAL_CE",dcotizacionventas.getTotal_ce()) ; 
 			initialValues.put("UNDXPHL",dcotizacionventas.getUndxphl()) ; 
-			initialValues.put("DESCUENTO_I",dcotizacionventas.getDescuento_i()) ; 
 			initialValues.put("IMPORTE_ISC",dcotizacionventas.getImporte_isc()) ; 
-			initialValues.put("ACCESORIOS_CONIGV",dcotizacionventas.getAccesorios_conigv()) ; 
+			initialValues.put("DESCUENTO_I",dcotizacionventas.getDescuento_i()) ; 
+			initialValues.put("VVENTAPUBLICO_CONIGV",dcotizacionventas.getVventapublico_conigv()) ; 
 			initialValues.put("IMPORTEDSCTO1_CONIGV",dcotizacionventas.getImportedscto1_conigv()) ; 
 			initialValues.put("IMPORTEDSCTO2_CONIGV",dcotizacionventas.getImportedscto2_conigv()) ; 
 			initialValues.put("IMPORTEDSCTO3_CONIGV",dcotizacionventas.getImportedscto3_conigv()) ; 
-			initialValues.put("IMPORTEDSCTO_IMPORTADOR_REAL",dcotizacionventas.getImportedscto_importador_real()) ; 
+			initialValues.put("ACCESORIOS_CONIGV",dcotizacionventas.getAccesorios_conigv()) ; 
 			initialValues.put("IMPORTEDSCTO_MAXPERMITIDO",dcotizacionventas.getImportedscto_maxpermitido()) ; 
-			initialValues.put("VVENTAPUBLICO_CONIGV",dcotizacionventas.getVventapublico_conigv()) ; 
+			initialValues.put("IMPORTEDSCTO_IMPORTADOR_REAL",dcotizacionventas.getImportedscto_importador_real()) ; 
 			initialValues.put("ANNIOMODELO",dcotizacionventas.getAnniomodelo()) ; 
 			initialValues.put("IDTG20VERSIONVEH",dcotizacionventas.getIdtg20versionveh()) ; 
 			initialValues.put("IMPORTEACCESORIOS",dcotizacionventas.getImporteaccesorios()) ; 
+			initialValues.put("NHORAS",dcotizacionventas.getNhoras()) ; 
 			resultado = mDb.update("DCOTIZACIONVENTAS",initialValues,where,null)>0; 
 		} catch (Exception e) {
 		}finally {
@@ -265,18 +267,19 @@ public class DcotizacionventasDao extends BaseDao<Dcotizacionventas> {
 							 "LARGO" ,
 							 "TOTAL_CE" ,
 							 "UNDXPHL" ,
-							 "DESCUENTO_I" ,
 							 "IMPORTE_ISC" ,
-							 "ACCESORIOS_CONIGV" ,
+							 "DESCUENTO_I" ,
+							 "VVENTAPUBLICO_CONIGV" ,
 							 "IMPORTEDSCTO1_CONIGV" ,
 							 "IMPORTEDSCTO2_CONIGV" ,
 							 "IMPORTEDSCTO3_CONIGV" ,
-							 "IMPORTEDSCTO_IMPORTADOR_REAL" ,
+							 "ACCESORIOS_CONIGV" ,
 							 "IMPORTEDSCTO_MAXPERMITIDO" ,
-							 "VVENTAPUBLICO_CONIGV" ,
+							 "IMPORTEDSCTO_IMPORTADOR_REAL" ,
 							 "ANNIOMODELO" ,
 							 "IDTG20VERSIONVEH" ,
-							 "IMPORTEACCESORIOS" 
+							 "IMPORTEACCESORIOS" ,
+							 "NHORAS" 
 					},
 			where, null, null, null, order);
 			if (cur!=null){
@@ -342,18 +345,19 @@ public class DcotizacionventasDao extends BaseDao<Dcotizacionventas> {
 					dcotizacionventas.setLargo(cur.getString(j++));
 					dcotizacionventas.setTotal_ce(cur.getDouble(j++));
 					dcotizacionventas.setUndxphl(cur.getInt(j++));
-					dcotizacionventas.setDescuento_i(cur.getDouble(j++));
 					dcotizacionventas.setImporte_isc(cur.getDouble(j++));
-					dcotizacionventas.setAccesorios_conigv(cur.getDouble(j++));
+					dcotizacionventas.setDescuento_i(cur.getDouble(j++));
+					dcotizacionventas.setVventapublico_conigv(cur.getDouble(j++));
 					dcotizacionventas.setImportedscto1_conigv(cur.getDouble(j++));
 					dcotizacionventas.setImportedscto2_conigv(cur.getDouble(j++));
 					dcotizacionventas.setImportedscto3_conigv(cur.getDouble(j++));
-					dcotizacionventas.setImportedscto_importador_real(cur.getDouble(j++));
+					dcotizacionventas.setAccesorios_conigv(cur.getDouble(j++));
 					dcotizacionventas.setImportedscto_maxpermitido(cur.getDouble(j++));
-					dcotizacionventas.setVventapublico_conigv(cur.getDouble(j++));
+					dcotizacionventas.setImportedscto_importador_real(cur.getDouble(j++));
 					dcotizacionventas.setAnniomodelo(cur.getString(j++));
 					dcotizacionventas.setIdtg20versionveh(cur.getInt(j++));
 					dcotizacionventas.setImporteaccesorios(cur.getDouble(j++));
+					dcotizacionventas.setNhoras(cur.getDouble(j++));
 
 					lista.add(dcotizacionventas); 
 					i++; 

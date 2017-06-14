@@ -33,6 +33,8 @@ public class Estructura_costosDao extends BaseDao<Estructura_costos> {
 			initialValues.put("ESTADO",estructura_costos.getEstado()); 
 			initialValues.put("IDMONEDA",estructura_costos.getIdmoneda()); 
 			initialValues.put("FECHACREACION",dateFormat.format(estructura_costos.getFechacreacion() ) ); 
+			initialValues.put("INCLUYE_VEHICULO",estructura_costos.getIncluye_vehiculo()); 
+			initialValues.put("IDCLIEPROV",estructura_costos.getIdclieprov()); 
 			resultado = mDb.insert("ESTRUCTURA_COSTOS",null,initialValues)>0; 
 		} catch (Exception e) {
 		}finally {
@@ -54,6 +56,8 @@ public class Estructura_costosDao extends BaseDao<Estructura_costos> {
 			initialValues.put("ESTADO",estructura_costos.getEstado()) ; 
 			initialValues.put("IDMONEDA",estructura_costos.getIdmoneda()) ; 
 			initialValues.put("FECHACREACION",dateFormat.format(estructura_costos.getFechacreacion() ) ) ; 
+			initialValues.put("INCLUYE_VEHICULO",estructura_costos.getIncluye_vehiculo()) ; 
+			initialValues.put("IDCLIEPROV",estructura_costos.getIdclieprov()) ; 
 			resultado = mDb.update("ESTRUCTURA_COSTOS",initialValues,where,null)>0; 
 		} catch (Exception e) {
 		}finally {
@@ -90,7 +94,9 @@ public class Estructura_costosDao extends BaseDao<Estructura_costos> {
 							 "NOMBRE_CORTO" ,
 							 "ESTADO" ,
 							 "IDMONEDA" ,
-							 "FECHACREACION" 
+							 "FECHACREACION" ,
+							 "INCLUYE_VEHICULO" ,
+							 "IDCLIEPROV" 
 					},
 			where, null, null, null, order);
 			if (cur!=null){
@@ -106,6 +112,8 @@ public class Estructura_costosDao extends BaseDao<Estructura_costos> {
 					estructura_costos.setEstado(cur.getDouble(j++));
 					estructura_costos.setIdmoneda(cur.getString(j++));
 					estructura_costos.setFechacreacion(dateFormat.parse(cur.getString(j++)) );
+					estructura_costos.setIncluye_vehiculo(cur.getDouble(j++));
+					estructura_costos.setIdclieprov(cur.getString(j++));
 
 					lista.add(estructura_costos); 
 					i++; 

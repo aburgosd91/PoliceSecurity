@@ -26,17 +26,17 @@ public class AppmovilusuarioDao extends BaseDao<Appmovilusuario> {
 		try{
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			ContentValues initialValues = new ContentValues();
-			initialValues.put("IDEMPRESA",appmovilusuario.getIdempresa());
-			initialValues.put("IDAPPMOVIL",appmovilusuario.getIdappmovil());
-			initialValues.put("IDUSUARIO",appmovilusuario.getIdusuario());
-			initialValues.put("IDCLIEPROV",appmovilusuario.getIdclieprov());
-			resultado = mDb.insert("APPMOVILUSUARIO",null,initialValues)>0;
+			initialValues.put("IDEMPRESA",appmovilusuario.getIdempresa()); 
+			initialValues.put("IDAPPMOVIL",appmovilusuario.getIdappmovil()); 
+			initialValues.put("IDUSUARIO",appmovilusuario.getIdusuario()); 
+			initialValues.put("IDCLIEPROV",appmovilusuario.getIdclieprov()); 
+			resultado = mDb.insert("APPMOVILUSUARIO",null,initialValues)>0; 
 		} catch (Exception e) {
 		}finally {
 			mDb.close();
-		}
-		return resultado;
-	}
+		} 
+		return resultado; 
+	} 
 
 	public Boolean update(Appmovilusuario appmovilusuario,String where) {
 		Boolean resultado = false;
@@ -44,30 +44,30 @@ public class AppmovilusuarioDao extends BaseDao<Appmovilusuario> {
 		try{
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			ContentValues initialValues = new ContentValues();
-			initialValues.put("IDEMPRESA",appmovilusuario.getIdempresa()) ;
-			initialValues.put("IDAPPMOVIL",appmovilusuario.getIdappmovil()) ;
-			initialValues.put("IDUSUARIO",appmovilusuario.getIdusuario()) ;
-			initialValues.put("IDCLIEPROV",appmovilusuario.getIdclieprov()) ;
-			resultado = mDb.update("APPMOVILUSUARIO",initialValues,where,null)>0;
+			initialValues.put("IDEMPRESA",appmovilusuario.getIdempresa()) ; 
+			initialValues.put("IDAPPMOVIL",appmovilusuario.getIdappmovil()) ; 
+			initialValues.put("IDUSUARIO",appmovilusuario.getIdusuario()) ; 
+			initialValues.put("IDCLIEPROV",appmovilusuario.getIdclieprov()) ; 
+			resultado = mDb.update("APPMOVILUSUARIO",initialValues,where,null)>0; 
 		} catch (Exception e) {
 		}finally {
 			mDb.close();
-		}
-		return resultado;
-	}
+		} 
+		return resultado; 
+	} 
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	public Boolean delete(String where) {
 		Boolean resultado = false;
 		SQLiteDatabase mDb  = SQLiteDatabase.openDatabase(DataBaseClass.PATH_DATABASE,null, SQLiteDatabase.NO_LOCALIZED_COLLATORS);
 		try{
-			resultado = mDb.delete("APPMOVILUSUARIO",where,null)>0;
+			resultado = mDb.delete("APPMOVILUSUARIO",where,null)>0; 
 		} catch (Exception e) {
 		}finally {
 			mDb.close();
-		}
-		return resultado;
-	}
+		} 
+		return resultado; 
+	} 
 
 	public ArrayList<Appmovilusuario> listar(String where,String order,Integer limit) {
 		if(limit == null){
@@ -81,7 +81,7 @@ public class AppmovilusuarioDao extends BaseDao<Appmovilusuario> {
 							 "IDEMPRESA" ,
 							 "IDAPPMOVIL" ,
 							 "IDUSUARIO" ,
-							 "IDCLIEPROV"
+							 "IDCLIEPROV" 
 					},
 			where, null, null, null, order);
 			if (cur!=null){
@@ -95,20 +95,20 @@ public class AppmovilusuarioDao extends BaseDao<Appmovilusuario> {
 					appmovilusuario.setIdusuario(cur.getString(j++));
 					appmovilusuario.setIdclieprov(cur.getString(j++));
 
-					lista.add(appmovilusuario);
-					i++;
-					if(i == limit){
-						break;
-					}
-					cur.moveToNext();
-				}
-				cur.close();
-			}
+					lista.add(appmovilusuario); 
+					i++; 
+					if(i == limit){ 
+						break; 
+					} 
+					cur.moveToNext(); 
+				} 
+				cur.close(); 
+			} 
 		} catch (Exception e) {
 		}finally {
 			mDb.close();
-		}
-		return lista;
+		} 
+		return lista; 
 	}
 	public void mezclarLocal(Appmovilusuario obj)throws Exception{
 		if(obj !=null){

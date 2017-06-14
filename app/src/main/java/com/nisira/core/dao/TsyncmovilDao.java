@@ -29,8 +29,12 @@ public class TsyncmovilDao extends BaseDao<Tsyncmovil> {
 			initialValues.put("IDEMPRESA",tsyncmovil.getIdempresa()); 
 			initialValues.put("IDAPPMOVIL",tsyncmovil.getIdappmovil()); 
 			initialValues.put("TABLA",tsyncmovil.getTabla()); 
+			initialValues.put("ITEM",tsyncmovil.getItem()); 
+			initialValues.put("DATOS",tsyncmovil.getDatos()); 
 			initialValues.put("IDSERIEMOVIL",tsyncmovil.getIdseriemovil()); 
 			initialValues.put("FECHA",dateFormat.format(tsyncmovil.getFecha() ) ); 
+			initialValues.put("IDUSUARIO",tsyncmovil.getIdusuario()); 
+			initialValues.put("TYPE",tsyncmovil.getType()); 
 			resultado = mDb.insert("TSYNCMOVIL",null,initialValues)>0; 
 		} catch (Exception e) {
 		}finally {
@@ -48,8 +52,12 @@ public class TsyncmovilDao extends BaseDao<Tsyncmovil> {
 			initialValues.put("IDEMPRESA",tsyncmovil.getIdempresa()) ; 
 			initialValues.put("IDAPPMOVIL",tsyncmovil.getIdappmovil()) ; 
 			initialValues.put("TABLA",tsyncmovil.getTabla()) ; 
+			initialValues.put("ITEM",tsyncmovil.getItem()) ; 
+			initialValues.put("DATOS",tsyncmovil.getDatos()) ; 
 			initialValues.put("IDSERIEMOVIL",tsyncmovil.getIdseriemovil()) ; 
 			initialValues.put("FECHA",dateFormat.format(tsyncmovil.getFecha() ) ) ; 
+			initialValues.put("IDUSUARIO",tsyncmovil.getIdusuario()) ; 
+			initialValues.put("TYPE",tsyncmovil.getType()) ; 
 			resultado = mDb.update("TSYNCMOVIL",initialValues,where,null)>0; 
 		} catch (Exception e) {
 		}finally {
@@ -83,8 +91,12 @@ public class TsyncmovilDao extends BaseDao<Tsyncmovil> {
 							 "IDEMPRESA" ,
 							 "IDAPPMOVIL" ,
 							 "TABLA" ,
+							 "ITEM" ,
+							 "DATOS" ,
 							 "IDSERIEMOVIL" ,
-							 "FECHA" 
+							 "FECHA" ,
+							 "IDUSUARIO" ,
+							 "TYPE" 
 					},
 			where, null, null, null, order);
 			if (cur!=null){
@@ -96,8 +108,12 @@ public class TsyncmovilDao extends BaseDao<Tsyncmovil> {
 					tsyncmovil.setIdempresa(cur.getString(j++));
 					tsyncmovil.setIdappmovil(cur.getString(j++));
 					tsyncmovil.setTabla(cur.getString(j++));
+					tsyncmovil.setItem(cur.getInt(j++));
+					tsyncmovil.setDatos(cur.getString(j++));
 					tsyncmovil.setIdseriemovil(cur.getString(j++));
 					tsyncmovil.setFecha(dateFormat.parse(cur.getString(j++)) );
+					tsyncmovil.setIdusuario(cur.getString(j++));
+					tsyncmovil.setType(cur.getString(j++));
 
 					lista.add(tsyncmovil); 
 					i++; 
