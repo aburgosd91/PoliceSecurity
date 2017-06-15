@@ -31,6 +31,7 @@ import com.nisira.core.dao.Concepto_cuentaDao;
 import com.nisira.core.dao.DestinoadquisicionDao;
 import com.nisira.core.dao.DocumentosDao;
 import com.nisira.core.dao.DordenliquidaciongastoDao;
+import com.nisira.core.dao.OrdenliquidaciongastoDao;
 import com.nisira.core.dao.TipogastoDao;
 import com.nisira.core.entity.Clieprov;
 import com.nisira.core.entity.Concepto_cuenta;

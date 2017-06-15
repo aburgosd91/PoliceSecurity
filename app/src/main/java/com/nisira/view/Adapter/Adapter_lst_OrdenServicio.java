@@ -46,6 +46,7 @@ public class Adapter_lst_OrdenServicio extends RecyclerView.Adapter<Adapter_lst_
         public TextView ordenservicio;
         public TextView fecha;
         public TextView txtid;
+        public TextView txttiposervicio;
         public CircleImageView seleccion;
         public RelativeLayout fondo_seleccion;
         public boolean bool_seleccion;
@@ -58,6 +59,7 @@ public class Adapter_lst_OrdenServicio extends RecyclerView.Adapter<Adapter_lst_
             fondo_seleccion = (RelativeLayout) v.findViewById(R.id.fondo_seleccion);
             fecha = (TextView) v.findViewById(R.id.txtfecha);
             txtid = (TextView) v.findViewById(R.id.txtid);
+            txttiposervicio = (TextView) v.findViewById(R.id.txttiposervicio);
         }
     }
 
@@ -89,6 +91,12 @@ public class Adapter_lst_OrdenServicio extends RecyclerView.Adapter<Adapter_lst_
         String strDate = sm.format(items.get(i).getFecha());
         viewHolder.fecha.setText("Fecha: "+strDate);
         viewHolder.txtid.setText("Doc: "+items.get(i).getIdclieprov());
+        if(items.get(i).getTipo_servicio().equals("E")){
+            viewHolder.txttiposervicio.setText("Tipo: Especial");
+        }
+        if(items.get(i).getTipo_servicio().equals("F")){
+            viewHolder.txttiposervicio.setText("Tipo: Fijo");
+        }
         Gson gson = new GsonBuilder().serializeSpecialFloatingPointValues().create();
         System.out.println(gson.toJson(items.get(i)));
 

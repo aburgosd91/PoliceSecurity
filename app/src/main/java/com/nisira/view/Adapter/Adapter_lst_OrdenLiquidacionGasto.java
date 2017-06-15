@@ -45,6 +45,7 @@ public static class ListaViewHolder extends RecyclerView.ViewHolder {
     public TextView fecha;
     public CircleImageView seleccion;
     public RelativeLayout fondo_seleccion;
+    public TextView txt_importe;
     public boolean bool_seleccion;
     public ListaViewHolder(View v) {
         super(v);
@@ -54,7 +55,7 @@ public static class ListaViewHolder extends RecyclerView.ViewHolder {
         seleccion = (CircleImageView) v.findViewById(R.id.seleccion);
         fondo_seleccion = (RelativeLayout) v.findViewById(R.id.fondo_seleccion);
         fecha = (TextView) v.findViewById(R.id.txtfecha);
-
+        txt_importe = (TextView)v.findViewById(R.id.txt_importe);
     }
 }
 
@@ -73,7 +74,7 @@ public static class ListaViewHolder extends RecyclerView.ViewHolder {
     @Override
     public ListaViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.card_ordenservicio, viewGroup, false);
+                .inflate(R.layout.card_ordenliquidacion, viewGroup, false);
         return new ListaViewHolder(v);
     }
 
@@ -85,7 +86,7 @@ public static class ListaViewHolder extends RecyclerView.ViewHolder {
         SimpleDateFormat sm = new SimpleDateFormat("dd-MM-yyyy");
         String strDate = sm.format(items.get(i).getFechacreacion());
         viewHolder.fecha.setText("Fecha: "+strDate);
-
+        viewHolder.txt_importe.setText("Importe: "+items.get(i).getImporte());
         Gson gson = new GsonBuilder().serializeSpecialFloatingPointValues().create();
         System.out.println(gson.toJson(items.get(i)));
 

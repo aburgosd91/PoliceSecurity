@@ -49,7 +49,7 @@
             android:layout_marginLeft="5dp"
             android:layout_width="40dp"
             android:layout_height="45dp"
-            android:src="@drawable/iconblack"
+            android:src="@drawable/ic_money"
             android:scaleType="centerCrop"
             android:layout_alignParentTop="true"
             android:layout_marginTop="10dp"
@@ -72,14 +72,6 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="########"
             android:id="@+id/txtdocumento"
-            android:layout_below="@+id/txtid"
-            android:layout_alignLeft="@+id/nombre" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="########"
-            android:id="@+id/txtid"
             android:layout_below="@+id/nombre"
             android:layout_alignLeft="@+id/nombre" />
         <TextView
@@ -87,7 +79,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="########"
-            android:id="@+id/txttiposervicio"
+            android:id="@+id/txt_importe"
             android:layout_below="@+id/txtdocumento"
             android:layout_alignLeft="@+id/nombre" />
         <TextView
@@ -96,7 +88,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="########"
             android:id="@+id/txtfecha"
-            android:layout_below="@+id/txttiposervicio"
+            android:layout_below="@+id/txt_importe"
             android:layout_alignLeft="@+id/nombre" />
 
     </RelativeLayout>

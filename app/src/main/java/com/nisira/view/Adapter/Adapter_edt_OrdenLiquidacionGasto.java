@@ -48,7 +48,8 @@ public class Adapter_edt_OrdenLiquidacionGasto extends RecyclerView.Adapter<Adap
         public TextView nombre;
         public TextView placa;
         public TextView fecha_fin;
-        public TextView estado;
+        public TextView txt_importetotal;
+        public TextView estado,txt_dinero;
         public CircleImageView seleccion;
         public RelativeLayout fondo_seleccion;
         public boolean bool_seleccion;
@@ -61,7 +62,8 @@ public class Adapter_edt_OrdenLiquidacionGasto extends RecyclerView.Adapter<Adap
             seleccion = (CircleImageView) v.findViewById(R.id.seleccion);
             fecha_fin = (TextView)v.findViewById(R.id.txtfechafin);
             fondo_seleccion = (RelativeLayout) v.findViewById(R.id.fondo_seleccion);
-
+            txt_dinero = (TextView)v.findViewById(R.id.txt_dinero);
+            txt_importetotal = (TextView)v.findViewById(R.id.txt_importetotal);
         }
     }
 
@@ -100,7 +102,9 @@ public class Adapter_edt_OrdenLiquidacionGasto extends RecyclerView.Adapter<Adap
         //String strDate = sm.format(""+items.get(i).getFecha().toString());
         viewHolder.fecha_fin.setText("Fecha: "+items.get(i).getFecha().toString());
         viewHolder.placa.setText("Descripcion: "+ items.get(i).getGlosa());
-
+        viewHolder.txt_dinero.setText("IGV: "+ items.get(i).getImporte() +
+                                      "  Subtotal: "+(items.get(i).getImporte()-items.get(i).getImpuesto()));
+        viewHolder.txt_importetotal.setText("Importe: "+ items.get(i).getImporte());
         if(items.get(i).isSeleccion()){
             viewHolder.seleccion.setBackgroundColor(viewHolder.itemView.getResources().getColor(R.color.amarillo));
             viewHolder.seleccion.setImageResource(R.drawable.ic_check_big);

@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -97,6 +98,10 @@ public class Login_Activity extends ActivityNisiraCompat implements ActivityComp
         }
         txtuser = (EditText) findViewById(R.id.txtUser);
         txtpassword = (EditText)findViewById(R.id.txtPassword);
+        SharedPreferences prefs = getSharedPreferences("USER_SESSION", MODE_PRIVATE);
+        // then you use
+        txtuser.setText(prefs.getString("USUARIO",""));
+        txtpassword.setText(prefs.getString("PASSWORD", ""));
         btn_login = (Button)  findViewById(R.id.button);
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -219,6 +224,8 @@ public class Login_Activity extends ActivityNisiraCompat implements ActivityComp
                     if(user!=null){
                         SharedPreferences.Editor editor = getSharedPreferences("USER_SESSION", MODE_PRIVATE).edit();
                         editor.putString("IDUSUARIO", user.getIdusuario());
+                        editor.putString("USUARIO", txtuser.getText().toString());
+                        editor.putString("PASSWORD",txtpassword.getText().toString());
                         editor.putString("USR_NOMBRES", user.getUsr_nombres());
                         editor.putString("IDCLIEPROV", user.getIdclieprov());
                         editor.putString("EMAIL", user.getEmail());

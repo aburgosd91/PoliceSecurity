@@ -44,10 +44,12 @@ public class edt_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
     private static final String ANTERIOR = "param2";
     private TextInputEditText txt_documento;
     private TextInputEditText txt_cliente;
+    private TextInputEditText txt_importe;
     private TextView fecha,txt_estado;
     private RecyclerView recyclerView;
     private Adapter_edt_OrdenLiquidacionGasto adapter;
     private RecyclerView.LayoutManager lManager;
+    private OrdenliquidaciongastoDao dao2;
     private FloatingActionButton fabnuevo,fab_modificar,fab_eliminar;
     List<Dordenliquidaciongasto> List_dordenliquidaciongastos;
     DordenliquidaciongastoDao dordenliquidaciongastoDao ;
@@ -93,6 +95,7 @@ public class edt_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
         txt_cliente = (TextInputEditText)view.findViewById(R.id.txt_cliente);
         fecha = (TextView)view.findViewById(R.id.txt_fecha);
         txt_estado = (TextView)view.findViewById(R.id.txt_estado);
+        txt_importe = (TextInputEditText)view.findViewById(R.id.txt_importe);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_os);
         fabnuevo = (FloatingActionButton)view.findViewById(R.id.fabnuevo);
         fab_modificar  =(FloatingActionButton)view.findViewById(R.id.fab_modificar);
@@ -114,6 +117,7 @@ public class edt_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
         String strDate = sm.format(ordenliquidaciongasto.getFechacreacion());
         fecha.setText(strDate);
         String estado = ordenliquidaciongasto.getIdestado();
+        txt_importe.setText(ordenliquidaciongasto.getImporte()+"");
         if(estado.equals("PE")){
             txt_estado.setText("Pendiente");
         }
@@ -126,6 +130,15 @@ public class edt_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
             List_dordenliquidaciongastos = dao.listarxOrdenLG(ordenliquidaciongasto);
             adapter = new Adapter_edt_OrdenLiquidacionGasto("",List_dordenliquidaciongastos,getFragmentManager(),ordenliquidaciongasto);
             recyclerView.setAdapter(adapter);
+            dao2  = new OrdenliquidaciongastoDao();
+            Double importe = 0.0;
+            for(int i=0;i<List_dordenliquidaciongastos.size();i++){
+                importe+=List_dordenliquidaciongastos.get(i).getImporte();
+            }
+            ordenliquidaciongasto.setImporte(importe);
+            dao2.mezclarLocal(ordenliquidaciongasto);
+            txt_importe.setText(ordenliquidaciongasto.getImporte()+"");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -214,6 +227,14 @@ public class edt_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
                 }
             }
         });
+
+    }
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+            // The fragment restored from backstack, do some work here!
+        LlenarCampos();
 
     }
 

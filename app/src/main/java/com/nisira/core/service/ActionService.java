@@ -493,6 +493,7 @@ public class ActionService {
         }
         catch (Exception e)
         {
+            e.printStackTrace();
             return e.getMessage();
 //            if(VERERRORESSINCRONIZACION==1)
 //            {

@@ -37,6 +37,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.nisira.core.dao.Cargos_personalDao;
+import com.nisira.core.dao.UsuarioDao;
 import com.nisira.core.database.DataBaseClass;
 import com.nisira.core.entity.Usuario;
 import com.nisira.core.interfaces.ActivityNisiraCompat;
@@ -71,22 +72,22 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
     public int item_tabla_syncro, item_tabla_syncrodoc, item_tabla_ascentdoc;
     private static final int PERMISSION_REQUEST_CODE = 1;
     private static final Object[][] TABLASINCRONIZACION = {
-            {"METHOD_LIST_CLIEPROV", 20},
-            {"METHOD_LIST_CONSUMIDOR", 8},
-            {"METHOD_LIST_TIPOGASTO",8},
-            //{"METHOD_LIST_CONCEPTO_CUENTA", 5},
-            {"METHOD_LIST_CARGOS_PERSONAL", 5},
-            //{"METHOD_LIST_DOCUMENTOS", 8},
-            //{"METHOD_LIST_NUMEMISOR", 10},
-            {"METHOD_LIST_PERSONAL_SERVICIO", 8},
-            {"METHOD_LIST_DPERSONAL_SERVICIO", 8},
-            {"METHOD_LIST_PRODUCTOS", 8},
+    //        {"METHOD_LIST_CLIEPROV", 20}
+    //        {"METHOD_LIST_CONSUMIDOR", 8},
+            {"METHOD_LIST_TIPOGASTO",8}
+    //        {"METHOD_LIST_CONCEPTO_CUENTA", 5},
+    //        {"METHOD_LIST_CARGOS_PERSONAL", 5},
+    //        {"METHOD_LIST_DOCUMENTOS", 8},
+    //        {"METHOD_LIST_NUMEMISOR", 10},
+    //        {"METHOD_LIST_PERSONAL_SERVICIO", 8},
+    //        {"METHOD_LIST_DPERSONAL_SERVICIO", 8},
+    //        {"METHOD_LIST_PRODUCTOS", 8},
             //{"METHOD_LIST_RUTAS", 8},
             //{"METHOD_LIST_SUCURSALES", 5},
-            {"METHOD_LIST_ORDENLIQUIDACIONGASTO", 8},
-            {"METHOD_LIST_ORDENSERVICIOCLIENTE", 8},
-            {"METHOD_LIST_DORDENLIQUIDACIONGASTO", 8},
-            {"METHOD_LIST_DORDENSERVICIOCLIENTE", 8}
+    //        {"METHOD_LIST_ORDENLIQUIDACIONGASTO", 8},
+    //        {"METHOD_LIST_ORDENSERVICIOCLIENTE", 8},
+    //        {"METHOD_LIST_DORDENLIQUIDACIONGASTO", 8},
+    //        {"METHOD_LIST_DORDENSERVICIOCLIENTE", 8}
     };
     private static final Object[][] TABLASINCRONIZACIONDOCS = {
             //{"METHOD_LIST_CARGOS_PERSONAL", 5},
@@ -125,7 +126,6 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
         setSupportActionBar(toolbar);
         campo_titulo = (TextView) findViewById(R.id.campo_titulo);
         campo_titulo2 = (TextView) findViewById(R.id.campo_titulo2);
-        txt_user_name_header= (TextView) findViewById(R.id.txt_user_name_header);
         txt_user_email_header= (TextView) findViewById(R.id.txt_user_email_header);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -333,13 +333,17 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
     }
 
     public void asyncronizedocs() {
-        String method_syncro = TABLASINCRONIZACIONDOCS[item_tabla_syncrodoc][0].toString();
-        int time = (int) TABLASINCRONIZACIONDOCS[item_tabla_syncrodoc][1];
-        item_tabla_syncrodoc++;
-        ConsumerService cws = new ConsumerService(NavigationPolice_Activity.this, getApplicationContext(), method_syncro, time, true, 2);
-        cws.getAttribute().put("type", "XML");
-        cws.execute("");
-        cws.pd = ProgressDialog.show(NavigationPolice_Activity.this, "SINCRONIZANDO", "Sincronizando Base de Datos - " + method_syncro.replace("METHOD_LIST_", ""), true, false);
+        try {
+            String method_syncro = TABLASINCRONIZACIONDOCS[item_tabla_syncrodoc][0].toString();
+            int time = (int) TABLASINCRONIZACIONDOCS[item_tabla_syncrodoc][1];
+            item_tabla_syncrodoc++;
+            ConsumerService cws = new ConsumerService(NavigationPolice_Activity.this, getApplicationContext(), method_syncro, time, true, 2);
+            cws.getAttribute().put("type", "XML");
+            cws.execute("");
+            cws.pd = ProgressDialog.show(NavigationPolice_Activity.this, "SINCRONIZANDO", "Sincronizando Base de Datos - " + method_syncro.replace("METHOD_LIST_", ""), true, false);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void ascentdocs() {
@@ -460,6 +464,14 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
     public void setFotoPerfil() {
         View hView = navigationView.getHeaderView(0);
         imageViewprofile = (CircleImageView) hView.findViewById(R.id.imageViewprofile);
+        txt_user_name_header= (TextView) hView.findViewById(R.id.txt_user_name_header);
+        try {
+            UsuarioDao dao = new UsuarioDao();
+            Usuario usuario = dao.listar().get(0);
+            txt_user_name_header.setText(usuario.getUsr_nombres());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         if (photo.exists()) {
 
             try {

@@ -114,23 +114,7 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
         lManager = new LinearLayoutManager(getContext());
         recycler.setLayoutManager(lManager);
 
-        //Cargar datos desde la BD(items)
-        try {
-            dao = new OrdenliquidaciongastoDao();
-            //List<Clieprov> listClieprov = (List<Clieprov>) Util.stringListObject("com.nisira.core.entity.Clieprov",result);
-            UsuarioDao dao2= new UsuarioDao();
-            Usuario user = dao2.listar().get(0);
-            listServCliente = dao.ListarxUsuario(user.getIdclieprov());
-            // Crear un nuevo adaptador
-            adapter = new Adapter_lst_OrdenLiquidacionGasto(mParam1,listServCliente,getFragmentManager());
-            recycler.setAdapter(adapter);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            Toast.makeText(getContext(),"Error :"+e.getMessage(),Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(getContext(),"Error :"+e.getMessage(),Toast.LENGTH_SHORT).show();
-        }
+
 
         LlenarCampos();
         Listeners();
@@ -148,7 +132,23 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
 
     }
     public void LlenarCampos(){
-
+        //Cargar datos desde la BD(items)
+        try {
+            dao = new OrdenliquidaciongastoDao();
+            //List<Clieprov> listClieprov = (List<Clieprov>) Util.stringListObject("com.nisira.core.entity.Clieprov",result);
+            UsuarioDao dao2= new UsuarioDao();
+            Usuario user = dao2.listar().get(0);
+            listServCliente = dao.ListarxUsuario(user.getIdclieprov());
+            // Crear un nuevo adaptador
+            adapter = new Adapter_lst_OrdenLiquidacionGasto(mParam1,listServCliente,getFragmentManager());
+            recycler.setAdapter(adapter);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(),"Error :"+e.getMessage(),Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(),"Error :"+e.getMessage(),Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void Listeners(){        // TODO: EVENTOS
@@ -303,6 +303,13 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
             }
 
     }
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        // The fragment restored from backstack, do some work here!
+        LlenarCampos();
 
+    }
 
 }
