@@ -30,7 +30,7 @@ public class ConsumidorDao extends BaseDao<Consumidor> {
 	}
 	public List<Consumidor> ListarConsumidor(Ordenserviciocliente obj)throws Exception {
 		if (obj != null) {
-			List<Consumidor> lst = listar("LTRIM(RTRIM(t0.IDEMPRESA)) =? ", obj.getIdempresa().trim());
+			List<Consumidor> lst = listar("LTRIM(RTRIM(t0.IDEMPRESA)) =? AND LTRIM(RTRIM(t0.TIPO)) =?", obj.getIdempresa().trim(),"M");
 			if(lst.isEmpty()){
 				return null;
 			}else

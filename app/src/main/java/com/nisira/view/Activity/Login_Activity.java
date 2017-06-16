@@ -219,7 +219,7 @@ public class Login_Activity extends ActivityNisiraCompat implements ActivityComp
                     UsuarioDao usuarioDao = new UsuarioDao();
                     Usuario user = usuarioDao.getUsuario_base(txtuser.getText().toString().trim());
                     //Toast.makeText(getApplicationContext(),"Session Exitosa !!!.",Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(Login_Activity.this, SplashScreen_Activity.class));
+                    startActivity(new Intent(Login_Activity.this, NavigationPolice_Activity.class));
                     /*** SAVE SESSION****/
                     if(user!=null){
                         SharedPreferences.Editor editor = getSharedPreferences("USER_SESSION", MODE_PRIVATE).edit();

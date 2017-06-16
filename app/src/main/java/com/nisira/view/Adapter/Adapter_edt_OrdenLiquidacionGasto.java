@@ -83,7 +83,7 @@ public class Adapter_edt_OrdenLiquidacionGasto extends RecyclerView.Adapter<Adap
     public Adapter_edt_OrdenLiquidacionGasto.ListaViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         context = viewGroup.getContext();
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.card_dordenservicio, viewGroup, false);
+                .inflate(R.layout.card_dordenliquidacion, viewGroup, false);
         return new Adapter_edt_OrdenLiquidacionGasto.ListaViewHolder(v);
     }
 
@@ -102,8 +102,8 @@ public class Adapter_edt_OrdenLiquidacionGasto extends RecyclerView.Adapter<Adap
         //String strDate = sm.format(""+items.get(i).getFecha().toString());
         viewHolder.fecha_fin.setText("Fecha: "+items.get(i).getFecha().toString());
         viewHolder.placa.setText("Descripcion: "+ items.get(i).getGlosa());
-        viewHolder.txt_dinero.setText("IGV: "+ items.get(i).getImporte() +
-                                      "  Subtotal: "+(items.get(i).getImporte()-items.get(i).getImpuesto()));
+        Double dinero = items.get(i).getImporte()-items.get(i).getImpuesto();
+        viewHolder.txt_dinero.setText("IGV: "+ items.get(i).getImpuesto() + "  Subtotal: "+ dinero);
         viewHolder.txt_importetotal.setText("Importe: "+ items.get(i).getImporte());
         if(items.get(i).isSeleccion()){
             viewHolder.seleccion.setBackgroundColor(viewHolder.itemView.getResources().getColor(R.color.amarillo));

@@ -245,6 +245,8 @@ public class lst_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
                                 ol.setIdsucursal("001");
                                 ol.setRazonsocial(usuario.getUsr_nombres());
                                 ol.setFechacreacion(now.getTime());
+                                ol.setFecha(now.getTime());
+                                ol.setFecharegistro(now.getTime());
                                 /* NO FUNCIONA
                                 Dordenliquidaciongasto dol = new Dordenliquidaciongasto();
                                 ConsumerService cws = new ConsumerService(getActivity(), getContext(), TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO2, 5, true, 1);

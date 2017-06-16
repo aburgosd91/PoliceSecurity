@@ -3,6 +3,7 @@ package com.nisira.view.Activity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.transition.Fade;
 import android.transition.Slide;
@@ -38,7 +39,7 @@ public class mnt_DOrdenServicio_Fragment extends Fragment {
     private Ordenserviciocliente ordenserviciocliente;
     private Dordenserviciocliente dordenserviciocliente;
     private AutoCompleteTextView txt_vehiculos;
-    private EditText txtplaca;
+    private AutoCompleteTextView txtplaca;
     private FloatingActionButton btn_cancelar;
     private FloatingActionButton btn_acaptar;
 
@@ -77,7 +78,7 @@ public class mnt_DOrdenServicio_Fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_mnt_dordenservicio_vehiculo, container, false);
         animacionEntrada();
 
-        txtplaca = (EditText)view.findViewById(R.id.txtplaca);
+        txtplaca = (AutoCompleteTextView)view.findViewById(R.id.txtplaca);
         btn_cancelar = (FloatingActionButton)view.findViewById(R.id.fab_cancelar);
         btn_acaptar = (FloatingActionButton)view.findViewById(R.id.fab_aceptar);
         txt_vehiculos = (AutoCompleteTextView) view.findViewById(R.id.txt_vehiculos);
@@ -110,17 +111,19 @@ public class mnt_DOrdenServicio_Fragment extends Fragment {
         }
         ArrayAdapter<Consumidor> adapter = new ArrayAdapter<Consumidor>(getContext(),
                 android.R.layout.simple_dropdown_item_1line,consumidors);
-        txt_vehiculos.setAdapter(adapter);
+        txtplaca.setAdapter(adapter);
     }
 
     public void Listeners(){
         //TODO EVENTOS
 
-        txt_vehiculos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        txtplaca.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Consumidor selected = (Consumidor) parent.getAdapter().getItem(position);
+                dordenserviciocliente.setPlaca_cliente(txtplaca.getText().toString());
                 dordenserviciocliente.setIdvehiculo(selected.getIdconsumidor());
+                txt_vehiculos.setText(selected.getDescripcion());
                 Log.i("Clicked " , selected.getIdconsumidor() + " " + selected.getDescripcion());
                 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
                         Activity.INPUT_METHOD_SERVICE);
@@ -138,15 +141,19 @@ public class mnt_DOrdenServicio_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                dordenserviciocliente.setPlaca_cliente(txtplaca.getText().toString());
-                DordenservicioclienteDao dao = new DordenservicioclienteDao();
-                try {
-                    dao.mezclarLocal(dordenserviciocliente);
+                if (dordenserviciocliente.getPlaca_cliente()==null && dordenserviciocliente.getPlaca_cliente().equals("")) {
+                    Snackbar.make(getView(), "Error, seleccione una placa", Snackbar.LENGTH_SHORT).show();
+                } else {
 
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    DordenservicioclienteDao dao = new DordenservicioclienteDao();
+                    try {
+                        dao.mezclarLocal(dordenserviciocliente);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    getActivity().onBackPressed();
                 }
-                getActivity().onBackPressed();
             }
         });
 

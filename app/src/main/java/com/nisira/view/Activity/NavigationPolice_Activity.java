@@ -72,22 +72,22 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
     public int item_tabla_syncro, item_tabla_syncrodoc, item_tabla_ascentdoc;
     private static final int PERMISSION_REQUEST_CODE = 1;
     private static final Object[][] TABLASINCRONIZACION = {
-    //        {"METHOD_LIST_CLIEPROV", 20}
-    //        {"METHOD_LIST_CONSUMIDOR", 8},
-            {"METHOD_LIST_TIPOGASTO",8}
-    //        {"METHOD_LIST_CONCEPTO_CUENTA", 5},
-    //        {"METHOD_LIST_CARGOS_PERSONAL", 5},
-    //        {"METHOD_LIST_DOCUMENTOS", 8},
-    //        {"METHOD_LIST_NUMEMISOR", 10},
-    //        {"METHOD_LIST_PERSONAL_SERVICIO", 8},
-    //        {"METHOD_LIST_DPERSONAL_SERVICIO", 8},
-    //        {"METHOD_LIST_PRODUCTOS", 8},
-            //{"METHOD_LIST_RUTAS", 8},
-            //{"METHOD_LIST_SUCURSALES", 5},
-    //        {"METHOD_LIST_ORDENLIQUIDACIONGASTO", 8},
-    //        {"METHOD_LIST_ORDENSERVICIOCLIENTE", 8},
-    //        {"METHOD_LIST_DORDENLIQUIDACIONGASTO", 8},
-    //        {"METHOD_LIST_DORDENSERVICIOCLIENTE", 8}
+            {"METHOD_LIST_CLIEPROV", 20},
+            {"METHOD_LIST_CONSUMIDOR", 8},
+            {"METHOD_LIST_TIPOGASTO",8},
+            {"METHOD_LIST_CONCEPTO_CUENTA", 5},
+            {"METHOD_LIST_CARGOS_PERSONAL", 5},
+            {"METHOD_LIST_DOCUMENTOS", 8},
+            {"METHOD_LIST_NUMEMISOR", 10},
+            {"METHOD_LIST_PERSONAL_SERVICIO", 8},
+            {"METHOD_LIST_DPERSONAL_SERVICIO", 8},
+            {"METHOD_LIST_PRODUCTOS", 8},
+            {"METHOD_LIST_RUTAS", 8},
+            {"METHOD_LIST_SUCURSALES", 5},
+            {"METHOD_LIST_ORDENLIQUIDACIONGASTO", 8},
+            {"METHOD_LIST_ORDENSERVICIOCLIENTE", 8},
+            {"METHOD_LIST_DORDENLIQUIDACIONGASTO", 8},
+            {"METHOD_LIST_DORDENSERVICIOCLIENTE", 8}
     };
     private static final Object[][] TABLASINCRONIZACIONDOCS = {
             //{"METHOD_LIST_CARGOS_PERSONAL", 5},
@@ -239,7 +239,7 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
         if (id == R.id.mov_configuracion) {
 
         } else if (id == R.id.mov_asignacion_personal) {
-            Fragment fragment = lst_OrdenServicio_Fragment.newInstance("Asignacion Personal", "NavigationPolice_Activity");
+            Fragment fragment = lst_OrdenServicio_Fragment.newInstance("Registro Vehiculo", "NavigationPolice_Activity");
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager
                     .beginTransaction()

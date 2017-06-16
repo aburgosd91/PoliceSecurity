@@ -16,10 +16,12 @@ import java.util.ArrayList;
 @XStreamAlias("ORDENSERVICIOCLIENTE")
 
 public class Ordenserviciocliente implements Serializable {
+	@ClavePrimaria
 	@Columna
 	@SerializedName("idempresa") 
 	@XStreamAlias("IDEMPRESA") 
 	private String idempresa = "" ;
+	@ClavePrimaria
 	@Columna
 	@SerializedName("idordenservicio") 
 	@XStreamAlias("IDORDENSERVICIO") 

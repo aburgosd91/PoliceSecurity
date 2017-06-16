@@ -1,6 +1,7 @@
 package com.nisira.view.Activity;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -170,7 +171,10 @@ public class edt_PersonalServicio_Fragment extends FragmentNisira {
         btn_modificar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if(list==null){
+                    Snackbar.make(getView(), "No hay datos seleccionados", Snackbar.LENGTH_SHORT).show();
+                }
+                else
                 for(int i=0;i<list.size();i++) {
                     if (list.get(i).isSeleccion()) {
 

@@ -140,6 +140,11 @@ import java.util.stream.Stream;
                 hora_requerida.setText(Util.convertDecimalTime(
                         dpersonal_servicio.getHora_req()
                 ));
+                hora_llegada.setText("00:00");
+                hora_inicio.setText("00:00");
+                hora_fin.setText("00:00");
+                hora_liberacion.setText("00:00");
+
                 sm = new SimpleDateFormat("dd-MM-yyyy");
                 strDate = sm.format(dpersonal_servicio.getFecharegistro());
                 fecha_operacion.setText(strDate);
