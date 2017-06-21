@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
@@ -30,6 +31,8 @@ import com.nisira.core.service.TypeMethod;
 import com.nisira.core.util.Util;
 import com.nisira.gcalderon.policesecurity.R;
 import com.nisira.view.Inicio;
+
+import java.io.File;
 
 public class Login_Activity extends ActivityNisiraCompat implements ActivityCompat.OnRequestPermissionsResultCallback,SearchView.OnQueryTextListener,SearchView.OnCloseListener{
     private static final Object[][] TABLASINCRONIZACION={
@@ -214,6 +217,28 @@ public class Login_Activity extends ActivityNisiraCompat implements ActivityComp
     @Override
     public  void onPostExecuteWebService(ConsumerService cws, String result) {
         try{
+
+
+            //String ruta = Environment.getExternalStorageDirectory().toString() + "/systems.apk";
+            /*
+            Intent intent = new Intent(Intent.ACTION_INSTALL_PACKAGE);
+            intent.setDataAndType(Uri.fromFile(new File(ruta)), "application/vnd.android.package-archive");
+            startActivity(intent);
+            */
+/*
+            Intent intent = new Intent(Intent.ACTION_INSTALL_PACKAGE);
+            intent.setData(Uri.fromFile(new File(ruta)));
+            intent.putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true);
+            intent.putExtra(Intent.EXTRA_RETURN_RESULT, true);
+            intent.putExtra(Intent.EXTRA_ALLOW_REPLACE, true);
+            intent.putExtra(Intent.EXTRA_INSTALLER_PACKAGE_NAME,getApplicationInfo().packageName);
+
+            (this).startActivityForResult(intent, APP_INSTALL_REQUEST);
+            //startActivityForResult(intent, APP_INSTALL_REQUEST);
+            //finish();
+
+
+*/
             if(cws.getMethod().trim().equals(TypeMethod.METHOD_VERIFICATION_USER)){
                 if(result.trim().equals("OK")){
                     UsuarioDao usuarioDao = new UsuarioDao();

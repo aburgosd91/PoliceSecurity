@@ -5,6 +5,7 @@ import android.util.Log;
 import com.nisira.core.dao.AppmovilusuarioDao;
 import com.nisira.core.dao.Cargos_personalDao;
 import com.nisira.core.dao.ClieprovDao;
+import com.nisira.core.dao.Codoperaciones_pssDao;
 import com.nisira.core.dao.Concepto_cuentaDao;
 import com.nisira.core.dao.ConsumidorDao;
 import com.nisira.core.dao.DestinoadquisicionDao;
@@ -24,6 +25,7 @@ import com.nisira.core.dao.UsuarioDao;
 import com.nisira.core.entity.Appmovilusuario;
 import com.nisira.core.entity.Cargos_personal;
 import com.nisira.core.entity.Clieprov;
+import com.nisira.core.entity.Codoperaciones_pss;
 import com.nisira.core.entity.Concepto_cuenta;
 import com.nisira.core.entity.Consumidor;
 import com.nisira.core.entity.Destinoadquisicion;
@@ -166,6 +168,24 @@ public class ActionService {
         }
     }
     public static String ACTION_SYNCRONIZE_DOCUMENTOS (String db,String response){
+        try {
+            List<Documentos> lstdocumentos = (List<Documentos>) Util.stringObject("com.nisira.core.entity.Documentos",response);
+            DocumentosDao documentosDao = new DocumentosDao();
+            if(lstdocumentos!=null){
+                for(int i=0;i<lstdocumentos.size();i++){
+                    Documentos obj= (Documentos)lstdocumentos.get(i);
+                    documentosDao.mezclarLocal(obj);
+                }
+                return "OK";
+            }
+            return "";
+        }
+        catch (Exception e)
+        {
+            return e.getMessage();
+        }
+    }
+    public static String a (String db,String response){
         try {
             List<Documentos> lstdocumentos = (List<Documentos>) Util.stringObject("com.nisira.core.entity.Documentos",response);
             DocumentosDao documentosDao = new DocumentosDao();
@@ -485,6 +505,35 @@ public class ActionService {
                 for(int i=0;i<tipogastos.size();i++){
                     Tipogasto obj= (Tipogasto)tipogastos.get(i);
                     tipogastosDao.mezclarLocal(obj);
+                }
+                //boolean request= (new UsuarioDao()).insertar(usuario);
+                return "OK";
+            }
+            return "";
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return e.getMessage();
+//            if(VERERRORESSINCRONIZACION==1)
+//            {
+//                return e.toString();
+//            }
+//            else
+//            {
+//                return "Error de conectividad, Intente de nuevo";
+//            }
+        }
+    }
+
+    public static String ACTION_SYNCRONIZE_CODOPERACIONES (String db,String response){
+        try {
+            List codoperaciones = (List<Codoperaciones_pss>) Util.stringObject("com.nisira.core.entity.Codoperaciones_pss",response);
+            Codoperaciones_pssDao codoDao = new Codoperaciones_pssDao();
+            if(codoperaciones!=null){
+                for(int i=0;i<codoperaciones.size();i++){
+                    Codoperaciones_pss obj= (Codoperaciones_pss)codoperaciones.get(i);
+                    codoDao.mezclarLocal(obj);
                 }
                 //boolean request= (new UsuarioDao()).insertar(usuario);
                 return "OK";

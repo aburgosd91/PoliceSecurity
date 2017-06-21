@@ -20,6 +20,17 @@ public class Codoperaciones_pssDao extends BaseDao<Codoperaciones_pss> {
 		super(Codoperaciones_pss.class, usaCnBase);
 	}
 
+	public void mezclarLocal(Codoperaciones_pss obj)throws Exception{
+		if(obj !=null){
+			List<Codoperaciones_pss> lst = listar("LTRIM(RTRIM(t0.IDCODOPERACIONES)) =? ",obj.getIdcodoperaciones().trim());
+			if(lst.isEmpty())
+				insertar(obj);
+			else
+				actualizar(obj);
+//			update(obj,"IDEMPRESA='"+obj.getIdempresa()+"' AND IDCLIEPROV='"+obj.getIdclieprov()+"'");
+		}
+	}
+
 	public Boolean insert(Codoperaciones_pss codoperaciones_pss) {
 		Boolean resultado = false;
 		SQLiteDatabase mDb  = SQLiteDatabase.openDatabase(DataBaseClass.PATH_DATABASE,null, SQLiteDatabase.NO_LOCALIZED_COLLATORS);
