@@ -184,7 +184,7 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
                 fm.popBackStack();
             } else {
                 Log.i("MainActivity", "nothing on backstack, calling super");
-                super.onBackPressed();
+                //super.onBackPressed();
             }
         }
     }
