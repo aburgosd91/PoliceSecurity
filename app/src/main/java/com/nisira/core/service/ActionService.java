@@ -13,6 +13,7 @@ import com.nisira.core.dao.DocumentosDao;
 import com.nisira.core.dao.DordenliquidaciongastoDao;
 import com.nisira.core.dao.DordenservicioclienteDao;
 import com.nisira.core.dao.Dpersonal_servicioDao;
+import com.nisira.core.dao.Estructura_costos_productoDao;
 import com.nisira.core.dao.NumemisorDao;
 import com.nisira.core.dao.OrdenliquidaciongastoDao;
 import com.nisira.core.dao.OrdenservicioclienteDao;
@@ -33,6 +34,7 @@ import com.nisira.core.entity.Documentos;
 import com.nisira.core.entity.Dordenliquidaciongasto;
 import com.nisira.core.entity.Dordenserviciocliente;
 import com.nisira.core.entity.Dpersonal_servicio;
+import com.nisira.core.entity.Estructura_costos_producto;
 import com.nisira.core.entity.Numemisor;
 import com.nisira.core.entity.Ordenliquidaciongasto;
 import com.nisira.core.entity.Ordenserviciocliente;
@@ -534,6 +536,34 @@ public class ActionService {
                 for(int i=0;i<codoperaciones.size();i++){
                     Codoperaciones_pss obj= (Codoperaciones_pss)codoperaciones.get(i);
                     codoDao.mezclarLocal(obj);
+                }
+                //boolean request= (new UsuarioDao()).insertar(usuario);
+                return "OK";
+            }
+            return "";
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return e.getMessage();
+//            if(VERERRORESSINCRONIZACION==1)
+//            {
+//                return e.toString();
+//            }
+//            else
+//            {
+//                return "Error de conectividad, Intente de nuevo";
+//            }
+        }
+    }
+    public static String ACTION_SYNCRONIZE_ESTRUCTURA_COSTO_PRODUCTO(String db,String response){
+        try {
+            List estructuraList = (List<Estructura_costos_producto>) Util.stringObject("com.nisira.core.entity.Estructura_costos_producto",response);
+            Estructura_costos_productoDao estructuradao = new Estructura_costos_productoDao();
+            if(estructuraList!=null){
+                for(int i=0;i<estructuraList.size();i++){
+                    Estructura_costos_producto obj= (Estructura_costos_producto)estructuraList.get(i);
+                    estructuradao.mezclarLocal(obj);
                 }
                 //boolean request= (new UsuarioDao()).insertar(usuario);
                 return "OK";

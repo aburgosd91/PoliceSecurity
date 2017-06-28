@@ -46,6 +46,7 @@ import com.nisira.gcalderon.policesecurity.R;
 
 import org.kxml2.kdom.Document;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -200,7 +201,7 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
                     txtruc.setText(""+dordenliquidaciongasto.getIdclieprov());
                     txtdetalle.setText(""+dordenliquidaciongasto.getGlosa());
                     list_concepto.setText(""+tipogastoList.get(0).getDescripcion());
-                    if(dordenliquidaciongasto.getImpuesto()!= null && dordenliquidaciongasto.getImpuesto()==1){
+                    if(dordenliquidaciongasto.getImpuesto()!= null && dordenliquidaciongasto.getImpuesto() != 0.0){
                         checkboxIGV.setChecked(true);
                     }
                     for(int i = 0;i<lista1.size();i++){
@@ -236,17 +237,23 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
                     dordenliquidaciongasto.setIdclieprov("" + txtruc.getText().toString());
                     dordenliquidaciongasto.setGlosa("" + txtdetalle.getText().toString());
                     if(checkboxIGV.isChecked()){
-                        dordenliquidaciongasto.setAfecto(Double.valueOf(txtmonto.getText().toString()));
-                        dordenliquidaciongasto.setInafecto(0.0);
+                        dordenliquidaciongasto.setAfecto(BigDecimal.valueOf(Double.valueOf(txtmonto.getText().toString())).doubleValue());
+                        dordenliquidaciongasto.setInafecto(BigDecimal.valueOf(0.0).doubleValue());
                         dordenliquidaciongasto.setPimpuesto(ordenliquidaciongasto.getIgv());
-                        dordenliquidaciongasto.setImpuesto(Double.valueOf(txtmonto.getText().toString())*ordenliquidaciongasto.getIgv());
-                        dordenliquidaciongasto.setImporte(Double.valueOf(txtmonto.getText().toString())+dordenliquidaciongasto.getImpuesto());
+                        BigDecimal num = new BigDecimal(0.0);
+                        num.add(BigDecimal.valueOf(Double.valueOf(txtmonto.getText().toString())));
+                        BigDecimal igv = new BigDecimal(ordenliquidaciongasto.getIgv());
+                        igv = igv.divide(BigDecimal.valueOf(100));
+                        igv = igv.multiply(num);
+                        dordenliquidaciongasto.setImpuesto(igv.doubleValue());
+                        num = num.add(igv);
+                        dordenliquidaciongasto.setImporte(num.doubleValue());
                     }else{
-                        dordenliquidaciongasto.setAfecto(0.0);
-                        dordenliquidaciongasto.setInafecto(Double.valueOf(txtmonto.getText().toString()));
+                        dordenliquidaciongasto.setAfecto(BigDecimal.valueOf(0.0).doubleValue());
+                        dordenliquidaciongasto.setInafecto(BigDecimal.valueOf(Double.valueOf(txtmonto.getText().toString())).doubleValue());
                         dordenliquidaciongasto.setPimpuesto(0.0);
-                        dordenliquidaciongasto.setImpuesto(0.0);
-                        dordenliquidaciongasto.setImporte(Double.valueOf(txtmonto.getText().toString()));
+                        dordenliquidaciongasto.setImpuesto(BigDecimal.valueOf(0.0).doubleValue());
+                        dordenliquidaciongasto.setImporte(BigDecimal.valueOf(Double.valueOf(txtmonto.getText().toString())).doubleValue());
                     }
                     DordenliquidaciongastoDao dao2 = new DordenliquidaciongastoDao();
                     if(dordenliquidaciongasto.getIdconcepto()!=null && dordenliquidaciongasto.getIdconcepto()!=""){

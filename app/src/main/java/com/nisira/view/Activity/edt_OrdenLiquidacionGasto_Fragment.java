@@ -25,6 +25,7 @@ import com.nisira.core.interfaces.FragmentNisira;
 import com.nisira.gcalderon.policesecurity.R;
 import com.nisira.view.Adapter.Adapter_edt_OrdenLiquidacionGasto;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -131,11 +132,11 @@ public class edt_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
             adapter = new Adapter_edt_OrdenLiquidacionGasto("",List_dordenliquidaciongastos,getFragmentManager(),ordenliquidaciongasto);
             recyclerView.setAdapter(adapter);
             dao2  = new OrdenliquidaciongastoDao();
-            Double importe = 0.0;
+            BigDecimal importe = BigDecimal.valueOf(0.0);
             for(int i=0;i<List_dordenliquidaciongastos.size();i++){
-                importe+=List_dordenliquidaciongastos.get(i).getImporte();
+                importe=importe.add(BigDecimal.valueOf(List_dordenliquidaciongastos.get(i).getImporte()));
             }
-            ordenliquidaciongasto.setImporte(importe);
+            ordenliquidaciongasto.setImporte(importe.doubleValue());
             dao2.mezclarLocal(ordenliquidaciongasto);
             txt_importe.setText(ordenliquidaciongasto.getImporte()+"");
 
@@ -201,6 +202,7 @@ public class edt_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
                                                 adapter.notifyDataSetChanged();
                                             }
                                         }
+                                        LlenarCampos();
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }

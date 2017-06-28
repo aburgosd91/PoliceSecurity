@@ -19,7 +19,16 @@ public class Estructura_costos_productoDao extends BaseDao<Estructura_costos_pro
 	public Estructura_costos_productoDao(boolean usaCnBase) throws Exception {
 		super(Estructura_costos_producto.class, usaCnBase);
 	}
-
+	public void mezclarLocal(Estructura_costos_producto obj)throws Exception{
+		if(obj !=null){
+			List<Estructura_costos_producto> lst = listar("LTRIM(RTRIM(t0.IDEMPRESA)) =? AND LTRIM(RTRIM(t0.CODIGO)) =? AND LTRIM(RTRIM(t0.IDPRODUCTO)) =?",obj.getIdempresa().trim(),obj.getCodigo().trim(),obj.getIdproducto().trim());
+			if(lst.isEmpty())
+				insertar(obj);
+			else
+				actualizar(obj);
+//			update(obj,"IDEMPRESA='"+obj.getIdempresa()+"' AND IDCLIEPROV='"+obj.getIdclieprov()+"'");
+		}
+	}
 	public Boolean insert(Estructura_costos_producto estructura_costos_producto) {
 		Boolean resultado = false;
 		SQLiteDatabase mDb  = SQLiteDatabase.openDatabase(DataBaseClass.PATH_DATABASE,null, SQLiteDatabase.NO_LOCALIZED_COLLATORS);

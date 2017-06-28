@@ -166,7 +166,9 @@ public class ConsumerService extends AsyncTask<String, Void, String> {
                 case TypeMethod.METHOD_LIST_CODOPERACIONES   :
                     trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_CODOPERACIONES, getAttribute(),this.timeout);
                     response = ActionService.ACTION_SYNCRONIZE_CODOPERACIONES(WSBasedatos.getIdbasedatos(),trama);break;
-
+                case TypeMethod.METHOD_LIST_ESTRUCTURA_COSTO_PRODUCTO :
+                    trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_ESTRUCTURA_COSTO_PRODUCTO, getAttribute(),this.timeout);
+                    response = ActionService.ACTION_SYNCRONIZE_ESTRUCTURA_COSTO_PRODUCTO(WSBasedatos.getIdbasedatos(),trama);break;
                 case TypeMethod.METHOD_WEB_RETURNID   :
                     trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_WEB_RETURNID, getAttribute(),this.timeout);
                     response = trama;//ActionService.ACTION_SYNCRONIZE_DORDENSERVICIOCLIENTE(WSBasedatos.getIdbasedatos(),trama);break;
@@ -290,7 +292,9 @@ public class ConsumerService extends AsyncTask<String, Void, String> {
                     case TypeMethod.METHOD_LIST_CODOPERACIONES   :
                         trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_CODOPERACIONES, getAttribute(),this.timeout);
                         response = ActionService.ACTION_SYNCRONIZE_CODOPERACIONES(WSBasedatos.getIdbasedatos(),trama);break;
-
+                    case TypeMethod.METHOD_LIST_ESTRUCTURA_COSTO_PRODUCTO :
+                        trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_ESTRUCTURA_COSTO_PRODUCTO, getAttribute(),this.timeout);
+                        response = ActionService.ACTION_SYNCRONIZE_ESTRUCTURA_COSTO_PRODUCTO(WSBasedatos.getIdbasedatos(),trama);break;
 
                     /*************************************************SINCRONIZACION***********************************************/
                     case TypeMethod.METHOD_WEB_RETURNID :

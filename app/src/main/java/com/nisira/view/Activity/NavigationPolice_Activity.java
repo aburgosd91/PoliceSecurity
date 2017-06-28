@@ -72,7 +72,8 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
     public int item_tabla_syncro, item_tabla_syncrodoc, item_tabla_ascentdoc;
     private static final int PERMISSION_REQUEST_CODE = 1;
     private static final Object[][] TABLASINCRONIZACION = {
-            {"METHOD_LIST_CODOPERACIONES", 8}
+            {"METHOD_LIST_ESTRUCTURA_COSTO_PRODUCTO",8}
+            //{"METHOD_LIST_CODOPERACIONES", 8}
             //{"METHOD_LIST_CLIEPROV", 20},
             //{"METHOD_LIST_CONSUMIDOR", 8},
             //{"METHOD_LIST_TIPOGASTO",8},

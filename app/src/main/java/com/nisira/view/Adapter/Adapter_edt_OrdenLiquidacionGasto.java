@@ -25,6 +25,7 @@ import com.nisira.gcalderon.policesecurity.R;
 import com.nisira.view.Activity.edt_PersonalServicio_Fragment;
 import com.nisira.view.Activity.mnt_DOrdenLiquidacionGasto_Fragment;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -102,7 +103,7 @@ public class Adapter_edt_OrdenLiquidacionGasto extends RecyclerView.Adapter<Adap
         //String strDate = sm.format(""+items.get(i).getFecha().toString());
         viewHolder.fecha_fin.setText("Fecha: "+items.get(i).getFecha().toString());
         viewHolder.placa.setText("Descripcion: "+ items.get(i).getGlosa());
-        Double dinero = items.get(i).getImporte()-items.get(i).getImpuesto();
+        BigDecimal dinero = BigDecimal.valueOf(items.get(i).getImporte()).add(BigDecimal.valueOf(items.get(i).getImpuesto()).negate());
         viewHolder.txt_dinero.setText("IGV: "+ items.get(i).getImpuesto() + "  Subtotal: "+ dinero);
         viewHolder.txt_importetotal.setText("Importe: "+ items.get(i).getImporte());
         if(items.get(i).isSeleccion()){

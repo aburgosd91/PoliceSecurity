@@ -7,6 +7,7 @@ import com.google.gson.annotations.SerializedName;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import java.io.Serializable;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.ArrayList;
 
@@ -143,7 +144,7 @@ public class Ordenliquidaciongasto implements Serializable {
 	@Columna
 	@SerializedName("importe") 
 	@XStreamAlias("IMPORTE") 
-	private Double importe = 0.00 ;
+	private Double importe = 0.0;
 	@Columna
 	@SerializedName("importemof") 
 	@XStreamAlias("IMPORTEMOF") 
