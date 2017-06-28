@@ -49,6 +49,7 @@ public class Adapter_lst_OrdenServicio extends RecyclerView.Adapter<Adapter_lst_
         public TextView txttiposervicio;
         public CircleImageView seleccion;
         public RelativeLayout fondo_seleccion;
+        public TextView indexnum;
         public boolean bool_seleccion;
         public ListaViewHolder(View v) {
             super(v);
@@ -60,6 +61,7 @@ public class Adapter_lst_OrdenServicio extends RecyclerView.Adapter<Adapter_lst_
             fecha = (TextView) v.findViewById(R.id.txtfecha);
             txtid = (TextView) v.findViewById(R.id.txtid);
             txttiposervicio = (TextView) v.findViewById(R.id.txttiposervicio);
+            indexnum = (TextView)v.findViewById(R.id.indexnum);
         }
     }
 
@@ -85,6 +87,7 @@ public class Adapter_lst_OrdenServicio extends RecyclerView.Adapter<Adapter_lst_
     @Override
     public void onBindViewHolder(ListaViewHolder viewHolder, int i) {
         //AQUI VAN TODOS LOS ELEMENTOS DE LA LISTA.
+        viewHolder.indexnum.setText((i+1)+"");
         viewHolder.nombre.setText(items.get(i).getCliente());
         viewHolder.ordenservicio.setText("Orden: "+items.get(i).getIddocumento()+" - "+items.get(i).getSerie()+" - "+items.get(i).getNumero());
         SimpleDateFormat sm = new SimpleDateFormat("dd-MM-yyyy");

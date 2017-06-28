@@ -22,11 +22,12 @@ public class UsuarioDao extends BaseDao<Usuario> {
 
 	public void mezclarLocal(Usuario obj)throws Exception{
 		if(obj !=null){
-			List<Usuario> lst = listar("LTRIM(RTRIM(t0.IDUSUARIO ))=?",obj.getIdusuario().trim());
-			if(lst.isEmpty())
-				insertar(obj);
-			else
-				actualizar(obj);
+			List<Usuario> lst = listar();
+			if(lst.size()>0) {
+				Usuario del = lst.get(0);
+				borrar(del);
+			}
+			insertar(obj);
 		}
 	}
 	public Usuario getUsuario_base(String idusuario) throws Exception {

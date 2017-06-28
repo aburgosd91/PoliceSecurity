@@ -50,6 +50,9 @@ public class Usuario implements Serializable {
 	@SerializedName("idclieprov")
 	@XStreamAlias("IDCLIEPROV")
 	private String idclieprov;
+	@Columna
+	@SerializedName("email")
+	@XStreamAlias("EMAIL")
 	private String email;
 	/* Sets & Gets */
 	public void setIdbasedatos(String idbasedatos) {

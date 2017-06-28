@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
@@ -43,6 +44,7 @@ public class lst_OrdenServicio_Fragment extends FragmentNisira {
     OrdenservicioclienteDao ordenservicioclienteDao;
     FloatingActionButton fab_abrir,fab_filtrar;
     EditText edit_filtro;
+    TextView txt_cantidad;
     RelativeLayout rlfiltro;
     Usuario user ;
     // TODO: PARAMETROS DE ENTRADA
@@ -78,13 +80,13 @@ public class lst_OrdenServicio_Fragment extends FragmentNisira {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_lst_ordenservicio, container, false);
-
+        animacionEntrada();
         // Inflate the layout for this fragment
         recycler = (RecyclerView) view.findViewById(R.id.reciclador);
         recycler.setHasFixedSize(true);
         swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
         fab_abrir = (FloatingActionButton)view.findViewById(R.id.fab_abrir);
-
+        txt_cantidad =(TextView) view.findViewById(R.id.txt_cantidad);
         fab_filtrar = (FloatingActionButton)view.findViewById(R.id.fab_filtrar);
         rlfiltro = (RelativeLayout)view.findViewById(R.id.rlfiltro);
         edit_filtro = (EditText)view.findViewById(R.id.edit_filtro);
@@ -95,7 +97,15 @@ public class lst_OrdenServicio_Fragment extends FragmentNisira {
         Listeners();
         return view;
     }
+    public void animacionEntrada(){
+        Slide slide = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+            slide = (Slide) TransitionInflater.from(getContext()).inflateTransition(R.transition.activity_slide);
+            setExitTransition(slide);
+            setEnterTransition(slide);
+        }
 
+    }
 
 
     public void LlenarCampos(){
@@ -103,6 +113,7 @@ public class lst_OrdenServicio_Fragment extends FragmentNisira {
             ordenservicioclienteDao = new OrdenservicioclienteDao();
             listServCliente = ordenservicioclienteDao.listOrdenServicioxCliente(user);
             // Crear un nuevo adaptador
+            txt_cantidad.setText("Registros: " + listServCliente.size());
             adapter = new Adapter_lst_OrdenServicio(mParam1,listServCliente,getFragmentManager());
             recycler.setAdapter(adapter);
         } catch (ClassNotFoundException e) {

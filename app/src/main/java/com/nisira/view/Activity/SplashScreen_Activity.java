@@ -35,7 +35,7 @@ public class SplashScreen_Activity extends ActivityNisiraCompat {
 
     private static final Object[][] TABLASINCRONIZACIONDOCS = {
             //{"METHOD_LIST_CARGOS_PERSONAL", 5},
-            //{"METHOD_LIST_ORDENSERVICIOCLIENTE",8},
+            {"METHOD_LIST_ORDENSERVICIOCLIENTE",8},
             {"METHOD_LIST_DORDENSERVICIOCLIENTE", 8},
             {"METHOD_LIST_PERSONAL_SERVICIO", 8},
             {"METHOD_LIST_DPERSONAL_SERVICIO", 8},
@@ -118,7 +118,7 @@ public class SplashScreen_Activity extends ActivityNisiraCompat {
     @Override
     public void onPostExecuteWebService(ConsumerService cws, String result) {
         if (cws.isSyncronize()) {
-            percentage+=25;
+            percentage+=20;
             fillableLoader.setPercentage(percentage);
             fillableLoader.start();
             if (cws.getType_syncronize() == 2) {/*SINCRONIZACION DOCUMENTOS*/
