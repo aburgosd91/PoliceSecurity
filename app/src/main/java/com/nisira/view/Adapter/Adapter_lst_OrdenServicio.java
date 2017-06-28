@@ -120,7 +120,6 @@ public class Adapter_lst_OrdenServicio extends RecyclerView.Adapter<Adapter_lst_
                 ft.replace(R.id.main_content, fragment, "NewFragmentTag");
                 ft.addToBackStack(null);
                 ft.commit();
-
                 notifyItemChanged(i);
             }
         });
