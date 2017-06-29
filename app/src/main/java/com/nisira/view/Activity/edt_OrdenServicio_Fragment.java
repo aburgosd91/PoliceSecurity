@@ -16,8 +16,10 @@ import android.widget.TextView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.nisira.core.dao.DordenservicioclienteDao;
+import com.nisira.core.dao.Personal_servicioDao;
 import com.nisira.core.entity.Dordenserviciocliente;
 import com.nisira.core.entity.Ordenserviciocliente;
+import com.nisira.core.entity.Personal_servicio;
 import com.nisira.core.interfaces.FragmentNisira;
 import com.nisira.gcalderon.policesecurity.R;
 import com.nisira.view.Adapter.Adapter_edt_DOrdenServicio;
@@ -171,10 +173,18 @@ public class edt_OrdenServicio_Fragment extends FragmentNisira {
 
                     for (int i = 0; i < lstordenserviciocliente.size(); i++) {
                         if (lstordenserviciocliente.get(i).isSeleccion()) {
-                            Fragment fragment = mnt_DOrdenServicio_Fragment.newInstance(OPCION, "Modificar");
+                            Personal_servicioDao daop = new Personal_servicioDao();
+                            Personal_servicio personal_servicio = null;
+                            try {
+                                personal_servicio = daop.listarxDordenservicio(lstordenserviciocliente.get(i)).get(0);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            Fragment fragment = mnt_PersonalServicio_Fragment.newInstance(OPCION, "Modificar");
                             Bundle bundle = fragment.getArguments();
                             bundle.putSerializable("OrdenServicio", ordenserviciocliente);
                             bundle.putSerializable("DOrdenServicio",lstordenserviciocliente.get(i));
+                            bundle.putSerializable("PersonalServicio",personal_servicio);
                             fragment.setArguments(bundle);
                             FragmentTransaction ft = getFragmentManager().beginTransaction();
                             ft.replace(R.id.main_content, fragment, "NewFragmentTag");

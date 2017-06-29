@@ -15,8 +15,10 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.nisira.core.dao.Personal_servicioDao;
 import com.nisira.core.entity.Dordenserviciocliente;
 import com.nisira.core.entity.Ordenserviciocliente;
+import com.nisira.core.entity.Personal_servicio;
 import com.nisira.gcalderon.policesecurity.R;
 import com.nisira.view.Activity.edt_PersonalServicio_Fragment;
 import com.nisira.view.Activity.mnt_DOrdenServicio_Fragment;
@@ -84,8 +86,19 @@ public class Adapter_edt_DOrdenServicio_vehiculo extends RecyclerView.Adapter<Ad
     @Override
     public void onBindViewHolder(Adapter_edt_DOrdenServicio_vehiculo.ListaViewHolder viewHolder, int i) {
 
-        viewHolder.nombre.setText("Placa: "+items.get(i).getPlaca_cliente());
 
+
+        Personal_servicioDao daop = new Personal_servicioDao();
+        try {
+            List<Personal_servicio>personales = daop.listarxDordenservicio(items.get(i));
+            if(personales.size()>0){
+            viewHolder.nombre.setText("Placa personal: "+personales.get(0).getIdvehiculo());}
+            else{
+                viewHolder.nombre.setText("Placa personal: ");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         if(items.get(i).getFecha_fin_servicio()!=null){
             SimpleDateFormat sm = new SimpleDateFormat("dd-MM-yyyy");
             String strDate = sm.format(items.get(i).getFecha_fin_servicio());
@@ -95,7 +108,7 @@ public class Adapter_edt_DOrdenServicio_vehiculo extends RecyclerView.Adapter<Ad
             viewHolder.fecha_fin.setText("Fin servicio: "+strDate);
         }
         viewHolder.placa.setText(items.get(i).getDescripcion_servicio());
-        viewHolder.txtnombrecarro.setText(items.get(i).getDescripcion_vehiculo());
+        viewHolder.txtnombrecarro.setText("Placa cliente:" +items.get(i).getPlaca_cliente()+ items.get(i).getDescripcion_vehiculo());
 
         if(items.get(i).isSeleccion()){
             viewHolder.seleccion.setBackgroundColor(viewHolder.itemView.getResources().getColor(R.color.amarillo));
