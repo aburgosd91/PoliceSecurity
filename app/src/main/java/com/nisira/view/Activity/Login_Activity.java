@@ -272,7 +272,7 @@ public class Login_Activity extends ActivityNisiraCompat implements ActivityComp
         int time = (int) TABLASINCRONIZACION[item_tabla_syncro][1];
         item_tabla_syncro++;
         ConsumerService cws = new ConsumerService(Login_Activity.this,getApplicationContext(), method_syncro, time,true,1);
-        cws.getAttribute().put("type","XML");
+        cws.getAttribute().put("type","JSON");
         cws.execute("");
         cws.pd = ProgressDialog.show(Login_Activity.this, "SINCRONIZANDO","Sincronizando Base de Datos - "+method_syncro.replace("METHOD_LIST_",""), true, false);
     }

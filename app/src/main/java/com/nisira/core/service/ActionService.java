@@ -2,6 +2,8 @@ package com.nisira.core.service;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.nisira.core.dao.AppmovilusuarioDao;
 import com.nisira.core.dao.Cargos_personalDao;
 import com.nisira.core.dao.ClieprovDao;
@@ -35,9 +37,13 @@ import com.nisira.core.entity.Dordenliquidaciongasto;
 import com.nisira.core.entity.Dordenserviciocliente;
 import com.nisira.core.entity.Dpersonal_servicio;
 import com.nisira.core.entity.Estructura_costos_producto;
+import com.nisira.core.entity.GenerarInfoOrdenserviciocliente;
 import com.nisira.core.entity.Numemisor;
 import com.nisira.core.entity.Ordenliquidaciongasto;
 import com.nisira.core.entity.Ordenserviciocliente;
+import com.nisira.core.entity.GenerarInfoOrdenserviciocliente;
+import com.nisira.core.entity.Ordenservicioclientegson;
+
 import com.nisira.core.entity.Personal_servicio;
 import com.nisira.core.entity.Productos;
 import com.nisira.core.entity.Rutas;
@@ -49,7 +55,7 @@ import com.nisira.core.util.Util;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import java.lang.reflect.Type;
 /**
  * Created by aburgos on 06/01/2017.
  */
@@ -288,7 +294,7 @@ public class ActionService {
     }
     public static String ACTION_SYNCRONIZE_SUCURSALES (String db,String response){
         try {
-            List lstsucursales = (List<Sucursales>) Util.stringObject("com.nisira.core.entity.Sucursales",response);
+            List lstsucursales = (List<Sucursales>) Util.stringGson("com.nisira.core.entity.Sucursales",response);
             SucursalesDao sucursalesDao = new SucursalesDao();
             if(lstsucursales!=null){
                 for(int i=0;i<lstsucursales.size();i++){
@@ -315,14 +321,19 @@ public class ActionService {
     }
     /* DOCUMENTOS PRINCIPALES -> descent*/
     public static String ACTION_SYNCRONIZE_ORDENSERVICIOCLIENTE  (String db,String response){
+
         try {
-            List<Ordenserviciocliente> lstordenserviciocliente = (List<Ordenserviciocliente>) Util.stringObject("com.nisira.core.entity.Ordenserviciocliente",response);
+            Type ListTypeInfo = new TypeToken<List<Ordenservicioclientegson>>(){}.getType();
+            Gson gson = new Gson();
+            GenerarInfoOrdenserviciocliente ListInfo = gson.fromJson(response,GenerarInfoOrdenserviciocliente.class);
+          // List<Ordenserviciocliente> lstordenserviciocliente = (List<Ordenserviciocliente>) Util.stringObject("com.nisira.core.entity.Ordenserviciocliente",response);
             OrdenservicioclienteDao ordenservicioclienteDao = new OrdenservicioclienteDao();
-            if(lstordenserviciocliente!=null){
-                ordenservicioclienteDao.borrar("IDEMPRESA = ?",lstordenserviciocliente.get(0).getIdempresa());
-                for(int i=0;i<lstordenserviciocliente.size();i++){
-                    Ordenserviciocliente obj= (Ordenserviciocliente)lstordenserviciocliente.get(i);
-                    ordenservicioclienteDao.mezclarLocal(obj);
+
+            if(ListInfo.getDatos()!=null){
+                ordenservicioclienteDao.borrar("IDEMPRESA = ?",ListInfo.getDatos().get(0).getIdempresa());
+                for(int i=0;i<ListInfo.getDatos().size();i++){
+                    Ordenservicioclientegson obj= (Ordenservicioclientegson) ListInfo.getDatos().get(i);
+                   // ordenservicioclienteDao.mezclarLocal(obj);  --> error obj hace referncia a otra entidad, ya que al usar gson no es necesario serealizar los Atributos.
                 }
                 //boolean request= (new UsuarioDao()).insertar(usuario);
                 return "OK";

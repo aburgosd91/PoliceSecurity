@@ -20,12 +20,18 @@ public class TypeMethod {
     public static final String METHOD_LIST_RUTAS                   ="METHOD_LIST_RUTAS";
     public static final String METHOD_LIST_SUCURSALES              ="METHOD_LIST_SUCURSALES";
     public static final String METHOD_LIST_ORDENLIQUIDACIONGASTO   ="METHOD_LIST_ORDENLIQUIDACIONGASTO";
-    public static final String METHOD_LIST_ORDENSERVICIOCLIENTE    ="METHOD_LIST_ORDENSERVICIOCLIENTE";
+    public static final String METHOD_LIST_ORDENSERVICIOCLIENTE    ="METHOD_LIST_ORDENSERVICIOCLIENTEABAD3";
     public static final String METHOD_LIST_DORDENLIQUIDACIONGASTO  ="METHOD_LIST_DORDENLIQUIDACIONGASTO";
     public static final String METHOD_LIST_DORDENSERVICIOCLIENTE   ="METHOD_LIST_DORDENSERVICIOCLIENTE";
     public static final String METHOD_LIST_TIPOGASTO               ="METHOD_LIST_TIPOGASTO";
     public static final String METHOD_LIST_CODOPERACIONES          = "METHOD_LIST_CODOPERACIONES";
     public static final String METHOD_LIST_ESTRUCTURA_COSTO_PRODUCTO    = "METHOD_LIST_ESTRUCTURA_COSTO_PRODUCTO";
+
+    public static final String METHOD_LIST_ORDEN_SERVICIO_PENDIENTE    = "METHOD_LIST_ORDEN_SERVICIO_PENDIENTE";
+    public static final String METHOD_LIST_DORDEN_SERVICIO_PENDIENTE    = "METHOD_LIST_DORDEN_SERVICIO_PENDIENTE";
+    public static final String METHOD_LIST_PERSONAL_SERVICIO_FREE    = "METHOD_LIST_PERSONAL_SERVICIO_FREE";
+    public static final String METHOD_LIST_DPERSONAL_SERVICIO_FREE    = "METHOD_LIST_DPERSONAL_SERVICIO_FREE";
+
 
 
     /****************************************************************************************************/

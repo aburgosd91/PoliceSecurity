@@ -35,12 +35,12 @@ public class SplashScreen_Activity extends ActivityNisiraCompat {
 
     private static final Object[][] TABLASINCRONIZACIONDOCS = {
             //{"METHOD_LIST_CARGOS_PERSONAL", 5},
-            {"METHOD_LIST_ORDENSERVICIOCLIENTE",8},
-            {"METHOD_LIST_DORDENSERVICIOCLIENTE", 8},
-            {"METHOD_LIST_PERSONAL_SERVICIO", 8},
-            {"METHOD_LIST_DPERSONAL_SERVICIO", 8},
-            {"METHOD_LIST_ORDENLIQUIDACIONGASTO", 8},
-            {"METHOD_LIST_DORDENLIQUIDACIONGASTO", 8}
+            {"METHOD_LIST_ORDEN_SERVICIO_PENDIENTE",20},
+            {"METHOD_LIST_DORDEN_SERVICIO_PENDIENTE", 20},
+            {"METHOD_LIST_PERSONAL_SERVICIO_FREE", 20},
+            {"METHOD_LIST_DPERSONAL_SERVICIO_FREE", 20},
+            {"METHOD_LIST_ORDENLIQUIDACIONGASTO", 20},
+            {"METHOD_LIST_DORDENLIQUIDACIONGASTO", 20}
     };
 
     public static int value = 0;
@@ -110,7 +110,7 @@ public class SplashScreen_Activity extends ActivityNisiraCompat {
         item_tabla_syncrodoc++;
         txt_progressbar.setText(value+"%"+" <<"+method_syncro.replace("METHOD_LIST_", "")+">>");
         ConsumerService cws = new ConsumerService(SplashScreen_Activity.this, getApplicationContext(), method_syncro, time, true, 2);
-        cws.getAttribute().put("type", "XML");
+        cws.getAttribute().put("type", "JSON");//XML for JSON
         cws.execute("");
         cws.pd = new ProgressDialog(SplashScreen_Activity.this);
         //cws.pd = ProgressDialog.show(SplashScreen_Activity.this, "SINCRONIZANDO", "Sincronizando Base de Datos - " + method_syncro.replace("METHOD_LIST_", ""), true, false);
