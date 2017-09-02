@@ -40,13 +40,22 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="######"
+            android:id="@+id/txtnombrecarro"
+            android:layout_below="@+id/nombre"
+            android:layout_alignLeft="@+id/nombre" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="########"
             android:maxLines="2"
             android:minLines="1"
             android:id="@+id/txtplaca"
-            android:layout_below="@+id/nombre"
+            android:layout_below="@+id/txtnombrecarro"
             android:layout_alignLeft="@+id/nombre" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,6 +64,7 @@
             android:id="@+id/txtfechafin"
             android:layout_below="@+id/txtplaca"
             android:layout_alignLeft="@+id/nombre" />
+
 
     </RelativeLayout>
 

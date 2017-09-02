@@ -54,6 +54,7 @@ public class Usuario implements Serializable {
 	@SerializedName("email")
 	@XStreamAlias("EMAIL")
 	private String email;
+	private boolean sincroniza;
 	/* Sets & Gets */
 	public void setIdbasedatos(String idbasedatos) {
 		this.idbasedatos = idbasedatos;
@@ -129,6 +130,14 @@ public class Usuario implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public boolean isSincroniza() {
+		return sincroniza;
+	}
+
+	public void setSincroniza(boolean sincroniza) {
+		this.sincroniza = sincroniza;
 	}
 
 

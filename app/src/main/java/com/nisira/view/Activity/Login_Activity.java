@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SearchView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.nisira.core.dao.UsuarioDao;
@@ -58,6 +59,8 @@ public class Login_Activity extends ActivityNisiraCompat implements ActivityComp
     Button btn_login;
     EditText txtuser;
     EditText txtpassword;
+    Switch sw_sincroniza ;
+    boolean valorSwitch=false;
     /*ADDITIONAL*/
 //    VariableGlobal variablesglobales;
     @Override
@@ -105,11 +108,13 @@ public class Login_Activity extends ActivityNisiraCompat implements ActivityComp
         // then you use
         txtuser.setText(prefs.getString("USUARIO",""));
         txtpassword.setText(prefs.getString("PASSWORD", ""));
+        sw_sincroniza= (Switch) findViewById(R.id.switch_sincroniza);
         btn_login = (Button)  findViewById(R.id.button);
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                startActivity(new Intent(Login_Activity.this, progressdialog_Activity.class));
+
                 try {
                     verification_login();
                 }catch (Exception e){
@@ -253,9 +258,11 @@ public class Login_Activity extends ActivityNisiraCompat implements ActivityComp
                         editor.putString("PASSWORD",txtpassword.getText().toString());
                         editor.putString("USR_NOMBRES", user.getUsr_nombres());
                         editor.putString("IDCLIEPROV", user.getIdclieprov());
+                        editor.putString("IDCLIEPROV", user.getIdclieprov());
                         editor.putString("EMAIL", user.getEmail());
-                        editor.commit();
+                        editor.putBoolean("SINCRONIZAR", sw_sincroniza.isChecked());
 
+                        editor.commit();
                     }
                 }
                 else{
@@ -276,4 +283,10 @@ public class Login_Activity extends ActivityNisiraCompat implements ActivityComp
         cws.execute("");
         cws.pd = ProgressDialog.show(Login_Activity.this, "SINCRONIZANDO","Sincronizando Base de Datos - "+method_syncro.replace("METHOD_LIST_",""), true, false);
     }
+/**
+    public void onClick(View view) {
+        if(view.getId()==R.id.switch_sincroniza){
+
+        }
+    }**/
 }

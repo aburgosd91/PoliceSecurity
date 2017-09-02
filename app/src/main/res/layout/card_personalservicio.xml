@@ -74,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="########"
+            android:text="Vehiculo: "
             android:id="@+id/txt_vehiculo_lst"
             android:layout_below="@+id/txt2"
             android:layout_alignLeft="@+id/nombre" />

@@ -184,10 +184,10 @@ public class Consumidor implements Serializable {
 	@SerializedName("gastoxactividad") 
 	@XStreamAlias("GASTOXACTIVIDAD") 
 	private Double gastoxactividad = 0.00 ;
-	@Columna
+	/**@Columna
 	@SerializedName("final_") 
 	@XStreamAlias("FINAL_") 
-	private Double final_ = 0.00 ;
+	private Double final_ = 0.00 ;**/
 	@Columna
 	@SerializedName("cuenta_abono") 
 	@XStreamAlias("CUENTA_ABONO") 
@@ -895,14 +895,14 @@ public class Consumidor implements Serializable {
 	public Double getGastoxactividad() {
 		return this.gastoxactividad;
 	}
-
+/**
 	public void setFinal_(Double final_) {
 		this.final_ = final_;
 	}
 
 	public Double getFinal_() {
 		return this.final_;
-	}
+	}**/
 
 	public void setCuenta_abono(String cuenta_abono) {
 		this.cuenta_abono = cuenta_abono;
@@ -1645,4 +1645,140 @@ public class Consumidor implements Serializable {
 
 	/* Sets & Gets FK*/
 
+	public Consumidor() {
+		this.idempresa = idempresa;
+		this.idconsumidor = idconsumidor;
+		this.tipo = tipo;
+		this.jerarquia = jerarquia;
+		this.descripcion = descripcion;
+		this.idccosto = idccosto;
+		this.fecha_ingreso = fecha_ingreso;
+		this.fecha_baja = fecha_baja;
+		this.idsucursal = idsucursal;
+		this.area = area;
+		this.idtenergia = idtenergia;
+		this.caudal = caudal;
+		this.idpertenece = idpertenece;
+		this.tipocalculo = tipocalculo;
+		this.costo_mof = costo_mof;
+		this.costo_mex = costo_mex;
+		this.tipomaquina = tipomaquina;
+		this.idproducto = idproducto;
+		this.planificado = planificado;
+		this.producido = producido;
+		this.grupo = grupo;
+		this.estado = estado;
+		this.sincroniza = sincroniza;
+		this.fechacreacion = fechacreacion;
+		this.escarga = escarga;
+		this.marca = marca;
+		this.placa = placa;
+		this.regmtc = regmtc;
+		this.nroejes = nroejes;
+		this.cargautil = cargautil;
+		this.tipovehiculo = tipovehiculo;
+		this.anio = anio;
+		this.kminicial = kminicial;
+		this.idcontrolador = idcontrolador;
+		this.nro_valvula = nro_valvula;
+		this.idserie = idserie;
+		this.kilometros = kilometros;
+		this.idnivelconsumidor = idnivelconsumidor;
+		this.descripcioncorta = descripcioncorta;
+		this.codigo_control = codigo_control;
+		this.es_titulo = es_titulo;
+		this.gastoxactividad = gastoxactividad;
+		this.cuenta_abono = cuenta_abono;
+		this.cuenta_cargo = cuenta_cargo;
+		this.cuenta_destino = cuenta_destino;
+		this.idactividad = idactividad;
+		this.idsiembra = idsiembra;
+		this.idcampana = idcampana;
+		this.idordenproduccion = idordenproduccion;
+		this.idloteproduccion = idloteproduccion;
+		this.creacc = creacc;
+		this.es_produccion = es_produccion;
+		this.codigo_lotizar = codigo_lotizar;
+		this.vventa_mof = vventa_mof;
+		this.vventa_mex = vventa_mex;
+		this.idunidadnegocio = idunidadnegocio;
+		this.idclaseccosto = idclaseccosto;
+		this.idcuentac_pt = idcuentac_pt;
+		this.idcuentaa_pt = idcuentaa_pt;
+		this.idcuentac_pp = idcuentac_pp;
+		this.idcuentaa_pp = idcuentaa_pp;
+		this.tipo_costeo = tipo_costeo;
+		this.idfuncion = idfuncion;
+		this.idmotivo_reval = idmotivo_reval;
+		this.idsucursal_reval = idsucursal_reval;
+		this.idalmacen_reval = idalmacen_reval;
+		this.iddocumento_reval = iddocumento_reval;
+		this.idfactordistribucion = idfactordistribucion;
+		this.costoha_mex = costoha_mex;
+		this.costoha_mof = costoha_mof;
+		this.distr_costofinal = distr_costofinal;
+		this.esxperiodo = esxperiodo;
+		this.nombre_registro = nombre_registro;
+		this.nro_registro = nro_registro;
+		this.tipo_costo = tipo_costo;
+		this.idparteproduccion = idparteproduccion;
+		this.algoritmoprecio = algoritmoprecio;
+		this.idprovlote = idprovlote;
+		this.idmedida = idmedida;
+		this.descarga = descarga;
+		this.esvehtercero = esvehtercero;
+		this.genera_viajet = genera_viajet;
+		this.genera_remtransportista = genera_remtransportista;
+		this.idviajet = idviajet;
+		this.idremtransportista = idremtransportista;
+		this.nrv_asignacion = nrv_asignacion;
+		this.growercode = growercode;
+		this.ver_transformacion = ver_transformacion;
+		this.idcuenta_cp = idcuenta_cp;
+		this.capacidad = capacidad;
+		this.idalmacen = idalmacen;
+		this.idfuenteagua = idfuenteagua;
+		this.idclieprov_vehtercero = idclieprov_vehtercero;
+		this.es_servicio = es_servicio;
+		this.idcuentadiv9 = idcuentadiv9;
+		this.esalquilado = esalquilado;
+		this.no_participadistribucion = no_participadistribucion;
+		this.es_mantenimiento = es_mantenimiento;
+		this.idgrupo_maq = idgrupo_maq;
+		this.distribucion_dwh = distribucion_dwh;
+		this.nombre_corto = nombre_corto;
+		this.idsubsectorconsumidor = idsubsectorconsumidor;
+		this.es_cosecha = es_cosecha;
+		this.capacidad_tanque = capacidad_tanque;
+		this.idbasedatos = idbasedatos;
+		this.idactivo = idactivo;
+		this.idingresosalidaactivo = idingresosalidaactivo;
+		this.idctaactivo = idctaactivo;
+		this.es_reempaque = es_reempaque;
+		this.es_reproceso = es_reproceso;
+		this.es_avicola = es_avicola;
+		this.tipo_presupuesto = tipo_presupuesto;
+		this.idlinea_avicola = idlinea_avicola;
+		this.permanencia = permanencia;
+		this.es_empaque = es_empaque;
+		this.idconsumidor_spring = idconsumidor_spring;
+		this.es_lote_campo = es_lote_campo;
+		this.es_secado = es_secado;
+		this.certificado = certificado;
+		this.tipo_precio_fuente = tipo_precio_fuente;
+		this.codigo_parcela = codigo_parcela;
+		this.costokm_mof = costokm_mof;
+		this.costokm_mex = costokm_mex;
+		this.costodia_mof = costodia_mof;
+		this.costodia_mex = costodia_mex;
+		this.dias_genpresup = dias_genpresup;
+		this.idmedida_maq = idmedida_maq;
+		this.capacidad_maq = capacidad_maq;
+		this.vventa_um_mof = vventa_um_mof;
+		this.vventa_um_mex = vventa_um_mex;
+		this.tipo_registro_parte = tipo_registro_parte;
+		this.ver_digitacion = ver_digitacion;
+		this.es_lote_vivero = es_lote_vivero;
+		this.fn_distr_var1_m2 = fn_distr_var1_m2;
+	}
 }

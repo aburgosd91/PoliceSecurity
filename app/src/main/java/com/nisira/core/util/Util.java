@@ -19,6 +19,8 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.mapper.CannotResolveClassException;
 import com.thoughtworks.xstream.mapper.MapperWrapper;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
 import java.util.List;
 
@@ -208,6 +210,61 @@ public final class Util {
         user_session.setUsr_nombres(prefs.getString("USR_NOMBRES", null));
         user_session.setIdclieprov(prefs.getString("IDCLIEPROV", null));
         user_session.setEmail(prefs.getString("EMAIL", null));
+        user_session.setSincroniza(prefs.getBoolean("SINCRONIZAR",false));
         return user_session;
     }
+
+    public static float  convertStringTimeFloat(final String time ){
+        if(time == null){
+            return 0.0f;
+        }else if(time.trim().equals("")){
+            return 0.0f;
+        }else if(time.trim().equals("__:__")){
+            return 0.0f;
+        }else if(time.trim().equals("24:00"))
+            return 0.0f;
+        else if(time.trim().equals("00:00"))
+            return 0.0f;
+        else{
+            String[] horas_string = time.split(":");
+
+            if(horas_string.length==0){
+                return 0.0f;
+            }else{
+                BigDecimal hora_decimal = new BigDecimal(horas_string[0]);
+                BigDecimal minutos_decimal = new BigDecimal(horas_string[1]);
+                BigDecimal fraccion = minutos_decimal.divide(new BigDecimal(60),2, BigDecimal.ROUND_HALF_UP);
+//                fraccion=fraccion.setScale(0, RoundingMode.HALF_UP);
+                return fraccion.add(hora_decimal).floatValue();
+            }
+        }
+    }
+
+    public static String convertTimeFloatString(Float time){
+        if(time == null){
+            return "";
+        }else if(time.floatValue()==0.0f){
+            return "00:00";
+        }else{
+            BigDecimal number = new BigDecimal(time);
+            int hora = number.intValue();
+            BigDecimal fraccion = number.remainder(BigDecimal.ONE).multiply(new BigDecimal(60));
+            fraccion=fraccion.setScale(0, RoundingMode.HALF_UP);
+            int minutos = fraccion.intValue();
+            return idGeneradoDos(hora)+":"+idGeneradoDos(minutos);
+        }
+    }
+    public static String idGeneradoDos(int id){
+        if(id<10) return "0"+id;
+        else return String.valueOf(id);
+    }
+    public  static String isnull(String valor, String valor2){
+
+        if (valor==null){
+            return valor2;
+        }
+        return  valor;
+
+    }
+
 }

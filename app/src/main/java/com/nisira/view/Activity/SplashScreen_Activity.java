@@ -14,8 +14,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.github.jorgecastillo.FillableLoader;
+import com.nisira.core.entity.Usuario;
 import com.nisira.core.interfaces.ActivityNisiraCompat;
 import com.nisira.core.service.ConsumerService;
+import com.nisira.core.util.Util;
 import com.nisira.gcalderon.policesecurity.R;
 
 import butterknife.Bind;
@@ -32,15 +34,22 @@ public class SplashScreen_Activity extends ActivityNisiraCompat {
     public static final int seconds=8;
     public static final int miliseconds_total=seconds*1000;
     public static final int delay=2;
-
+    private Usuario user_session ;
     private static final Object[][] TABLASINCRONIZACIONDOCS = {
             //{"METHOD_LIST_CARGOS_PERSONAL", 5},
             {"METHOD_LIST_ORDEN_SERVICIO_PENDIENTE",20},
             {"METHOD_LIST_DORDEN_SERVICIO_PENDIENTE", 20},
             {"METHOD_LIST_PERSONAL_SERVICIO_FREE", 20},
             {"METHOD_LIST_DPERSONAL_SERVICIO_FREE", 20},
-            {"METHOD_LIST_ORDENLIQUIDACIONGASTO", 20},
-            {"METHOD_LIST_DORDENLIQUIDACIONGASTO", 20}
+            {"METHOD_LIST_CLIEPROV_FREE", 20},
+            {"METHOD_LIST_CONSUMIDOR", 20},
+            {"METHOD_LIST_ORDENLIQUIDACIONGASTO", 50}
+           // {"METHOD_LIST_DORDENLIQUIDACIONGASTO", 20}
+           // {"METHOD_LIST_DPERSONAL_SERVICIO_FREE", 20},
+
+
+           // {"METHOD_LIST_CONSUMIDOR", 50}
+
     };
 
     public static int value = 0;
@@ -74,8 +83,19 @@ public class SplashScreen_Activity extends ActivityNisiraCompat {
         item_tabla_syncrodoc = 0;
         pgBar = new ProgressBar(this);
         txt_progressbar = (TextView)findViewById(R.id.txt_progressbar);
+        this.user_session = Util.session_object(getApplicationContext());
         //pgBar.setMax(max_progress());
-        asyncronizedocs();
+        // Validate if the swich Sincronizate ischecked
+        if(!user_session.isSincroniza()){
+            asyncronizedocs();
+        }else{
+            Intent intent = new Intent(SplashScreen_Activity.this, NavigationPolice_Activity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        }
+
+
         //initAnimation();
     }
 

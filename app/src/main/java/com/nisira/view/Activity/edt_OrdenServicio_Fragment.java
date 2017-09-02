@@ -1,5 +1,7 @@
 package com.nisira.view.Activity;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
@@ -15,16 +17,22 @@ import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.google.gson.Gson;
 import com.nisira.core.dao.DordenservicioclienteDao;
 import com.nisira.core.dao.Personal_servicioDao;
+import com.nisira.core.entity.Clieprov;
+import com.nisira.core.entity.DatosClieProvFree;
 import com.nisira.core.entity.Dordenserviciocliente;
+import com.nisira.core.entity.EstructClieProvFree;
 import com.nisira.core.entity.Ordenserviciocliente;
 import com.nisira.core.entity.Personal_servicio;
 import com.nisira.core.interfaces.FragmentNisira;
+import com.nisira.core.service.ConsumerService;
 import com.nisira.gcalderon.policesecurity.R;
 import com.nisira.view.Adapter.Adapter_edt_DOrdenServicio;
 import com.nisira.view.Adapter.Adapter_edt_DOrdenServicio_vehiculo;
 
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +43,7 @@ public class edt_OrdenServicio_Fragment extends FragmentNisira {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String OPCION = "param1";
     private static final String ANTERIOR = "param2";
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -51,6 +60,7 @@ public class edt_OrdenServicio_Fragment extends FragmentNisira {
     private FloatingActionButton fab_modificar;
     List<Dordenserviciocliente> lstordenserviciocliente = new ArrayList<>();
     DordenservicioclienteDao  DordenservicioclienteDao;
+    public  int item_tabla_syncrodoc;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -103,7 +113,7 @@ public class edt_OrdenServicio_Fragment extends FragmentNisira {
         Listeners();
         return view;
     }
-    
+
 
     public void animacionEntrada(){
         Slide slide = null;
@@ -125,7 +135,8 @@ public class edt_OrdenServicio_Fragment extends FragmentNisira {
 
         txt_documento.setText(ordenserviciocliente.getIddocumento()+"-"+ ordenserviciocliente.getSerie()+ "-"+ ordenserviciocliente.getNumero());
         txt_documento.setHint("Documento: ");
-        txt_cliente.setText(ordenserviciocliente.getCliente());
+        //txt_cliente.setText(ordenserviciocliente.getCliente());
+        txt_cliente.setText(ordenserviciocliente.getRazonsocial());
         txt_cliente.setHint("Cliente:");
         SimpleDateFormat sm = new SimpleDateFormat("dd-MM-yyyy");
         String strDate = sm.format(ordenserviciocliente.getFecha());
@@ -151,7 +162,8 @@ public class edt_OrdenServicio_Fragment extends FragmentNisira {
                     multiple_fab.setVisibility(View.GONE);
                     break;
                 case "Registro Vehiculo":
-                    adapter = new Adapter_edt_DOrdenServicio_vehiculo(mParam1,lstordenserviciocliente,getFragmentManager(),ordenserviciocliente);
+                  // adapter = new Adapter_edt_DOrdenServicio_vehiculo(mParam1,lstordenserviciocliente,getFragmentManager(),ordenserviciocliente);
+                    adapter = new Adapter_edt_DOrdenServicio(mParam1,lstordenserviciocliente,getFragmentManager(),ordenserviciocliente);
                     recyclerView.setAdapter(adapter);
                     multiple_fab.setVisibility(View.VISIBLE);
                     break;
@@ -162,7 +174,6 @@ public class edt_OrdenServicio_Fragment extends FragmentNisira {
             e.printStackTrace();
         }
     }
-
     public void Listeners(){
 
 

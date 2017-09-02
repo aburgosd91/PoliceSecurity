@@ -8,7 +8,11 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 
+import com.nisira.core.dao.ClieprovDao;
+import com.nisira.core.dao.ConsumidorDao;
+import com.nisira.core.dao.Personal_servicioDao;
 import com.nisira.core.database.DataBaseClass;
 import com.nisira.core.entity.Basedatos;
 import com.nisira.core.entity.Usuario;
@@ -17,6 +21,8 @@ import com.nisira.core.interfaces.ActivityNisiraCompat;
 import com.nisira.core.interfaces.FragmentNisira;
 import com.nisira.core.util.Util;
 import com.nisira.view.Inicio;
+import com.nisira.view.Activity.mnt_PersonalServicio_Fragment;
+import com.nisira.view.Activity.edt_OrdenServicio_Fragment;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -115,9 +121,13 @@ public class ConsumerService extends AsyncTask<String, Void, String> {
                     trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_CLIEPROV, getAttribute(),this.timeout);
                     //trama = Utilitarios.getXml(DataBaseClass.FOLDER_BASE_APP,zip);
                     response = ActionService.ACTION_SYNCRONIZE_CLIEPROV(WSBasedatos.getIdbasedatos(),trama);break;
+                /**
                 case TypeMethod.METHOD_LIST_CONSUMIDOR              :
                     trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_CONSUMIDOR, getAttribute(),this.timeout);
                     response = ActionService.ACTION_SYNCRONIZE_CONSUMIDOR(WSBasedatos.getIdbasedatos(),trama);break;
+                case TypeMethod.METHOD_LIST_CONSUMIDOR_TEST              :
+                   trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_CONSUMIDOR, getAttribute(),this.timeout);
+                response = mnt_PersonalServicio_Fragment.ListConsumidor(trama);break;**/
                 case TypeMethod.METHOD_LIST_CARGOS_PERSONAL         :
                     trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_CARGOS_PERSONAL, getAttribute(),this.timeout);
                     response = ActionService.ACTION_SYNCRONIZE_CARGOS_PERSONAL(WSBasedatos.getIdbasedatos(),trama);break;
@@ -158,14 +168,29 @@ public class ConsumerService extends AsyncTask<String, Void, String> {
                     getAttribute().put("user",user_session.getIdusuario());
                     trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_DORDEN_SERVICIO_PENDIENTE, getAttribute(),this.timeout);
                     response = ActionService.ACTION_SYNCRONIZE_DORDENSERVICIOCLIENTE(WSBasedatos.getIdbasedatos(),trama);break;
-                case TypeMethod.METHOD_LIST_PERSONAL_SERVICIO_FREE       :
-                    getAttribute().put("user",user_session.getIdusuario());
-                    trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_PERSONAL_SERVICIO_FREE, getAttribute(),this.timeout);
-                    response = ActionService.ACTION_SYNCRONIZE_PERSONAL_SERVICIO(WSBasedatos.getIdbasedatos(),trama);break;
+
                 case TypeMethod.METHOD_LIST_DPERSONAL_SERVICIO_FREE       :
                     getAttribute().put("user",user_session.getIdusuario());
                     trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_DPERSONAL_SERVICIO_FREE, getAttribute(),this.timeout);
                     response = ActionService.ACTION_SYNCRONIZE_DPERSONAL_SERVICIO(WSBasedatos.getIdbasedatos(),trama);break;
+
+                case TypeMethod.METHOD_LIST_CLIEPROV_FREE                :
+                    getAttribute().put("filter", "CTRY");
+                    trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_CLIEPROV_FREE, getAttribute(),this.timeout);
+                    response = ActionService.ACTION_SYNCRONIZE_CLIEPROV_FREE(WSBasedatos.getIdbasedatos(),trama);break;/**
+                case TypeMethod.METHOD_LIST_CLIEPROV_FREE                :
+                    trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_CLIEPROV_FREE, getAttribute(),this.timeout);
+                    //trama = Utilitarios.getXml(DataBaseClass.FOLDER_BASE_APP,zip);
+                    response =Personal_servicioDao.ListClieProv_Free(trama);break;**/
+                   // response=trama;break;
+                case TypeMethod.METHOD_LIST_CONSUMIDOR              :
+                    getAttribute().put("filter", "CTRY");
+                    trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_CONSUMIDOR, getAttribute(),this.timeout);
+                    response = ActionService.ACTION_SYNCRONIZE_CONSUMIDOR(WSBasedatos.getIdbasedatos(),trama);break;
+                case TypeMethod.METHOD_LIST_PERSONAL_SERVICIO_FREE       :
+                    getAttribute().put("user",user_session.getIdusuario());
+                    trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_PERSONAL_SERVICIO_FREE, getAttribute(),this.timeout);
+                    response = ActionService.ACTION_SYNCRONIZE_PERSONAL_SERVICIO(WSBasedatos.getIdbasedatos(),trama);break;
                 case TypeMethod.METHOD_LIST_TIPOGASTO   :
                     trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_TIPOGASTO, getAttribute(),this.timeout);
                     response = ActionService.ACTION_SYNCRONIZE_TIPOGASTO(WSBasedatos.getIdbasedatos(),trama);break;
@@ -247,9 +272,6 @@ public class ConsumerService extends AsyncTask<String, Void, String> {
                         trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_CLIEPROV, getAttribute(),this.timeout);
                         //trama = Utilitarios.getXml(DataBaseClass.FOLDER_BASE_APP,zip);
                         response = ActionService.ACTION_SYNCRONIZE_CLIEPROV(WSBasedatos.getIdbasedatos(),trama);break;
-                    case TypeMethod.METHOD_LIST_CONSUMIDOR              :
-                        trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_CONSUMIDOR, getAttribute(),this.timeout);
-                        response = ActionService.ACTION_SYNCRONIZE_CONSUMIDOR(WSBasedatos.getIdbasedatos(),trama);break;
                     case TypeMethod.METHOD_LIST_CARGOS_PERSONAL         :
                         trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_CARGOS_PERSONAL, getAttribute(),this.timeout);
                         response = ActionService.ACTION_SYNCRONIZE_CARGOS_PERSONAL(WSBasedatos.getIdbasedatos(),trama);break;
@@ -265,14 +287,34 @@ public class ConsumerService extends AsyncTask<String, Void, String> {
                     case TypeMethod.METHOD_LIST_NUMEMISOR               :
                         trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_NUMEMISOR, getAttribute(),this.timeout);
                         response = ActionService.ACTION_SYNCRONIZE_NUMEMISOR(WSBasedatos.getIdbasedatos(),trama);break;
-                    case TypeMethod.METHOD_LIST_PERSONAL_SERVICIO_FREE       :
-                        getAttribute().put("user",user_session.getIdusuario());
-                        trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_PERSONAL_SERVICIO_FREE, getAttribute(),this.timeout);
-                        response = ActionService.ACTION_SYNCRONIZE_PERSONAL_SERVICIO(WSBasedatos.getIdbasedatos(),trama);break;
+
+                    case TypeMethod.METHOD_LIST_CLIEPROV_FREE                :
+                        getAttribute().put("filter", "CACH");
+                        trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_CLIEPROV_FREE, getAttribute(),this.timeout);
+                        //trama = Utilitarios.getXml(DataBaseClass.FOLDER_BASE_APP,zip);
+                        response = ActionService.ACTION_SYNCRONIZE_CLIEPROV_FREE(WSBasedatos.getIdbasedatos(),trama);break;
+                    case TypeMethod.METHOD_LIST_CONSUMIDOR              :
+                        getAttribute().put("filter", "CACH");
+                        trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_CONSUMIDOR, getAttribute(),this.timeout);
+                        response = ActionService.ACTION_SYNCRONIZE_CONSUMIDOR(WSBasedatos.getIdbasedatos(),trama);break;
+ /**
+                    case TypeMethod.METHOD_LIST_CLIEPROV_FREE                :
+                        trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_CLIEPROV_FREE, getAttribute(),this.timeout);
+                        //trama = Utilitarios.getXml(DataBaseClass.FOLDER_BASE_APP,zip);
+                        edt_OrdenServicio_Fragment.ListClieProv_Free(trama);break;
+                        //response=trama;break;
+                    case TypeMethod.METHOD_LIST_CONSUMIDOR              :
+                        trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_CONSUMIDOR, getAttribute(),this.timeout);
+                        //response = mnt_PersonalServicio_Fragment.ListConsumidor(trama);break;
+                        response=trama;break;**/
                     case TypeMethod.METHOD_LIST_DPERSONAL_SERVICIO_FREE       :
                         getAttribute().put("user",user_session.getIdusuario());
                         trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_DPERSONAL_SERVICIO_FREE, getAttribute(),this.timeout);
                         response = ActionService.ACTION_SYNCRONIZE_DPERSONAL_SERVICIO(WSBasedatos.getIdbasedatos(),trama);break;
+                    case TypeMethod.METHOD_LIST_PERSONAL_SERVICIO_FREE       :
+                        getAttribute().put("user",user_session.getIdusuario());
+                        trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_PERSONAL_SERVICIO_FREE, getAttribute(),this.timeout);
+                        response = ActionService.ACTION_SYNCRONIZE_PERSONAL_SERVICIO(WSBasedatos.getIdbasedatos(),trama);break;
                     case TypeMethod.METHOD_LIST_PRODUCTOS               :
                         trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_PRODUCTOS, getAttribute(),this.timeout);
                         response = ActionService.ACTION_SYNCRONIZE_PRODUCTOS(WSBasedatos.getIdbasedatos(),trama);break;

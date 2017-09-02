@@ -81,12 +81,21 @@ public class Dordenserviciocliente implements Serializable {
 	@SerializedName("idruta_ec") 
 	@XStreamAlias("IDRUTA_EC") 
 	private String idruta_ec = "" ;
-
-	private boolean Seleccion;
-
+	@Columna
+	@SerializedName("idconsumidor")
+	@XStreamAlias("IDCONSUMIDOR")
+	private String idconsumidor="";
+	@Columna
+	@SerializedName("descripcion_vehiculo")
+	@XStreamAlias("DESCRIPCION_VEHICULO")
+	private String descripcion_vehiculo="";
+	@Columna
+	@SerializedName("descripcion_servicio")
+	@XStreamAlias("DESCRIPCION_SERVICIO")
 	private String descripcion_servicio = "" ;
 
-	private String descripcion_vehiculo="";
+	private boolean Seleccion;
+	//private String descripcion_vehiculo="";
 
 
 
@@ -244,7 +253,13 @@ public class Dordenserviciocliente implements Serializable {
 		this.descripcion_vehiculo = descripcion_vehiculo;
 	}
 
+	public String getIdconsumidor() {
+		return idconsumidor;
+	}
 
-	/* Sets & Gets FK*/
+	public void setIdconsumidor(String idconsumidor) {
+		this.idconsumidor = idconsumidor;
+	}
+/* Sets & Gets FK*/
 
 }

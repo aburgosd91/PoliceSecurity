@@ -1,6 +1,9 @@
 package com.nisira.view.Adapter;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -12,15 +15,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.nisira.core.dao.Personal_servicioDao;
 import com.nisira.core.entity.Dordenserviciocliente;
 import com.nisira.core.entity.Ordenserviciocliente;
 import com.nisira.core.entity.Personal_servicio;
+import com.nisira.core.util.Util;
 import com.nisira.gcalderon.policesecurity.R;
 import com.nisira.view.Activity.edt_DPersonalServicio_Fragment;
 import com.nisira.view.Activity.edt_PersonalServicio_Fragment;
+import com.nisira.view.Activity.mnt_PersonalServicio_Fragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -40,6 +46,7 @@ public class Adapter_edt_PersonalServiciolst extends RecyclerView.Adapter<Adapte
     private Ordenserviciocliente ordenserviciocliente;
     private Dordenserviciocliente dordenserviciocliente;
     public String OPCION;
+    Context contexto;
 
     public static class ListaViewHolder extends RecyclerView.ViewHolder {
         // Campos respectivos de un item
@@ -72,12 +79,16 @@ public class Adapter_edt_PersonalServiciolst extends RecyclerView.Adapter<Adapte
         }
     }
 
-    public Adapter_edt_PersonalServiciolst(String OPCION, List<Personal_servicio> items, FragmentManager fragmentManager, Ordenserviciocliente ordenserviciocliente, Dordenserviciocliente dordenserviciocliente) {
+
+
+
+    public Adapter_edt_PersonalServiciolst(String OPCION, List<Personal_servicio> items, FragmentManager fragmentManager, Ordenserviciocliente ordenserviciocliente, Dordenserviciocliente dordenserviciocliente,Context contexto) {
         this.OPCION = OPCION;
         this.items = items;
         this.fragmentManager = fragmentManager;
         this.ordenserviciocliente = ordenserviciocliente;
         this.dordenserviciocliente = dordenserviciocliente;
+        this.contexto=contexto;
     }
 
     @Override
@@ -106,6 +117,7 @@ public class Adapter_edt_PersonalServiciolst extends RecyclerView.Adapter<Adapte
         }
 
         viewHolder.cargo.setText("Cargo: "+items.get(i).getDescripcion_cargo());
+        viewHolder.vehiculo.setText("Vehiculo: "+items.get(i).getIdvehiculo());
         viewHolder.ll_fecha.setVisibility(View.VISIBLE);
 
         if(items.get(i).getFechafin()!=null){
@@ -152,24 +164,54 @@ public class Adapter_edt_PersonalServiciolst extends RecyclerView.Adapter<Adapte
                 }
             }
         });
+        edt_PersonalServicio_Fragment frameperdosnal;
 
         viewHolder.seleccion.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
 
+                Fragment fragment;
                 viewHolder.fondo_seleccion.setBackgroundColor(v.getResources().getColor(R.color.amarillo));
                 viewHolder.seleccion.setBackgroundColor(v.getResources().getColor(R.color.amarillo));
                 viewHolder.seleccion.setImageResource(R.drawable.ic_check_big);
-                Fragment fragment = edt_DPersonalServicio_Fragment.newInstance(OPCION, "edt_OrdenServicio_Fragment");
-                Bundle bundle = fragment.getArguments();
-                bundle.putSerializable("PersonalServicio", items.get(i));
-                bundle.putSerializable("DOrdenServicio",dordenserviciocliente);
-                bundle.putSerializable("OrdenServicio",ordenserviciocliente);
-                fragment.setArguments(bundle);
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.main_content, fragment, "NewFragmentTag");
-                ft.addToBackStack(null);
-                ft.commit();
+                if(OPCION=="Registro Vehiculo"){
+                    //fragment = edt_DPersonalServicio_Fragment.newInstance(OPCION, "edt_OrdenServicio_Fragment");
+                     fragment = mnt_PersonalServicio_Fragment.newInstance(OPCION, "Modificar");
+
+                    Bundle bundle = fragment.getArguments();
+                    bundle.putSerializable("PersonalServicio", items.get(i));
+                    bundle.putSerializable("DOrdenServicio",dordenserviciocliente);
+                    bundle.putSerializable("OrdenServicio",ordenserviciocliente);
+                    fragment.setArguments(bundle);
+                    FragmentTransaction ft = fragmentManager.beginTransaction();
+                    ft.replace(R.id.main_content, fragment, "NewFragmentTag");
+                    ft.addToBackStack(null);
+                    ft.commit();
+                }
+                else {
+                    if(Util.isnull(items.get(i).getDni(),"").equals("") || Util.isnull(items.get(i).getNombres(),"").equals("")){
+                        Toast.makeText(contexto, "No Existe Personal Asignado", Toast.LENGTH_LONG).show();
+                    }else{
+                        fragment = edt_DPersonalServicio_Fragment.newInstance(OPCION, "edt_OrdenServicio_Fragment");
+
+                        Bundle bundle = fragment.getArguments();
+                        bundle.putSerializable("PersonalServicio", items.get(i));
+                        bundle.putSerializable("DOrdenServicio",dordenserviciocliente);
+                        bundle.putSerializable("OrdenServicio",ordenserviciocliente);
+                        fragment.setArguments(bundle);
+                        FragmentTransaction ft = fragmentManager.beginTransaction();
+                        ft.replace(R.id.main_content, fragment, "NewFragmentTag");
+                        ft.addToBackStack(null);
+                        ft.commit();
+                    }
+
+                   //Snackbar.make(getview , "No Existe Personal Asignado", Snackbar.LENGTH_SHORT).show();
+                      //  fragment = edt_DPersonalServicio_Fragment.newInstance(OPCION, "edt_OrdenServicio_Fragment");
+
+                }
+
+
 
             }
         });

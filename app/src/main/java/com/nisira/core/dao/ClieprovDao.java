@@ -1,5 +1,6 @@
 package com.nisira.core.dao;
 
+import com.google.gson.Gson;
 import com.nisira.core.entity.*;
 import java.util.List;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,6 +8,8 @@ import com.nisira.core.database.DataBaseClass;
 import android.content.ContentValues;
 import android.database.Cursor;
 import com.nisira.core.util.ClaveMovil;
+import com.nisira.view.Activity.mnt_PersonalServicio_Fragment;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.text.SimpleDateFormat;
@@ -282,9 +285,9 @@ public class ClieprovDao extends BaseDao<Clieprov> {
 		} catch (Exception e) {
 		}finally {
 			mDb.close();
-		} 
-		return resultado; 
-	} 
+		}
+		return resultado;
+	}
 
 	public Boolean update(Clieprov clieprov,String where) {
 		Boolean resultado = false;
@@ -514,7 +517,7 @@ public class ClieprovDao extends BaseDao<Clieprov> {
 		} catch (Exception e) {
 		}finally {
 			mDb.close();
-		} 
+		}
 		return resultado; 
 	} 
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -999,5 +1002,44 @@ public class ClieprovDao extends BaseDao<Clieprov> {
 			mDb.close();
 		} 
 		return lista; 
-	} 
+	}
+
+	public static String ListClieProv_Free(String Trama){
+		String succes="False";
+		List<Clieprov> listclieprov = new ArrayList<>();
+
+		List<Clieprov> lst = new ArrayList<>();
+		try {
+			Gson gson = new Gson();
+			EstructClieProvFree ListInfo = gson.fromJson(Trama, EstructClieProvFree.class);
+
+			Clieprov or;
+			for (DatosClieProvFree ob : ListInfo.getDatos()) {
+				or = new Clieprov();
+				or.setIdempresa(ob.getIdempresa());
+				or.setIdclieprov(ob.getIdclieprov());
+				or.setNombres(ob.getNombres());
+				or.setApellidopaterno(ob.getApellidopaterno());
+				or.setApellidomaterno(ob.getApellidomaterno());
+				or.setDni(ob.getDni());
+
+				lst.add(or);
+			}
+			if(!lst.isEmpty()){
+				ClieprovDao objClieProvDao = new ClieprovDao();
+				objClieProvDao.borrar("IDEMPRESA = ?",lst.get(0).getIdempresa());
+				for(int i=0;i<lst.size();i++){
+					Clieprov obj= lst.get(i);
+					objClieProvDao.mezclarLocal(obj);
+				}
+				succes="OK";
+			}
+
+
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		return succes;
+
+	}
 }

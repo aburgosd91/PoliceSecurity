@@ -1,6 +1,7 @@
 package com.nisira.view.Activity;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -11,12 +12,16 @@ import android.transition.Fade;
 import android.transition.Slide;
 import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
+import com.nisira.core.service.ConsumerService;
+import  com.nisira.view.Activity.NavigationPolice_Activity;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.nisira.core.dao.Dpersonal_servicioDao;
@@ -48,6 +53,7 @@ import java.util.stream.Stream;
     private TextView txt_titulo;
     private FloatingActionButton btn_cancelar;
     private FloatingActionButton btn_acaptar;
+    public int item_tabla_syncro, item_tabla_syncrodoc, item_tabla_ascentdoc;
 
     // TODO: PARAMETROS DE ENTRADA
     private String mParam1;
@@ -331,5 +337,47 @@ import java.util.stream.Stream;
         }
         return time+"";
     }
+/**
+
+        private static final Object[][] TABLASINCRONIZACIONDOCS = {
+                {"METHOD_LIST_DPERSONAL_SERVICIO", 8}
+        };
+     public void    asyncronize (){
+         try {
+             String method_syncro = TABLASINCRONIZACIONDOCS[item_tabla_syncrodoc][0].toString();
+             int time = (int) TABLASINCRONIZACIONDOCS[item_tabla_syncrodoc][1];
+             item_tabla_syncrodoc++;
+             ConsumerService cws = new ConsumerService(getActivity(), getContext(), method_syncro, time, true, 2);
+             cws.getAttribute().put("type", "XML");
+             cws.execute("");
+             cws.pd = ProgressDialog.show(getActivity(), "SINCRONIZANDO", "Sincronizando Base de Datos - " + method_syncro.replace("METHOD_LIST_", ""), true, false);
+         }catch (Exception e){
+             e.printStackTrace();
+         }
+
+     }
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+NavigationPolice_Activity obj = new NavigationPolice_Activity();
+            int id = item.getItemId();
+            if (id == R.id.action_syncronize) {
+              asyncronize();
+                return true;
+            }
+            if (id == R.id.action_syncronizedocs) {
+
+                obj.asyncronizedocs();
+                return true;
+            }
+            if (id == R.id.action_ascentdocs) {
+
+                obj.ascentdocs();
+                return true;
+            }
+            return super.onOptionsItemSelected(item);
+        }
+
+**/
+
 
 }

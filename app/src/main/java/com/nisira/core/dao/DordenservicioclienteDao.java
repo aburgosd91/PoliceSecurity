@@ -32,7 +32,7 @@ public class DordenservicioclienteDao extends BaseDao<Dordenserviciocliente> {
 
 		if(obj!=null) {
 			List<Dordenserviciocliente> dordenservicioclientes = listar("LTRIM(RTRIM(t0.IDEMPRESA)) =? AND LTRIM(RTRIM(t0.IDORDENSERVICIO))=?", obj.getIdempresa().trim(), obj.getIdordenservicio().trim());
-			ProductosDao productosDao = new ProductosDao();
+			/**ProductosDao productosDao = new ProductosDao();
 			int i = 0;
 			for(Dordenserviciocliente x:dordenservicioclientes){
 				List<Productos> lst = productosDao.listar("LTRIM(RTRIM(t0.IDEMPRESA)) =? AND LTRIM(RTRIM(t0.IDPRODUCTO))=?", x.getIdempresa().trim(), x.getIdservicio().trim());
@@ -51,7 +51,7 @@ public class DordenservicioclienteDao extends BaseDao<Dordenserviciocliente> {
 					dordenservicioclientes.set(i,x);
 				}
 				i++;
-			}
+			}**/
 			return dordenservicioclientes;
 		}
 		return null;
@@ -80,7 +80,10 @@ public class DordenservicioclienteDao extends BaseDao<Dordenserviciocliente> {
 			initialValues.put("GLOSA",dordenserviciocliente.getGlosa()); 
 			initialValues.put("HORA_RC",dordenserviciocliente.getHora_rc()); 
 			initialValues.put("CODOPERACIONES",dordenserviciocliente.getCodoperaciones()); 
-			initialValues.put("IDRUTA_EC",dordenserviciocliente.getIdruta_ec()); 
+			initialValues.put("IDRUTA_EC",dordenserviciocliente.getIdruta_ec());
+			//initialValues.put("IDCONSUMIDOR",dordenserviciocliente.getIdconsumidor());
+			initialValues.put("DESCRIPCION_VEHICULO",dordenserviciocliente.getDescripcion_vehiculo());
+			initialValues.put("DESCRIPCION_SERVICIO", dordenserviciocliente.getDescripcion_servicio());
 			resultado = mDb.insert("DORDENSERVICIOCLIENTE",null,initialValues)>0; 
 		} catch (Exception e) {
 		}finally {
@@ -110,7 +113,10 @@ public class DordenservicioclienteDao extends BaseDao<Dordenserviciocliente> {
 			initialValues.put("GLOSA",dordenserviciocliente.getGlosa()) ; 
 			initialValues.put("HORA_RC",dordenserviciocliente.getHora_rc()) ; 
 			initialValues.put("CODOPERACIONES",dordenserviciocliente.getCodoperaciones()) ; 
-			initialValues.put("IDRUTA_EC",dordenserviciocliente.getIdruta_ec()) ; 
+			initialValues.put("IDRUTA_EC",dordenserviciocliente.getIdruta_ec()) ;
+			//initialValues.put("IDCOSUMIDOR",dordenserviciocliente.getIdconsumidor());
+			initialValues.put("DESCRIPCION_VEHICULO",dordenserviciocliente.getDescripcion_vehiculo());
+			initialValues.put("DESCRIPCION_SERVICIO",dordenserviciocliente.getDescripcion_servicio());
 			resultado = mDb.update("DORDENSERVICIOCLIENTE",initialValues,where,null)>0; 
 		} catch (Exception e) {
 		}finally {
@@ -156,7 +162,10 @@ public class DordenservicioclienteDao extends BaseDao<Dordenserviciocliente> {
 							 "GLOSA" ,
 							 "HORA_RC" ,
 							 "CODOPERACIONES" ,
-							 "IDRUTA_EC" 
+							 "IDRUTA_EC",
+							 //"IDCONSUMIDOR",
+							 "DESCRIPCION_VEHICULO",
+							 "DESCRIPCION_SERVICIO"
 					},
 			where, null, null, null, order);
 			if (cur!=null){
@@ -181,6 +190,9 @@ public class DordenservicioclienteDao extends BaseDao<Dordenserviciocliente> {
 					dordenserviciocliente.setHora_rc(cur.getDouble(j++));
 					dordenserviciocliente.setCodoperaciones(cur.getString(j++));
 					dordenserviciocliente.setIdruta_ec(cur.getString(j++));
+					//dordenserviciocliente.setIdconsumidor(cur.getString(j++));
+					dordenserviciocliente.setDescripcion_vehiculo(cur.getString(j++));
+					dordenserviciocliente.setDescripcion_servicio(cur.getString(j++));
 
 					lista.add(dordenserviciocliente); 
 					i++; 

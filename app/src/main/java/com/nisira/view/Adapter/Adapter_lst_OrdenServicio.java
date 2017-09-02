@@ -88,7 +88,7 @@ public class Adapter_lst_OrdenServicio extends RecyclerView.Adapter<Adapter_lst_
     public void onBindViewHolder(ListaViewHolder viewHolder, int i) {
         //AQUI VAN TODOS LOS ELEMENTOS DE LA LISTA.
         viewHolder.indexnum.setText((i+1)+"");
-        viewHolder.nombre.setText(items.get(i).getCliente());
+        viewHolder.nombre.setText(items.get(i).getRazonsocial());
         viewHolder.ordenservicio.setText("Orden: "+items.get(i).getIddocumento()+" - "+items.get(i).getSerie()+" - "+items.get(i).getNumero());
         SimpleDateFormat sm = new SimpleDateFormat("dd-MM-yyyy");
         String strDate = sm.format(items.get(i).getFecha());

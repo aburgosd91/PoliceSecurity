@@ -49,7 +49,7 @@ public class OrdenservicioclienteDao extends BaseDao<Ordenserviciocliente> {
 	}
 	public List<Ordenserviciocliente> listOrdenServicioxCliente(Usuario user)throws Exception{
 		List<Ordenserviciocliente> lst= listar("t0.IDOPERARIO = ?",user.getIdclieprov());
-		ClieprovDao clientedao = new ClieprovDao();
+		/**ClieprovDao clientedao = new ClieprovDao();
 		Clieprov cliente = null;
 		int i=0;
 		for(Ordenserviciocliente obj : lst){
@@ -61,7 +61,7 @@ public class OrdenservicioclienteDao extends BaseDao<Ordenserviciocliente> {
 				lst.set(i,obj);
 			}
 			i++;
-		}
+		}**/
 		return lst;
 	}
 	public List<Ordenserviciocliente> listOrdenServicioxClienteFiltro(String filtro, Usuario user)throws Exception{
@@ -192,7 +192,7 @@ public class OrdenservicioclienteDao extends BaseDao<Ordenserviciocliente> {
 							 "NRO_OSERVICIO" ,
 							 "IDMOTIVO" ,
 							 "GLOSA" ,
-							 "IDOPERARIO" 
+							 "IDOPERARIO"
 					},
 			where, null, null, null, order);
 			if (cur!=null){

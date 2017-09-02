@@ -113,6 +113,7 @@ public class lst_OrdenServicio_Fragment extends FragmentNisira {
             ordenservicioclienteDao = new OrdenservicioclienteDao();
             listServCliente = ordenservicioclienteDao.listOrdenServicioxCliente(user);
             // Crear un nuevo adaptador
+            //txt_cantidad.setText("Registros: " + listServCliente.size());
             txt_cantidad.setText("Registros: " + listServCliente.size());
             adapter = new Adapter_lst_OrdenServicio(mParam1,listServCliente,getFragmentManager());
             recycler.setAdapter(adapter);

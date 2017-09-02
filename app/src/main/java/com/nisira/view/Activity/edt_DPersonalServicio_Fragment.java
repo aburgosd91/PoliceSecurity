@@ -1,6 +1,7 @@
 package com.nisira.view.Activity;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -143,9 +144,9 @@ public class edt_DPersonalServicio_Fragment extends FragmentNisira {
             switch (mParam1){
                 case "Registro Hora":
                     if(list!=null) {
-                        adapter = new Adapter_edt_DPersonalServicio(mParam1, list,
-                                getFragmentManager(), personal_servicio);
-                        recyclerView.setAdapter(adapter);
+                            adapter = new Adapter_edt_DPersonalServicio(mParam1, list,
+                                    getFragmentManager(), personal_servicio);
+                            recyclerView.setAdapter(adapter);
                     }
                     break;
             }

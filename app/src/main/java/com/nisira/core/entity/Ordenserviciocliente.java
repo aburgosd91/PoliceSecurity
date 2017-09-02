@@ -91,7 +91,7 @@ public class Ordenserviciocliente implements Serializable {
     @SerializedName("glosa")
     @XStreamAlias("GLOSA")
     private String glosa = "" ;
-    /*
+
     @Columna
     @SerializedName("razonsocial")
     @XStreamAlias("RAZONSOCIAL")
@@ -112,7 +112,7 @@ public class Ordenserviciocliente implements Serializable {
     @SerializedName("operario2")
     @XStreamAlias("OPERARIO2")
     private String operario2="";
-*/
+
     @Columna
     @SerializedName("idoperario")
     @XStreamAlias("IDOPERARIO")
@@ -292,18 +292,18 @@ public class Ordenserviciocliente implements Serializable {
     public void setRuc(String ruc) {
         this.ruc = ruc;
     }
-/*
+
    public void setRazonsocial(String razonsocial){this.razonsocial=razonsocial;}
 
     public String getRazonsocial() {
         return this.razonsocial;
     }
 
-    public  void setOperario(String Operario){this.operario=operario;}
+    public  void setOperario(String operario){this.operario=operario;}
 
     public String getOperario(){return this.operario;}
 
-    public  void setOperario2(String Operario2){this.operario2=operario2;}
+    public  void setOperario2(String operario2){this.operario2=operario2;}
 
     public  String getIdoperario2(){return  this.operario2;}
 
@@ -313,6 +313,6 @@ public class Ordenserviciocliente implements Serializable {
 
     public  void setIdoperario2(String idoperario2){this.idoperario2=idoperario2;}
 
-    public  String getOperario2(){return  this.idoperario2;}*/
+    public  String getOperario2(){return  this.idoperario2;}
 
 }

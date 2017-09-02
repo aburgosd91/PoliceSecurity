@@ -69,9 +69,53 @@ public class Personal_servicio implements Serializable {
 	@XStreamAlias("IDVEHICULO") 
 	private String idvehiculo = "" ;
 
+	/**** ADD NEW FIELDS BY ANGEL ABAD ****/
+	@Columna
+	@SerializedName("nrocontenedor")
+	@XStreamAlias("NROCONTENEDOR")
+	private String nrocontenedor = "" ;
+	@Columna
+	@SerializedName("nroprecinto")
+	@XStreamAlias("NROPRECINTO")
+	private String nroprecinto = "" ;
+	@Columna
+	@SerializedName("nro_oservicio")
+	@XStreamAlias("NRO_OSERVICIO")
+	private String nro_oservicio = "" ;
+	@Columna
+	@SerializedName("placa_cliente")
+	@XStreamAlias("PLACA_CLIENTE")
+	private String placa_cliente = "" ;
+	@Columna
+	@SerializedName("conductor_cliente")
+	@XStreamAlias("CONDUCTOR_CLIENTE")
+	private String conductor_cliente = "" ;
+	@Columna
+	@SerializedName("brevete_cliente")
+	@XStreamAlias("BREVETE_CLIENTE")
+	private String brevete_cliente = "" ;
+	@Columna
+	@SerializedName("descripcion_vehiculo")
+	@XStreamAlias("DESCRIPCION_VEHICULO")
+	private String descripcion_vehiculo="";
+	@Columna
+	@SerializedName("descripcion_cargo")
+	@XStreamAlias("DESCRIPCION_CARGO")
+	private String descripcion_cargo="";
+	/**
+	@Columna
+	@SerializedName("apepaterno")
+	@XStreamAlias("APEPATERNO")
+	private String apepaterno = "" ;
+	@Columna
+	@SerializedName("apematerno")
+	@XStreamAlias("APEMATERNO")
+	private String apematerno = "" ;**/
+
+
 	private boolean seleccion;
 
-	private String descripcion_cargo="";
+
 
 
 
@@ -188,8 +232,80 @@ public class Personal_servicio implements Serializable {
 		return this.idvehiculo;
 	}
 
-
-
 	/* Sets & Gets FK*/
 
+
+	/****  ADD NEW SETTERS AND GETTERS ***/
+
+	public String getNrocontenedor() {
+		return nrocontenedor;
+	}
+
+	public void setNrocontenedor(String nrocontenedor) {
+		this.nrocontenedor = nrocontenedor;
+	}
+
+	public String getNroprecinto() {
+		return nroprecinto;
+	}
+
+	public void setNroprecinto(String nroprecinto) {
+		this.nroprecinto = nroprecinto;
+	}
+
+	public String getNro_oservicio() {
+		return nro_oservicio;
+	}
+
+	public void setNro_oservicio(String nro_oservicio) {
+		this.nro_oservicio = nro_oservicio;
+	}
+
+	public String getPlaca_cliente() {
+		return placa_cliente;
+	}
+
+	public void setPlaca_cliente(String placa_cliente) {
+		this.placa_cliente = placa_cliente;
+	}
+
+	public String getConductor_cliente() {
+		return conductor_cliente;
+	}
+
+	public void setConductor_cliente(String conductor_cliente) {
+		this.conductor_cliente = conductor_cliente;
+	}
+
+	public String getBrevete_cliente() {
+		return brevete_cliente;
+	}
+
+	public void setBrevete_cliente(String brevete_cliente) {
+		this.brevete_cliente = brevete_cliente;
+	}
+
+	public String getDescripcion_vehiculo() {
+		return descripcion_vehiculo;
+	}
+
+	public void setDescripcion_vehiculo(String descripcion_vehiculo) {
+		this.descripcion_vehiculo = descripcion_vehiculo;
+	}
+/**
+	public String getApepaterno() {
+		return apepaterno;
+	}
+
+	public void setApepaterno(String apepaterno) {
+		this.apepaterno = apepaterno;
+	}
+
+	public String getApematerno() {
+		return apematerno;
+	}
+
+	public void setApematerno(String apematerno) {
+		this.apematerno = apematerno;
+	}**/
 }

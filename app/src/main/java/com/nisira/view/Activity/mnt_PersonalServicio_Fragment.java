@@ -25,8 +25,10 @@ import com.nisira.core.entity.Clieprov;
 import com.nisira.core.entity.Consumidor;
 import com.nisira.core.entity.Dordenserviciocliente;
 import com.nisira.core.entity.Personal_servicio;
+import com.nisira.core.util.Util;
 import com.nisira.gcalderon.policesecurity.R;
 
+import java.security.PrivateKey;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,15 +37,17 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
     private static final String OPCION = "param1";
     private static final String TIPO = "param2";
     private Personal_servicio personal_servicio;
+    private Clieprov personal_servicio_clieprov;
     private Dordenserviciocliente dordenserviciocliente;
     private AutoCompleteTextView txt_vehiculos;
     private AutoCompleteTextView campo_personal;
     private FloatingActionButton btn_cancelar;
     private FloatingActionButton btn_acaptar;
     private TextView txt_titulo;
-    private EditText campo_ID,campo_numero,campo_cargo;
+    private EditText campo_ID,campo_numero,campo_cargo,txt_checklist,txt_nrocontenedor,txt_nroprecinto,txt_nroServicio,txt_PlacaCliente,txt_Conductor,txt_Brevete;
     List<Clieprov> list_ps = new ArrayList<>();
     List<String> empleados = new ArrayList<>();
+
 
     // TODO: PARAMETROS DE ENTRADA
     private String mParam1;
@@ -86,9 +90,19 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
         campo_cargo = (EditText)view.findViewById(R.id.campo_cargo);
         txt_titulo = (TextView) view.findViewById(R.id.txt_titulo);
         campo_personal = (AutoCompleteTextView)view.findViewById(R.id.campo_personal);
+
         txt_vehiculos = (AutoCompleteTextView) view.findViewById(R.id.txt_vehiculos_ps);
+        txt_checklist = (EditText) view.findViewById(R.id.txt_checklist);
+        txt_nrocontenedor = (EditText) view.findViewById(R.id.txt_nrocontenedor);
+        txt_nroprecinto = (EditText) view.findViewById(R.id.txt_nroprecinto);
+        txt_nroServicio = (EditText) view.findViewById(R.id.txt_nroservicio);
+        txt_Conductor = (EditText) view.findViewById(R.id.txt_ConductorCliente);
+        txt_PlacaCliente = (EditText) view.findViewById(R.id.txt_PlacaCliente);
+        txt_Brevete = (EditText) view.findViewById(R.id.txt_BreveteCliente);
+
         LlenarCampos();
         Listeners();
+
 
         return view;
     }
@@ -100,17 +114,61 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
         Slide slide = (Slide) TransitionInflater.from(getContext()).inflateTransition(R.transition.activity_slide);
         setExitTransition(slide);
     }
+    public  void SettearCampos(){
 
+        Personal_servicio personal_servicio1=personal_servicio;
+
+            personal_servicio1.setChecklist(txt_checklist.getText().toString());
+            personal_servicio1.setNrocontenedor(txt_nrocontenedor.getText().toString());
+            personal_servicio1.setNroprecinto(txt_nroprecinto.getText().toString());
+            personal_servicio1.setNro_oservicio(txt_nroServicio.getText().toString());
+            personal_servicio1.setPlaca_cliente(txt_PlacaCliente.getText().toString());
+            personal_servicio1.setConductor_cliente(txt_Conductor.getText().toString());
+            personal_servicio1.setBrevete_cliente(txt_Brevete.getText().toString());
+/**
+        personal_servicio1.setChecklist(Util.isnull(personal_servicio.getChecklist(),"").equals("")?txt_checklist.getText().toString():personal_servicio.getChecklist().toString());
+        personal_servicio1.setNrocontenedor(Util.isnull(personal_servicio.getNrocontenedor(),"").equals("")?txt_nrocontenedor.getText().toString():personal_servicio.getNrocontenedor().toString());
+        personal_servicio1.setNroprecinto(Util.isnull(personal_servicio.getNroprecinto(),"").equals("")?txt_nroprecinto.getText().toString():personal_servicio.getNroprecinto().toString());
+        personal_servicio1.setNro_oservicio(Util.isnull(personal_servicio.getNro_oservicio(),"").equals("")?txt_nroServicio.getText().toString():personal_servicio.getNro_oservicio().toString());
+        personal_servicio1.setPlaca_cliente(Util.isnull(personal_servicio.getPlaca_cliente(),"").equals("")?txt_PlacaCliente.getText().toString():personal_servicio.getPlaca_cliente().toString());
+        personal_servicio1.setConductor_cliente(Util.isnull(personal_servicio.getConductor_cliente(),"").equals("")?txt_Conductor.getText().toString():personal_servicio.getConductor_cliente());
+        personal_servicio1.setBrevete_cliente(Util.isnull(personal_servicio.getBrevete_cliente(),"").equals("")?txt_Brevete.getText().toString():personal_servicio.getBrevete_cliente().toString());
+
+
+        if(Util.isnull(personal_servicio.getChecklist(),"").equals(""))
+            personal_servicio1.setChecklist(txt_checklist.getText().toString());
+        if(Util.isnull(personal_servicio.getNrocontenedor(),"").equals(""))
+            personal_servicio1.setNrocontenedor(txt_nrocontenedor.getText().toString());
+        if(Util.isnull(personal_servicio.getNroprecinto(),"").equals(""))
+            personal_servicio1.setNroprecinto(txt_nroprecinto.getText().toString());
+        if(Util.isnull(personal_servicio.getNro_oservicio(),"").equals(""))
+            personal_servicio1.setNro_oservicio(txt_nroServicio.getText().toString());
+        if(Util.isnull(personal_servicio.getPlaca_cliente(),"").equals(""))
+            personal_servicio1.setPlaca_cliente(txt_PlacaCliente.getText().toString());
+        if(Util.isnull(personal_servicio.getConductor_cliente(),"").equals(""))
+            personal_servicio1.setConductor_cliente(txt_Conductor.getText().toString());
+        if(Util.isnull(personal_servicio.getBrevete_cliente(),"").equals(""))
+            personal_servicio1.setBrevete_cliente(txt_Brevete.getText().toString());**/
+
+    }
     public void LlenarCampos(){
 
         TextView view = (TextView) getActivity().findViewById(R.id.campo_titulo2);
         view.setText(getString(R.string.mnt_PersonalServicio));
 
-        campo_ID.setText(personal_servicio.getItem2());
-        campo_cargo.setText(personal_servicio.getDescripcion_cargo());
-        campo_numero.setText(personal_servicio.getDni());
-        campo_personal.setText(personal_servicio.getNombres());
-        txt_vehiculos.setText(personal_servicio.getIdvehiculo());
+        campo_ID.setText(personal_servicio.getItem2().toString());
+        campo_cargo.setText(personal_servicio.getDescripcion_cargo().toString());
+        campo_numero.setText(personal_servicio.getDni().toString());
+        campo_personal.setText(personal_servicio.getNombres().toString());
+        txt_vehiculos.setText(personal_servicio.getIdvehiculo().toString());
+
+        txt_checklist.setText(personal_servicio.getChecklist().toString());
+        txt_nrocontenedor.setText(personal_servicio.getNrocontenedor().toString());
+        txt_nroprecinto.setText(personal_servicio.getNroprecinto().toString());
+        txt_nroServicio.setText(personal_servicio.getNro_oservicio().toString());
+        txt_PlacaCliente.setText(personal_servicio.getPlaca_cliente().toString());
+        txt_Conductor.setText(personal_servicio.getConductor_cliente().toString());
+        txt_Brevete.setText(personal_servicio.getBrevete_cliente().toString());
         txt_titulo.setText("Modificar");
 
         ClieprovDao clieprovDao = new ClieprovDao();
@@ -119,13 +177,13 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
         List<Consumidor> consumidors= new ArrayList<>();
 
         try {
-            list_ps = clieprovDao.getPersonalxTipo(dordenserviciocliente.getIdempresa(),"E");
+            list_ps = clieprovDao.getPersonalxTipo(dordenserviciocliente.getIdempresa(),"C");
             for(int i=0;i<list_ps.size();i++){
                 empleados.add(list_ps.get(i).getNombres() + " "+
                         list_ps.get(i).getApellidopaterno()+" "+
                         list_ps.get(i).getApellidomaterno());
             }
-            consumidors = dao.ListarConsumidor(personal_servicio.getIdempresa());
+           consumidors = dao.ListarConsumidor(dordenserviciocliente.getIdempresa());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -137,13 +195,15 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
 
         ArrayAdapter<Consumidor> adapter = new ArrayAdapter<Consumidor>(getContext(),
                 android.R.layout.simple_dropdown_item_1line,consumidors);
+        txt_vehiculos.setThreshold(1);
         txt_vehiculos.setAdapter(adapter);
 
     }
 
     public void Listeners(){
         //TODO EVENTOS
-        final Personal_servicio personal_servicio1 = personal_servicio;
+      final Personal_servicio personal_servicio1 = personal_servicio;
+       // final Clieprov personal_servicio1 = personal_servicio_clieprov;
         campo_personal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,12 +214,18 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Clieprov selected = (Clieprov) parent.getAdapter().getItem(position);
-                personal_servicio1.setIdpersonal(selected.getIdclieprov());
-                personal_servicio1.setNombres(selected.getApellidopaterno()+" "+
-                        selected.getApellidomaterno()+" "+selected.getNombres());
-                personal_servicio1.setDni(selected.getDni());
-                Log.i("Clicked " , selected.getIdclieprov()+ " " + selected.getApellidopaterno() );
-                campo_numero.setText(selected.getDni());
+
+                //campo_ID.setText(selected.getIdempresa().toString());
+                campo_numero.setText(selected.getDni().toString() );
+
+
+               personal_servicio1.setIdpersonal(selected.getIdclieprov().toString());
+                personal_servicio1.setNombres(selected.getApellidopaterno().toString()+" "+
+                        selected.getApellidomaterno()+" "+selected.getNombres().toString());
+                personal_servicio1.setDni(selected.getDni().toString());
+
+                Log.i("Clicked " , selected.getIdclieprov().toString()+ " " + selected.getApellidopaterno().toString() );
+                //campo_numero.setText(selected.getDni().toString());
                 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
                         Activity.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
@@ -178,6 +244,8 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
             public void onClick(View v) {
 
                 Personal_servicioDao personal_servicioDao = new Personal_servicioDao();
+                //ClieprovDao personal_servicioDao = new ClieprovDao();
+                SettearCampos();
                 try {
                     personal_servicioDao.mezclarLocal(personal_servicio1);
                 } catch (Exception e) {
@@ -198,7 +266,9 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
                 imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
             }
         });
-    }
 
+
+
+    }
 
 }

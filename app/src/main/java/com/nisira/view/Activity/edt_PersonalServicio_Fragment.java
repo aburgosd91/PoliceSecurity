@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.transition.Slide;
 import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
@@ -22,11 +23,15 @@ import com.nisira.core.entity.Dordenserviciocliente;
 import com.nisira.core.entity.Ordenserviciocliente;
 import com.nisira.core.entity.Personal_servicio;
 import com.nisira.core.interfaces.FragmentNisira;
+import com.nisira.core.util.Util;
 import com.nisira.gcalderon.policesecurity.R;
 import com.nisira.view.Adapter.Adapter_edt_PersonalServicio;
 import com.nisira.view.Adapter.Adapter_edt_PersonalServiciolst;
 
 
+import org.w3c.dom.Text;
+
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import static android.view.View.GONE;
@@ -46,6 +51,10 @@ public class edt_PersonalServicio_Fragment extends FragmentNisira {
     private EditText txt_documento;
     private EditText txt_cliente;
     private TextView txt_estado;
+    private TextView txt_fecha;
+    private TextView txt_CodOperacion;
+    private TextView txt_HoraRequerida;
+
     private TextInputEditText txt_producto;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -92,6 +101,10 @@ public class edt_PersonalServicio_Fragment extends FragmentNisira {
         txt_cliente = (EditText)view.findViewById(R.id.txt_cliente);
         txt_producto = (TextInputEditText)view.findViewById(R.id.txt_producto);
         txt_estado = (TextView)view.findViewById(R.id.txt_estado);
+        txt_fecha = (TextView) view.findViewById(R.id.txt_fecha);
+        txt_CodOperacion = (TextView) view.findViewById(R.id.txt_codoperacion);
+        txt_HoraRequerida = (TextView) view.findViewById(R.id.txt_horarequerida);
+
         recyclerView = (RecyclerView)view.findViewById(R.id.recycler_os);
         multiple_fab = (FloatingActionsMenu)view.findViewById(R.id.multiple_fab);
 
@@ -123,11 +136,19 @@ public class edt_PersonalServicio_Fragment extends FragmentNisira {
         txt_documento.setText(ordenserviciocliente.getIddocumento()+ " " +
                 ordenserviciocliente.getSerie()+ "-"+
                 ordenserviciocliente.getNumero());
-        txt_cliente.setText(ordenserviciocliente.getCliente());
+        txt_cliente.setText(ordenserviciocliente.getRazonsocial());
+        //txt_cliente.setText(ordenserviciocliente.getCliente());
         txt_producto.setText(dordenserviciocliente.getDescripcion_servicio());
         if(ordenserviciocliente.getIdestado().equals("PE")){
             txt_estado.setText("Pendiente");
         }
+        SimpleDateFormat sm = new SimpleDateFormat("dd-MM-yyyy");
+        String strDate = sm.format(ordenserviciocliente.getFecha());
+        txt_fecha.setText(strDate);
+        txt_CodOperacion.setText(Html.fromHtml("<b>"+dordenserviciocliente.getCodoperaciones().toString()+"<b>"));
+        txt_HoraRequerida.setText(Util.convertTimeFloatString(dordenserviciocliente.getHora_req().floatValue()));
+
+
         recyclerView.setHasFixedSize(true);
         lManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(lManager);
@@ -145,8 +166,14 @@ public class edt_PersonalServicio_Fragment extends FragmentNisira {
 
                 case "Registro Hora":
                     multiple_fab.setVisibility(GONE);
-                    Adapter_edt_PersonalServiciolst adapter2 = new Adapter_edt_PersonalServiciolst(mParam1,list,getFragmentManager(),ordenserviciocliente,dordenserviciocliente);
+                    Adapter_edt_PersonalServiciolst adapter2 = new Adapter_edt_PersonalServiciolst(mParam1,list,getFragmentManager(),ordenserviciocliente,dordenserviciocliente,getContext());
                     recyclerView.setAdapter(adapter2);
+                    break;
+
+                case "Registro Vehiculo":
+                    multiple_fab.setVisibility(GONE);
+                    Adapter_edt_PersonalServiciolst adapter3 = new Adapter_edt_PersonalServiciolst(mParam1,list,getFragmentManager(),ordenserviciocliente,dordenserviciocliente,getContext());
+                    recyclerView.setAdapter(adapter3);
                     break;
 
             }

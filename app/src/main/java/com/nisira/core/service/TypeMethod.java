@@ -32,7 +32,8 @@ public class TypeMethod {
     public static final String METHOD_LIST_PERSONAL_SERVICIO_FREE    = "METHOD_LIST_PERSONAL_SERVICIO_FREE";
     public static final String METHOD_LIST_DPERSONAL_SERVICIO_FREE    = "METHOD_LIST_DPERSONAL_SERVICIO_FREE";
 
-
+    public static final String METHOD_LIST_CLIEPROV_FREE                ="METHOD_LIST_CLIEPROV_FREE";
+    public static final String METHOD_LIST_CONSUMIDOR_TEST              ="METHOD_LIST_CONSUMIDOR_TEST";
 
     /****************************************************************************************************/
     public static final String METHOD_SYNCRONIZE   ="METHOD_SYNCRONIZE";

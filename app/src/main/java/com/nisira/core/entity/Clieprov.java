@@ -889,6 +889,7 @@ public class Clieprov implements Serializable {
 	@XStreamAlias("CODIGO_ALT") 
 	private String codigo_alt = "" ;
 
+	private Boolean seleccion;
 
 
 	/* Sets & Gets */
@@ -2635,7 +2636,12 @@ public class Clieprov implements Serializable {
 	public String getCodigo_alt() {
 		return this.codigo_alt;
 	}
-
+	public boolean isSeleccion() {
+		return seleccion;
+	}
+	public void setSeleccion(boolean seleccion) {
+		this.seleccion = seleccion;
+	}
 
 	@Override
 	public String toString() {

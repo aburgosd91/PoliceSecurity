@@ -1,5 +1,6 @@
 package com.nisira.core.dao;
 
+import com.google.gson.Gson;
 import com.nisira.core.entity.*;
 import java.util.List;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,6 +8,8 @@ import com.nisira.core.database.DataBaseClass;
 import android.content.ContentValues;
 import android.database.Cursor;
 import com.nisira.core.util.ClaveMovil;
+import com.nisira.view.Activity.mnt_PersonalServicio_Fragment;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.text.SimpleDateFormat;
@@ -31,8 +34,12 @@ public class Personal_servicioDao extends BaseDao<Personal_servicio> {
 	public 	List<Personal_servicio> listarxDordenservicio(Dordenserviciocliente obj) throws Exception {
 
 		List<Personal_servicio> lst= listar("LTRIM(RTRIM(t0.IDEMPRESA)) =? AND LTRIM(RTRIM(t0.IDORDENSERVICIO))=? AND LTRIM(RTRIM(t0.ITEM))=?",
-				obj.getIdempresa().trim(),obj.getIdordenservicio(),obj.getItem().trim());
-
+			obj.getIdempresa().trim(),obj.getIdordenservicio(),obj.getItem().trim());
+		 if(!lst.isEmpty()){
+			 return lst;
+		 }else{
+			 return null;
+		 }/**
 		if(!lst.isEmpty()){
 			Cargos_personalDao cargosDao = new Cargos_personalDao();
 			int i = 0;
@@ -47,7 +54,7 @@ public class Personal_servicioDao extends BaseDao<Personal_servicio> {
 			return lst;
 		}else{
 			return null;
-		}
+		}**/
 	}
 	public Boolean insert(Personal_servicio personal_servicio) {
 		Boolean resultado = false;
@@ -66,7 +73,9 @@ public class Personal_servicioDao extends BaseDao<Personal_servicio> {
 			initialValues.put("IDCARGO",personal_servicio.getIdcargo()); 
 			initialValues.put("FECHAFIN",dateFormat.format(personal_servicio.getFechafin() ) ); 
 			initialValues.put("CHECKLIST",personal_servicio.getChecklist()); 
-			initialValues.put("IDVEHICULO",personal_servicio.getIdvehiculo()); 
+			initialValues.put("IDVEHICULO",personal_servicio.getIdvehiculo());
+			initialValues.put("DESCRIPCION_VEHICULO",personal_servicio.getDescripcion_vehiculo());
+			initialValues.put("DESCRIPCION_CARGO",personal_servicio.getDescripcion_cargo());
 			resultado = mDb.insert("PERSONAL_SERVICIO",null,initialValues)>0; 
 		} catch (Exception e) {
 		}finally {
@@ -92,7 +101,9 @@ public class Personal_servicioDao extends BaseDao<Personal_servicio> {
 			initialValues.put("IDCARGO",personal_servicio.getIdcargo()) ; 
 			initialValues.put("FECHAFIN",dateFormat.format(personal_servicio.getFechafin() ) ) ; 
 			initialValues.put("CHECKLIST",personal_servicio.getChecklist()) ; 
-			initialValues.put("IDVEHICULO",personal_servicio.getIdvehiculo()) ; 
+			initialValues.put("IDVEHICULO",personal_servicio.getIdvehiculo()) ;
+			initialValues.put("DESCRIPCION_VEHICULO",personal_servicio.getDescripcion_vehiculo());
+			initialValues.put("DESCRIPCION_CARGO",personal_servicio.getDescripcion_cargo());
 			resultado = mDb.update("PERSONAL_SERVICIO",initialValues,where,null)>0; 
 		} catch (Exception e) {
 		}finally {
@@ -134,7 +145,9 @@ public class Personal_servicioDao extends BaseDao<Personal_servicio> {
 							 "IDCARGO" ,
 							 "FECHAFIN" ,
 							 "CHECKLIST" ,
-							 "IDVEHICULO" 
+							 "IDVEHICULO",
+							 "DESCRIPCION_VEHICULO",
+							 "DESCRIPCION_CARGO"
 					},
 			where, null, null, null, order);
 			if (cur!=null){
@@ -155,6 +168,8 @@ public class Personal_servicioDao extends BaseDao<Personal_servicio> {
 					personal_servicio.setFechafin(dateFormat.parse(cur.getString(j++)) );
 					personal_servicio.setChecklist(cur.getString(j++));
 					personal_servicio.setIdvehiculo(cur.getString(j++));
+					personal_servicio.setDescripcion_vehiculo(cur.getString(j++));
+					personal_servicio.setDescripcion_cargo(cur.getString(j++));
 
 					lista.add(personal_servicio); 
 					i++; 
@@ -170,5 +185,38 @@ public class Personal_servicioDao extends BaseDao<Personal_servicio> {
 			mDb.close();
 		} 
 		return lista; 
-	} 
+	}
+	public static String ListClieProv_Free(String Trama){
+		String succes="false";
+		List<Clieprov> listclieprov = new ArrayList<>();
+
+		List<Clieprov> lst = new ArrayList<>();
+		try {
+			Gson gson = new Gson();
+			EstructClieProvFree ListInfo = gson.fromJson(Trama, EstructClieProvFree.class);
+
+			Clieprov or;
+			for (DatosClieProvFree ob : ListInfo.getDatos()) {
+				or = new Clieprov();
+				or.setIdempresa(ob.getIdempresa());
+				or.setIdclieprov(ob.getIdclieprov());
+				or.setNombres(ob.getNombres());
+				or.setApellidopaterno(ob.getApellidopaterno());
+				or.setApellidomaterno(ob.getApellidomaterno());
+				or.setDni(ob.getDni());
+
+				lst.add(or);
+			}
+			if (!lst.isEmpty()) {
+				mnt_PersonalServicio_Fragment obj = new mnt_PersonalServicio_Fragment();
+				obj.LlenarCampos();
+				succes = "OK";
+			}
+
+
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		return succes;
+	}
 }
