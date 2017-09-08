@@ -137,6 +137,53 @@ public class DatosOrdenLiquidacionGastos {
     @Expose
     private String emisor;
 
+   // DATOS DORDERNLIQUIDACIONCOSTO
+
+
+    @SerializedName("item")
+    @Expose
+    private String item;
+    @SerializedName("idconcepto")
+    @Expose
+    private String idconcepto;
+    @SerializedName("idcuenta")
+    @Expose
+    private String idcuenta;
+    @SerializedName("idccosto")
+    @Expose
+    private String idccosto;
+    @SerializedName("iddestino")
+    @Expose
+    private String iddestino;
+    @SerializedName("afecto")
+    @Expose
+    private Double afecto;
+    @SerializedName("idconsumidor")
+    @Expose
+    private String idconsumidor;
+    @SerializedName("conceptocuenta")
+    @Expose
+    private String conceptocuenta;
+    @SerializedName("destinoadquisicion")
+    @Expose
+    private String destinoadquisicion;
+
+    // ADD DATOS PARA TIPO_GASTO
+
+    @SerializedName("idtipogasto")
+    @Expose
+    private String idtipogasto;
+    @SerializedName("descripcion")
+    @Expose
+    private String descripcion;
+
+    @SerializedName("estado")
+    @Expose
+    private Double estado;
+
+
+
+
     public String getIdbasedatos() {
         return idbasedatos;
     }
@@ -479,6 +526,109 @@ public class DatosOrdenLiquidacionGastos {
 
     public void setEmisor(String emisor) {
         this.emisor = emisor;
+    }
+
+
+    // DATOS DORDENLIQUIDACIONCOSTO
+
+
+    public String getItem() {
+        return item;
+    }
+
+    public void setItem(String item) {
+        this.item = item;
+    }
+
+    public String getIdconcepto() {
+        return idconcepto;
+    }
+
+    public void setIdconcepto(String idconcepto) {
+        this.idconcepto = idconcepto;
+    }
+
+    public String getIdcuenta() {
+        return idcuenta;
+    }
+
+    public void setIdcuenta(String idcuenta) {
+        this.idcuenta = idcuenta;
+    }
+
+    public String getIdccosto() {
+        return idccosto;
+    }
+
+    public void setIdccosto(String idccosto) {
+        this.idccosto = idccosto;
+    }
+
+    public String getIddestino() {
+        return iddestino;
+    }
+
+    public void setIddestino(String iddestino) {
+        this.iddestino = iddestino;
+    }
+
+    public Double getAfecto() {
+        return afecto;
+    }
+
+    public void setAfecto(Double afecto) {
+        this.afecto = afecto;
+    }
+
+    public String getIdconsumidor() {
+        return idconsumidor;
+    }
+
+    public void setIdconsumidor(String idconsumidor) {
+        this.idconsumidor = idconsumidor;
+    }
+
+    public String getConceptocuenta() {
+        return conceptocuenta;
+    }
+
+    public void setConceptocuenta(String conceptocuenta) {
+        this.conceptocuenta = conceptocuenta;
+    }
+
+    public String getDestinoadquisicion() {
+        return destinoadquisicion;
+    }
+
+    public void setDestinoadquisicion(String destinoadquisicion) {
+        this.destinoadquisicion = destinoadquisicion;
+    }
+
+    //ADD DATOS PARA TIPO_GASTO
+
+
+    public String getIdtipogasto() {
+        return idtipogasto;
+    }
+
+    public void setIdtipogasto(String idtipogasto) {
+        this.idtipogasto = idtipogasto;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Double getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Double estado) {
+        this.estado = estado;
     }
 
 }

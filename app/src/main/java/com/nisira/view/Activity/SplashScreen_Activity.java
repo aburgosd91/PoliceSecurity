@@ -37,14 +37,17 @@ public class SplashScreen_Activity extends ActivityNisiraCompat {
     private Usuario user_session ;
     private static final Object[][] TABLASINCRONIZACIONDOCS = {
             //{"METHOD_LIST_CARGOS_PERSONAL", 5},
-            {"METHOD_LIST_ORDEN_SERVICIO_PENDIENTE",20},
-            {"METHOD_LIST_DORDEN_SERVICIO_PENDIENTE", 20},
-            {"METHOD_LIST_PERSONAL_SERVICIO_FREE", 20},
-            {"METHOD_LIST_DPERSONAL_SERVICIO_FREE", 20},
-            {"METHOD_LIST_CLIEPROV_FREE", 20},
-            {"METHOD_LIST_CONSUMIDOR", 20},
-            {"METHOD_LIST_ORDENLIQUIDACIONGASTO", 50}
-           // {"METHOD_LIST_DORDENLIQUIDACIONGASTO", 20}
+            /*{"METHOD_LIST_CLIEPROV_FREE", 50},
+            {"METHOD_LIST_CONSUMIDOR", 50},
+            {"METHOD_LIST_DOCUMENTOS", 50},
+            {"METHOD_LIST_TIPOGASTO", 50},
+            {"METHOD_LIST_DORDENLIQUIDACIONGASTO", 20},*/
+            {"METHOD_LIST_ORDENLIQUIDACIONGASTO", 50},
+            {"METHOD_LIST_ORDEN_SERVICIO_PENDIENTE", 50},
+            {"METHOD_LIST_DORDEN_SERVICIO_PENDIENTE", 50},
+            {"METHOD_LIST_PERSONAL_SERVICIO_FREE", 50},
+            {"METHOD_LIST_DPERSONAL_SERVICIO_FREE", 50}
+
            // {"METHOD_LIST_DPERSONAL_SERVICIO_FREE", 20},
 
 

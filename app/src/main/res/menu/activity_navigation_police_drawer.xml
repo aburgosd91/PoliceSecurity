@@ -30,6 +30,7 @@
                 android:id="@+id/mov_ubicacion_gmap"
                 android:icon="@drawable/ic_menu_posicion"
                 android:title="Gps - Ubicación" />
+
             <item
                 android:id="@+id/mov_foto"
                 android:icon="@drawable/ic_menu_camera"

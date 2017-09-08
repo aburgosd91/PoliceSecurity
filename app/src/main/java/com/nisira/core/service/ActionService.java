@@ -34,6 +34,7 @@ import com.nisira.core.entity.Consumidor;
 import com.nisira.core.entity.Dato;
 import com.nisira.core.entity.DatosClieProvFree;
 import com.nisira.core.entity.DatosConsumidor;
+import com.nisira.core.entity.DatosDocumentos;
 import com.nisira.core.entity.DatosOrdenLiquidacionGastos;
 import com.nisira.core.entity.Destinoadquisicion;
 import com.nisira.core.entity.Documentos;
@@ -43,6 +44,7 @@ import com.nisira.core.entity.Dpersonal_servicio;
 import com.nisira.core.entity.EstructClieProvFree;
 import com.nisira.core.entity.Estruct_Consumidor;
 import com.nisira.core.entity.Estructura_costos_producto;
+import com.nisira.core.entity.EstucturaDocumentos;
 import com.nisira.core.entity.Numemisor;
 import com.nisira.core.entity.Ordenliquidaciongasto;
 
@@ -233,7 +235,7 @@ String succes="false";
             or.setDescripcion(ob.getDescripcion());
             or.setIdccosto(ob.getIdccosto());
             if(ob.getFechaIngreso()!=null)
-                or.setFecha_ingreso(dateFormat.parse(Conversionfecha(ob.getFechaIngreso())));
+                or.setFecha_ingreso(dateFormat.parse(Util.Conversionfecha(ob.getFechaIngreso())));
             or.setEstado(ob.getEstado());
             or.setAnio(ob.getAnio());
             or.setIdbasedatos(ob.getIdbasedatos());
@@ -294,12 +296,37 @@ String succes="false";
         }
     }
     public static String ACTION_SYNCRONIZE_DOCUMENTOS (String db,String response){
-        try {
+        try {  /**
             List<Documentos> lstdocumentos = (List<Documentos>) Util.stringObject("com.nisira.core.entity.Documentos",response);
             DocumentosDao documentosDao = new DocumentosDao();
             if(lstdocumentos!=null){
                 for(int i=0;i<lstdocumentos.size();i++){
                     Documentos obj= (Documentos)lstdocumentos.get(i);
+                    documentosDao.mezclarLocal(obj);
+                }
+                return "OK"; **/
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+
+            Gson gson = new Gson();
+            EstucturaDocumentos ListInfo = gson.fromJson(response,EstucturaDocumentos.class);
+            /*crear*/
+            Documentos or;
+            List<Documentos> lst = new ArrayList<>();
+            for(DatosDocumentos ob :ListInfo.getDatos()){
+                or = new Documentos();
+                or.setIdempresa(ob.getIdempresa());
+                or.setIddocumento(ob.getIddocumento());
+                or.setDescripcion(ob.getDescripcion());
+                or.setCodigo_sunat(ob.getCodigoSunat());
+                or.setEstado(ob.getEstado());
+                lst.add(or);
+            }
+            if(!lst.isEmpty()){
+                DocumentosDao documentosDao = new DocumentosDao();
+                // consumidorDao.borrar("IDEMPRESA = ?",lst.get(0).getIdempresa());
+                for(int i=0;i<lst.size();i++){
+                    Documentos obj= lst.get(i);
                     documentosDao.mezclarLocal(obj);
                 }
                 return "OK";
@@ -455,12 +482,12 @@ String succes="false";
                 or.setNumero(ob.getNumero());
                 or.setNromanual(ob.getNromanual());
                 or.setIdclieprov(ob.getIdclieprov());
-                or.setFecha(dateFormat.parse(Conversionfecha(ob.getFecha())));
+                or.setFecha(dateFormat.parse(Util.Conversionfecha(ob.getFecha())));
                 or.setTipo_servicio(ob.getTipoServicio());
                 or.setAmbito_servicio(ob.getAmbitoServicio());
                 or.setIdestado(ob.getIdestado());
                 or.setSincroniza(ob.getSincroniza());
-                or.setFechacreacion(dateFormat.parse(Conversionfecha(ob.getFechacreacion())));
+                or.setFechacreacion(dateFormat.parse(Util.Conversionfecha(ob.getFechacreacion())));
                 or.setNrocontenedor(ob.getNrocontenedor());
                 or.setNroprecinto(ob.getNroprecinto());
                 or.setNro_oservicio(ob.getNroOservicio());
@@ -532,9 +559,9 @@ String succes="false";
                 or.setPlaca_cliente(ob.getPlaca_cliente());
                 or.setHora_req(ob.getHora_req());
                 if(ob.getFecha_fin_servicio()!=null)
-                    or.setFecha_fin_servicio(dateFormat.parse(Conversionfecha(ob.getFecha_fin_servicio())));
+                    or.setFecha_fin_servicio(dateFormat.parse(Util.Conversionfecha(ob.getFecha_fin_servicio())));
                 if(ob.getFechacreacion()!=null)
-                    or.setFechacreacion(dateFormat.parse(Conversionfecha(ob.getFechacreacion())));
+                    or.setFechacreacion(dateFormat.parse(Util.Conversionfecha(ob.getFechacreacion())));
                 or.setIdreferencia(ob.getIdreferencia());
                 or.setItemreferencia(ob.getItemreferencia());
                 or.setIdservicio(ob.getIdservicio());
@@ -607,10 +634,10 @@ String succes="false";
                 or.setDni(ob.getDni());
                 or.setNombres(ob.getNombres());
                 if(ob.getFechaoperacion()!=null)
-                or.setFechaoperacion(dateFormat.parse(Conversionfecha(ob.getFechaoperacion())));
+                or.setFechaoperacion(dateFormat.parse(Util.Conversionfecha(ob.getFechaoperacion())));
                 or.setIdcargo(ob.getIdcargo());
                 if(ob.getFechafin()!=null)
-                or.setFechafin(dateFormat.parse(Conversionfecha(ob.getFechafin())));
+                or.setFechafin(dateFormat.parse(Util.Conversionfecha(ob.getFechafin())));
                 or.setChecklist(ob.getChecklist());
                 or.setIdvehiculo(ob.getIdvehiculo());
                 or.setNrocontenedor(ob.getNrocontenedor());
@@ -687,9 +714,9 @@ String succes="false";
                 or.setHora_liberacion(ob.getHora_liberacion());
                 or.setIdcargo(ob.getIdcargo());
                 if(ob.getFecharegistro()!=null)
-                or.setFecharegistro(dateFormat.parse(Conversionfecha(ob.getFecharegistro())));
+                or.setFecharegistro(dateFormat.parse(Util.Conversionfecha(ob.getFecharegistro())));
                 if(ob.getFechafinregistro()!=null)
-                or.setFechafinregistro(dateFormat.parse(Conversionfecha(ob.getFechafinregistro())));
+                or.setFechafinregistro(dateFormat.parse(Util.Conversionfecha(ob.getFechafinregistro())));
                 lst.add(or);
             }
             if(!lst.isEmpty()){
@@ -733,13 +760,13 @@ String succes="false";
                 obj.setIdemisor(ob.getIdemisor());
                 obj.setPeriodo(ob.getPeriodo());
                 if(ob.getFecharegistro()!=null)
-                    obj.setFecharegistro(dateFormat.parse(Conversionfecha(ob.getFecharegistro())));
+                    obj.setFecharegistro(dateFormat.parse(Util.Conversionfecha(ob.getFecharegistro())));
                 obj.setIdsucursal(ob.getIdsucursal());
                 obj.setIddocumento(ob.getIddocumento());
                 obj.setSerie(ob.getSerie());
                 obj.setNumero(ob.getNumero());
                 if(ob.getFecha()!=null)
-                    obj.setFecha(dateFormat.parse(Conversionfecha(ob.getFecha())));
+                    obj.setFecha(dateFormat.parse(Util.Conversionfecha(ob.getFecha())));
                 obj.setTcambio(ob.getTcambio());
                 obj.setIdclieprov(ob.getIdclieprov());
                 obj.setDireccion(ob.getDireccion());
@@ -770,8 +797,8 @@ String succes="false";
                 obj.setIdusuario(ob.getIdusuario());
                 obj.setVentana(ob.getVventa().toString());
                 if(ob.getFechacreacion()!=null)
-                    obj.setFechacreacion(dateFormat.parse(Conversionfecha(ob.getFechacreacion())));
-
+                    obj.setFechacreacion(dateFormat.parse(Util.Conversionfecha(ob.getFechacreacion())));
+                lst.add(obj);
             }
             if(!lst.isEmpty()){
                 OrdenliquidaciongastoDao ordenliquidaciongastoDao = new OrdenliquidaciongastoDao();
@@ -798,7 +825,8 @@ String succes="false";
         }
     }
     public static String ACTION_SYNCRONIZE_DORDENLIQUIDACIONGASTO (String db,String response){
-        try {
+
+        try { /**
             List lstdordenliquidaciongasto = (List<Dordenliquidaciongasto>) Util.stringObject("com.nisira.core.entity.Dordenliquidaciongasto",response);
             DordenliquidaciongastoDao dordenliquidaciongastoDao = new DordenliquidaciongastoDao();
             if(lstdordenliquidaciongasto!=null){
@@ -807,7 +835,55 @@ String succes="false";
                     dordenliquidaciongastoDao.mezclarLocal(obj);
                 }
                 //boolean request= (new UsuarioDao()).insertar(usuario);
-                return "OK";
+                return "OK";**/
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        Gson gson = new Gson();
+        StructOrdenLiquidacionGastos ListInfo = gson.fromJson(response,StructOrdenLiquidacionGastos.class);
+            /*crear*/
+        Dordenliquidaciongasto obj;
+        List<Dordenliquidaciongasto> lst = new ArrayList<>();
+        for(DatosOrdenLiquidacionGastos ob :ListInfo.getDatos()){
+            obj = new Dordenliquidaciongasto();
+            obj.setIdempresa(ob.getIdempresa());
+            obj.setIdorden(ob.getIdorden());
+            obj.setItem(ob.getItem());
+            obj.setGlosa(ob.getGlosa());
+            obj.setIdconcepto(ob.getIdconcepto());
+            obj.setIdcuenta(ob.getIdcuenta());
+            obj.setIdccosto(ob.getIdccosto());
+            obj.setIdtipomov(ob.getIdtipomov());
+            obj.setIdclieprov(ob.getIdclieprov());
+            obj.setIddocumento(ob.getIddocumento());
+            obj.setSerie(ob.getSerie());
+            obj.setNumero(ob.getNumero());
+            if(ob.getFecha()!=null)
+                obj.setFecha(Util.Conversionfecha(ob.getFecha()));
+            obj.setTcambio(ob.getTcambio());
+            obj.setIddestino(ob.getIddestino());
+            obj.setIdmoneda(ob.getIdmoneda());
+            obj.setTcmoneda(ob.getTcmoneda());
+            obj.setTcambio(ob.getTcambio());
+            obj.setIdregimen(ob.getIdregimen());
+            obj.setAfecto(ob.getAfecto());
+            obj.setInafecto(ob.getInafecto());
+            obj.setPimpuesto(ob.getPimpuesto());
+            obj.setImpuesto(ob.getImpuesto());
+            obj.setImporte(ob.getImporte());
+            obj.setOtros(ob.getOtros());
+            obj.setIdconsumidor(ob.getIdconsumidor());
+
+
+            lst.add(obj);
+        }
+        if(!lst.isEmpty()){
+            DordenliquidaciongastoDao dordenliquidaciongastoDao = new DordenliquidaciongastoDao();
+            //DordenliquidaciongastoDao.borrar("IDEMPRESA = ?",lst.get(0).getIdempresa());
+            for(int i=0;i<lst.size();i++){
+                Dordenliquidaciongasto obj1= lst.get(i);
+                dordenliquidaciongastoDao.mezclarLocal(obj1);
+            }
+            return "OK";
             }
             return "";
         }
@@ -852,7 +928,7 @@ String succes="false";
         }
     }
     public static String ACTION_SYNCRONIZE_TIPOGASTO (String db,String response){
-        try {
+        try {  /**
             List tipogastos = (List<Tipogasto>) Util.stringObject("com.nisira.core.entity.Tipogasto",response);
             TipogastoDao tipogastosDao = new TipogastoDao();
             if(tipogastos!=null){
@@ -861,6 +937,37 @@ String succes="false";
                     tipogastosDao.mezclarLocal(obj);
                 }
                 //boolean request= (new UsuarioDao()).insertar(usuario);
+                return "OK";**/
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+            Gson gson = new Gson();
+            StructOrdenLiquidacionGastos ListInfo = gson.fromJson(response,StructOrdenLiquidacionGastos.class);
+            /*crear*/
+            Tipogasto obj;
+            List<Tipogasto> lst = new ArrayList<>();
+            for(DatosOrdenLiquidacionGastos ob :ListInfo.getDatos()){
+                obj = new Tipogasto();
+                obj.setIdempresa(ob.getIdempresa());
+                obj.setIdtipogasto(ob.getIdtipogasto());
+                if(ob.getFechacreacion()!=null)
+                    obj.setFechacreacion(dateFormat.parse(Util.Conversionfecha(ob.getFechacreacion())));
+                obj.setDescripcion(ob.getDescripcion());
+                obj.setIdcuenta(ob.getIdcuenta());
+                obj.setEstado(ob.getEstado());
+                obj.setSincroniza(ob.getSincroniza());
+
+
+
+                lst.add(obj);
+            }
+            if(!lst.isEmpty()){
+                TipogastoDao tipogastoDao = new TipogastoDao();
+                //tipogastoDao.borrar("IDEMPRESA = ?",lst.get(0).getIdempresa());
+                for(int i=0;i<lst.size();i++){
+                    Tipogasto obj1= lst.get(i);
+                    tipogastoDao.mezclarLocal(obj1);
+                }
                 return "OK";
             }
             return "";
@@ -1062,103 +1169,6 @@ String succes="false";
         }
     }
 
-    public static  String Conversionfecha(String fecha){
-        String result="";
-        String mes="";
-        String dia="";
-        String anio="";
-        String mesnum="";
 
-        try{
-            if(fecha!="") {
-                if (fecha.length() == 11) {
-                    mes = fecha.substring(0, 3);
-                    dia = fecha.substring(4, 5);
-                    anio = fecha.substring(7, 11);
-
-                } else {
-                    mes = fecha.substring(0, 3);
-                    dia = fecha.substring(4, 6);
-                    anio = fecha.substring(8, 12);
-                }
-                switch(mes){
-                    case "ene":
-                    {
-                        mesnum="01";
-                        break;
-                    }
-                    case "feb":
-                    {
-                        mesnum="02";
-                        break;
-                    }
-                    case "mar":
-                    {
-                        mesnum="03";
-                        break;
-                    }
-                    case "abr":
-                    {
-                        mesnum="04";
-                        break;
-                    }
-                    case "may":
-                    {
-                        mesnum="05";
-                        break;
-                    }
-                    case "jun":
-                    {
-                        mesnum="06";
-                        break;
-                    }
-                    case "jul":
-                    {
-                        mesnum="07";
-                        break;
-                    }
-                    case "ago":
-                    {
-                        mesnum="08";
-                        break;
-                    }
-                    case "sep":
-                    {
-                        mesnum="09";
-                        break;
-                    }
-                    case "oct":
-                    {
-                        mesnum="10";
-                        break;
-                    }
-                    case "nov":
-                    {
-                        mesnum="11";
-                        break;
-                    }
-                    case "dic":
-                    {
-                        mesnum="12";
-                        break;
-                    }
-                    default:
-                    {
-                        mesnum="01";
-                        break;
-                    }
-                }
-
-                result= anio+"-"+mesnum+"-"+dia;
-
-            }
-            else{
-                result=null;
-            }
-
-        }catch(Exception ex){}
-
-        return result;
-    }
 
 }

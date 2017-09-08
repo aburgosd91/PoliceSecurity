@@ -37,7 +37,7 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
     private static final String OPCION = "param1";
     private static final String TIPO = "param2";
     private Personal_servicio personal_servicio;
-    private Clieprov personal_servicio_clieprov;
+    private Clieprov clieprov;
     private Dordenserviciocliente dordenserviciocliente;
     private AutoCompleteTextView txt_vehiculos;
     private AutoCompleteTextView campo_personal;
@@ -46,7 +46,9 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
     private TextView txt_titulo;
     private EditText campo_ID,campo_numero,campo_cargo,txt_checklist,txt_nrocontenedor,txt_nroprecinto,txt_nroServicio,txt_PlacaCliente,txt_Conductor,txt_Brevete;
     List<Clieprov> list_ps = new ArrayList<>();
+    List<Personal_servicio> list_personal = new ArrayList<>();
     List<String> empleados = new ArrayList<>();
+    List<Consumidor> list_consumidors= new ArrayList<>();
 
 
     // TODO: PARAMETROS DE ENTRADA
@@ -118,14 +120,6 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
 
         Personal_servicio personal_servicio1=personal_servicio;
 
-            personal_servicio1.setChecklist(txt_checklist.getText().toString());
-            personal_servicio1.setNrocontenedor(txt_nrocontenedor.getText().toString());
-            personal_servicio1.setNroprecinto(txt_nroprecinto.getText().toString());
-            personal_servicio1.setNro_oservicio(txt_nroServicio.getText().toString());
-            personal_servicio1.setPlaca_cliente(txt_PlacaCliente.getText().toString());
-            personal_servicio1.setConductor_cliente(txt_Conductor.getText().toString());
-            personal_servicio1.setBrevete_cliente(txt_Brevete.getText().toString());
-/**
         personal_servicio1.setChecklist(Util.isnull(personal_servicio.getChecklist(),"").equals("")?txt_checklist.getText().toString():personal_servicio.getChecklist().toString());
         personal_servicio1.setNrocontenedor(Util.isnull(personal_servicio.getNrocontenedor(),"").equals("")?txt_nrocontenedor.getText().toString():personal_servicio.getNrocontenedor().toString());
         personal_servicio1.setNroprecinto(Util.isnull(personal_servicio.getNroprecinto(),"").equals("")?txt_nroprecinto.getText().toString():personal_servicio.getNroprecinto().toString());
@@ -134,6 +128,14 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
         personal_servicio1.setConductor_cliente(Util.isnull(personal_servicio.getConductor_cliente(),"").equals("")?txt_Conductor.getText().toString():personal_servicio.getConductor_cliente());
         personal_servicio1.setBrevete_cliente(Util.isnull(personal_servicio.getBrevete_cliente(),"").equals("")?txt_Brevete.getText().toString():personal_servicio.getBrevete_cliente().toString());
 
+
+          /*  personal_servicio1.setChecklist(txt_checklist.getText().toString());
+            personal_servicio1.setNrocontenedor(txt_nrocontenedor.getText().toString());
+            personal_servicio1.setNroprecinto(txt_nroprecinto.getText().toString());
+            personal_servicio1.setNro_oservicio(txt_nroServicio.getText().toString());
+            personal_servicio1.setPlaca_cliente(txt_PlacaCliente.getText().toString());
+            personal_servicio1.setConductor_cliente(txt_Conductor.getText().toString());
+            personal_servicio1.setBrevete_cliente(txt_Brevete.getText().toString());
 
         if(Util.isnull(personal_servicio.getChecklist(),"").equals(""))
             personal_servicio1.setChecklist(txt_checklist.getText().toString());
@@ -151,6 +153,8 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
             personal_servicio1.setBrevete_cliente(txt_Brevete.getText().toString());**/
 
     }
+
+
     public void LlenarCampos(){
 
         TextView view = (TextView) getActivity().findViewById(R.id.campo_titulo2);
@@ -172,18 +176,36 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
         txt_titulo.setText("Modificar");
 
         ClieprovDao clieprovDao = new ClieprovDao();
+        Personal_servicioDao personal_servicioDao = new Personal_servicioDao();
 
-        ConsumidorDao dao = new ConsumidorDao();
-        List<Consumidor> consumidors= new ArrayList<>();
+        ConsumidorDao consumidorDao = new ConsumidorDao();
+
 
         try {
-            list_ps = clieprovDao.getPersonalxTipo(dordenserviciocliente.getIdempresa(),"C");
+            list_personal=personal_servicioDao.getListPersonal_servicio();
+            list_ps = clieprovDao.getPersonalxTipo(dordenserviciocliente.getIdempresa(),"E");
+            for(int i =0;i<list_personal.size();i++){
+                for(int j =0; j<list_ps.size();j++){
+                    if(list_ps.get(j).getDni().equals(list_personal.get(i).getDni())){
+                        list_ps.remove(list_ps.get(j));
+                    }
+                }
+            }
+
             for(int i=0;i<list_ps.size();i++){
                 empleados.add(list_ps.get(i).getNombres() + " "+
                         list_ps.get(i).getApellidopaterno()+" "+
                         list_ps.get(i).getApellidomaterno());
             }
-           consumidors = dao.ListarConsumidor(dordenserviciocliente.getIdempresa());
+           list_consumidors = consumidorDao.ListarConsumidor(dordenserviciocliente.getIdempresa());
+            for(int i=0;i<list_personal.size();i++){
+                for(int j=0;j<list_consumidors.size();j++){
+                    if(list_consumidors.get(j).getIdconsumidor().equals(list_personal.get(i).getIdvehiculo())){
+                        list_consumidors.remove(list_consumidors.get(j));
+                    }
+                }
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -194,7 +216,7 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
         campo_personal.setAdapter(adapterps);
 
         ArrayAdapter<Consumidor> adapter = new ArrayAdapter<Consumidor>(getContext(),
-                android.R.layout.simple_dropdown_item_1line,consumidors);
+                android.R.layout.simple_dropdown_item_1line,list_consumidors);
         txt_vehiculos.setThreshold(1);
         txt_vehiculos.setAdapter(adapter);
 
@@ -203,7 +225,6 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
     public void Listeners(){
         //TODO EVENTOS
       final Personal_servicio personal_servicio1 = personal_servicio;
-       // final Clieprov personal_servicio1 = personal_servicio_clieprov;
         campo_personal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -244,8 +265,8 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
             public void onClick(View v) {
 
                 Personal_servicioDao personal_servicioDao = new Personal_servicioDao();
-                //ClieprovDao personal_servicioDao = new ClieprovDao();
                 SettearCampos();
+
                 try {
                     personal_servicioDao.mezclarLocal(personal_servicio1);
                 } catch (Exception e) {

@@ -73,6 +73,7 @@ public class Adapter_edt_PersonalServiciolst extends RecyclerView.Adapter<Adapte
             cargo = (TextView) v.findViewById(R.id.txt2);
             vehiculo = (TextView)v.findViewById(R.id.txt_vehiculo_lst);
             ll_fecha = (LinearLayout)v.findViewById(R.id.ll_fecha);
+
             fecha_fin = (TextView)v.findViewById(R.id.txt4);
             fab_fecha = (FloatingActionButton)v.findViewById(R.id.fab_fecha);
 
@@ -191,7 +192,7 @@ public class Adapter_edt_PersonalServiciolst extends RecyclerView.Adapter<Adapte
                 }
                 else {
                     if(Util.isnull(items.get(i).getDni(),"").equals("") || Util.isnull(items.get(i).getNombres(),"").equals("")){
-                        Toast.makeText(contexto, "No Existe Personal Asignado", Toast.LENGTH_LONG).show();
+                        Toast.makeText(contexto, "Personal No Asignado", Toast.LENGTH_LONG).show();
                     }else{
                         fragment = edt_DPersonalServicio_Fragment.newInstance(OPCION, "edt_OrdenServicio_Fragment");
 

@@ -135,6 +135,7 @@ public class edt_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
             BigDecimal importe = BigDecimal.valueOf(0.0);
             for(int i=0;i<List_dordenliquidaciongastos.size();i++){
                 importe=importe.add(BigDecimal.valueOf(List_dordenliquidaciongastos.get(i).getImporte()));
+                //importe=importe.add(BigDecimal.valueOf(List_dordenliquidaciongastos.get(i).getAfecto()));
             }
             ordenliquidaciongasto.setImporte(importe.doubleValue());
             dao2.mezclarLocal(ordenliquidaciongasto);

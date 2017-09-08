@@ -267,4 +267,103 @@ public final class Util {
 
     }
 
+    public static  String Conversionfecha(String fecha){
+        String result="";
+        String mes="";
+        String dia="";
+        String anio="";
+        String mesnum="";
+
+        try{
+            if(fecha!="") {
+                if (fecha.length() == 11) {
+                    mes = fecha.substring(0, 3);
+                    dia = fecha.substring(4, 5);
+                    anio = fecha.substring(7, 11);
+
+                } else {
+                    mes = fecha.substring(0, 3);
+                    dia = fecha.substring(4, 6);
+                    anio = fecha.substring(8, 12);
+                }
+                switch(mes){
+                    case "ene":
+                    {
+                        mesnum="01";
+                        break;
+                    }
+                    case "feb":
+                    {
+                        mesnum="02";
+                        break;
+                    }
+                    case "mar":
+                    {
+                        mesnum="03";
+                        break;
+                    }
+                    case "abr":
+                    {
+                        mesnum="04";
+                        break;
+                    }
+                    case "may":
+                    {
+                        mesnum="05";
+                        break;
+                    }
+                    case "jun":
+                    {
+                        mesnum="06";
+                        break;
+                    }
+                    case "jul":
+                    {
+                        mesnum="07";
+                        break;
+                    }
+                    case "ago":
+                    {
+                        mesnum="08";
+                        break;
+                    }
+                    case "sep":
+                    {
+                        mesnum="09";
+                        break;
+                    }
+                    case "oct":
+                    {
+                        mesnum="10";
+                        break;
+                    }
+                    case "nov":
+                    {
+                        mesnum="11";
+                        break;
+                    }
+                    case "dic":
+                    {
+                        mesnum="12";
+                        break;
+                    }
+                    default:
+                    {
+                        mesnum="01";
+                        break;
+                    }
+                }
+
+                result= anio+"-"+mesnum+"-"+dia;
+
+            }
+            else{
+                result=null;
+            }
+
+        }catch(Exception ex){}
+
+        return result;
+    }
+
 }

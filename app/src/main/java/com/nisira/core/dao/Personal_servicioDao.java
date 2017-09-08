@@ -31,6 +31,14 @@ public class Personal_servicioDao extends BaseDao<Personal_servicio> {
 		else
 			actualizar(obj);
 	}
+	public List<Personal_servicio> getListPersonal_servicio()throws Exception{
+
+			List<Personal_servicio> lst = listar();
+			if(!lst.isEmpty()){
+				return lst;
+			}
+		return null;
+	}
 	public 	List<Personal_servicio> listarxDordenservicio(Dordenserviciocliente obj) throws Exception {
 
 		List<Personal_servicio> lst= listar("LTRIM(RTRIM(t0.IDEMPRESA)) =? AND LTRIM(RTRIM(t0.IDORDENSERVICIO))=? AND LTRIM(RTRIM(t0.ITEM))=?",

@@ -157,8 +157,15 @@ public class lst_OrdenServicio_Fragment extends FragmentNisira {
                     recycler.setAdapter(adapter);
                     InputMethodManager inputMethodManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     inputMethodManager.hideSoftInputFromWindow(edit_filtro.getWindowToken(), 0);
+
+                    Toast.makeText(getContext(), listServCliente.size()+ " Registros Encontrados Con :  "+ edit_filtro.getText().toString(), Toast.LENGTH_LONG).show();
+                    txt_cantidad.setText("Registros: " + listServCliente.size());
+
+                    edit_filtro.setText("");
                 }catch (Exception e){
                     e.printStackTrace();
+                    edit_filtro.setText("");
+                    txt_cantidad.setText("Registros: 0 ");
                 }
             }
         });

@@ -195,7 +195,8 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
                     TipogastoDao tipogastoDao = new TipogastoDao();
                     List<Tipogasto> tipogastoList = tipogastoDao.listarxID(dordenliquidaciongasto.getIdconcepto());
                     txtfecha.setText(""+dordenliquidaciongasto.getFecha());
-                    txtmonto.setText(""+dordenliquidaciongasto.getImporte());
+                    //txtmonto.setText(""+dordenliquidaciongasto.getImporte());
+                    txtmonto.setText(""+dordenliquidaciongasto.getAfecto());
                     txtnumero.setText(""+dordenliquidaciongasto.getNumero());
                     txtserie.setText(""+dordenliquidaciongasto.getSerie());
                     txtruc.setText(""+dordenliquidaciongasto.getIdclieprov());
@@ -241,7 +242,11 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
                         dordenliquidaciongasto.setInafecto(BigDecimal.valueOf(0.0).doubleValue());
                         dordenliquidaciongasto.setPimpuesto(ordenliquidaciongasto.getIgv());
                         BigDecimal num = new BigDecimal(0.0);
-                        num.add(BigDecimal.valueOf(Double.valueOf(txtmonto.getText().toString())));
+                        num =num.add(BigDecimal.valueOf(Double.valueOf(txtmonto.getText().toString())));
+                        /*Double varmonto =Double.valueOf(txtmonto.getText().toString());
+                        BigDecimal varmontodecimal =BigDecimal.valueOf(varmonto);
+                        num = num.add(varmontodecimal);*/
+
                         BigDecimal igv = new BigDecimal(ordenliquidaciongasto.getIgv());
                         igv = igv.divide(BigDecimal.valueOf(100));
                         igv = igv.multiply(num);
