@@ -44,6 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:textAllCaps="true"
                 android:ems="10"
                 android:hint="@string/usuario"
                 android:inputType="textPersonName"
@@ -74,7 +75,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Sincroniza"
-                android:onClick="onClick"/>
+                android:textSize="16sp"
+                android:checked="true"
+                android:textAppearance="@color/colorPrimaryDark"
+                android:layout_marginTop="5dp"/>
 
             <TextView
                     android:layout_width="wrap_content"

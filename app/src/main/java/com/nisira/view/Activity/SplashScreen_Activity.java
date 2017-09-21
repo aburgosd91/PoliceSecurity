@@ -37,22 +37,18 @@ public class SplashScreen_Activity extends ActivityNisiraCompat {
     private Usuario user_session ;
     private static final Object[][] TABLASINCRONIZACIONDOCS = {
             //{"METHOD_LIST_CARGOS_PERSONAL", 5},
-            /*{"METHOD_LIST_CLIEPROV_FREE", 50},
-            {"METHOD_LIST_CONSUMIDOR", 50},
-            {"METHOD_LIST_DOCUMENTOS", 50},
             {"METHOD_LIST_TIPOGASTO", 50},
-            {"METHOD_LIST_DORDENLIQUIDACIONGASTO", 20},*/
-            {"METHOD_LIST_ORDENLIQUIDACIONGASTO", 50},
             {"METHOD_LIST_ORDEN_SERVICIO_PENDIENTE", 50},
             {"METHOD_LIST_DORDEN_SERVICIO_PENDIENTE", 50},
             {"METHOD_LIST_PERSONAL_SERVICIO_FREE", 50},
-            {"METHOD_LIST_DPERSONAL_SERVICIO_FREE", 50}
 
-           // {"METHOD_LIST_DPERSONAL_SERVICIO_FREE", 20},
+            {"METHOD_LIST_DPERSONALSERVICIO_FREE", 50},
 
-
-           // {"METHOD_LIST_CONSUMIDOR", 50}
-
+            {"METHOD_LIST_ORDENLIQUIDACIONGASTO", 50},
+            {"METHOD_LIST_DORDENLIQUIDACIONGASTO", 20},
+            {"METHOD_LIST_DOCUMENTOS", 50},
+            {"METHOD_LIST_CLIEPROV_FREE", 50},
+            {"METHOD_LIST_CONSUMIDOR", 50}
     };
 
     public static int value = 0;
@@ -89,13 +85,14 @@ public class SplashScreen_Activity extends ActivityNisiraCompat {
         this.user_session = Util.session_object(getApplicationContext());
         //pgBar.setMax(max_progress());
         // Validate if the swich Sincronizate ischecked
-        if(!user_session.isSincroniza()){
+        if(user_session.isSincroniza()){
             asyncronizedocs();
         }else{
             Intent intent = new Intent(SplashScreen_Activity.this, NavigationPolice_Activity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
+
         }
 
 
@@ -141,7 +138,7 @@ public class SplashScreen_Activity extends ActivityNisiraCompat {
     @Override
     public void onPostExecuteWebService(ConsumerService cws, String result) {
         if (cws.isSyncronize()) {
-            percentage+=20;
+            percentage+=10;
             fillableLoader.setPercentage(percentage);
             fillableLoader.start();
             if (cws.getType_syncronize() == 2) {/*SINCRONIZACION DOCUMENTOS*/

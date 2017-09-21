@@ -183,7 +183,7 @@ public class mnt_PersonalServicio_Fragment extends Fragment {
 
         try {
             list_personal=personal_servicioDao.getListPersonal_servicio();
-            list_ps = clieprovDao.getPersonalxTipo(dordenserviciocliente.getIdempresa(),"E");
+            list_ps = clieprovDao.getPersonal_Operario(dordenserviciocliente.getIdempresa());
             for(int i =0;i<list_personal.size();i++){
                 for(int j =0; j<list_ps.size();j++){
                     if(list_ps.get(j).getDni().equals(list_personal.get(i).getDni())){

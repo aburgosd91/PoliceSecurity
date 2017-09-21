@@ -27,8 +27,10 @@ import com.nisira.view.Activity.edt_OrdenServicio_Fragment;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 //public class ConsumerService extends AsyncTaskService<String, Void, Integer> {
 public class ConsumerService extends AsyncTask<String, Void, String> {
@@ -107,6 +109,7 @@ public class ConsumerService extends AsyncTask<String, Void, String> {
     @RequiresApi(api = Build.VERSION_CODES.N)
     protected String doInBackground(String... args) {
         String trama = "";
+        String[] tramaarray={};
         try {
             switch (getMethod().trim()){
                 case TypeMethod.METHOD_VERIFICATION_USER           :
@@ -154,8 +157,13 @@ public class ConsumerService extends AsyncTask<String, Void, String> {
                     trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_SUCURSALES, getAttribute(),this.timeout);
                     response = ActionService.ACTION_SYNCRONIZE_SUCURSALES(WSBasedatos.getIdbasedatos(),trama);break;
                 case TypeMethod.METHOD_LIST_ORDENLIQUIDACIONGASTO   :
+                    //getAttribute().put("user",user_session.getIdusuario());
                     trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_ORDENLIQUIDACIONGASTO, getAttribute(),this.timeout);
-                    response = ActionService.ACTION_SYNCRONIZE_ORDENLIQUIDACIONGASTO(WSBasedatos.getIdbasedatos(),trama);break;
+                    if(trama.charAt(9)!='0')       {
+                        response = ActionService.ACTION_SYNCRONIZE_ORDENLIQUIDACIONGASTO(WSBasedatos.getIdbasedatos(),trama);break;
+                    }else{
+                        response="OK";break;
+                    }
               // CAMBIO ADD IDUSUARIO
                 case TypeMethod.METHOD_LIST_ORDEN_SERVICIO_PENDIENTE    :
                     getAttribute().put("user",user_session.getIdusuario());
@@ -163,16 +171,31 @@ public class ConsumerService extends AsyncTask<String, Void, String> {
                     response = ActionService.ACTION_SYNCRONIZE_ORDENSERVICIOCLIENTE(WSBasedatos.getIdbasedatos(),trama);break;
                 case TypeMethod.METHOD_LIST_DORDENLIQUIDACIONGASTO  :
                     trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_DORDENLIQUIDACIONGASTO, getAttribute(),this.timeout);
-                    response = ActionService.ACTION_SYNCRONIZE_DORDENLIQUIDACIONGASTO(WSBasedatos.getIdbasedatos(),trama);break;
+                    if(trama.charAt(9)!='0') {
+                        response = ActionService.ACTION_SYNCRONIZE_DORDENLIQUIDACIONGASTO(WSBasedatos.getIdbasedatos(), trama);
+                        break;
+                    }else{
+                        response="OK";break;
+                    }
                 case TypeMethod.METHOD_LIST_DORDEN_SERVICIO_PENDIENTE   :
                     getAttribute().put("user",user_session.getIdusuario());
                     trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_DORDEN_SERVICIO_PENDIENTE, getAttribute(),this.timeout);
-                    response = ActionService.ACTION_SYNCRONIZE_DORDENSERVICIOCLIENTE(WSBasedatos.getIdbasedatos(),trama);break;
+                    if(trama.charAt(9)!='0') {
+                        response = ActionService.ACTION_SYNCRONIZE_DORDENSERVICIOCLIENTE(WSBasedatos.getIdbasedatos(), trama);
+                        break;
+                    }else{
+                        response="OK";break;
+                    }
 
-                case TypeMethod.METHOD_LIST_DPERSONAL_SERVICIO_FREE       :
+                case TypeMethod.METHOD_LIST_DPERSONALSERVICIO_FREE       :
                     getAttribute().put("user",user_session.getIdusuario());
-                    trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_DPERSONAL_SERVICIO_FREE, getAttribute(),this.timeout);
-                    response = ActionService.ACTION_SYNCRONIZE_DPERSONAL_SERVICIO(WSBasedatos.getIdbasedatos(),trama);break;
+                    trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_DPERSONALSERVICIO_FREE, getAttribute(),this.timeout);
+                    if(trama.charAt(9)!='0') {
+                        response = ActionService.ACTION_SYNCRONIZE_DPERSONAL_SERVICIO(WSBasedatos.getIdbasedatos(), trama);
+                        break;
+                    }else{
+                        response="OK";break;
+                    }
 
                 case TypeMethod.METHOD_LIST_CLIEPROV_FREE                :
                     getAttribute().put("filter", "CTRY");
@@ -233,6 +256,17 @@ public class ConsumerService extends AsyncTask<String, Void, String> {
                         getAttribute().put("user", user_session.getIdusuario());
                     }
                     response = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_ASCENT_DPERSONAL_SERVICIO, getAttribute(),this.timeout);break;
+
+                case TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO   :
+                    tramaarray = ActionService.ACTION_ASCENT_ORDENLIQUIDACIONGASTO(WSBasedatos.getIdbasedatos());
+                    if(!tramaarray[0].equals("") && !tramaarray[1].equals("")) {
+                        getAttribute().put("lista1", tramaarray[0]);
+                        getAttribute().put("lista2", tramaarray[1]);
+                        getAttribute().put("user", user_session.getIdusuario());
+                    }
+                    response = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO, getAttribute(),this.timeout);break;
+
+
                /* case TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO   :
                     trama = ActionService.ACTION_ASCENT_ORDENLIQUIDACIONGASTO(WSBasedatos.getIdbasedatos());
                     if(!trama.equals("")) {
@@ -248,13 +282,13 @@ public class ConsumerService extends AsyncTask<String, Void, String> {
                     }
                     response = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_ASCENT_DORDENLIQUIDACIONGASTO, getAttribute(),this.timeout);break;
                 */
-                case TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO2  :
+               /* case TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO2  :
                     //trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO, getAttribute(),this.timeout);
                     if(!trama.equals("")) {
                         //NECESITA "lista1" -> OLG y "lista2" -> DOLG
                         getAttribute().put("user", user_session.getIdusuario());
                     }
-                    response = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO2, getAttribute(),this.timeout);break;
+                    response = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO2, getAttribute(),this.timeout);break;*/
             }
         } catch (IOException | XmlPullParserException e) {
             try {
@@ -307,10 +341,15 @@ public class ConsumerService extends AsyncTask<String, Void, String> {
                         trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_CONSUMIDOR, getAttribute(),this.timeout);
                         //response = mnt_PersonalServicio_Fragment.ListConsumidor(trama);break;
                         response=trama;break;**/
-                    case TypeMethod.METHOD_LIST_DPERSONAL_SERVICIO_FREE       :
+                    case TypeMethod.METHOD_LIST_DPERSONALSERVICIO_FREE       :
                         getAttribute().put("user",user_session.getIdusuario());
-                        trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_DPERSONAL_SERVICIO_FREE, getAttribute(),this.timeout);
-                        response = ActionService.ACTION_SYNCRONIZE_DPERSONAL_SERVICIO(WSBasedatos.getIdbasedatos(),trama);break;
+                        trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_DPERSONALSERVICIO_FREE, getAttribute(),this.timeout);
+                        if(trama.charAt(9)!='0') {
+                            response = ActionService.ACTION_SYNCRONIZE_DPERSONAL_SERVICIO(WSBasedatos.getIdbasedatos(), trama);
+                            break;
+                        }else{
+                            response="OK";break;
+                        }
                     case TypeMethod.METHOD_LIST_PERSONAL_SERVICIO_FREE       :
                         getAttribute().put("user",user_session.getIdusuario());
                         trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_PERSONAL_SERVICIO_FREE, getAttribute(),this.timeout);
@@ -325,8 +364,13 @@ public class ConsumerService extends AsyncTask<String, Void, String> {
                         trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_SUCURSALES, getAttribute(),this.timeout);
                         response = ActionService.ACTION_SYNCRONIZE_SUCURSALES(WSBasedatos.getIdbasedatos(),trama);break;
                     case TypeMethod.METHOD_LIST_ORDENLIQUIDACIONGASTO   :
+                        //getAttribute().put("user",user_session.getIdusuario());
                         trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_ORDENLIQUIDACIONGASTO, getAttribute(),this.timeout);
-                        response = ActionService.ACTION_SYNCRONIZE_ORDENLIQUIDACIONGASTO(WSBasedatos.getIdbasedatos(),trama);break;
+                        if(trama.charAt(9)!='0')       {
+                            response = ActionService.ACTION_SYNCRONIZE_ORDENLIQUIDACIONGASTO(WSBasedatos.getIdbasedatos(),trama);break;
+                        }else{
+                            response="OK";
+                        }
                     case TypeMethod.METHOD_LIST_ORDEN_SERVICIO_PENDIENTE    :
                         getAttribute().put("user",user_session.getIdusuario());
                         trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_LIST_ORDEN_SERVICIO_PENDIENTE, getAttribute(),this.timeout);
@@ -381,6 +425,15 @@ public class ConsumerService extends AsyncTask<String, Void, String> {
                             getAttribute().put("user", user_session.getIdusuario());
                         }
                         response = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_ASCENT_DPERSONAL_SERVICIO, getAttribute(),this.timeout);break;
+                    case TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO   :
+                        tramaarray = ActionService.ACTION_ASCENT_ORDENLIQUIDACIONGASTO(WSBasedatos.getIdbasedatos());
+                        if(!tramaarray[0].equals("") && !tramaarray[1].equals("")) {
+                            getAttribute().put("lista1", tramaarray[0]);
+                            getAttribute().put("lista2", tramaarray[1]);
+                            getAttribute().put("user", user_session.getIdusuario());
+                        }
+                        response = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO, getAttribute(),this.timeout);break;
+
                     /*case TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO   :
                         trama = ActionService.ACTION_ASCENT_ORDENLIQUIDACIONGASTO(WSBasedatos.getIdbasedatos());
                         if(!trama.equals("")) {
@@ -396,13 +449,13 @@ public class ConsumerService extends AsyncTask<String, Void, String> {
                         }
                         response = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_ASCENT_DORDENLIQUIDACIONGASTO, getAttribute(),this.timeout);break;
                         */
-                    case TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO2  :
+                   /* case TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO2  :
                         //trama = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO, getAttribute(),this.timeout);
                         if(!trama.equals("")) {
                             //NECESITA "lista1" -> OLG y "lista2" -> DOLG
                             getAttribute().put("user", user_session.getIdusuario());
                         }
-                        response = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO2, getAttribute(),this.timeout);break;
+                        response = (String)ws.requestObject(WSBasedatos.getWsurl(), TypeMethod.METHOD_ASCENT_ORDENLIQUIDACIONGASTO2, getAttribute(),this.timeout);break;*/
                 }
             }catch (IOException | XmlPullParserException e1) {
                 response = e1.getMessage();

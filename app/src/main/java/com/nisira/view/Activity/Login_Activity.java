@@ -15,9 +15,11 @@ import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.Switch;
@@ -35,7 +37,7 @@ import com.nisira.view.Inicio;
 
 import java.io.File;
 
-public class Login_Activity extends ActivityNisiraCompat implements ActivityCompat.OnRequestPermissionsResultCallback,SearchView.OnQueryTextListener,SearchView.OnCloseListener{
+public class Login_Activity extends ActivityNisiraCompat implements ActivityCompat.OnRequestPermissionsResultCallback,SearchView.OnQueryTextListener,SearchView.OnCloseListener,CompoundButton.OnCheckedChangeListener{
     private static final Object[][] TABLASINCRONIZACION={
             {"METHOD_LIST_CLIEPROV",20},
             {"METHOD_LIST_CONSUMIDOR", 8},
@@ -44,7 +46,7 @@ public class Login_Activity extends ActivityNisiraCompat implements ActivityComp
             {"METHOD_LIST_DOCUMENTOS",6},
             {"METHOD_LIST_NUMEMISOR",10},
             {"METHOD_LIST_PERSONAL_SERVICIO",8},
-            {"METHOD_LIST_DPERSONAL_SERVICIO",8},
+            {"METHOD_LIST_DPERSONALSERVICIO_FREE",8},
             {"METHOD_LIST_PRODUCTOS",8},
             {"METHOD_LIST_RUTAS",8},
             {"METHOD_LIST_SUCURSALES",5},
@@ -109,6 +111,8 @@ public class Login_Activity extends ActivityNisiraCompat implements ActivityComp
         txtuser.setText(prefs.getString("USUARIO",""));
         txtpassword.setText(prefs.getString("PASSWORD", ""));
         sw_sincroniza= (Switch) findViewById(R.id.switch_sincroniza);
+        sw_sincroniza.setText(Html.fromHtml("Sincronización <b>"+" Activada"+"<b>"));
+        sw_sincroniza.setOnCheckedChangeListener(this);
         btn_login = (Button)  findViewById(R.id.button);
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -282,6 +286,15 @@ public class Login_Activity extends ActivityNisiraCompat implements ActivityComp
         cws.getAttribute().put("type","JSON");
         cws.execute("");
         cws.pd = ProgressDialog.show(Login_Activity.this, "SINCRONIZANDO","Sincronizando Base de Datos - "+method_syncro.replace("METHOD_LIST_",""), true, false);
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if(sw_sincroniza.isChecked()){
+            sw_sincroniza.setText(Html.fromHtml("Sincronización <b>"+" Activada"+"<b>"));
+        }else{
+            sw_sincroniza.setText(Html.fromHtml("Sincronización <b>"+" Desactivada"+"<b>"));
+        }
     }
 /**
     public void onClick(View view) {

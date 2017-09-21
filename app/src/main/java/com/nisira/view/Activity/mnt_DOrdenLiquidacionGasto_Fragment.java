@@ -47,6 +47,7 @@ import com.nisira.gcalderon.policesecurity.R;
 import org.kxml2.kdom.Document;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -194,9 +195,10 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
                 try{
                     TipogastoDao tipogastoDao = new TipogastoDao();
                     List<Tipogasto> tipogastoList = tipogastoDao.listarxID(dordenliquidaciongasto.getIdconcepto());
-                    txtfecha.setText(""+dordenliquidaciongasto.getFecha());
-                    //txtmonto.setText(""+dordenliquidaciongasto.getImporte());
-                    txtmonto.setText(""+dordenliquidaciongasto.getAfecto());
+                    txtfecha.setText(""+sm.format(dordenliquidaciongasto.getFecha()));
+                    BigDecimal dinero = BigDecimal.valueOf(dordenliquidaciongasto.getImporte()).add(BigDecimal.valueOf(dordenliquidaciongasto.getImpuesto()).negate());
+                    txtmonto.setText(""+dinero);
+                    //txtmonto.setText(""+dordenliquidaciongasto.getAfecto());
                     txtnumero.setText(""+dordenliquidaciongasto.getNumero());
                     txtserie.setText(""+dordenliquidaciongasto.getSerie());
                     txtruc.setText(""+dordenliquidaciongasto.getIdclieprov());
@@ -232,8 +234,10 @@ public class mnt_DOrdenLiquidacionGasto_Fragment extends FragmentNisira {
             @Override
             public void onClick(View v) {
                 try {
+                    DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+                    Date result =  df.parse(txtfecha.getText().toString());
                     dordenliquidaciongasto.getIdconcepto();
-                    dordenliquidaciongasto.setFecha(txtfecha.getText().toString());
+                    dordenliquidaciongasto.setFecha(result);
                     //dordenliquidaciongasto.setImporte();
                     dordenliquidaciongasto.setIdclieprov("" + txtruc.getText().toString());
                     dordenliquidaciongasto.setGlosa("" + txtdetalle.getText().toString());

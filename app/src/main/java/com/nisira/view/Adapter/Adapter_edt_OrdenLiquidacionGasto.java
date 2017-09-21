@@ -100,8 +100,8 @@ public class Adapter_edt_OrdenLiquidacionGasto extends RecyclerView.Adapter<Adap
         }
 
         SimpleDateFormat sm = new SimpleDateFormat("MM-dd-yyyy");
-        //String strDate = sm.format(""+items.get(i).getFecha().toString());
-        viewHolder.fecha_fin.setText("Fecha: "+items.get(i).getFecha().toString());
+        String strDate = sm.format(items.get(i).getFecha());
+        viewHolder.fecha_fin.setText("Fecha: "+strDate);
         viewHolder.placa.setText("Descripcion: "+ items.get(i).getGlosa());
         BigDecimal dinero = BigDecimal.valueOf(items.get(i).getImporte()).add(BigDecimal.valueOf(items.get(i).getImpuesto()).negate());
         viewHolder.txt_dinero.setText("IGV: "+ items.get(i).getImpuesto() + "  Subtotal: "+ dinero);

@@ -72,7 +72,7 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
     public int item_tabla_syncro, item_tabla_syncrodoc, item_tabla_ascentdoc;
     private static final int PERMISSION_REQUEST_CODE = 1;
     private static final Object[][] TABLASINCRONIZACION = {
-            {"METHOD_LIST_ESTRUCTURA_COSTO_PRODUCTO",8},
+           /* {"METHOD_LIST_ESTRUCTURA_COSTO_PRODUCTO",8},
             {"METHOD_LIST_CODOPERACIONES", 8},
             {"METHOD_LIST_CLIEPROV", 20},
             {"METHOD_LIST_CONSUMIDOR", 8},
@@ -82,23 +82,33 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
             {"METHOD_LIST_DOCUMENTOS", 8},
             {"METHOD_LIST_NUMEMISOR", 10},
             {"METHOD_LIST_PERSONAL_SERVICIO", 8},
-            {"METHOD_LIST_DPERSONAL_SERVICIO", 8},
+            {"METHOD_LIST_DPERSONALSERVICIO_FREE", 8},
             {"METHOD_LIST_PRODUCTOS", 8},
             {"METHOD_LIST_RUTAS", 8},
             {"METHOD_LIST_SUCURSALES", 5},
             {"METHOD_LIST_ORDENLIQUIDACIONGASTO", 8},
             {"METHOD_LIST_ORDENSERVICIOCLIENTE", 8},
             {"METHOD_LIST_DORDENLIQUIDACIONGASTO", 8},
-            {"METHOD_LIST_DORDENSERVICIOCLIENTE", 8}
+            {"METHOD_LIST_DORDENSERVICIOCLIENTE", 8}*/
+            {"METHOD_LIST_CLIEPROV_FREE", 50},
+            {"METHOD_LIST_CONSUMIDOR", 50},
+            {"METHOD_LIST_TIPOGASTO", 20},
+            {"METHOD_LIST_ORDEN_SERVICIO_PENDIENTE", 20},
+            {"METHOD_LIST_DORDEN_SERVICIO_PENDIENTE", 20},
+            {"METHOD_LIST_PERSONAL_SERVICIO_FREE", 20},
+            {"METHOD_LIST_DPERSONALSERVICIO_FREE", 20},
+            {"METHOD_LIST_ORDENLIQUIDACIONGASTO", 20},
+            {"METHOD_LIST_DORDENLIQUIDACIONGASTO", 20},
+            {"METHOD_LIST_DOCUMENTOS", 20}
     };
     private static final Object[][] TABLASINCRONIZACIONDOCS = {
             //{"METHOD_LIST_CARGOS_PERSONAL", 5},
-            {"METHOD_LIST_ORDENSERVICIOCLIENTE",8},
-            {"METHOD_LIST_DORDENSERVICIOCLIENTE", 8},
-            {"METHOD_LIST_PERSONAL_SERVICIO", 8},
-            {"METHOD_LIST_DPERSONAL_SERVICIO", 8},
-            {"METHOD_LIST_ORDENLIQUIDACIONGASTO", 8},
-            {"METHOD_LIST_DORDENLIQUIDACIONGASTO", 8}
+            {"METHOD_LIST_ORDEN_SERVICIO_PENDIENTE", 8},
+            {"METHOD_LIST_DORDEN_SERVICIO_PENDIENTE", 8},
+            {"METHOD_LIST_PERSONAL_SERVICIO_FREE", 8},
+            {"METHOD_LIST_DPERSONALSERVICIO_FREE", 8},
+            {"METHOD_LIST_ORDENLIQUIDACIONGASTO", 20},
+            {"METHOD_LIST_DORDENLIQUIDACIONGASTO", 20},
     };
     private static final Object[][] TABLA_ASCENT_DOCS = {
             //{"METHOD_ASCENT_ORDENSERVICIOCLIENTE",8},
@@ -328,7 +338,7 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
         int time = (int) TABLASINCRONIZACION[item_tabla_syncro][1];
         item_tabla_syncro++;
         ConsumerService cws = new ConsumerService(NavigationPolice_Activity.this, getApplicationContext(), method_syncro, time, true, 1);
-        cws.getAttribute().put("type", "XML");
+        cws.getAttribute().put("type", "JSON");
         cws.execute("");
         cws.pd = ProgressDialog.show(NavigationPolice_Activity.this, "SINCRONIZANDO", "Sincronizando Base de Datos - " + method_syncro.replace("METHOD_LIST_", ""), true, false);
     }
@@ -339,7 +349,7 @@ public class NavigationPolice_Activity extends ActivityNisiraCompat
             int time = (int) TABLASINCRONIZACIONDOCS[item_tabla_syncrodoc][1];
             item_tabla_syncrodoc++;
             ConsumerService cws = new ConsumerService(NavigationPolice_Activity.this, getApplicationContext(), method_syncro, time, true, 2);
-            cws.getAttribute().put("type", "XML");
+            cws.getAttribute().put("type", "JSON");
             cws.execute("");
             cws.pd = ProgressDialog.show(NavigationPolice_Activity.this, "SINCRONIZANDO", "Sincronizando Base de Datos - " + method_syncro.replace("METHOD_LIST_", ""), true, false);
         }catch (Exception e){

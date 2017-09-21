@@ -22,6 +22,7 @@ import com.nisira.core.entity.Dordenliquidaciongasto;
 import com.nisira.core.entity.Ordenliquidaciongasto;
 import com.nisira.core.entity.Usuario;
 import com.nisira.core.interfaces.FragmentNisira;
+import com.nisira.core.util.Util;
 import com.nisira.gcalderon.policesecurity.R;
 import com.nisira.view.Adapter.Adapter_edt_OrdenLiquidacionGasto;
 
@@ -127,7 +128,12 @@ public class edt_OrdenLiquidacionGasto_Fragment extends FragmentNisira {
         lManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(lManager);
         DordenliquidaciongastoDao dao = new DordenliquidaciongastoDao();
+        Ordenliquidaciongasto itemsordenliquidaciongasto = new Ordenliquidaciongasto();
+        /**
+        itemsordenliquidaciongasto.setIdempresa(ordenliquidaciongasto.getIdempresa());
+        itemsordenliquidaciongasto.setIdorden(ordenliquidaciongasto.getIdorden());**/
         try {
+            //List_dordenliquidaciongastos = dao.listarxOrdenLG(itemsordenliquidaciongasto);
             List_dordenliquidaciongastos = dao.listarxOrdenLG(ordenliquidaciongasto);
             adapter = new Adapter_edt_OrdenLiquidacionGasto("",List_dordenliquidaciongastos,getFragmentManager(),ordenliquidaciongasto);
             recyclerView.setAdapter(adapter);

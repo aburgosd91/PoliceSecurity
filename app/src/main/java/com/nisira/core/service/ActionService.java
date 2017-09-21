@@ -705,6 +705,7 @@ String succes="false";
                 or = new Dpersonal_servicio();
                 or.setIdempresa(ob.getIdempresa());
                 or.setIdordenservicio(ob.getIdordenservicio());
+                or.setItem_dordenservicio(ob.getItem_dordenservicio());
                 or.setItem(ob.getItem());
                 or.setItem2(ob.getItem2());
                 or.setHora_req(ob.getHora_req());
@@ -858,7 +859,7 @@ String succes="false";
             obj.setSerie(ob.getSerie());
             obj.setNumero(ob.getNumero());
             if(ob.getFecha()!=null)
-                obj.setFecha(Util.Conversionfecha(ob.getFecha()));
+                obj.setFecha(dateFormat.parse(Util.Conversionfecha(ob.getFecha())));
             obj.setTcambio(ob.getTcambio());
             obj.setIddestino(ob.getIddestino());
             obj.setIdmoneda(ob.getIdmoneda());
@@ -1105,19 +1106,26 @@ String succes="false";
             return e.getMessage();
         }
     }
-    public static String ACTION_ASCENT_ORDENLIQUIDACIONGASTO  (String db){
+    public static String[] ACTION_ASCENT_ORDENLIQUIDACIONGASTO  (String db){
         try {
             OrdenliquidaciongastoDao ordenliquidaciongastoDao = new OrdenliquidaciongastoDao();
             List lstordenliquidaciongasto = ordenliquidaciongastoDao.listar();
             String xml_ordenliquidaciongasto = Util.objectXml("com.nisira.core.entity.Ordenliquidaciongasto", lstordenliquidaciongasto);
-            if(xml_ordenliquidaciongasto!=null){
-                return xml_ordenliquidaciongasto;
+
+            DordenliquidaciongastoDao dordenliquidaciongastoDao = new DordenliquidaciongastoDao();
+            List lstdordenliquidaciongasto = dordenliquidaciongastoDao.listar();
+            String xml_dordenliquidaciongasto = Util.objectXml("com.nisira.core.entity.Dordenliquidaciongasto", lstdordenliquidaciongasto);
+            if(xml_ordenliquidaciongasto!=null || xml_dordenliquidaciongasto!=null ){
+                return new String[] {xml_ordenliquidaciongasto,xml_dordenliquidaciongasto};
+               // return xml_ordenliquidaciongasto;
             }
-            return "";
+           // return "";
+            return new String[] {"",""};
         }
         catch (Exception e)
         {
-            return e.getMessage();
+            //return e.getMessage();
+            return new String[] {e.getMessage(),e.getMessage()};
         }
     }
     public static String ACTION_ASCENT_ORDENLIQUIDACIONGASTOxID  (String db,Ordenliquidaciongasto od){
